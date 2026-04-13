@@ -562,7 +562,7 @@ with st.sidebar:
     st.markdown('<div class="sb-divider"></div>', unsafe_allow_html=True)
     st.markdown("""
     <div style="text-align:center; color:rgba(0,212,255,0.25); font-size:0.7rem; padding:0.4rem 0;">
-        Developed by Umed Jamal Nouri · 2025
+        Developed by Umed Jamal Nouri · 2026
     </div>
     """, unsafe_allow_html=True)
 
@@ -818,7 +818,7 @@ if analyze:
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <div class="footer">
-    دروستکراوە لەلایەن &nbsp;<strong>ئومێد جەمال نووری</strong>&nbsp; ·
+    دروستکراوە لەلایەن &nbsp;<strong>ئومێد جەمال نوری</strong>&nbsp; ·
     Developed by <strong>Umed Jamal Nouri</strong><br>
     <span style="font-size:0.7rem; opacity:0.7;">
         Powered by XGBoost · Scikit-learn · Streamlit · Python
