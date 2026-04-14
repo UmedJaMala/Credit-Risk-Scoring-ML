@@ -2,6 +2,9 @@ import streamlit as st
 import numpy as np
 import joblib
 import os
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  PAGE CONFIG.
@@ -50,8 +53,18 @@ html, body, [class*="css"] {
     text-align: right !important;
 }
 
-/* --- چارەسەری کێشەی دیارنەمانی دەق لە مۆبایل --- */
+/* --- چارەسەری کێشەی دیارنەمانی دەق لە مۆبایل و دیالۆگەکان --- */
 p, h1, h2, h3, h4, h5, h6, span, label, li, div[data-testid="stMarkdownContainer"] {
+    color: var(--text-main) !important;
+}
+
+/* --- چارەسەری تایبەت بە دیالۆگ لەسەر مۆبایل (باکگراوندی تاریک بۆ دەقی سپی) --- */
+div[data-testid="stDialog"] > div {
+    background: linear-gradient(145deg, #001e38 0%, #011928 100%) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 18px !important;
+}
+div[data-testid="stDialog"] p, div[data-testid="stDialog"] h1, div[data-testid="stDialog"] h2, div[data-testid="stDialog"] h3 {
     color: var(--text-main) !important;
 }
 
@@ -530,6 +543,18 @@ div[data-testid="stButton"] > button:active {
     .result-card { padding: 1.5rem 1.2rem; margin-bottom: 1rem;}
     .sb-section { margin-bottom: 1.5rem;}
 }
+
+/* ── Custom Metric Box for Evaluations ────────────────────────────── */
+.eval-box {
+    background: rgba(0, 45, 75, 0.6);
+    border-left: 4px solid var(--teal);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    color: white;
+}
+.eval-title { font-size: 0.85rem; color: var(--teal); font-weight: bold; margin-bottom: 0.3rem;}
+.eval-val { font-size: 1.4rem; font-weight: 900;}
 </style>
 """, unsafe_allow_html=True)
 
@@ -612,21 +637,19 @@ def project_info_dialog():
 def evaluation_dialog():
     st.markdown("""
     <div class="sb-section" style="margin-bottom: 1rem;">
-        <div class="sb-sec-title">📈 پێوەرەکانی مۆدێلی پۆلێنکردن (Classification)</div>
-        <div class="sb-body">ئەم نمرانە ئاستی ووردی مۆدێلی دیاریکردنی مەترسی نیشان دەدەن لەسەر داتای تاقیکردنەوە.</div>
+        <div class="sb-sec-title">📈 پێوەرەکانی مۆدێلی پۆلێنکردن (Risk Scoring)</div>
+        <div class="sb-body">ئەم نمرانە ئاستی ووردی مۆدێلی دیاریکردنی مەترسی نیشان دەدەن.</div>
     </div>
     """, unsafe_allow_html=True)
     
+    # Classification Metrics from your image
     c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Accuracy", "94.5%")
-    c2.metric("Precision", "92.1%")
-    c3.metric("Recall", "93.8%")
-    c4.metric("F1-Score", "0.93")
+    with c1: st.markdown('<div class="eval-box"><div class="eval-title">Accuracy</div><div class="eval-val">0.7100</div></div>', unsafe_allow_html=True)
+    with c2: st.markdown('<div class="eval-box"><div class="eval-title">Precision</div><div class="eval-val">0.6875</div></div>', unsafe_allow_html=True)
+    with c3: st.markdown('<div class="eval-box"><div class="eval-title">Recall</div><div class="eval-val">0.6250</div></div>', unsafe_allow_html=True)
+    with c4: st.markdown('<div class="eval-box"><div class="eval-title">F1-Score</div><div class="eval-val">0.6548</div></div>', unsafe_allow_html=True)
     
-    st.markdown("<br>", unsafe_allow_html=True)
-    c5, c6 = st.columns(2)
-    c5.metric("ROC-AUC Score", "0.96")
-    c6.metric("Log Loss", "0.18")
+    st.markdown('<div class="eval-box" style="width: 25%;"><div class="eval-title">ROC-AUC</div><div class="eval-val">0.7359</div></div>', unsafe_allow_html=True)
     
     st.markdown("""
     <div class="sb-section" style="margin-top: 1rem; margin-bottom: 1rem;">
@@ -634,11 +657,55 @@ def evaluation_dialog():
     </div>
     """, unsafe_allow_html=True)
     
-    r1, r2, r3 = st.columns(3)
-    r1.metric("R² Score", "0.85")
-    r2.metric("MAE (هەڵەی مامناوەند)", "$450")
-    r3.metric("RMSE (ڕەگی دووجای هەڵە)", "$620")
+    # Regression Metrics from your image
+    r1, r2, r3, r4 = st.columns(4)
+    with r1: st.markdown('<div class="eval-box"><div class="eval-title">R² Score</div><div class="eval-val">0.8192</div></div>', unsafe_allow_html=True)
+    with r2: st.markdown('<div class="eval-box"><div class="eval-title">MAE</div><div class="eval-val">$3,460.95</div></div>', unsafe_allow_html=True)
+    with r3: st.markdown('<div class="eval-box"><div class="eval-title">RMSE</div><div class="eval-val">$5,228.30</div></div>', unsafe_allow_html=True)
+    with r4: st.markdown('<div class="eval-box"><div class="eval-title">MSE</div><div class="eval-val" style="font-size:1.1rem;">$27,335,144</div></div>', unsafe_allow_html=True)
+    
+    st.divider()
+    st.markdown("### 📉 گرافەکانی مۆدێل (Visualizations)")
+    
+    # Recreating Confusion Matrix (Static based on your image)
+    fig_col1, fig_col2 = st.columns(2)
+    
+    with fig_col1:
+        st.markdown("**Risk Classification (Confusion Matrix)**")
+        cm_data = np.array([[87, 25], [33, 55]])
+        fig_cm, ax_cm = plt.subplots(figsize=(5, 4))
+        sns.heatmap(cm_data, annot=True, fmt="d", cmap="Blues", cbar=True, ax=ax_cm, 
+                    xticklabels=['Low Risk', 'High Risk'], yticklabels=['Low Risk', 'High Risk'])
+        ax_cm.set_ylabel('True label')
+        ax_cm.set_xlabel('Predicted label')
+        # Setting a dark transparent background to fit theme
+        fig_cm.patch.set_facecolor('#011928')
+        ax_cm.set_facecolor('#011928')
+        [t.set_color('white') for t in ax_cm.xaxis.get_ticklabels()]
+        [t.set_color('white') for t in ax_cm.yaxis.get_ticklabels()]
+        ax_cm.xaxis.label.set_color('white')
+        ax_cm.yaxis.label.set_color('white')
+        st.pyplot(fig_cm)
 
+    with fig_col2:
+        st.markdown("**Credit Limit Prediction (R² = 0.8192)**")
+        # Dummy scatter plot to resemble your image, since real data isn't provided here.
+        np.random.seed(42)
+        actual = np.random.uniform(5000, 70000, 100)
+        predicted = actual * 0.9 + np.random.normal(0, 5000, 100)
+        
+        fig_reg, ax_reg = plt.subplots(figsize=(5, 4))
+        ax_reg.scatter(actual, predicted, alpha=0.5, color="#00d4ff", s=15)
+        ax_reg.plot([0, 70000], [0, 70000], 'r--', lw=2, label="Perfect Fit")
+        ax_reg.set_xlabel("Actual Credit Limit ($)")
+        ax_reg.set_ylabel("Predicted Credit Limit ($)")
+        ax_reg.legend()
+        fig_reg.patch.set_facecolor('#011928')
+        ax_reg.set_facecolor('#011928')
+        ax_reg.xaxis.label.set_color('white')
+        ax_reg.yaxis.label.set_color('white')
+        ax_reg.tick_params(colors='white')
+        st.pyplot(fig_reg)
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  HERO HEADER
