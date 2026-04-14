@@ -145,49 +145,9 @@ div[data-testid="stMarkdownContainer"] p {
 }
 
 /* ════════════════════════════════════════════════════════
-   ACTION BUTTONS  (About + Eval) — mobile-safe grid
+   ACTION BUTTONS  (About + Eval)
 ════════════════════════════════════════════════════════ */
-.action-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.85rem;
-    margin-bottom: 1.6rem;
-}
-@media (max-width: 480px) { .action-grid { grid-template-columns: 1fr; } }
-
-.action-btn {
-    display: flex; align-items: center; justify-content: center; gap: 0.6rem;
-    padding: 0.85rem 1rem;
-    border-radius: var(--r);
-    font-family: 'Noto Sans Arabic', sans-serif;
-    font-size: 0.92rem; font-weight: 800;
-    cursor: pointer; border: none;
-    transition: all 0.22s ease;
-    text-decoration: none;
-    width: 100%;
-}
-.action-btn-about {
-    background: var(--violet-dim);
-    border: 1px solid var(--violet-bdr);
-    color: var(--violet);
-}
-.action-btn-about:hover {
-    background: rgba(167,139,250,0.20);
-    box-shadow: 0 4px 18px rgba(167,139,250,0.25);
-    transform: translateY(-2px);
-}
-.action-btn-eval {
-    background: var(--cyan-dim);
-    border: 1px solid var(--cyan-bdr);
-    color: var(--cyan);
-}
-.action-btn-eval:hover {
-    background: rgba(34,211,238,0.20);
-    box-shadow: 0 4px 18px rgba(34,211,238,0.25);
-    transform: translateY(-2px);
-}
-
-/* Streamlit button reset to match our action-btn styles */
+/* Streamlit button reset */
 div[data-testid="stButton"] > button {
     width: 100% !important;
     background: var(--gold-dim) !important;
@@ -210,7 +170,7 @@ div[data-testid="stButton"] > button:hover {
 }
 div[data-testid="stButton"] > button:active { transform: translateY(0) !important; }
 
-/* ── Override buttons INSIDE dialogs (About / Eval trigger buttons) ── */
+/* ── Override buttons INSIDE dialogs ── */
 .top-action-buttons div[data-testid="stButton"] > button {
     background: transparent !important;
     box-shadow: none !important;
@@ -417,11 +377,15 @@ div[data-baseweb="tab"] {
 }
 div[aria-selected="true"] { color: var(--cyan) !important; border-bottom-color: var(--cyan) !important; }
 
-/* Dialog background fix */
+/* ════════════════════════════════════════════════════════
+   DIALOG BACKGROUND FIX (Strict Mobile Dark Mode)
+════════════════════════════════════════════════════════ */
 div[data-testid="stModal"] > div,
 div[role="dialog"],
-section[data-testid="stDialog"] > div {
+section[data-testid="stDialog"] > div,
+.stDialog {
     background: #111827 !important;
+    background-color: #111827 !important;
     border: 1px solid var(--border-hi) !important;
     border-radius: 18px !important;
     box-shadow: var(--shadow-lg) !important;
@@ -432,37 +396,31 @@ div[role="dialog"] p, div[role="dialog"] h1, div[role="dialog"] h2,
 div[role="dialog"] h3, div[role="dialog"] span, div[role="dialog"] div { color: var(--text) !important; }
 
 /* ════════════════════════════════════════════════════════
-   ABOUT SECTION (inside dialog) - FIXED STACKING
+   ABOUT SECTION (using Streamlit's native columns now)
 ════════════════════════════════════════════════════════ */
-.about-grid {
-    display: flex;
-    flex-direction: column; /* Forces vertical stacking */
-    gap: 1rem;
-    margin-top: 1rem;
-}
 .about-card {
     background: var(--bg-card2); border: 1px solid var(--border);
     border-radius: 14px; padding: 1.2rem 1.3rem;
     width: 100%;
 }
 .about-card-title {
-    color: var(--cyan); font-size: 0.85rem; font-weight: 900;
-    letter-spacing: 0.08em; margin-bottom: 0.8rem; padding-bottom: 0.5rem;
+    color: var(--cyan); font-size: 0.78rem; font-weight: 900;
+    letter-spacing: 0.08em; margin-bottom: 0.7rem; padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--border);
 }
-.about-card-body { color: var(--text-2); font-size: 0.85rem; line-height: 1.80; }
+.about-card-body { color: var(--text-2); font-size: 0.82rem; line-height: 1.80; word-break: break-word; }
 .about-card-body b { color: var(--text); font-weight: 700; }
 .tech-tag {
     display: inline-block;
     background: var(--violet-dim); color: var(--violet);
     border: 1px solid var(--violet-bdr);
     border-radius: 6px; padding: 0.2rem 0.7rem;
-    font-size: 0.75rem; font-weight: 800; margin: 0.25rem 0.15rem;
+    font-size: 0.72rem; font-weight: 800; margin: 0.2rem 0.12rem;
 }
-.about-center { text-align: center; padding: 1rem 0 0.5rem; }
+.about-center { text-align: center; padding: 1rem 0 1.5rem; }
 .about-center-icon { font-size: 2.5rem; margin-bottom: 0.4rem; filter: drop-shadow(0 0 10px rgba(167,139,250,0.4)); }
-.about-center-name { color: var(--violet); font-size: 1.1rem; font-weight: 900; letter-spacing: 0.06em; }
-.about-center-ver  { color: var(--text-3); font-size: 0.8rem; margin-top: 0.3rem; }
+.about-center-name { color: var(--violet); font-size: 0.95rem; font-weight: 900; letter-spacing: 0.06em; }
+.about-center-ver  { color: var(--text-3); font-size: 0.73rem; margin-top: 0.2rem; }
 
 /* ════════════════════════════════════════════════════════
    WARNING & FOOTER
@@ -481,7 +439,7 @@ div[role="dialog"] h3, div[role="dialog"] span, div[role="dialog"] div { color: 
 .footer strong { color: var(--cyan); font-weight: 800; }
 
 /* ════════════════════════════════════════════════════════
-   RESPONSIVE (Mobile Fixes)
+   RESPONSIVE (Mobile Fixes for Overlapping)
 ════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
     .block-container { padding: 1rem 0.9rem 3rem !important; }
@@ -489,12 +447,12 @@ div[role="dialog"] h3, div[role="dialog"] span, div[role="dialog"] div { color: 
     .rc-value { font-size: 1.9rem; }
     div[data-baseweb="tab"] { font-size: 0.82rem !important; gap: 0.8rem; }
     
-    /* Ensure columns stack properly on mobile */
-    div[data-testid="column"] {
-        width: 100% !important;
-        flex: 1 1 100% !important;
-        min-width: 100% !important;
-        margin-bottom: 1rem;
+    /* ئەگەر ئەمە نەبێت ئەوا کارتەکانی دەربارە و داخڵکردن تێکەڵ دەبن لە مۆبایل */
+    div[data-testid="column"] { 
+        width: 100% !important; 
+        flex: 1 1 100% !important; 
+        min-width: 100% !important; 
+        margin-bottom: 1.2rem; 
     }
 }
 </style>
@@ -544,9 +502,13 @@ def project_info_dialog():
         <div class="about-center-name">CREDIT RISK AI SYSTEM</div>
         <div class="about-center-ver">v 2.1 · XGBoost Engine · 2025–2026</div>
     </div>
-    <div class="about-grid">
-
-        <div class="about-card">
+    """, unsafe_allow_html=True)
+    
+    info_col1, info_col2 = st.columns(2, gap="large")
+    
+    with info_col1:
+        st.markdown("""
+        <div class="about-card" style="margin-bottom:1rem;">
             <div class="about-card-title">📋 دەربارەی پڕۆژە</div>
             <div class="about-card-body">
                 ئەم سیستەمە بە <b>XGBoost</b> ئاستی مەترسی کڕیارەکان
@@ -555,7 +517,6 @@ def project_info_dialog():
                 و بازرگانی.
             </div>
         </div>
-
         <div class="about-card">
             <div class="about-card-title">👨‍💻 گەشەپێدەر</div>
             <div class="about-card-body">
@@ -565,8 +526,11 @@ def project_info_dialog():
                 <b>ساڵی خوێندن:</b> ٢٠٢٥ — ٢٠٢٦
             </div>
         </div>
+        """, unsafe_allow_html=True)
 
-        <div class="about-card">
+    with info_col2:
+        st.markdown("""
+        <div class="about-card" style="margin-bottom:1rem;">
             <div class="about-card-title">⚙️ تەکنەلۆژیاکان</div>
             <div class="about-card-body" style="margin-bottom:0.5rem;">تەکنەلۆژیاکانی بەکارهاتوو:</div>
             <span class="tech-tag">Python 3</span>
@@ -577,7 +541,6 @@ def project_info_dialog():
             <span class="tech-tag">Joblib</span>
             <span class="tech-tag">Matplotlib</span>
         </div>
-
         <div class="about-card">
             <div class="about-card-title">📁 فایلەکانی مۆدێل</div>
             <div class="about-card-body">
@@ -589,9 +552,7 @@ def project_info_dialog():
                 &nbsp;&nbsp;&nbsp;ئامێری نۆرمالکردنەوە
             </div>
         </div>
-
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
 
 @st.dialog("📊  هەڵسەنگاندنی زانستی مۆدێل — Model Evaluation", width="large")
@@ -814,7 +775,7 @@ st.markdown("""
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  ACTION BUTTONS  (About + Eval) — styled grid, mobile-safe
+#  ACTION BUTTONS  (About + Eval)
 # ══════════════════════════════════════════════════════════════════════════════
 ab_col, ev_col = st.columns(2, gap="medium")
 with ab_col:
