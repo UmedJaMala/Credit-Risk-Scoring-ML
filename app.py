@@ -74,7 +74,7 @@ html, body, [class*="css"] {
     }
     /* بۆ ئەوەی لەسەر مۆبایل ئایکۆنەکەش ڕەنگی جوان بێت */
     .streamlit-expanderHeader svg {
-        fill: #00d4ff !important;
+        fill: #ffffff !important;
     }
 
 /* ════════════════════════════════════════════════════════
