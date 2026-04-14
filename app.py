@@ -53,19 +53,37 @@ html, body, [class*="css"] {
     text-align: right !important;
 }
 
-/* --- چارەسەری کێشەی دیارنەمانی دەق لە مۆبایل و دیالۆگەکان --- */
+/* --- چارەسەری کێشەی دیارنەمانی دەق لە مۆبایل --- */
 p, h1, h2, h3, h4, h5, h6, span, label, li, div[data-testid="stMarkdownContainer"] {
     color: var(--text-main) !important;
 }
 
-/* --- چارەسەری تایبەت بە دیالۆگ لەسەر مۆبایل (باکگراوندی تاریک بۆ دەقی سپی) --- */
-div[data-testid="stDialog"] > div {
+/* ══════════════════════════════════════════════════════════════════════
+   چارەسەری کۆتایی بۆ پەنجەرەکان (Dialogs & Modals Background Fix)
+══════════════════════════════════════════════════════════════════════ */
+div[data-testid="stModal"] > div, 
+div[role="dialog"], 
+section[data-testid="stDialog"] > div {
+    background-color: #011928 !important;
     background: linear-gradient(145deg, #001e38 0%, #011928 100%) !important;
     border: 1px solid var(--border) !important;
-    border-radius: 18px !important;
+    border-radius: 16px !important;
 }
-div[data-testid="stDialog"] p, div[data-testid="stDialog"] h1, div[data-testid="stDialog"] h2, div[data-testid="stDialog"] h3 {
-    color: var(--text-main) !important;
+
+/* زۆرەملێکردنی ناوەوەی پەنجەرەکان بۆ ئەوەی ڕەنگی تاریک وەربگرن */
+div[data-testid="stModal"] > div > div, 
+div[role="dialog"] > div {
+    background-color: transparent !important;
+}
+
+/* دڵنیابوونەوە لە ڕەنگی سپی بۆ دەقەکانی ناو پەنجەرەکە */
+div[role="dialog"] p, 
+div[role="dialog"] h1, 
+div[role="dialog"] h2, 
+div[role="dialog"] h3,
+div[role="dialog"] span,
+div[role="dialog"] div {
+    color: #ffffff !important;
 }
 
 /* ── App Background ──────────────────────────────────────────────── */
@@ -344,7 +362,7 @@ div[data-testid="stSlider"] [data-testid="stTickBarMax"] {
 }
 
 /* ════════════════════════════════════════════════════════
-   ANALYZE BUTTON (گۆڕدراوەتەوە بۆ ستایلە جوانە ڕەسەنەکەی خۆت)
+   ANALYZE BUTTON 
 ════════════════════════════════════════════════════════ */
 div[data-testid="stButton"] > button {
     width: 100% !important;
@@ -575,7 +593,7 @@ def load_models():
 risk_model, limit_model, scaler, models_loaded = load_models()
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  MODALS / DIALOGS (لابردنی پەردە و گۆڕینی بۆ پەنجەرە بە داواکاری خۆت)
+#  MODALS / DIALOGS
 # ══════════════════════════════════════════════════════════════════════════════
 @st.dialog("ℹ️ زانیاری زیاتر دەربارەی پڕۆژە و گەشەپێدەر", width="large")
 def project_info_dialog():
@@ -649,7 +667,7 @@ def evaluation_dialog():
     with c3: st.markdown('<div class="eval-box"><div class="eval-title">Recall</div><div class="eval-val">0.6250</div></div>', unsafe_allow_html=True)
     with c4: st.markdown('<div class="eval-box"><div class="eval-title">F1-Score</div><div class="eval-val">0.6548</div></div>', unsafe_allow_html=True)
     
-    st.markdown('<div class="eval-box" style="width: 25%;"><div class="eval-title">ROC-AUC</div><div class="eval-val">0.7359</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="eval-box" style="width: 25%; min-width: 150px;"><div class="eval-title">ROC-AUC</div><div class="eval-val">0.7359</div></div>', unsafe_allow_html=True)
     
     st.markdown("""
     <div class="sb-section" style="margin-top: 1rem; margin-bottom: 1rem;">
@@ -689,7 +707,7 @@ def evaluation_dialog():
 
     with fig_col2:
         st.markdown("**Credit Limit Prediction (R² = 0.8192)**")
-        # Dummy scatter plot to resemble your image, since real data isn't provided here.
+        # Dummy scatter plot to resemble your image
         np.random.seed(42)
         actual = np.random.uniform(5000, 70000, 100)
         predicted = actual * 0.9 + np.random.normal(0, 5000, 100)
@@ -722,7 +740,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  DIALOG BUTTONS (لەبری پەردەکان دانراون)
+#  DIALOG BUTTONS
 # ══════════════════════════════════════════════════════════════════════════════
 btn_col1, btn_col2 = st.columns(2)
 with btn_col1:
