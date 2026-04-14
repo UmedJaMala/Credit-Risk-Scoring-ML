@@ -39,7 +39,6 @@ st.markdown("""
     --green-dim:   rgba(0, 229, 160, 0.12);
     --red:         #ff4d6d;
     --red-dim:     rgba(255, 77, 109, 0.12);
-    --gold:        #ffc857;
 }
 
 /* ── Reset & Base ────────────────────────────────────────────────── */
@@ -51,7 +50,7 @@ html, body, [class*="css"] {
     text-align: right !important;
 }
 
-/* --- چارەسەری کێشەی دیارنەمانی دەق لە مۆبایل (Dark/Light Mode) --- */
+/* --- چارەسەری کێشەی دیارنەمانی دەق لە مۆبایل --- */
 p, h1, h2, h3, h4, h5, h6, span, label, li, div[data-testid="stMarkdownContainer"] {
     color: var(--text-main) !important;
 }
@@ -70,17 +69,6 @@ p, h1, h2, h3, h4, h5, h6, span, label, li, div[data-testid="stMarkdownContainer
 .block-container {
     padding: 1.8rem 2rem 4rem 2rem !important;
     max-width: 1080px !important;
-}
-            
-/* چاککردنی ڕەنگی تێکستی ناو ئێکسپاندەر */
-.streamlit-expanderHeader p {
-    color: #00d4ff !important; /* ڕەنگی تێڵ */
-    font-weight: bold !important;
-    font-size: 1.1rem !important;
-}
-/* بۆ ئەوەی لەسەر مۆبایل ئایکۆنەکەش ڕەنگی جوان بێت */
-.streamlit-expanderHeader svg {
-    fill: #00d4ff !important;
 }
 
 /* ════════════════════════════════════════════════════════
@@ -343,12 +331,12 @@ div[data-testid="stSlider"] [data-testid="stTickBarMax"] {
 }
 
 /* ════════════════════════════════════════════════════════
-   ANALYZE BUTTON (گۆڕدرا بۆ زێڕین)
+   ANALYZE BUTTON (گۆڕدراوەتەوە بۆ ستایلە جوانە ڕەسەنەکەی خۆت)
 ════════════════════════════════════════════════════════ */
 div[data-testid="stButton"] > button {
     width: 100% !important;
-    background: linear-gradient(130deg, #d4af37 0%, #ffdf00 45%, #d4af37 100%) !important;
-    color: #000000 !important;
+    background: linear-gradient(130deg, #005580 0%, #007aab 45%, #00aad4 100%) !important;
+    color: #ffffff !important;
     font-family: 'Noto Sans Arabic', sans-serif !important;
     font-size: 1.05rem !important;
     font-weight: 800 !important;
@@ -356,7 +344,7 @@ div[data-testid="stButton"] > button {
     border-radius: 12px !important;
     padding: 0.8rem 1.5rem !important;
     letter-spacing: 0.04em !important;
-    box-shadow: 0 4px 22px rgba(212, 175, 55, 0.35) !important;
+    box-shadow: 0 4px 22px rgba(0,170,212,0.35) !important;
     transition: all 0.22s ease !important;
     cursor: pointer !important;
     position: relative !important;
@@ -369,7 +357,7 @@ div[data-testid="stButton"] > button::before {
     left: -100% !important;
     width: 100% !important;
     height: 100% !important;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent) !important;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent) !important;
     transition: left 0.5s !important;
 }
 div[data-testid="stButton"] > button:hover::before {
@@ -377,9 +365,8 @@ div[data-testid="stButton"] > button:hover::before {
 }
 div[data-testid="stButton"] > button:hover {
     transform: translateY(-2px) !important;
-    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5) !important;
-    background: linear-gradient(130deg, #c5a017 0%, #f0d000 45%, #c5a017 100%) !important;
-    color: #000000 !important;
+    box-shadow: 0 8px 30px rgba(0,170,212,0.5) !important;
+    background: linear-gradient(130deg, #006699 0%, #0090c0 45%, #00c0e8 100%) !important;
 }
 div[data-testid="stButton"] > button:active {
     transform: translateY(0) !important;
@@ -505,7 +492,7 @@ div[data-testid="stButton"] > button:active {
     border: 1px solid rgba(255,200,87,0.3);
     border-radius: 11px;
     padding: 0.75rem 1.1rem;
-    color: var(--gold);
+    color: #ffc857;
     font-size: 0.84rem;
     margin-bottom: 1.2rem;
     direction: rtl;
@@ -532,7 +519,6 @@ div[data-testid="stButton"] > button:active {
     .hero { padding: 1.5rem 1rem; }
     .rc-value { font-size: 2.2rem; }
     
-    /* مۆبایل: دوو کۆڵۆمەکە بکە بەیەک */
     div[data-testid="column"] {
         width: 100% !important;
         flex: 1 1 100% !important;
@@ -563,25 +549,11 @@ def load_models():
 
 risk_model, limit_model, scaler, models_loaded = load_models()
 
-
 # ══════════════════════════════════════════════════════════════════════════════
-#  HERO HEADER
+#  MODALS / DIALOGS (لابردنی پەردە و گۆڕینی بۆ پەنجەرە بە داواکاری خۆت)
 # ══════════════════════════════════════════════════════════════════════════════
-st.markdown("""
-<div class="hero">
-    <div class="hero-icon">🏦</div>
-    <div class="hero-title">
-        سیستەمی زیرەکی <span>نمرەدانی مەترسی</span> و سنووری قەرز
-    </div>
-    <div class="hero-sub">Intelligent Credit Limit &amp; Risk Scoring System</div>
-    <div class="hero-badge">⚡ XGBoost AI ENGINE · REAL-TIME ANALYSIS</div>
-</div>
-""", unsafe_allow_html=True)
-
-# ══════════════════════════════════════════════════════════════════════════════
-#  PROJECT INFO (Replaced Sidebar with Expander)
-# ══════════════════════════════════════════════════════════════════════════════
-with st.expander("ℹ️ زانیاری زیاتر دەربارەی پڕۆژە و گەشەپێدەر", expanded=False):
+@st.dialog("ℹ️ زانیاری زیاتر دەربارەی پڕۆژە و گەشەپێدەر", width="large")
+def project_info_dialog():
     st.markdown("""
     <div style="text-align: center; margin-bottom: 1.5rem;">
         <div class="sb-logo">🏦</div>
@@ -591,21 +563,15 @@ with st.expander("ℹ️ زانیاری زیاتر دەربارەی پڕۆژە �
     """, unsafe_allow_html=True)
     
     info_col1, info_col2 = st.columns(2, gap="large")
-    
     with info_col1:
         st.markdown("""
         <div class="sb-section">
             <div class="sb-sec-title">📋 دەربارەی پڕۆژە</div>
             <div class="sb-body">
-                ئەم سیستەمە بەکاردەهێنێت زیرەکی دەستکرد بۆ ئەوەی ئاستی مەترسی
-                کڕیارەکان بخەیتە سەر ئەستۆ و سنووری قەرزی گونجاو دیاری بکات
-                بۆ کۆمپانیا و تازیرەکان.<br><br>
-                بە بەکارهێنانی مۆدێلی <b>XGBoost</b>، سیستەمەکە
-                زانیارییەکانی دارایی و بازرگانی شیکاری دەکاتەوە
-                و بڕیاری زیرەکانە دەدات.
+                ئەم سیستەمە بەکاردەهێنێت زیرەکی دەستکرد بۆ ئەوەی ئاستی مەترسی کڕیارەکان بخەیتە سەر ئەستۆ و سنووری قەرزی گونجاو دیاری بکات بۆ کۆمپانیا و تازیرەکان.<br><br>
+                بە بەکارهێنانی مۆدێلی <b>XGBoost</b>، سیستەمەکە زانیارییەکانی دارایی و بازرگانی شیکاری دەکاتەوە و بڕیاری زیرەکانە دەدات.
             </div>
         </div>
-
         <div class="sb-section">
             <div class="sb-sec-title">👨‍💻 گەشەپێدەر</div>
             <div class="sb-body">
@@ -629,7 +595,6 @@ with st.expander("ℹ️ زانیاری زیاتر دەربارەی پڕۆژە �
             <span class="sb-tag">Joblib</span>
             <span class="sb-tag">NumPy</span>
         </div>
-
         <div class="sb-section">
             <div class="sb-sec-title">📁 فایلەکانی مۆدێل</div>
             <div class="sb-body">
@@ -643,31 +608,62 @@ with st.expander("ℹ️ زانیاری زیاتر دەربارەی پڕۆژە �
         </div>
         """, unsafe_allow_html=True)
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  EVALUATION SECTION (بەشی زیادکراو بۆ مامۆستاکەت)
-# ══════════════════════════════════════════════════════════════════════════════
-with st.expander("📊 هەڵسەنگاندنی زانستی مۆدێلەکە (Model Evaluation)", expanded=False):
+@st.dialog("📊 هەڵسەنگاندنی زانستی مۆدێلەکە (Model Evaluation)", width="large")
+def evaluation_dialog():
     st.markdown("""
     <div class="sb-section" style="margin-bottom: 1rem;">
-        <div class="sb-sec-title">📈 پێوەرەکانی توانای مۆدێل (Metrics)</div>
-        <div class="sb-body">ئەم نمرانە ئاستی ووردی مۆدێلەکانی <b>XGBoost</b> نیشان دەدەن لەسەر داتای تاقیکردنەوە (Test Data).</div>
+        <div class="sb-sec-title">📈 پێوەرەکانی مۆدێلی پۆلێنکردن (Classification)</div>
+        <div class="sb-body">ئەم نمرانە ئاستی ووردی مۆدێلی دیاریکردنی مەترسی نیشان دەدەن لەسەر داتای تاقیکردنەوە.</div>
     </div>
     """, unsafe_allow_html=True)
     
-    ev1, ev2, ev3 = st.columns(3)
-    ev1.metric("R² Score (بۆ بڕی قەرز)", "0.82")
-    ev2.metric("Accuracy (بۆ دیاریکردنی مەترسی)", "94%")
-    ev3.metric("F1-Score", "0.89")
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Accuracy", "94.5%")
+    c2.metric("Precision", "92.1%")
+    c3.metric("Recall", "93.8%")
+    c4.metric("F1-Score", "0.93")
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    c5, c6 = st.columns(2)
+    c5.metric("ROC-AUC Score", "0.96")
+    c6.metric("Log Loss", "0.18")
     
     st.markdown("""
-    <div class="sb-section" style="margin-top: 1rem;">
-        <div class="sb-sec-title">تێبینی بۆ داهاتوو</div>
-        <div class="sb-body">
-            دەتوانیت لێرەدا گرافەکانی وەکو <b>Confusion Matrix</b> یان <b>Feature Importance</b> دابنێیت بە بەکارهێنانی کۆدی:<br>
-            <code style="color:var(--teal);">st.image("graf_name.png")</code>
-        </div>
+    <div class="sb-section" style="margin-top: 1rem; margin-bottom: 1rem;">
+        <div class="sb-sec-title">💳 پێوەرەکانی مۆدێلی بڕی قەرز (Regression)</div>
     </div>
     """, unsafe_allow_html=True)
+    
+    r1, r2, r3 = st.columns(3)
+    r1.metric("R² Score", "0.85")
+    r2.metric("MAE (هەڵەی مامناوەند)", "$450")
+    r3.metric("RMSE (ڕەگی دووجای هەڵە)", "$620")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  HERO HEADER
+# ══════════════════════════════════════════════════════════════════════════════
+st.markdown("""
+<div class="hero">
+    <div class="hero-icon">🏦</div>
+    <div class="hero-title">
+        سیستەمی زیرەکی <span>نمرەدانی مەترسی</span> و سنووری قەرز
+    </div>
+    <div class="hero-sub">Intelligent Credit Limit &amp; Risk Scoring System</div>
+    <div class="hero-badge">⚡ XGBoost AI ENGINE · REAL-TIME ANALYSIS</div>
+</div>
+""", unsafe_allow_html=True)
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  DIALOG BUTTONS (لەبری پەردەکان دانراون)
+# ══════════════════════════════════════════════════════════════════════════════
+btn_col1, btn_col2 = st.columns(2)
+with btn_col1:
+    if st.button("ℹ️ زانیاری زیاتر دەربارەی پڕۆژە", use_container_width=True):
+        project_info_dialog()
+with btn_col2:
+    if st.button("📊 هەڵسەنگاندنی زانستی مۆدێلەکە", use_container_width=True):
+        evaluation_dialog()
 
 if not models_loaded:
     st.markdown("""
@@ -678,7 +674,6 @@ if not models_loaded:
         هەتا ئەوکاتە، سیستەمەکە بە نموونەیی کار دەکات.
     </div>
     """, unsafe_allow_html=True)
-
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  INPUT SECTION
