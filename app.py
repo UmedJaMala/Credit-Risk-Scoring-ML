@@ -18,7 +18,7 @@ st.set_page_config(
 )
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  GLOBAL CSS  —  Premium AI Dark Theme (Neon Purple & Cyan)
+#  GLOBAL CSS  —  Premium AI Dark Theme
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <style>
@@ -319,27 +319,28 @@ div[data-testid="stSlider"] [data-testid="stTickBarMin"], div[data-testid="stSli
 .summary-val { color: var(--text-main); font-weight: 700; direction: ltr; text-align: left; }
 
 /* ════════════════════════════════════════════════════════
-   ANALYZE BUTTON (NEON GRADIENT)
+   ANALYZE BUTTON (LUXURY METALLIC GOLD & ROYAL BURGUNDY)
 ════════════════════════════════════════════════════════ */
 div[data-testid="stButton"] > button {
     width: 100% !important;
-    background: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #06b6d4 100%) !important;
-    color: #ffffff !important;
+    background: linear-gradient(135deg, #D4AF37 0%, #FFDF73 50%, #AA771C 100%) !important;
+    color: #4A040D !important; /* Deep Royal Burgundy Text */
     font-family: 'Noto Sans Arabic', sans-serif !important;
     font-size: 1.15rem !important;
-    font-weight: 800 !important;
+    font-weight: 900 !important;
     border: none !important;
     border-radius: 12px !important;
     padding: 0.9rem 1.5rem !important;
     letter-spacing: 0.05em !important;
-    box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4) !important;
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3) !important;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
     cursor: pointer !important;
 }
 div[data-testid="stButton"] > button:hover {
     transform: translateY(-3px) scale(1.01) !important;
-    box-shadow: 0 10px 25px rgba(6, 182, 212, 0.5) !important;
-    background: linear-gradient(135deg, #b873f8 0%, #787af3 50%, #22c5e5 100%) !important;
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5) !important;
+    background: linear-gradient(135deg, #FFDF73 0%, #FFF2A8 50%, #D4AF37 100%) !important;
+    color: #2A0005 !important;
 }
 div[data-testid="stButton"] > button:active {
     transform: translateY(0) scale(0.99) !important;
@@ -547,7 +548,6 @@ def evaluation_dialog():
             cm_data = np.array([[87, 25], [33, 55]])
             fig_cm, ax_cm = plt.subplots(figsize=(6, 4))
             
-            # گۆڕینی ڕەنگی نەخشەکە بۆ نیۆنی سەردەمیانە
             cmap = mcolors.LinearSegmentedColormap.from_list("ai_neon", ["#050505", "#18181b", "#6366f1", "#06b6d4"])
             sns.heatmap(cm_data, annot=True, fmt="d", cmap=cmap, cbar=True, ax=ax_cm, 
                         xticklabels=['Low Risk', 'High Risk'], yticklabels=['Low Risk', 'High Risk'],
