@@ -10,7 +10,7 @@ st.set_page_config(
     page_title="سیستەمی زیرەکی نمرەدانی مەترسی و سنووری قەرز",
     page_icon="🏦",
     layout="wide",
-    initial_sidebar_state="auto", # ئەمە وادەکات لەسەر مۆبایل داخراو بێت و لەسەر کۆمپیوتەر کراوە بێت
+    initial_sidebar_state="auto", # بۆ مۆبایل داخراو دەبێت
 )
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -45,7 +45,7 @@ st.markdown("""
 /* ── Reset & Base ────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body,[class*="css"] {
+html, body, [class*="css"] {
     font-family: 'Noto Sans Arabic', sans-serif !important;
     direction: rtl !important;
     text-align: right !important;
@@ -63,7 +63,7 @@ html, body,[class*="css"] {
 /* ── Hide Streamlit chrome ───────────────────────────────────────── */
 #MainMenu, footer, header { visibility: hidden; }
 .block-container {
-    padding: 1.8rem 1rem 4rem 1rem !important; /* پادینگی کەمکرایەوە بۆ مۆبایل */
+    padding: 1.8rem 2rem 4rem 2rem !important;
     max-width: 1080px !important;
 }
 
@@ -74,7 +74,7 @@ html, body,[class*="css"] {
     background: linear-gradient(120deg, rgba(0,45,75,0.9) 0%, rgba(0,62,102,0.85) 100%);
     border: 1px solid var(--border);
     border-radius: 18px;
-    padding: 2rem 1rem; /* پادینگی کەمکرایەوە */
+    padding: 2.2rem 2rem 2rem 2rem;
     margin-bottom: 1.8rem;
     text-align: center;
     position: relative;
@@ -88,9 +88,9 @@ html, body,[class*="css"] {
     background: radial-gradient(ellipse at 50% -20%, rgba(0,212,255,0.12) 0%, transparent 65%);
     pointer-events: none;
 }
-.hero-icon  { font-size: 2rem; line-height: 1; margin-bottom: 0.5rem; }
+.hero-icon  { font-size: 2.6rem; line-height: 1; margin-bottom: 0.6rem; }
 .hero-title {
-    font-size: clamp(1.2rem, 3.5vw, 2.1rem); /* بچووککرایەوە بۆ مۆبایل */
+    font-size: clamp(1.45rem, 3.5vw, 2.1rem);
     font-weight: 900;
     color: var(--text-main);
     margin-bottom: 0.35rem;
@@ -100,7 +100,7 @@ html, body,[class*="css"] {
 .hero-title span { color: var(--teal); }
 .hero-sub {
     color: var(--text-muted);
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 400;
     letter-spacing: 0.02em;
 }
@@ -110,8 +110,8 @@ html, body,[class*="css"] {
     background: var(--teal-dim);
     border: 1px solid rgba(0,212,255,0.3);
     border-radius: 50px;
-    padding: 0.2rem 0.8rem;
-    font-size: 0.7rem;
+    padding: 0.22rem 1rem;
+    font-size: 0.75rem;
     font-weight: 700;
     color: var(--teal);
     letter-spacing: 0.08em;
@@ -146,7 +146,7 @@ html, body,[class*="css"] {
     background: linear-gradient(145deg, rgba(0,45,75,0.6) 0%, rgba(0,30,56,0.5) 100%);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 1.2rem 1rem; /* پادینگی کەمکرایەوە بۆ مۆبایل */
+    padding: 1.6rem 1.5rem 1.3rem;
     backdrop-filter: blur(8px);
     box-shadow: 0 4px 24px rgba(0,0,0,0.25);
     height: 100%;
@@ -247,8 +247,8 @@ div[data-testid="stSlider"] .rc-slider-handle:hover,
 .stSlider .rc-slider-handle:hover {
     box-shadow: 0 0 0 5px rgba(0,212,255,0.4), 0 2px 8px rgba(0,0,0,0.4) !important;
 }
-div[data-testid="stSlider"][data-testid="stTickBarMin"],
-div[data-testid="stSlider"] [data-testid="stTickBarMax"] {
+div[data-testid="stSlider"] [data-testid="stTickBarMin"],
+div[data-testid="stSlider"][data-testid="stTickBarMax"] {
     color: var(--text-muted) !important;
     font-size: 0.72rem !important;
     font-family: 'Noto Sans Arabic', sans-serif !important;
@@ -328,12 +328,11 @@ div[data-testid="stButton"] > button:active {
 }
 .result-card {
     border-radius: 18px;
-    padding: 1.5rem; /* بچووککرایەوە بۆ مۆبایل */
+    padding: 1.8rem 1.7rem;
     position: relative;
     overflow: hidden;
     box-shadow: 0 6px 32px rgba(0,0,0,0.3);
     direction: rtl;
-    margin-bottom: 1rem; /* زیادکرا بۆ ئەوەی لەسەر مۆبایل لێک جیابنەوە */
 }
 .result-card::after {
     content: '';
@@ -373,7 +372,7 @@ div[data-testid="stButton"] > button:active {
     opacity: 0.8;
 }
 .rc-value {
-    font-size: clamp(1.8rem, 5vw, 2.9rem); /* بچووککرایەوە بۆ مۆبایل */
+    font-size: clamp(2rem, 5vw, 2.9rem);
     font-weight: 900;
     line-height: 1.05;
     margin-bottom: 0.25rem;
@@ -411,13 +410,12 @@ div[data-testid="stButton"] > button:active {
     background: rgba(0,45,75,0.45);
     border: 1px solid var(--border);
     border-radius: 14px;
-    padding: 1rem;
+    padding: 1.1rem;
     text-align: center;
     backdrop-filter: blur(6px);
-    margin-bottom: 10px; /* زیادکرا بۆ مۆبایل */
 }
 .metric-label { color: var(--text-muted); font-size: 0.76rem; font-weight: 600; margin-bottom: 0.35rem; }
-.metric-value { color: var(--text-main);  font-size: 1.4rem;  font-weight: 800; line-height: 1; }
+.metric-value { color: var(--text-main);  font-size: 1.6rem;  font-weight: 800; line-height: 1; }
 .metric-en    { color: rgba(130,170,200,0.45); font-size: 0.7rem; margin-top: 0.25rem; }
 
 /* ════════════════════════════════════════════════════════
@@ -494,21 +492,347 @@ section[data-testid="stSidebar"] * {
     margin: 0.2rem 0.12rem;
 }
 
-/* ── Responsive ──────────────────────────────────────── */
-@media (max-width: 640px) {
-    .block-container { padding: 1rem 0.9rem 3rem !important; }
+/* ── Responsive Mobile Edits ──────────────────────────────────────── */
+@media (max-width: 768px) {
+    .block-container { padding: 1rem 1rem 3rem 1rem !important; }
     .hero { padding: 1.5rem 1rem; }
-    .rc-value { font-size: 2rem; }
+    .rc-value { font-size: 2.2rem; }
     
-    /* ڕێکخستنی ئینپوتەکان بۆ مۆبایل */
+    /* مۆبایل: دوو کۆڵۆمەکە بکە بەیەک */
     div[data-testid="column"] {
         width: 100% !important;
         flex: 1 1 100% !important;
         min-width: 100% !important;
+        margin-bottom: 1rem;
     }
     
-    .input-card { margin-bottom: 1rem; }
+    .input-card { padding: 1.2rem 1rem; margin-bottom: 1rem;}
+    .result-card { padding: 1.5rem 1.2rem; margin-bottom: 1rem;}
 }
 </style>
 """, unsafe_allow_html=True)
-# باقی کۆدەکە وەک خۆیەتی بەبێ گۆڕانکاری
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  SIDEBAR
+# ══════════════════════════════════════════════════════════════════════════════
+with st.sidebar:
+    st.markdown("""
+    <div class="sb-logo">🏦</div>
+    <div class="sb-app-name">CREDIT RISK AI SYSTEM</div>
+    <div class="sb-ver">v 2.0 · XGBoost Engine</div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="sb-section">
+        <div class="sb-sec-title">📋 دەربارەی پڕۆژە</div>
+        <div class="sb-body">
+            ئەم سیستەمە بەکاردەهێنێت زیرەکی دەستکرد بۆ ئەوەی ئاستی مەترسی
+            کڕیارەکان بخەیتە سەر ئەستۆ و سنووری قەرزی گونجاو دیاری بکات
+            بۆ کۆمپانیا و تازیرەکان.<br><br>
+            بە بەکارهێنانی مۆدێلی <b>XGBoost</b>، سیستەمەکە
+            زانیارییەکانی دارایی و بازرگانی شیکاری دەکاتەوە
+            و بڕیاری زیرەکانە دەدات.
+        </div>
+    </div>
+
+    <div class="sb-section">
+        <div class="sb-sec-title">👨‍💻 گەشەپێدەر</div>
+        <div class="sb-body">
+            <b>ناو:</b> ئومێد جەمال نووری<br>
+            <b>بەش:</b> ئەندازیاری کارەبا<br>
+            <b>قۆناغ:</b> قۆناغی سێیەم<br>
+            <b>ساڵی خوێندن:</b> ٢٠٢٤ — ٢٠٢٥
+        </div>
+    </div>
+
+    <div class="sb-section">
+        <div class="sb-sec-title">⚙️ تەکنەلۆژیاکان</div>
+        <div class="sb-body" style="margin-bottom:0.5rem;">تەکنەلۆژیاکانی بەکارهاتوو:</div>
+        <span class="sb-tag">Python 3</span>
+        <span class="sb-tag">XGBoost</span>
+        <span class="sb-tag">Scikit-learn</span>
+        <span class="sb-tag">Streamlit</span>
+        <span class="sb-tag">Joblib</span>
+        <span class="sb-tag">NumPy</span>
+    </div>
+
+    <div class="sb-section">
+        <div class="sb-sec-title">📁 فایلەکانی مۆدێل</div>
+        <div class="sb-body">
+            📌 <b>risk_model.joblib</b><br>
+            &nbsp;&nbsp;&nbsp;مۆدێلی نمرەدانی مەترسی<br><br>
+            📌 <b>limit_model.joblib</b><br>
+            &nbsp;&nbsp;&nbsp;مۆدێلی سنووری قەرز<br><br>
+            📌 <b>scaler.joblib</b><br>
+            &nbsp;&nbsp;&nbsp;ئامێری نۆرمالکردنەوە
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<div class="sb-divider"></div>', unsafe_allow_html=True)
+    st.markdown("""
+    <div style="text-align:center; color:rgba(0,212,255,0.25); font-size:0.7rem; padding:0.4rem 0;">
+        Developed by Umed Jamal Nouri · 2025
+    </div>
+    """, unsafe_allow_html=True)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  LOAD MODELS
+# ══════════════════════════════════════════════════════════════════════════════
+@st.cache_resource
+def load_models():
+    base = "outputs"
+    try:
+        risk_model  = joblib.load(os.path.join(base, "risk_model.joblib"))
+        limit_model = joblib.load(os.path.join(base, "limit_model.joblib"))
+        scaler      = joblib.load(os.path.join(base, "scaler.joblib"))
+        return risk_model, limit_model, scaler, True
+    except Exception:
+        return None, None, None, False
+
+risk_model, limit_model, scaler, models_loaded = load_models()
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  HERO HEADER
+# ══════════════════════════════════════════════════════════════════════════════
+st.markdown("""
+<div class="hero">
+    <div class="hero-icon">🏦</div>
+    <div class="hero-title">
+        سیستەمی زیرەکی <span>نمرەدانی مەترسی</span> و سنووری قەرز
+    </div>
+    <div class="hero-sub">Intelligent Credit Limit &amp; Risk Scoring System</div>
+    <div class="hero-badge">⚡ XGBoost AI ENGINE · REAL-TIME ANALYSIS</div>
+</div>
+""", unsafe_allow_html=True)
+
+if not models_loaded:
+    st.markdown("""
+    <div class="warn-banner">
+        ⚠️ &nbsp;مۆدێلەکان نەدۆزرانەوە. دڵنیابە کە
+        <b>risk_model.joblib</b>، <b>limit_model.joblib</b> و <b>scaler.joblib</b>
+        لە دەرگەی <b>outputs/</b> دا هەن.
+        هەتا ئەوکاتە، سیستەمەکە بە نموونەیی کار دەکات.
+    </div>
+    """, unsafe_allow_html=True)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  INPUT SECTION
+# ══════════════════════════════════════════════════════════════════════════════
+st.markdown("""
+<div class="sec-heading">
+    <span class="sec-heading-text">📝 زانیاریەکان داخڵ بکە</span>
+    <span class="sec-heading-line"></span>
+</div>
+""", unsafe_allow_html=True)
+
+col_left, col_right = st.columns(2, gap="large")
+
+# ── Left Card: Financial Info ──────────────────────────────────────────────────
+with col_left:
+    st.markdown(
+        '<div class="input-card">'
+        '<div class="card-title">'
+        '<span class="card-title-icon">💰</span> زانیاری دارایی'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+    annual_income = st.number_input(
+        "داهاتی ساڵانە ($)",
+        min_value=0.0, max_value=10_000_000.0,
+        value=50_000.0, step=1_000.0, format="%.2f", key="annual_income",
+    )
+    current_debt = st.number_input(
+        "کۆی قەرزەکانی ئێستا ($)",
+        min_value=0.0, max_value=5_000_000.0,
+        value=5_000.0, step=500.0, format="%.2f", key="current_debt",
+    )
+    avg_order_value = st.number_input(
+        "تێکڕای بەهای کڕینەکان ($)",
+        min_value=0.0, max_value=500_000.0,
+        value=1_200.0, step=100.0, format="%.2f", key="avg_order",
+    )
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# ── Right Card: Business Info ──────────────────────────────────────────────────
+with col_right:
+    st.markdown(
+        '<div class="input-card">'
+        '<div class="card-title">'
+        '<span class="card-title-icon">🏢</span> زانیاری بازرگانی'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+    years_in_business = st.slider(
+        "ساڵانی کارکردن (بزنس)",
+        min_value=0, max_value=50, value=5, step=1, key="years",
+    )
+    missed_payments = st.selectbox(
+        "پێشینەی پارە نەدان (وەسڵەکان)",
+        options=list(range(11)),
+        index=1,
+        key="missed",
+        format_func=lambda x: "هیچ" if x == 0 else f"{x} جار",
+    )
+    # Live summary
+    st.markdown(f"""
+    <div class="summary-card">
+        <div class="summary-card-title">📋 پوختەی زانیاریەکان</div>
+        <div class="summary-row">
+            <span>داهاتی ساڵانە</span>
+            <span class="summary-val">${annual_income:,.0f}</span>
+        </div>
+        <div class="summary-row">
+            <span>کۆی قەرزەکان</span>
+            <span class="summary-val">${current_debt:,.0f}</span>
+        </div>
+        <div class="summary-row">
+            <span>تێکڕای کڕین</span>
+            <span class="summary-val">${avg_order_value:,.0f}</span>
+        </div>
+        <div class="summary-row">
+            <span>ساڵانی کارکردن</span>
+            <span class="summary-val">{years_in_business} ساڵ</span>
+        </div>
+        <div class="summary-row">
+            <span>پارە نەدان</span>
+            <span class="summary-val">{missed_payments} جار</span>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  ANALYZE BUTTON
+# ══════════════════════════════════════════════════════════════════════════════
+st.markdown("<br>", unsafe_allow_html=True)
+_, btn_col, _ = st.columns([1, 2, 1])
+with btn_col:
+    analyze = st.button("🔮  شیکردنەوە و بڕیاردان", use_container_width=True)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  RESULTS
+# ══════════════════════════════════════════════════════════════════════════════
+if analyze:
+    st.divider()
+    st.markdown("""
+    <div class="sec-heading">
+        <span class="sec-heading-text">📊 ئەنجامی شیکاری</span>
+        <span class="sec-heading-line"></span>
+    </div>
+    """, unsafe_allow_html=True)
+
+    features = np.array([[annual_income, current_debt, years_in_business,
+                          missed_payments, avg_order_value]])
+
+    # ── Prediction ────────────────────────────────────────────────────────────
+    if models_loaded:
+        try:
+            features_scaled = scaler.transform(features)
+            risk_pred       = risk_model.predict(features_scaled)[0]
+            limit_pred      = limit_model.predict(features_scaled)[0]
+            is_high_risk    = int(risk_pred) == 1
+            credit_limit    = float(limit_pred)
+        except Exception as exc:
+            st.error(f"⚠️ هەڵەیەک ڕوویدا: {exc}")
+            st.stop()
+    else:
+        # Demo fallback
+        debt_ratio   = current_debt / max(annual_income, 1)
+        is_high_risk = debt_ratio > 0.4 or missed_payments >= 3
+        base_limit   = annual_income * 0.3
+        penalty      = missed_payments * 0.05
+        credit_limit = max(500.0,
+                           base_limit * (1 - penalty) * (1 + years_in_business * 0.01))
+
+    # ── Result Cards ──────────────────────────────────────────────────────────
+    rc_left, rc_right = st.columns(2, gap="large")
+
+    with rc_left:
+        if is_high_risk:
+            st.markdown("""
+            <div class="result-wrap">
+            <div class="result-card rc-high">
+                <div class="rc-eyebrow">⚠️ ئاستی مەترسی</div>
+                <div class="rc-value">بەرز</div>
+                <div class="rc-en">HIGH RISK</div>
+                <span class="rc-badge badge-high">🔴 &nbsp; مەترسیدار — کڕیاری خەتەرناک</span>
+            </div>
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.markdown("""
+            <div class="result-wrap">
+            <div class="result-card rc-low">
+                <div class="rc-eyebrow">✅ ئاستی مەترسی</div>
+                <div class="rc-value">نزم</div>
+                <div class="rc-en">LOW RISK</div>
+                <span class="rc-badge badge-low">🟢 &nbsp; باوەڕپێکراو — کڕیاری مەزن</span>
+            </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+    with rc_right:
+        st.markdown(f"""
+        <div class="result-wrap" style="animation-delay:0.12s;">
+        <div class="result-card rc-limit">
+            <div class="rc-eyebrow">💳 سنووری قەرزی گونجاو</div>
+            <div class="rc-value">${credit_limit:,.0f}</div>
+            <div class="rc-en">Approved Credit Limit</div>
+            <span class="rc-badge badge-limit">✅ &nbsp; پەسەندکراو</span>
+        </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    # ── Metric Row ────────────────────────────────────────────────────────────
+    st.markdown("<br>", unsafe_allow_html=True)
+    m1, m2, m3 = st.columns(3, gap="medium")
+
+    dti  = min(100, (current_debt / max(annual_income, 1)) * 100)
+    lti  = (credit_limit / max(annual_income, 1)) * 100
+    util = min(100, (current_debt / max(credit_limit, 1)) * 100)
+
+    with m1:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-label">ڕێژەی قەرز بە داهات</div>
+            <div class="metric-value">{dti:.1f}%</div>
+            <div class="metric-en">Debt-to-Income Ratio</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with m2:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-label">ساڵانی بزنس</div>
+            <div class="metric-value">{years_in_business} <span style="font-size:1rem;font-weight:500;">ساڵ</span></div>
+            <div class="metric-en">Years in Business</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with m3:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-label">بەکارهێنانی سنووری قەرز</div>
+            <div class="metric-value">{util:.1f}%</div>
+            <div class="metric-en">Credit Utilization</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  FOOTER
+# ══════════════════════════════════════════════════════════════════════════════
+st.markdown("""
+<div class="footer">
+    دروستکراوە لەلایەن &nbsp;<strong>ئومێد جەمال نووری</strong>&nbsp; ·
+    Developed by <strong>Umed Jamal Nouri</strong><br>
+    <span style="font-size:0.7rem; opacity:0.7;">
+        Powered by XGBoost · Scikit-learn · Streamlit · Python
+    </span>
+</div>
+""", unsafe_allow_html=True)
