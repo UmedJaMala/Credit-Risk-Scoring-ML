@@ -34,7 +34,7 @@ FEAT_NAMES = ['Missed Payments', 'Current Debt', 'Annual Income', 'Years in Busi
 FEAT_IMP   = [0.42, 0.28, 0.15, 0.10, 0.05]
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  GLOBAL CSS
+#  GLOBAL CSS - DARK LIQUID GLASS EDITION
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <style>
@@ -42,39 +42,42 @@ st.markdown("""
 
 /* ── Tokens ──────────────────────────────────────────── */
 :root {
-    --bg:           #0a0f1a;
-    --bg-card:      #111827;
-    --bg-card2:     #1a2235;
-    --border:       rgba(255,255,255,0.07);
-    --border-hi:    rgba(255,255,255,0.13);
+    --bg-base:      #050505;
+    
+    /* Liquid Glass Constants */
+    --glass-bg:     rgba(15, 17, 21, 0.45);
+    --glass-blur:   blur(24px) saturate(180%);
+    --glass-border: rgba(255, 255, 255, 0.06);
+    --glass-hi:     rgba(255, 255, 255, 0.15);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
 
     --cyan:         #22d3ee;
-    --cyan-dim:     rgba(34,211,238,0.12);
-    --cyan-bdr:     rgba(34,211,238,0.28);
+    --cyan-dim:     rgba(34,211,238,0.15);
+    --cyan-bdr:     rgba(34,211,238,0.35);
+    
     --violet:       #a78bfa;
-    --violet-dim:   rgba(167,139,250,0.12);
-    --violet-bdr:   rgba(167,139,250,0.28);
+    --violet-dim:   rgba(167,139,250,0.15);
+    
+    --burgundy:     #800020;
+    --burgundy-dim: rgba(128,0,32,0.25);
 
     --green:        #34d399;
-    --green-dim:    rgba(52,211,153,0.12);
-    --green-bdr:    rgba(52,211,153,0.30);
+    --green-dim:    rgba(52,211,153,0.15);
+    
     --red:          #fb7185;
-    --red-dim:      rgba(251,113,133,0.12);
-    --red-bdr:      rgba(251,113,133,0.30);
+    --red-dim:      rgba(251,113,133,0.15);
+    
     --amber:        #fbbf24;
-    --amber-dim:    rgba(251,191,36,0.12);
 
-    --text:         #f1f5f9;
-    --text-2:       #94a3b8;
+    --text:         #f8fafc;
+    --text-2:       #cbd5e1;
     --text-3:       #64748b;
 
-    --gold:         #d4a84b;
-    --gold-dim:     rgba(212,168,75,0.15);
-    --gold-bdr:     rgba(212,168,75,0.35);
+    --gold:         #D4AF37;
+    --gold-dim:     rgba(212,175,55,0.15);
+    --gold-bdr:     rgba(212,175,55,0.4);
 
-    --r:            14px;
-    --shadow:       0 4px 24px rgba(0,0,0,0.40);
-    --shadow-lg:    0 8px 40px rgba(0,0,0,0.55);
+    --r:            20px;
 }
 
 /* ── Reset ───────────────────────────────────────────── */
@@ -86,46 +89,50 @@ html, body, [class*="css"] {
     text-align: right !important;
 }
 
-/* force text color on all elements for dark-mode mobile */
+/* force text color */
 p, h1, h2, h3, h4, h5, h6, span, li,
 div[data-testid="stMarkdownContainer"],
 div[data-testid="stMarkdownContainer"] p {
     color: var(--text) !important;
 }
 
-/* ── Page bg ──────────────────────────────────────────── */
+/* ── Page bg (Liquid Gradients) ──────────────────────── */
 .stApp {
-    background:
-        radial-gradient(ellipse 70% 35% at 10% 0%,   rgba(167,139,250,0.07) 0%, transparent 55%),
-        radial-gradient(ellipse 60% 40% at 90% 100%,  rgba(34,211,238,0.06) 0%, transparent 55%),
-        var(--bg);
+    background-color: var(--bg-base);
+    background-image: 
+        radial-gradient(circle at 15% 10%, var(--burgundy-dim), transparent 35%),
+        radial-gradient(circle at 85% 85%, var(--gold-dim), transparent 35%),
+        radial-gradient(circle at 50% 50%, rgba(34,211,238,0.05), transparent 60%);
+    background-attachment: fixed;
     min-height: 100vh;
 }
 
 #MainMenu, footer, header { visibility: hidden; }
 .block-container { padding: 1.5rem 1.6rem 4rem !important; max-width: 1060px !important; }
 
+/* ── Liquid Glass Utility Class ──────────────────────── */
+.liquid-glass {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-top: 1px solid var(--glass-hi);
+    border-left: 1px solid rgba(255,255,255,0.1);
+    box-shadow: var(--glass-shadow);
+    border-radius: var(--r);
+}
+
 /* ════════════════════════════════════════════════════════
    HERO
 ════════════════════════════════════════════════════════ */
 .hero {
-    background: linear-gradient(135deg, #111827 0%, #0f172a 100%);
-    border: 1px solid var(--border-hi);
-    border-radius: 20px;
     padding: 2.4rem 2rem 2rem;
     margin-bottom: 1.8rem;
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: var(--shadow-lg);
 }
-.hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 50% -5%, rgba(167,139,250,0.10) 0%, transparent 60%);
-    pointer-events: none;
-}
-.hero-icon { font-size: 2.8rem; line-height: 1; margin-bottom: 0.7rem; filter: drop-shadow(0 0 12px rgba(167,139,250,0.5)); }
+.hero-icon { font-size: 3rem; line-height: 1; margin-bottom: 0.7rem; filter: drop-shadow(0 0 15px rgba(212,175,55,0.6)); }
 .hero-title {
     font-size: clamp(1.4rem, 3.5vw, 2.2rem);
     font-weight: 900;
@@ -133,334 +140,295 @@ div[data-testid="stMarkdownContainer"] p {
     line-height: 1.45; margin-bottom: 0.4rem;
 }
 .hero-title span {
-    background: linear-gradient(to left, var(--cyan), var(--violet));
+    background: linear-gradient(to left, var(--gold), #fef08a);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(212,175,55,0.3);
 }
-.hero-sub  { color: var(--text-2); font-size: 0.9rem; font-weight: 500; letter-spacing: 0.03em; }
+.hero-sub  { color: var(--text-2); font-size: 0.95rem; font-weight: 500; letter-spacing: 0.03em; }
 .hero-pill {
     display: inline-block; margin-top: 1.1rem;
-    background: var(--violet-dim); border: 1px solid var(--violet-bdr);
-    border-radius: 50px; padding: 0.25rem 1.1rem;
-    font-size: 0.72rem; font-weight: 800; color: var(--violet); letter-spacing: 0.10em;
+    background: rgba(212,175,55,0.15); border: 1px solid var(--gold-bdr);
+    border-radius: 50px; padding: 0.35rem 1.2rem;
+    font-size: 0.75rem; font-weight: 800; color: #fef08a; letter-spacing: 0.10em;
+    backdrop-filter: blur(10px);
 }
 
 /* ════════════════════════════════════════════════════════
-   ACTION BUTTONS (NATIVE STREAMLIT TYPES)
+   ACTION BUTTONS
 ════════════════════════════════════════════════════════ */
 
 /* Primary Button (Analyze/Gold) */
 div[data-testid="stBaseButton-primary"] button, button[kind="primary"] {
     width: 100% !important;
-    background: var(--gold-dim) !important;
+    background: linear-gradient(135deg, rgba(212,175,55,0.2) 0%, rgba(212,175,55,0.05) 100%) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
     border: 1px solid var(--gold-bdr) !important;
+    border-top: 1px solid rgba(255,255,255,0.3) !important;
     color: var(--gold) !important;
     font-family: 'Noto Sans Arabic', sans-serif !important;
     font-size: 1.05rem !important;
     font-weight: 900 !important;
-    border-radius: var(--r) !important;
+    border-radius: 16px !important;
     padding: 0.85rem 1.2rem !important;
     letter-spacing: 0.05em !important;
-    box-shadow: 0 4px 20px rgba(212,168,75,0.20) !important;
-    transition: all 0.22s ease !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
     cursor: pointer !important;
 }
 div[data-testid="stBaseButton-primary"] button:hover, button[kind="primary"]:hover {
-    transform: translateY(-2px) !important;
-    background: rgba(212,168,75,0.22) !important;
-    box-shadow: 0 8px 28px rgba(212,168,75,0.35) !important;
-}
-div[data-testid="stBaseButton-primary"] button:active, button[kind="primary"]:active { 
-    transform: translateY(0) !important; 
+    transform: translateY(-3px) !important;
+    background: linear-gradient(135deg, rgba(212,175,55,0.3) 0%, rgba(212,175,55,0.1) 100%) !important;
+    box-shadow: 0 8px 30px rgba(212,175,55,0.25) !important;
+    color: #fff !important;
 }
 
-/* Secondary Buttons (Top Dialog Triggers - Cyan/Dark) */
+/* Secondary Buttons */
 div[data-testid="stBaseButton-secondary"] button, button[kind="secondary"] {
     width: 100% !important;
-    background: var(--bg-card2) !important;
-    border: 1px solid var(--cyan-bdr) !important;
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-top: 1px solid var(--glass-hi) !important;
     color: var(--cyan) !important;
     font-family: 'Noto Sans Arabic', sans-serif !important;
     font-size: 0.95rem !important;
     font-weight: 800 !important;
-    border-radius: var(--r) !important;
+    border-radius: 16px !important;
     padding: 0.85rem 1.2rem !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
-    transition: all 0.22s ease !important;
+    box-shadow: var(--glass-shadow) !important;
+    transition: all 0.3s ease !important;
     cursor: pointer !important;
 }
 div[data-testid="stBaseButton-secondary"] button:hover, button[kind="secondary"]:hover {
     transform: translateY(-2px) !important;
-    background: var(--cyan-dim) !important;
-    box-shadow: 0 6px 20px rgba(34,211,238,0.2) !important;
+    background: rgba(34,211,238,0.1) !important;
+    border-color: var(--cyan-bdr) !important;
+    color: #fff !important;
 }
-
 
 /* ════════════════════════════════════════════════════════
    SECTION HEADING
 ════════════════════════════════════════════════════════ */
 .sec-head {
-    display: flex; align-items: center; gap: 0.5rem;
-    margin-bottom: 1.1rem;
+    display: flex; align-items: center; gap: 0.8rem;
+    margin-bottom: 1.2rem;
 }
 .sec-head-line {
     flex: 1; height: 1px;
-    background: linear-gradient(90deg, var(--border-hi) 0%, transparent 100%);
+    background: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, transparent 100%);
 }
-.sec-head-text { color: var(--cyan); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.10em; white-space: nowrap; }
+.sec-head-text { 
+    color: #fff; 
+    font-size: 0.85rem; 
+    font-weight: 800; 
+    letter-spacing: 0.10em; 
+    white-space: nowrap;
+    text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
 
 /* ════════════════════════════════════════════════════════
    INPUT CARDS
 ════════════════════════════════════════════════════════ */
 .input-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-hi);
-    border-radius: 18px;
-    padding: 1.7rem 1.5rem 1.4rem;
-    box-shadow: var(--shadow);
+    padding: 1.8rem 1.5rem 1.5rem;
     height: 100%;
 }
 .card-title {
-    color: var(--text); font-size: 0.95rem; font-weight: 800;
-    margin-bottom: 1.1rem; padding-bottom: 0.7rem;
-    border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; gap: 0.45rem;
+    color: #fff; font-size: 1rem; font-weight: 800;
+    margin-bottom: 1.3rem; padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--glass-border);
+    display: flex; align-items: center; gap: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 /* Labels */
-label,
-div[data-testid="stWidgetLabel"] > p,
+label, div[data-testid="stWidgetLabel"] > p,
 .stSlider label, .stNumberInput label, .stSelectbox label {
     color: var(--text-2) !important;
     font-family: 'Noto Sans Arabic', sans-serif !important;
-    font-weight: 600 !important; font-size: 0.87rem !important;
+    font-weight: 600 !important; font-size: 0.9rem !important;
     direction: rtl !important; text-align: right !important;
 }
 
-/* Number inputs */
-.stNumberInput input {
-    background: var(--bg-card2) !important;
-    border: 1px solid var(--border-hi) !important;
-    border-radius: 10px !important;
-    color: var(--text) !important;
+/* Glass Inputs */
+.stNumberInput input, .stSelectbox > div > div {
+    background: rgba(0,0,0,0.3) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-top: 1px solid rgba(255,255,255,0.08) !important;
+    border-radius: 12px !important;
+    color: #fff !important;
     font-family: 'Noto Sans Arabic', sans-serif !important;
     font-size: 0.97rem !important; font-weight: 700 !important;
-    padding: 0.58rem 0.9rem !important;
-    direction: ltr !important; text-align: left !important;
-    transition: border-color 0.18s, box-shadow 0.18s;
+    padding: 0.6rem 1rem !important;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.5) !important;
+    transition: all 0.3s ease;
 }
-.stNumberInput input:focus {
-    border-color: var(--cyan) !important;
-    box-shadow: 0 0 0 3px var(--cyan-dim) !important;
+.stNumberInput input { direction: ltr !important; text-align: left !important; }
+.stNumberInput input:focus, .stSelectbox > div > div:focus {
+    border-color: var(--gold) !important;
+    box-shadow: 0 0 0 2px rgba(212,175,55,0.2), inset 0 2px 5px rgba(0,0,0,0.5) !important;
     outline: none !important;
 }
 
-/* Selectbox */
-.stSelectbox > div > div {
-    background: var(--bg-card2) !important;
-    border: 1px solid var(--border-hi) !important;
-    border-radius: 10px !important;
-    color: var(--text) !important;
-    font-family: 'Noto Sans Arabic', sans-serif !important;
-    font-weight: 700 !important;
-}
-.stSelectbox svg { color: var(--cyan) !important; }
-
 /* Slider */
 div[data-testid="stSlider"] { direction: ltr !important; padding: 0 0.2rem; }
-div[data-testid="stSlider"] > div { direction: ltr !important; }
 div[data-testid="stSlider"] .rc-slider-rail, .stSlider .rc-slider-rail {
-    background: rgba(255,255,255,0.08) !important; border-radius: 5px !important; height: 7px !important;
+    background: rgba(0,0,0,0.5) !important; border-radius: 6px !important; height: 8px !important;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.6);
 }
 div[data-testid="stSlider"] .rc-slider-track, .stSlider .rc-slider-track {
-    background: linear-gradient(90deg, var(--violet), var(--cyan)) !important;
-    height: 7px !important; border-radius: 5px !important;
+    background: linear-gradient(90deg, var(--burgundy), var(--gold)) !important;
+    height: 8px !important; border-radius: 6px !important;
 }
 div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle {
-    width: 19px !important; height: 19px !important; margin-top: -6px !important;
-    background: var(--text) !important;
-    border: 3px solid var(--cyan) !important;
-    box-shadow: 0 0 10px var(--cyan-dim) !important;
-    border-radius: 50% !important;
-}
-div[data-testid="stSlider"] [data-testid="stTickBarMin"],
-div[data-testid="stSlider"] [data-testid="stTickBarMax"] {
-    color: var(--text-3) !important; font-size: 0.72rem !important;
+    width: 22px !important; height: 22px !important; margin-top: -7px !important;
+    background: #fff !important;
+    border: 4px solid var(--gold) !important;
+    box-shadow: 0 0 15px rgba(212,175,55,0.5) !important;
 }
 
 /* ════════════════════════════════════════════════════════
    SUMMARY CARD
 ════════════════════════════════════════════════════════ */
 .summary-card {
-    background: var(--cyan-dim); border: 1px solid var(--cyan-bdr);
-    border-radius: 12px; padding: 0.9rem 1.1rem; margin-top: 0.9rem; direction: rtl;
+    background: rgba(255,255,255,0.03); 
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px; padding: 1.2rem; margin-top: 1rem; direction: rtl;
 }
-.summary-card-title { color: var(--cyan); font-size: 0.73rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: 0.07em; }
+.summary-card-title { color: var(--gold); font-size: 0.8rem; font-weight: 800; margin-bottom: 0.8rem; letter-spacing: 0.05em; }
 .summary-row {
     display: flex; justify-content: space-between;
-    color: var(--text-2); font-size: 0.8rem; line-height: 1.9;
-    border-bottom: 1px solid rgba(34,211,238,0.08); padding: 0.06rem 0;
+    color: var(--text-2); font-size: 0.85rem; line-height: 2;
+    border-bottom: 1px solid rgba(255,255,255,0.05); padding: 0.2rem 0;
 }
 .summary-row:last-child { border-bottom: none; }
-.summary-val { color: var(--text); font-weight: 800; direction: ltr; text-align: left; }
+.summary-val { color: #fff; font-weight: 800; direction: ltr; text-align: left; }
 
 /* ════════════════════════════════════════════════════════
    RESULT CARDS
 ════════════════════════════════════════════════════════ */
-.result-wrap { animation: fadeUp 0.42s cubic-bezier(0.22,1,0.36,1) both; }
-@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+.result-wrap { animation: floatUp 0.6s cubic-bezier(0.22,1,0.36,1) both; }
+@keyframes floatUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
 
 .result-card {
-    background: var(--bg-card); border-radius: 18px;
-    padding: 1.8rem 1.6rem; position: relative; overflow: hidden;
-    box-shadow: var(--shadow-lg); direction: rtl;
+    padding: 2rem 1.8rem; position: relative; overflow: hidden;
+    direction: rtl; text-align: center;
 }
-.result-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    border-radius: 18px 18px 0 0;
-}
-.rc-low::before  { background: var(--green); }
-.rc-high::before { background: var(--red); }
-.rc-limit::before{ background: linear-gradient(90deg, var(--violet), var(--cyan)); }
+.rc-low   { border-top: 2px solid var(--green); background: linear-gradient(180deg, rgba(52,211,153,0.1) 0%, var(--glass-bg) 100%); }
+.rc-high  { border-top: 2px solid var(--red); background: linear-gradient(180deg, rgba(251,113,133,0.1) 0%, var(--glass-bg) 100%); }
+.rc-limit { border-top: 2px solid var(--gold); background: linear-gradient(180deg, rgba(212,175,55,0.1) 0%, var(--glass-bg) 100%); }
 
-.rc-low   { border: 1px solid var(--green-bdr); }
-.rc-high  { border: 1px solid var(--red-bdr); }
-.rc-limit { border: 1px solid var(--cyan-bdr); }
-
-.rc-eyebrow { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.7rem; opacity: 0.75; }
+.rc-eyebrow { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
 .rc-value   {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 900; line-height: 1.05; margin-bottom: 0.25rem; letter-spacing: -0.02em;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 900; line-height: 1.1; margin-bottom: 0.3rem; letter-spacing: -0.02em;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
 .rc-limit .rc-value {
-    background: linear-gradient(to right, var(--cyan), var(--violet));
+    background: linear-gradient(to right, #fff, var(--gold));
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
-.rc-en   { font-size: 0.8rem; color: var(--text-2); margin-bottom: 0.85rem; }
+.rc-en   { font-size: 0.85rem; color: var(--text-2); margin-bottom: 1.2rem; font-family: 'Inter', sans-serif; }
 .rc-badge {
-    display: inline-flex; align-items: center; gap: 0.35rem;
-    padding: 0.28rem 0.9rem; border-radius: 50px;
-    font-size: 0.75rem; font-weight: 800;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.4rem 1.2rem; border-radius: 50px;
+    font-size: 0.8rem; font-weight: 800;
+    backdrop-filter: blur(5px);
 }
 .rc-low  .rc-eyebrow, .rc-low  .rc-value { color: var(--green); }
 .rc-high .rc-eyebrow, .rc-high .rc-value { color: var(--red); }
-.rc-limit .rc-eyebrow { color: var(--cyan); }
+.rc-limit .rc-eyebrow { color: var(--gold); }
 
-.badge-low   { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-bdr); }
-.badge-high  { background: var(--red-dim);   color: var(--red);   border: 1px solid var(--red-bdr); }
-.badge-limit { background: var(--cyan-dim);  color: var(--cyan);  border: 1px solid var(--cyan-bdr); }
+.badge-low   { background: rgba(52,211,153,0.15); color: var(--green); border: 1px solid var(--green-dim); }
+.badge-high  { background: rgba(251,113,133,0.15); color: var(--red); border: 1px solid var(--red-dim); }
+.badge-limit { background: rgba(212,175,55,0.15); color: var(--gold); border: 1px solid var(--gold-dim); }
 
 /* ════════════════════════════════════════════════════════
    RATIO MINI-CARDS
 ════════════════════════════════════════════════════════ */
 .metric-card {
-    background: var(--bg-card); border: 1px solid var(--border-hi);
-    border-radius: 14px; padding: 1.1rem; text-align: center;
-    box-shadow: var(--shadow);
+    padding: 1.4rem 1rem; text-align: center;
+    transition: transform 0.3s ease;
 }
-.metric-label { color: var(--text-2); font-size: 0.74rem; font-weight: 700; margin-bottom: 0.3rem; }
-.metric-value { color: var(--text);   font-size: 1.6rem;  font-weight: 900; line-height: 1; }
-.metric-en    { color: var(--text-3); font-size: 0.68rem; margin-top: 0.22rem; }
+.metric-card:hover { transform: translateY(-5px); }
+.metric-label { color: var(--text-2); font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; }
+.metric-value { color: #fff; font-size: 1.8rem; font-weight: 900; line-height: 1; text-shadow: 0 2px 10px rgba(255,255,255,0.2); }
+.metric-en    { color: var(--text-3); font-size: 0.7rem; margin-top: 0.4rem; font-family: 'Inter', sans-serif;}
 
 /* ════════════════════════════════════════════════════════
    EVAL BOXES (inside dialog)
 ════════════════════════════════════════════════════════ */
 .eval-box {
-    background: var(--bg-card2);
-    border-left: 3px solid var(--violet);
-    border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
-    border-radius: 12px; padding: 1.1rem 1.2rem;
-    margin-bottom: 0.8rem;
+    padding: 1.2rem; margin-bottom: 1rem;
+    border-left: 4px solid var(--gold);
 }
-.eval-title { font-size: 0.72rem; color: var(--text-2); text-transform: uppercase; font-weight: 800; margin-bottom: 0.45rem; letter-spacing: 0.07em; }
-.eval-val   { font-size: 1.7rem; font-weight: 900; color: var(--text); }
-.eval-val-sub { font-size: 0.72rem; color: var(--text-3); margin-top: 0.18rem; }
+.eval-title { font-size: 0.75rem; color: var(--text-2); text-transform: uppercase; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: 0.08em; }
+.eval-val   { font-size: 1.8rem; font-weight: 900; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
+.eval-val-sub { font-size: 0.75rem; color: var(--text-3); margin-top: 0.3rem; }
 
 .eval-box-cyan { border-left-color: var(--cyan) !important; }
 .eval-box-red  { border-left-color: var(--red)  !important; }
 .eval-box-green{ border-left-color: var(--green)!important; }
 
-/* overfitting gap indicator */
-.gap-chip {
-    display: inline-block; padding: 0.2rem 0.7rem; border-radius: 6px;
-    font-size: 0.8rem; font-weight: 800; margin-top: 0.3rem;
-}
-.gap-bad  { background: var(--red-dim);   color: var(--red);   border: 1px solid var(--red-bdr); }
-.gap-ok   { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
-
-/* Tabs */
-div[data-baseweb="tab-list"] { border-bottom: 1px solid var(--border-hi) !important; gap: 1.5rem; }
+/* Tabs inside Dialog */
+div[data-baseweb="tab-list"] { border-bottom: 1px solid rgba(255,255,255,0.1) !important; gap: 2rem; }
 div[data-baseweb="tab"] {
     background: transparent !important; color: var(--text-2) !important;
-    font-weight: 700 !important; font-size: 0.95rem !important; padding: 1rem 0 !important;
-    font-family: 'Noto Sans Arabic', sans-serif !important;
+    font-weight: 700 !important; font-size: 1rem !important; padding: 1.2rem 0 !important;
 }
-div[aria-selected="true"] { color: var(--cyan) !important; border-bottom-color: var(--cyan) !important; }
+div[aria-selected="true"] { color: var(--gold) !important; border-bottom: 3px solid var(--gold) !important; text-shadow: 0 0 10px rgba(212,175,55,0.4); }
 
-/* Dialog background fix */
+/* Dialog background */
 div[data-testid="stModal"] > div,
-div[role="dialog"],
-section[data-testid="stDialog"] > div {
-    background: #111827 !important;
-    border: 1px solid var(--border-hi) !important;
-    border-radius: 18px !important;
-    box-shadow: var(--shadow-lg) !important;
+div[role="dialog"], section[data-testid="stDialog"] > div {
+    background: rgba(10, 12, 16, 0.75) !important;
+    backdrop-filter: blur(30px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(30px) saturate(200%) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-top: 1px solid rgba(255,255,255,0.2) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7) !important;
 }
-div[data-testid="stModal"] > div > div,
-div[role="dialog"] > div { background: transparent !important; }
 div[role="dialog"] p, div[role="dialog"] h1, div[role="dialog"] h2,
-div[role="dialog"] h3, div[role="dialog"] span, div[role="dialog"] div { color: var(--text) !important; }
+div[role="dialog"] h3, div[role="dialog"] span { color: #fff !important; }
 
 /* ════════════════════════════════════════════════════════
-   ABOUT SECTION (inside dialog)
+   ABOUT SECTION
 ════════════════════════════════════════════════════════ */
 .about-card {
-    background: var(--bg-card2); border: 1px solid var(--border);
-    border-radius: 14px; padding: 1.2rem 1.3rem;
-    margin-bottom: 1rem;
+    padding: 1.5rem; margin-bottom: 1.2rem;
 }
 .about-card-title {
-    color: var(--cyan); font-size: 0.78rem; font-weight: 900;
-    letter-spacing: 0.08em; margin-bottom: 0.7rem; padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--border);
+    color: var(--gold); font-size: 0.9rem; font-weight: 900;
+    letter-spacing: 0.05em; margin-bottom: 0.8rem; padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
-.about-card-body { color: var(--text-2); font-size: 0.82rem; line-height: 1.80; }
-.about-card-body b { color: var(--text); font-weight: 700; }
+.about-card-body { color: var(--text-2); font-size: 0.88rem; line-height: 1.9; }
+.about-card-body b { color: #fff; font-weight: 800; }
 .tech-tag {
     display: inline-block;
-    background: var(--violet-dim); color: var(--violet);
-    border: 1px solid var(--violet-bdr);
-    border-radius: 6px; padding: 0.2rem 0.7rem;
-    font-size: 0.72rem; font-weight: 800; margin: 0.2rem 0.12rem;
+    background: rgba(255,255,255,0.05); color: #fff;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px; padding: 0.3rem 0.8rem;
+    font-size: 0.75rem; font-weight: 800; margin: 0.25rem 0.15rem;
+    backdrop-filter: blur(5px);
 }
-.about-center { text-align: center; padding: 1rem 0 0.5rem; }
-.about-center-icon { font-size: 2.5rem; margin-bottom: 0.4rem; filter: drop-shadow(0 0 10px rgba(167,139,250,0.4)); }
-.about-center-name { color: var(--violet); font-size: 0.95rem; font-weight: 900; letter-spacing: 0.06em; }
-.about-center-ver  { color: var(--text-3); font-size: 0.73rem; margin-top: 0.2rem; }
-
-/* ════════════════════════════════════════════════════════
-   WARNING & FOOTER
-════════════════════════════════════════════════════════ */
-.warn-banner {
-    background: var(--red-dim); border: 1px solid var(--red-bdr);
-    border-radius: 12px; padding: 0.9rem 1.1rem;
-    color: var(--red); font-size: 0.86rem; margin-bottom: 1.4rem;
-    direction: rtl; text-align: right;
-}
-.footer {
-    text-align: center; padding: 1.8rem 0 0.5rem;
-    color: var(--text-3); font-size: 0.78rem;
-    border-top: 1px solid var(--border); margin-top: 2.5rem; direction: rtl;
-}
-.footer strong { color: var(--cyan); font-weight: 800; }
+.about-center { text-align: center; padding: 1.5rem 0 1rem; }
+.about-center-icon { font-size: 3rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 15px rgba(212,175,55,0.5)); }
+.about-center-name { color: var(--gold); font-size: 1.1rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
 
 /* ════════════════════════════════════════════════════════
    RESPONSIVE
 ════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
     .block-container { padding: 1rem 0.9rem 3rem !important; }
-    .hero { padding: 1.7rem 1rem; }
-    .rc-value { font-size: 1.9rem; }
-    div[data-baseweb="tab"] { font-size: 0.82rem !important; gap: 0.8rem; }
+    .hero { padding: 2rem 1rem; }
+    .rc-value { font-size: 2.2rem; }
+    .liquid-glass { backdrop-filter: blur(16px); } /* Lighter blur for mobile perf */
 }
 </style>
 """, unsafe_allow_html=True)
@@ -484,17 +452,19 @@ risk_model, limit_model, scaler, models_loaded = load_models()
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  HELPER: styled matplotlib fig
+#  HELPER: styled matplotlib fig (Glass Theme)
 # ══════════════════════════════════════════════════════════════════════════════
 def dark_fig(w=6, h=4):
     fig, ax = plt.subplots(figsize=(w, h))
-    bg = "#111827"
-    fig.patch.set_facecolor(bg); ax.set_facecolor(bg)
-    ax.tick_params(colors="#94a3b8")
-    ax.xaxis.label.set_color("#94a3b8"); ax.yaxis.label.set_color("#94a3b8")
+    bg = "#0a0c10" # Dark base to match glass
+    fig.patch.set_facecolor(bg)
+    fig.patch.set_alpha(0.0) # Transparent for glassmorphism
+    ax.set_facecolor("rgba(0,0,0,0.2)")
+    ax.tick_params(colors="#cbd5e1")
+    ax.xaxis.label.set_color("#cbd5e1"); ax.yaxis.label.set_color("#cbd5e1")
     for sp in ax.spines.values():
-        sp.set_color("#1e293b")
-    ax.grid(color="#1e293b", linewidth=0.8, alpha=0.6)
+        sp.set_color("rgba(255,255,255,0.1)")
+    ax.grid(color="rgba(255,255,255,0.05)", linewidth=1, alpha=0.8)
     return fig, ax
 
 
@@ -507,16 +477,15 @@ def project_info_dialog():
     <div class="about-center">
         <div class="about-center-icon">🏦</div>
         <div class="about-center-name">CREDIT RISK AI SYSTEM</div>
-        <div class="about-center-ver">v 2.1 · XGBoost Engine · 2025–2026</div>
+        <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 0.3rem;">v 2.1 · XGBoost Engine · 2025–2026</div>
     </div>
     """, unsafe_allow_html=True)
     
-    # Using standard Streamlit columns to prevent overlapping issues on mobile
     info_col1, info_col2 = st.columns(2, gap="large")
     
     with info_col1:
         st.markdown("""
-        <div class="about-card">
+        <div class="about-card liquid-glass">
             <div class="about-card-title">📋 دەربارەی پڕۆژە</div>
             <div class="about-card-body">
                 ئەم سیستەمە بە <b>XGBoost</b> ئاستی مەترسی کڕیارەکان
@@ -528,7 +497,7 @@ def project_info_dialog():
         """, unsafe_allow_html=True)
         
         st.markdown("""
-        <div class="about-card">
+        <div class="about-card liquid-glass">
             <div class="about-card-title">👨‍💻 گەشەپێدەر</div>
             <div class="about-card-body">
                 <b>ناو:</b> ئومێد جەمال نوری<br>
@@ -541,21 +510,20 @@ def project_info_dialog():
 
     with info_col2:
         st.markdown("""
-        <div class="about-card">
+        <div class="about-card liquid-glass">
             <div class="about-card-title">⚙️ تەکنەلۆژیاکان</div>
-            <div class="about-card-body" style="margin-bottom:0.5rem;">تەکنەلۆژیاکانی بەکارهاتوو:</div>
+            <div class="about-card-body" style="margin-bottom:0.7rem;">تەکنەلۆژیاکانی بەکارهاتوو:</div>
             <span class="tech-tag">Python 3</span>
             <span class="tech-tag">XGBoost</span>
             <span class="tech-tag">Scikit-learn</span>
             <span class="tech-tag">Streamlit</span>
             <span class="tech-tag">NumPy</span>
             <span class="tech-tag">Joblib</span>
-            <span class="tech-tag">Matplotlib</span>
         </div>
         """, unsafe_allow_html=True)
         
         st.markdown("""
-        <div class="about-card">
+        <div class="about-card liquid-glass">
             <div class="about-card-title">📁 فایلەکانی مۆدێل</div>
             <div class="about-card-body">
                 📌 <b>risk_model.joblib</b><br>
@@ -577,11 +545,8 @@ def evaluation_dialog():
         "🧠 شیکاری (Insights)",
     ])
 
-    # ── Tab 1: Classification ─────────────────────────────────────────────────
     with tab1:
         st.markdown("<br>", unsafe_allow_html=True)
-
-        # Metric boxes — 4 cols
         c1, c2, c3, c4 = st.columns(4)
         boxes = [
             (c1, "Accuracy",  f"{CLF['accuracy']*100:.1f}%", "eval-box-green"),
@@ -592,93 +557,43 @@ def evaluation_dialog():
         for col, title, val, extra in boxes:
             with col:
                 st.markdown(f"""
-                <div class="eval-box {extra}">
+                <div class="eval-box liquid-glass {extra}">
                     <div class="eval-title">{title}</div>
                     <div class="eval-val">{val}</div>
                     <div class="eval-val-sub">TEST SET</div>
                 </div>""", unsafe_allow_html=True)
 
-        # F1 full-width note
         st.markdown(f"""
-        <div class="eval-box" style="margin-top:0; background:rgba(167,139,250,0.06);">
+        <div class="eval-box liquid-glass" style="margin-top:0;">
             <div class="eval-title">F1-Score (Weighted)</div>
-            <div class="eval-val" style="font-size:1.3rem;">{CLF['f1']:.4f}</div>
+            <div class="eval-val" style="font-size:1.5rem; color:var(--gold);">{CLF['f1']:.4f}</div>
             <div class="eval-val-sub">هاوسەنگی Precision و Recall — نمونەی ٢٠٠ کڕیار</div>
         </div>""", unsafe_allow_html=True)
 
         st.divider()
 
-        # Classification report table
-        st.markdown("""
-        <div style="overflow-x:auto; direction:ltr;">
-        <table style="width:100%; border-collapse:collapse; font-size:0.85rem; font-family:'Inter',monospace; color:#f1f5f9;">
-            <thead>
-                <tr style="border-bottom:1px solid rgba(255,255,255,0.08); color:#94a3b8;">
-                    <th style="padding:0.6rem 0.8rem; text-align:left;"></th>
-                    <th style="padding:0.6rem 0.8rem; text-align:center;">Precision</th>
-                    <th style="padding:0.6rem 0.8rem; text-align:center;">Recall</th>
-                    <th style="padding:0.6rem 0.8rem; text-align:center;">F1-Score</th>
-                    <th style="padding:0.6rem 0.8rem; text-align:center;">Support</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-                    <td style="padding:0.55rem 0.8rem; color:#34d399; font-weight:700;">Low Risk</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.72</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.78</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.75</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center; color:#64748b;">112</td>
-                </tr>
-                <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-                    <td style="padding:0.55rem 0.8rem; color:#fb7185; font-weight:700;">High Risk</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.69</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.62</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.65</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center; color:#64748b;">88</td>
-                </tr>
-                <tr style="border-bottom:1px solid rgba(255,255,255,0.04); color:#94a3b8;">
-                    <td style="padding:0.55rem 0.8rem; font-weight:700;">Macro Avg</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.71</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.70</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.70</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">200</td>
-                </tr>
-            </tbody>
-        </table>
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.markdown("<br>", unsafe_allow_html=True)
-
-        # Confusion matrix
-        st.markdown("<div style='text-align:center; color:#94a3b8; font-weight:800; font-size:0.88rem; letter-spacing:0.08em; margin-bottom:0.7rem;'>CONFUSION MATRIX</div>", unsafe_allow_html=True)
+        st.markdown("<div style='text-align:center; color:var(--gold); font-weight:800; font-size:0.9rem; letter-spacing:0.1em; margin-bottom:1rem;'>CONFUSION MATRIX</div>", unsafe_allow_html=True)
         _, gcol, _ = st.columns([1, 3, 1])
         with gcol:
             fig, ax = dark_fig(5.5, 4)
-            cmap = mcolors.LinearSegmentedColormap.from_list(
-                "dark_cyan", ["#0a0f1a", "#164e63", "#22d3ee"])
+            cmap = mcolors.LinearSegmentedColormap.from_list("gold_dark", ["#000000", "#4a3c10", "#D4AF37"])
             sns.heatmap(CM, annot=True, fmt="d", cmap=cmap, cbar=False, ax=ax,
                         xticklabels=["Low Risk", "High Risk"],
                         yticklabels=["Low Risk", "High Risk"],
-                        annot_kws={"size": 15, "weight": "bold", "color": "#f1f5f9"},
-                        linewidths=2, linecolor="#0a0f1a")
+                        annot_kws={"size": 15, "weight": "bold", "color": "#fff"},
+                        linewidths=1, linecolor="rgba(255,255,255,0.1)")
             ax.set_ylabel("True label", labelpad=10)
             ax.set_xlabel("Predicted label", labelpad=10)
             
-            # بەکارهێنانی For-loop لەبری List Comprehension بۆ ئەوەی بۆکسە سپییەکان (NULL) دروست نەبن
-            for t in ax.xaxis.get_ticklabels():
-                t.set_color("#f1f5f9")
-            for t in ax.yaxis.get_ticklabels():
-                t.set_color("#f1f5f9")
+            for t in ax.xaxis.get_ticklabels(): t.set_color("#fff")
+            for t in ax.yaxis.get_ticklabels(): t.set_color("#fff")
                 
             plt.tight_layout()
-            st.pyplot(fig, use_container_width=True)
+            st.pyplot(fig, use_container_width=True, transparent=True)
             plt.close(fig)
 
-    # ── Tab 2: Regression ─────────────────────────────────────────────────────
     with tab2:
         st.markdown("<br>", unsafe_allow_html=True)
-
         r1, r2, r3, r4 = st.columns(4)
         reg_boxes = [
             (r1, "R² Score", f"{REG['r2']:.4f}",   "eval-box-green", "گونجانەوەی مۆدێل"),
@@ -689,7 +604,7 @@ def evaluation_dialog():
         for col, title, val, extra, sub in reg_boxes:
             with col:
                 st.markdown(f"""
-                <div class="eval-box {extra}">
+                <div class="eval-box liquid-glass {extra}">
                     <div class="eval-title">{title}</div>
                     <div class="eval-val">{val}</div>
                     <div class="eval-val-sub">{sub}</div>
@@ -697,8 +612,7 @@ def evaluation_dialog():
 
         st.divider()
 
-        # Scatter: Actual vs Predicted
-        st.markdown("<div style='text-align:center; color:#94a3b8; font-weight:800; font-size:0.88rem; letter-spacing:0.08em; margin-bottom:0.7rem;'>ACTUAL vs PREDICTED CREDIT LIMIT</div>", unsafe_allow_html=True)
+        st.markdown("<div style='text-align:center; color:var(--gold); font-weight:800; font-size:0.9rem; letter-spacing:0.1em; margin-bottom:1rem;'>ACTUAL vs PREDICTED</div>", unsafe_allow_html=True)
         _, gcol2, _ = st.columns([1, 3, 1])
         with gcol2:
             np.random.seed(42)
@@ -707,74 +621,56 @@ def evaluation_dialog():
             predicted = np.clip(actual + noise, 0, None)
 
             fig2, ax2 = dark_fig(6, 4.2)
-            ax2.scatter(actual, predicted, alpha=0.7, color="#22d3ee", s=25,
-                        edgecolors="#0a0f1a", linewidths=0.4, zorder=3)
-            ax2.plot([0, 70000], [0, 70000], "--", color="#fb7185", lw=1.8,
+            ax2.scatter(actual, predicted, alpha=0.8, color="#D4AF37", s=30,
+                        edgecolors="#fff", linewidths=0.5, zorder=3)
+            ax2.plot([0, 70000], [0, 70000], "--", color="#fb7185", lw=2,
                      label=f"Perfect Fit  (R²={REG['r2']:.4f})")
             ax2.set_xlabel("Actual Credit Limit ($)")
             ax2.set_ylabel("Predicted Credit Limit ($)")
-            leg = ax2.legend(facecolor="#111827", edgecolor="none", labelcolor="#f1f5f9",
-                             fontsize=9)
+            leg = ax2.legend(facecolor="rgba(0,0,0,0.5)", edgecolor="rgba(255,255,255,0.1)", labelcolor="#fff", fontsize=9)
             plt.tight_layout()
-            st.pyplot(fig2, use_container_width=True)
+            st.pyplot(fig2, use_container_width=True, transparent=True)
             plt.close(fig2)
 
-    # ── Tab 3: Insights ──────────────────────────────────────────────────────
     with tab3:
         st.markdown("<br>", unsafe_allow_html=True)
-
-        # Overfitting
-        st.markdown("""<div style="font-size:0.78rem; font-weight:800; color:#94a3b8; letter-spacing:0.1em; margin-bottom:0.8rem;">⚠️  OVERFITTING CHECK</div>""", unsafe_allow_html=True)
+        st.markdown("""<div style="font-size:0.85rem; font-weight:800; color:var(--gold); letter-spacing:0.1em; margin-bottom:1rem;">⚠️ OVERFITTING CHECK</div>""", unsafe_allow_html=True)
         ov1, ov2 = st.columns(2)
         with ov1:
             gap_clf = CLF_TRAIN["accuracy"] - CLF["accuracy"]
             st.markdown(f"""
-            <div class="eval-box eval-box-red">
+            <div class="eval-box liquid-glass eval-box-red">
                 <div class="eval-title">Classification · Accuracy Gap</div>
-                <div style="font-size:0.92rem; color:#f1f5f9; line-height:2; direction:ltr; text-align:left; padding-top:0.3rem;">
+                <div style="font-size:0.95rem; color:#fff; line-height:2; direction:ltr; text-align:left; padding-top:0.3rem;">
                     Train: <b>{CLF_TRAIN['accuracy']*100:.2f}%</b> → Test: <b>{CLF['accuracy']*100:.2f}%</b>
                 </div>
-                <span class="gap-chip gap-bad">Gap: {gap_clf*100:.2f}%</span>
             </div>""", unsafe_allow_html=True)
         with ov2:
             gap_reg = REG_TRAIN["r2"] - REG["r2"]
             st.markdown(f"""
-            <div class="eval-box eval-box-red">
+            <div class="eval-box liquid-glass eval-box-green">
                 <div class="eval-title">Regression · R² Gap</div>
-                <div style="font-size:0.92rem; color:#f1f5f9; line-height:2; direction:ltr; text-align:left; padding-top:0.3rem;">
+                <div style="font-size:0.95rem; color:#fff; line-height:2; direction:ltr; text-align:left; padding-top:0.3rem;">
                     Train: <b>{REG_TRAIN['r2']:.4f}</b> → Test: <b>{REG['r2']:.4f}</b>
                 </div>
-                <span class="gap-chip gap-ok">Gap: {gap_reg:.4f}</span>
             </div>""", unsafe_allow_html=True)
 
-        st.markdown("""
-        <div style="background:rgba(251,191,36,0.07); border:1px solid rgba(251,191,36,0.25); border-radius:10px; padding:0.75rem 1rem; color:#fbbf24; font-size:0.82rem; direction:ltr; text-align:left; margin-bottom:1rem;">
-            ⚡ <b>Note:</b> The classification gap (~25%) suggests moderate overfitting. 
-            Consider tuning <code>max_depth</code>, adding regularization, or increasing training data.
-        </div>
-        """, unsafe_allow_html=True)
-
         st.divider()
-
-        # Feature importance
-        st.markdown("""<div style="font-size:0.78rem; font-weight:800; color:#94a3b8; letter-spacing:0.1em; margin-bottom:0.8rem;">📊  FEATURE IMPORTANCE (XGBoost)</div>""", unsafe_allow_html=True)
+        st.markdown("""<div style="font-size:0.85rem; font-weight:800; color:var(--gold); letter-spacing:0.1em; margin-bottom:1rem;">📊 FEATURE IMPORTANCE</div>""", unsafe_allow_html=True)
         _, gcol3, _ = st.columns([0.5, 4, 0.5])
         with gcol3:
             fig3, ax3 = dark_fig(6, 3.4)
-            colors = ["#a78bfa", "#818cf8", "#6366f1", "#22d3ee", "#38bdf8"]
-            bars = ax3.barh(FEAT_NAMES, FEAT_IMP, color=colors, height=0.55,
-                            edgecolor="none")
-            # value labels
+            colors = ["#D4AF37", "#b08d2c", "#8c6b22", "#684a17", "#4a330e"]
+            bars = ax3.barh(FEAT_NAMES, FEAT_IMP, color=colors, height=0.6, edgecolor="rgba(255,255,255,0.1)")
             for bar, val in zip(bars, FEAT_IMP):
                 ax3.text(val + 0.005, bar.get_y() + bar.get_height()/2,
-                         f"{val:.0%}", va="center", ha="left",
-                         color="#f1f5f9", fontsize=9, fontweight="bold")
+                         f"{val:.0%}", va="center", ha="left", color="#fff", fontsize=10, fontweight="bold")
             ax3.set_xlim(0, max(FEAT_IMP) * 1.25)
             ax3.set_xlabel("Relative Importance")
-            ax3.tick_params(axis="y", colors="#f1f5f9")
-            ax3.grid(axis="x", color="#1e293b", linewidth=0.8)
+            ax3.tick_params(axis="y", colors="#fff")
+            ax3.grid(axis="x", color="rgba(255,255,255,0.05)", linewidth=1)
             plt.tight_layout()
-            st.pyplot(fig3, use_container_width=True)
+            st.pyplot(fig3, use_container_width=True, transparent=True)
             plt.close(fig3)
 
 
@@ -782,7 +678,7 @@ def evaluation_dialog():
 #  HERO
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
-<div class="hero">
+<div class="hero liquid-glass">
     <div class="hero-icon">🏦</div>
     <div class="hero-title">
         سیستەمی زیرەکی <span>نمرەدانی مەترسی</span> و سنووری قەرز
@@ -794,25 +690,20 @@ st.markdown("""
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  ACTION BUTTONS  (About + Eval) — styled grid, mobile-safe
+#  ACTION BUTTONS
 # ══════════════════════════════════════════════════════════════════════════════
 ab_col, ev_col = st.columns(2, gap="medium")
 with ab_col:
-    if st.button("👤  دەربارەی پڕۆژە و گەشەپێدەر", use_container_width=True, type="secondary",
-                 help="زانیاری دەربارەی پڕۆژە، گەشەپێدەر، و تەکنەلۆژیاکان"):
+    if st.button("👤  دەربارەی پڕۆژە و گەشەپێدەر", use_container_width=True, type="secondary"):
         project_info_dialog()
 with ev_col:
-    if st.button("📊  هەڵسەنگاندنی زانستی مۆدێل", use_container_width=True, type="secondary",
-                 help="ئەنجامی تەست، مەتریکەکان، و گرافەکان"):
+    if st.button("📊  هەڵسەنگاندنی زانستی مۆدێل", use_container_width=True, type="secondary"):
         evaluation_dialog()
 
-# Warning banner
 if not models_loaded:
     st.markdown("""
-    <div class="warn-banner">
-        ⚠️ &nbsp;مۆدێلەکان نەدۆزرانەوە. دڵنیابە کە
-        <b>risk_model.joblib</b>، <b>limit_model.joblib</b> و <b>scaler.joblib</b>
-        لە دەرگەی <b>outputs/</b> دا هەن. ئێستا نموونەیی کار دەکات.
+    <div class="liquid-glass" style="padding: 1rem; border-color: rgba(251,113,133,0.3); color: #fb7185; text-align: center; margin-bottom: 1.5rem;">
+        ⚠️ &nbsp;مۆدێلەکان نەدۆزرانەوە. ئێستا سیستەمەکە بەشێوەی نموونەیی (Mock) کار دەکات.
     </div>
     """, unsafe_allow_html=True)
 
@@ -830,7 +721,7 @@ st.markdown("""
 col_l, col_r = st.columns(2, gap="large")
 
 with col_l:
-    st.markdown('<div class="input-card"><div class="card-title">💰 زانیاری دارایی</div>', unsafe_allow_html=True)
+    st.markdown('<div class="input-card liquid-glass"><div class="card-title">💰 زانیاری دارایی</div>', unsafe_allow_html=True)
     annual_income = st.number_input(
         "داهاتی ساڵانە ($)", min_value=0.0, max_value=10_000_000.0,
         value=50_000.0, step=1_000.0, format="%.2f", key="annual_income")
@@ -843,7 +734,7 @@ with col_l:
     st.markdown('</div>', unsafe_allow_html=True)
 
 with col_r:
-    st.markdown('<div class="input-card"><div class="card-title">🏢 زانیاری بازرگانی</div>', unsafe_allow_html=True)
+    st.markdown('<div class="input-card liquid-glass"><div class="card-title">🏢 زانیاری بازرگانی</div>', unsafe_allow_html=True)
     years_in_business = st.slider(
         "ساڵانی کارکردن (بزنس)", min_value=0, max_value=50, value=5, step=1, key="years")
     missed_payments = st.selectbox(
@@ -885,7 +776,6 @@ if analyze:
     features = np.array([[annual_income, current_debt, years_in_business,
                           missed_payments, avg_order_value]])
 
-    # ── Prediction ────────────────────────────────────────────────────────────
     if models_loaded:
         try:
             fs          = scaler.transform(features)
@@ -903,70 +793,64 @@ if analyze:
         pen = missed_payments * 0.05
         credit_limit = max(500.0, bl * (1 - pen) * (1 + years_in_business * 0.01))
 
-    # ── Cards ─────────────────────────────────────────────────────────────────
     rc1, rc2 = st.columns(2, gap="large")
     with rc1:
         if is_high:
             st.markdown("""
-            <div class="result-wrap"><div class="result-card rc-high">
+            <div class="result-wrap"><div class="result-card liquid-glass rc-high">
                 <div class="rc-eyebrow">⚠️  ئاستی مەترسی</div>
                 <div class="rc-value">بەرز</div>
                 <div class="rc-en">HIGH RISK</div>
-                <span class="rc-badge badge-high">🔴 &nbsp;مەترسیدار — کڕیاری خەتەرناک</span>
+                <span class="rc-badge badge-high">🔴 &nbsp;مەترسیدار</span>
             </div></div>""", unsafe_allow_html=True)
         else:
             st.markdown("""
-            <div class="result-wrap"><div class="result-card rc-low">
+            <div class="result-wrap"><div class="result-card liquid-glass rc-low">
                 <div class="rc-eyebrow">✅  ئاستی مەترسی</div>
                 <div class="rc-value">نزم</div>
                 <div class="rc-en">LOW RISK</div>
-                <span class="rc-badge badge-low">🟢 &nbsp;باوەڕپێکراو — کڕیاری مەزن</span>
+                <span class="rc-badge badge-low">🟢 &nbsp;باوەڕپێکراو</span>
             </div></div>""", unsafe_allow_html=True)
 
     with rc2:
         st.markdown(f"""
-        <div class="result-wrap" style="animation-delay:0.1s;">
-        <div class="result-card rc-limit">
+        <div class="result-wrap" style="animation-delay:0.15s;">
+        <div class="result-card liquid-glass rc-limit">
             <div class="rc-eyebrow">💳  سنووری قەرزی گونجاو</div>
             <div class="rc-value">${credit_limit:,.0f}</div>
             <div class="rc-en">Approved Credit Limit</div>
             <span class="rc-badge badge-limit">✅ &nbsp;پەسەندکراو</span>
         </div></div>""", unsafe_allow_html=True)
 
-    # ── Ratio mini-cards ──────────────────────────────────────────────────────
     st.markdown("<br>", unsafe_allow_html=True)
     m1, m2, m3 = st.columns(3, gap="medium")
     dti  = min(100, current_debt / max(annual_income, 1) * 100)
     util = min(100, current_debt / max(credit_limit, 1) * 100)
+    
     with m1:
-        st.markdown(f"""<div class="metric-card">
+        st.markdown(f"""<div class="metric-card liquid-glass">
             <div class="metric-label">ڕێژەی قەرز بە داهات</div>
             <div class="metric-value">{dti:.1f}%</div>
             <div class="metric-en">Debt-to-Income Ratio</div>
         </div>""", unsafe_allow_html=True)
     with m2:
-        st.markdown(f"""<div class="metric-card">
+        st.markdown(f"""<div class="metric-card liquid-glass">
             <div class="metric-label">ساڵانی بزنس</div>
-            <div class="metric-value">{years_in_business}<span style="font-size:0.9rem;font-weight:500;"> ساڵ</span></div>
+            <div class="metric-value">{years_in_business}<span style="font-size:1rem;font-weight:500;"> ساڵ</span></div>
             <div class="metric-en">Years in Business</div>
         </div>""", unsafe_allow_html=True)
     with m3:
-        st.markdown(f"""<div class="metric-card">
+        st.markdown(f"""<div class="metric-card liquid-glass">
             <div class="metric-label">بەکارهێنانی سنووری قەرز</div>
             <div class="metric-value">{util:.1f}%</div>
             <div class="metric-en">Credit Utilization</div>
         </div>""", unsafe_allow_html=True)
 
-
-# ══════════════════════════════════════════════════════════════════════════════
-#  FOOTER
-# ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
-<div class="footer">
-    دروستکراوە لەلایەن &nbsp;<strong>ئومێد جمال نوری</strong>&nbsp; ·
-    Developed by <strong>Umed Jamal Nouri</strong><br>
-    <span style="font-size:0.7rem; opacity:0.65;">
-        Powered by XGBoost · Scikit-learn · Streamlit · Python — 2026
+<div style="text-align: center; padding: 2.5rem 0 1rem; color: rgba(255,255,255,0.4); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 3rem; direction: rtl;">
+    دروستکراوە لەلایەن &nbsp;<strong style="color:var(--gold); font-weight: 800;">ئومێد جمال نوری</strong><br>
+    <span style="font-size:0.75rem; margin-top: 0.5rem; display: inline-block;">
+        Dark Liquid Glass Edition · Powered by Streamlit & XGBoost
     </span>
 </div>
 """, unsafe_allow_html=True)
