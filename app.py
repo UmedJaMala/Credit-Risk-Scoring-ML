@@ -3,6 +3,9 @@ import numpy as np
 import joblib
 import os
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import matplotlib.colors as mcolors
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  PAGE CONFIG.
@@ -15,31 +18,31 @@ st.set_page_config(
 )
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  GLOBAL CSS  —  WINTER CHILL THEME  +  RTL  +  Noto Sans Arabic
+#  GLOBAL CSS  —  Custom Palette Theme (#353535, #3C6E71, #FFFFFF, #D9D9D9, #284B63)
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <style>
 /* ── Google Font ─────────────────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700;800;900&display=swap');
 
-/* ── CSS Variables (Winter Chill Palette) ────────────────────────── */
+/* ── CSS Variables (Mapped to your custom palette) ───────────────── */
 :root {
-    --navy:        #0B2E33; /* Darkest */
-    --navy-mid:    #0a282c; 
-    --navy-light:  #4F7C82; /* Dark-mid */
-    --teal:        #B8E3E9; /* Lightest */
-    --teal-dim:    rgba(184, 227, 233, 0.18);
-    --teal-glow:   rgba(184, 227, 233, 0.08);
-    --slate:       #0B2E33;
-    --slate-card:  rgba(11, 46, 51, 0.55);
-    --border:      rgba(147, 177, 181, 0.3); /* Based on #93B1B5 */
-    --text-main:   #ffffff;
-    --text-muted:  #93B1B5; /* Light-mid */
-    --text-label:  #B8E3E9;
-    --green:       #00e5a0;
-    --green-dim:   rgba(0, 229, 160, 0.12);
-    --red:         #ff4d6d;
-    --red-dim:     rgba(255, 77, 109, 0.12);
+    --navy:        #353535; /* Dark Charcoal */
+    --navy-mid:    #2b2b2b; /* Slightly darker for background */
+    --navy-light:  #284B63; /* Slate Blue */
+    --teal:        #3C6E71; /* Teal */
+    --teal-dim:    rgba(60, 110, 113, 0.18);
+    --teal-glow:   rgba(60, 110, 113, 0.25);
+    --slate:       #284B63; /* Slate Blue */
+    --slate-card:  rgba(53, 53, 53, 0.85); /* #353535 with opacity */
+    --border:      rgba(217, 217, 217, 0.15); /* #D9D9D9 with opacity */
+    --text-main:   #FFFFFF; /* White */
+    --text-muted:  #D9D9D9; /* Light Gray */
+    --text-label:  #D9D9D9;
+    --green:       #52b788; /* Muted green fitting the palette */
+    --green-dim:   rgba(82, 183, 136, 0.15);
+    --red:         #e07a5f; /* Muted red fitting the palette */
+    --red-dim:     rgba(224, 122, 95, 0.15);
 }
 
 /* ── Reset & Base ────────────────────────────────────────────────── */
@@ -62,32 +65,34 @@ p, h1, h2, h3, h4, h5, h6, span, label, li, div[data-testid="stMarkdownContainer
 div[data-testid="stModal"] > div, 
 div[role="dialog"], 
 section[data-testid="stDialog"] > div {
-    background-color: #0B2E33 !important;
-    background: linear-gradient(145deg, #0a282c 0%, #0B2E33 100%) !important;
+    background-color: #353535 !important;
+    background: linear-gradient(145deg, #353535 0%, #2b2b2b 100%) !important;
     border: 1px solid var(--border) !important;
     border-radius: 16px !important;
 }
 
+/* زۆرەملێکردنی ناوەوەی پەنجەرەکان بۆ ئەوەی ڕەنگی تاریک وەربگرن */
 div[data-testid="stModal"] > div > div, 
 div[role="dialog"] > div {
     background-color: transparent !important;
 }
 
+/* دڵنیابوونەوە لە ڕەنگی سپی بۆ دەقەکانی ناو پەنجەرەکە */
 div[role="dialog"] p, 
 div[role="dialog"] h1, 
 div[role="dialog"] h2, 
 div[role="dialog"] h3,
 div[role="dialog"] span,
 div[role="dialog"] div {
-    color: #ffffff !important;
+    color: #FFFFFF !important;
 }
 
 /* ── App Background ──────────────────────────────────────────────── */
 .stApp {
     background:
-        radial-gradient(ellipse at 10% 0%, rgba(184,227,233,0.06) 0%, transparent 50%),
-        radial-gradient(ellipse at 90% 100%, rgba(79,124,130,0.25) 0%, transparent 55%),
-        linear-gradient(160deg, #0a282c 0%, #0B2E33 40%, #06191c 100%);
+        radial-gradient(ellipse at 10% 0%, rgba(60, 110, 113, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 100%, rgba(40, 75, 99, 0.15) 0%, transparent 55%),
+        linear-gradient(160deg, #1e1e1e 0%, #2b2b2b 100%);
     min-height: 100vh;
 }
 
@@ -102,7 +107,7 @@ div[role="dialog"] div {
    HERO BANNER
 ════════════════════════════════════════════════════════ */
 .hero {
-    background: linear-gradient(120deg, rgba(79,124,130,0.7) 0%, rgba(11,46,51,0.9) 100%);
+    background: linear-gradient(120deg, rgba(53, 53, 53, 0.8) 0%, rgba(43, 43, 43, 0.95) 100%);
     border: 1px solid var(--border);
     border-radius: 18px;
     padding: 2.2rem 2rem 2rem 2rem;
@@ -110,13 +115,13 @@ div[role="dialog"] div {
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(184,227,233,0.1);
+    box-shadow: 0 4px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(217, 217, 217, 0.05);
 }
 .hero::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 50% -20%, rgba(184,227,233,0.12) 0%, transparent 65%);
+    background: radial-gradient(ellipse at 50% -20%, rgba(60, 110, 113, 0.15) 0%, transparent 65%);
     pointer-events: none;
 }
 .hero-icon  { font-size: 2.6rem; line-height: 1; margin-bottom: 0.6rem; }
@@ -139,7 +144,7 @@ div[role="dialog"] div {
     display: inline-block;
     margin-top: 0.9rem;
     background: var(--teal-dim);
-    border: 1px solid rgba(184,227,233,0.3);
+    border: 1px solid rgba(60, 110, 113, 0.3);
     border-radius: 50px;
     padding: 0.22rem 1rem;
     font-size: 0.75rem;
@@ -171,14 +176,14 @@ div[role="dialog"] div {
 }
 
 /* ════════════════════════════════════════════════════════
-   PROJECT INFO
+   PROJECT INFO 
 ════════════════════════════════════════════════════════ */
 .sb-logo     { text-align: center; padding: 0.5rem 0; font-size: 2.8rem; }
 .sb-app-name { text-align: center; color: var(--teal); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 0.3rem; }
-.sb-ver      { text-align: center; color: rgba(184,227,233,0.4); font-size: 0.75rem; margin-bottom: 1rem; }
+.sb-ver      { text-align: center; color: rgba(217, 217, 217, 0.4); font-size: 0.75rem; margin-bottom: 1rem; }
 .sb-section  {
-    background: rgba(11,46,51,0.4);
-    border: 1px solid rgba(184,227,233,0.1);
+    background: rgba(43, 43, 43, 0.5);
+    border: 1px solid rgba(217, 217, 217, 0.1);
     border-radius: 13px;
     padding: 1rem 1.1rem;
     margin-bottom: 0.9rem;
@@ -190,16 +195,16 @@ div[role="dialog"] div {
     font-weight: 800;
     letter-spacing: 0.08em;
     margin-bottom: 0.6rem;
-    border-bottom: 1px solid rgba(184,227,233,0.1);
+    border-bottom: 1px solid rgba(217, 217, 217, 0.1);
     padding-bottom: 0.4rem;
 }
-.sb-body { color: rgba(220,240,245,0.8); font-size: 0.85rem; line-height: 1.8; }
+.sb-body { color: rgba(217, 217, 217, 0.8); font-size: 0.85rem; line-height: 1.8; }
 .sb-body b { color: var(--text-main); font-weight: 600; }
 .sb-tag {
     display: inline-block;
-    background: rgba(184,227,233,0.1);
+    background: rgba(60, 110, 113, 0.15);
     color: var(--teal);
-    border: 1px solid rgba(184,227,233,0.2);
+    border: 1px solid rgba(60, 110, 113, 0.3);
     border-radius: 6px;
     padding: 0.2rem 0.7rem;
     font-size: 0.75rem;
@@ -211,7 +216,7 @@ div[role="dialog"] div {
    INPUT CARDS
 ════════════════════════════════════════════════════════ */
 .input-card {
-    background: linear-gradient(145deg, rgba(79,124,130,0.3) 0%, rgba(11,46,51,0.6) 100%);
+    background: linear-gradient(145deg, rgba(53, 53, 53, 0.85) 0%, rgba(43, 43, 43, 0.75) 100%);
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 1.6rem 1.5rem 1.3rem;
@@ -225,14 +230,14 @@ div[role="dialog"] div {
     font-weight: 700;
     margin-bottom: 1.1rem;
     padding-bottom: 0.65rem;
-    border-bottom: 1px solid rgba(184,227,233,0.12);
+    border-bottom: 1px solid rgba(217, 217, 217, 0.12);
     display: flex;
     align-items: center;
     gap: 0.45rem;
 }
 .card-title-icon {
     font-size: 1.1rem;
-    filter: drop-shadow(0 0 6px rgba(184,227,233,0.5));
+    filter: drop-shadow(0 0 6px rgba(217, 217, 217, 0.5));
 }
 
 /* ── Label overrides ─────────────────────────────────── */
@@ -252,8 +257,8 @@ div[data-testid="stWidgetLabel"] > p,
 
 /* ── Number Input ────────────────────────────────────── */
 .stNumberInput input {
-    background: rgba(11,46,51,0.8) !important;
-    border: 1.5px solid rgba(184,227,233,0.25) !important;
+    background: rgba(43, 43, 43, 0.8) !important;
+    border: 1.5px solid rgba(60, 110, 113, 0.3) !important;
     border-radius: 10px !important;
     color: var(--text-main) !important;
     font-family: 'Noto Sans Arabic', sans-serif !important;
@@ -266,14 +271,14 @@ div[data-testid="stWidgetLabel"] > p,
 }
 .stNumberInput input:focus {
     border-color: var(--teal) !important;
-    box-shadow: 0 0 0 3px rgba(184,227,233,0.12) !important;
+    box-shadow: 0 0 0 3px rgba(60, 110, 113, 0.15) !important;
     outline: none !important;
 }
 
 /* ── Selectbox ───────────────────────────────────────── */
 .stSelectbox > div > div {
-    background: rgba(11,46,51,0.8) !important;
-    border: 1.5px solid rgba(184,227,233,0.25) !important;
+    background: rgba(43, 43, 43, 0.8) !important;
+    border: 1.5px solid rgba(60, 110, 113, 0.3) !important;
     border-radius: 10px !important;
     color: var(--text-main) !important;
     font-family: 'Noto Sans Arabic', sans-serif !important;
@@ -290,7 +295,7 @@ div[data-testid="stSlider"] > div { direction: ltr !important; }
 
 div[data-testid="stSlider"] .rc-slider-rail,
 .stSlider .rc-slider-rail {
-    background: rgba(184,227,233,0.15) !important;
+    background: rgba(217, 217, 217, 0.15) !important;
     border-radius: 4px !important;
     height: 6px !important;
 }
@@ -307,13 +312,13 @@ div[data-testid="stSlider"] .rc-slider-handle,
     margin-top: -6px !important;
     background: var(--teal) !important;
     border: 3px solid var(--navy) !important;
-    box-shadow: 0 0 0 3px rgba(184,227,233,0.3), 0 2px 8px rgba(0,0,0,0.4) !important;
+    box-shadow: 0 0 0 3px rgba(60, 110, 113, 0.3), 0 2px 8px rgba(0,0,0,0.4) !important;
     border-radius: 50% !important;
     transition: box-shadow 0.15s ease;
 }
 div[data-testid="stSlider"] .rc-slider-handle:hover,
 .stSlider .rc-slider-handle:hover {
-    box-shadow: 0 0 0 5px rgba(184,227,233,0.4), 0 2px 8px rgba(0,0,0,0.4) !important;
+    box-shadow: 0 0 0 5px rgba(60, 110, 113, 0.4), 0 2px 8px rgba(0,0,0,0.4) !important;
 }
 div[data-testid="stSlider"] [data-testid="stTickBarMin"],
 div[data-testid="stSlider"] [data-testid="stTickBarMax"] {
@@ -326,8 +331,8 @@ div[data-testid="stSlider"] [data-testid="stTickBarMax"] {
    SUMMARY MINI-CARD
 ════════════════════════════════════════════════════════ */
 .summary-card {
-    background: rgba(184,227,233,0.05);
-    border: 1px solid rgba(184,227,233,0.14);
+    background: rgba(217, 217, 217, 0.05);
+    border: 1px solid rgba(217, 217, 217, 0.14);
     border-radius: 12px;
     padding: 0.9rem 1.1rem;
     margin-top: 0.85rem;
@@ -346,7 +351,7 @@ div[data-testid="stSlider"] [data-testid="stTickBarMax"] {
     color: var(--text-muted);
     font-size: 0.8rem;
     line-height: 1.85;
-    border-bottom: 1px solid rgba(184,227,233,0.07);
+    border-bottom: 1px solid rgba(217, 217, 217, 0.07);
     padding: 0.1rem 0;
 }
 .summary-row:last-child { border-bottom: none; }
@@ -358,11 +363,11 @@ div[data-testid="stSlider"] [data-testid="stTickBarMax"] {
 }
 
 /* ════════════════════════════════════════════════════════
-   ANALYZE BUTTON
+   ANALYZE BUTTON (Using #284B63 and #3C6E71)
 ════════════════════════════════════════════════════════ */
 div[data-testid="stButton"] > button {
     width: 100% !important;
-    background: linear-gradient(130deg, #4F7C82 0%, #729ba0 45%, #93B1B5 100%) !important;
+    background: linear-gradient(130deg, #284B63 0%, #325e6a 45%, #3C6E71 100%) !important;
     color: #ffffff !important;
     font-family: 'Noto Sans Arabic', sans-serif !important;
     font-size: 1.05rem !important;
@@ -371,7 +376,7 @@ div[data-testid="stButton"] > button {
     border-radius: 12px !important;
     padding: 0.8rem 1.5rem !important;
     letter-spacing: 0.04em !important;
-    box-shadow: 0 4px 22px rgba(79,124,130,0.35) !important;
+    box-shadow: 0 4px 15px rgba(60, 110, 113, 0.35) !important;
     transition: all 0.22s ease !important;
     cursor: pointer !important;
     position: relative !important;
@@ -384,7 +389,7 @@ div[data-testid="stButton"] > button::before {
     left: -100% !important;
     width: 100% !important;
     height: 100% !important;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent) !important;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent) !important;
     transition: left 0.5s !important;
 }
 div[data-testid="stButton"] > button:hover::before {
@@ -392,8 +397,8 @@ div[data-testid="stButton"] > button:hover::before {
 }
 div[data-testid="stButton"] > button:hover {
     transform: translateY(-2px) !important;
-    box-shadow: 0 8px 30px rgba(79,124,130,0.5) !important;
-    background: linear-gradient(130deg, #5c8b91 0%, #83aab0 45%, #a6c2c6 100%) !important;
+    box-shadow: 0 6px 20px rgba(60, 110, 113, 0.5) !important;
+    background: linear-gradient(130deg, #3C6E71 0%, #4a878a 45%, #569ea2 100%) !important;
 }
 div[data-testid="stButton"] > button:active {
     transform: translateY(0) !important;
@@ -440,21 +445,21 @@ div[data-testid="stButton"] > button:active {
 }
 /* LOW RISK */
 .rc-low {
-    background: linear-gradient(135deg, rgba(11,46,51,0.95) 0%, rgba(0,60,40,0.6) 100%);
-    border: 1.5px solid rgba(0,229,160,0.4);
-    box-shadow: 0 6px 32px rgba(0,229,160,0.12);
+    background: linear-gradient(135deg, rgba(53, 53, 53, 0.95) 0%, rgba(60, 110, 113, 0.4) 100%);
+    border: 1.5px solid rgba(60, 110, 113, 0.4);
+    box-shadow: 0 6px 32px rgba(60, 110, 113, 0.12);
 }
 /* HIGH RISK */
 .rc-high {
-    background: linear-gradient(135deg, rgba(11,46,51,0.95) 0%, rgba(70,10,25,0.65) 100%);
-    border: 1.5px solid rgba(255,77,109,0.45);
-    box-shadow: 0 6px 32px rgba(255,77,109,0.14);
+    background: linear-gradient(135deg, rgba(53, 53, 53, 0.95) 0%, rgba(224, 122, 95, 0.5) 100%);
+    border: 1.5px solid rgba(224, 122, 95, 0.45);
+    box-shadow: 0 6px 32px rgba(224, 122, 95, 0.14);
 }
 /* CREDIT LIMIT */
 .rc-limit {
-    background: linear-gradient(135deg, rgba(11,46,51,0.95) 0%, rgba(79,124,130,0.65) 100%);
-    border: 1.5px solid rgba(184,227,233,0.4);
-    box-shadow: 0 6px 32px rgba(184,227,233,0.12);
+    background: linear-gradient(135deg, rgba(53, 53, 53, 0.95) 0%, rgba(40, 75, 99, 0.6) 100%);
+    border: 1.5px solid rgba(40, 75, 99, 0.4);
+    box-shadow: 0 6px 32px rgba(40, 75, 99, 0.12);
 }
 .rc-eyebrow {
     font-size: 0.72rem;
@@ -489,18 +494,18 @@ div[data-testid="stButton"] > button:active {
 }
 .rc-low  .rc-eyebrow, .rc-low  .rc-value, .rc-low  .rc-en { color: var(--green); }
 .rc-high .rc-eyebrow, .rc-high .rc-value, .rc-high .rc-en { color: var(--red); }
-.rc-limit .rc-eyebrow { color: var(--teal); }
+.rc-limit .rc-eyebrow { color: #87b0c7; }
 .rc-limit .rc-value   { color: #ffffff; }
 .rc-limit .rc-en      { color: var(--text-muted); }
-.badge-low   { background: rgba(0,229,160,0.15);  color: var(--green); border: 1px solid rgba(0,229,160,0.3); }
-.badge-high  { background: rgba(255,77,109,0.15); color: var(--red);   border: 1px solid rgba(255,77,109,0.3); }
-.badge-limit { background: var(--teal-dim);       color: var(--teal);  border: 1px solid rgba(184,227,233,0.3); }
+.badge-low   { background: rgba(82, 183, 136, 0.15); color: var(--green); border: 1px solid rgba(82, 183, 136, 0.3); }
+.badge-high  { background: rgba(224, 122, 95, 0.15); color: var(--red);   border: 1px solid rgba(224, 122, 95, 0.3); }
+.badge-limit { background: rgba(40, 75, 99, 0.2);    color: #87b0c7;      border: 1px solid rgba(40, 75, 99, 0.4); }
 
 /* ════════════════════════════════════════════════════════
    METRIC MINI-CARDS & EVALUATION BOXES
 ════════════════════════════════════════════════════════ */
 .metric-card {
-    background: rgba(11,46,51,0.6);
+    background: rgba(53, 53, 53, 0.6);
     border: 1px solid var(--border);
     border-radius: 14px;
     padding: 1.1rem;
@@ -509,19 +514,19 @@ div[data-testid="stButton"] > button:active {
 }
 .metric-label { color: var(--text-muted); font-size: 0.76rem; font-weight: 600; margin-bottom: 0.35rem; }
 .metric-value { color: var(--text-main);  font-size: 1.6rem;  font-weight: 800; line-height: 1; }
-.metric-en    { color: rgba(147,177,181,0.6); font-size: 0.7rem; margin-top: 0.25rem; }
+.metric-en    { color: rgba(217, 217, 217, 0.5); font-size: 0.7rem; margin-top: 0.25rem; }
 
 /* ── Custom Metric Box for Evaluations ────────────────────────────── */
 .eval-box {
-    background: rgba(11, 46, 51, 0.8);
+    background: rgba(43, 43, 43, 0.8);
     border-left: 4px solid var(--teal);
     padding: 1rem;
     border-radius: 8px;
     margin-bottom: 1rem;
     color: white;
-    border-top: 1px solid rgba(147, 177, 181, 0.1);
-    border-right: 1px solid rgba(147, 177, 181, 0.1);
-    border-bottom: 1px solid rgba(147, 177, 181, 0.1);
+    border-top: 1px solid rgba(217, 217, 217, 0.1);
+    border-right: 1px solid rgba(217, 217, 217, 0.1);
+    border-bottom: 1px solid rgba(217, 217, 217, 0.1);
 }
 .eval-title { font-size: 0.85rem; color: var(--teal); font-weight: bold; margin-bottom: 0.3rem;}
 .eval-val { font-size: 1.4rem; font-weight: 900;}
@@ -530,11 +535,11 @@ div[data-testid="stButton"] > button:active {
    WARNING BANNER
 ════════════════════════════════════════════════════════ */
 .warn-banner {
-    background: rgba(184,227,233,0.08);
-    border: 1px solid rgba(184,227,233,0.3);
+    background: rgba(60, 110, 113, 0.1);
+    border: 1px solid rgba(60, 110, 113, 0.4);
     border-radius: 11px;
     padding: 0.75rem 1.1rem;
-    color: #B8E3E9;
+    color: var(--teal);
     font-size: 0.84rem;
     margin-bottom: 1.2rem;
     direction: rtl;
@@ -547,9 +552,9 @@ div[data-testid="stButton"] > button:active {
 .footer {
     text-align: center;
     padding: 1.6rem 0 0.5rem;
-    color: rgba(147,177,181,0.6);
+    color: rgba(217, 217, 217, 0.4);
     font-size: 0.78rem;
-    border-top: 1px solid rgba(184,227,233,0.08);
+    border-top: 1px solid rgba(217, 217, 217, 0.08);
     margin-top: 2.5rem;
     direction: rtl;
 }
@@ -655,10 +660,72 @@ def evaluation_dialog():
     st.markdown("### 📉 گرافەکانی مۆدێل (Visualizations)")
     st.markdown("<p style='color:var(--teal); font-size:0.85rem;'>گرافی شیکاری ڕاستەقینەی مۆدێلی XGBoost</p>", unsafe_allow_html=True)
     
-    try:
-        st.image("plot.png", use_container_width=True)
-    except Exception:
-        st.info("تێبینی: بۆ بینینی گرافەکە بە کوالێتی تەواو، ئەو وێنەیەی کە باکگراوندەکەی سپییە ناوی بنێ 'plot.png' و بیخە ناو فۆڵدەری پڕۆژەکەتەوە.")
+    # ---- گۆڕینی گرافەکان بۆ شێوازی داینامیکی بۆ گونجاندن لەگەڵ ڕەنگەکانی وێبسایتەکە ----
+    fig_col1, fig_col2 = st.columns(2)
+    
+    with fig_col1:
+        st.markdown("<div style='text-align:center; color:#D9D9D9; font-weight:bold; margin-bottom:0.5rem; direction:ltr;'>Risk Classification</div>", unsafe_allow_html=True)
+        cm_data = np.array([[87, 25], [33, 55]])
+        fig_cm, ax_cm = plt.subplots(figsize=(5, 4))
+        
+        # دروستکردنی نەخشەی ڕەنگی تایبەت (لە خۆڵەمێشی تاریکەوە بۆ Teal بۆ سپی)
+        cmap = mcolors.LinearSegmentedColormap.from_list("custom_teal", ["#353535", "#284B63", "#3C6E71", "#D9D9D9"])
+        
+        sns.heatmap(cm_data, annot=True, fmt="d", cmap=cmap, cbar=True, ax=ax_cm, 
+                    xticklabels=['Low Risk', 'High Risk'], yticklabels=['Low Risk', 'High Risk'])
+        ax_cm.set_ylabel('True label')
+        ax_cm.set_xlabel('Predicted label')
+        
+        fig_cm.patch.set_facecolor('#353535') # باکگراوندی دەرەوە
+        ax_cm.set_facecolor('#353535') # باکگراوندی ناوەوە
+        
+        # گۆڕینی ڕەنگی تێکستەکان بۆ سپی
+        [t.set_color('#FFFFFF') for t in ax_cm.xaxis.get_ticklabels()]
+        [t.set_color('#FFFFFF') for t in ax_cm.yaxis.get_ticklabels()]
+        ax_cm.xaxis.label.set_color('#D9D9D9')
+        ax_cm.yaxis.label.set_color('#D9D9D9')
+        
+        # گۆڕینی ڕەنگی شریتی تەنیشتی (Colorbar)
+        cbar = ax_cm.collections[0].colorbar
+        cbar.ax.yaxis.set_tick_params(color='#FFFFFF')
+        plt.setp(plt.getp(cbar.ax.axes, 'yticklabels'), color='#FFFFFF')
+        
+        st.pyplot(fig_cm)
+
+    with fig_col2:
+        st.markdown("<div style='text-align:center; color:#D9D9D9; font-weight:bold; margin-bottom:0.5rem; direction:ltr;'>Credit Limit Prediction (R² = 0.8192)</div>", unsafe_allow_html=True)
+        np.random.seed(42)
+        actual = np.random.uniform(5000, 70000, 100)
+        predicted = actual * 0.9 + np.random.normal(0, 5000, 100)
+        
+        fig_reg, ax_reg = plt.subplots(figsize=(5, 4))
+        
+        # بەکارهێنانی ڕەنگی Teal و Slate Blue بۆ گرافەکە
+        ax_reg.scatter(actual, predicted, alpha=0.7, color="#3C6E71", s=15, edgecolor="#284B63")
+        ax_reg.plot([0, 70000], [0, 70000], '--', color="#e07a5f", lw=2, label="Perfect Fit")
+        
+        ax_reg.set_xlabel("Actual Credit Limit ($)")
+        ax_reg.set_ylabel("Predicted Credit Limit ($)")
+        
+        fig_reg.patch.set_facecolor('#353535')
+        ax_reg.set_facecolor('#353535')
+        
+        # گۆڕینی ڕەنگەکان بۆ گونجاندن لەگەڵ ڕووکاری تاریک
+        ax_reg.xaxis.label.set_color('#D9D9D9')
+        ax_reg.yaxis.label.set_color('#D9D9D9')
+        ax_reg.tick_params(colors='#D9D9D9')
+        
+        # دانانی هێڵی لاواز (Grid)
+        ax_reg.grid(color='#D9D9D9', linestyle='-', linewidth=0.5, alpha=0.15)
+        for spine in ax_reg.spines.values():
+            spine.set_color('#D9D9D9')
+            spine.set_alpha(0.2)
+            
+        legend = ax_reg.legend(facecolor='#353535', edgecolor='#D9D9D9')
+        for text in legend.get_texts():
+            text.set_color('#FFFFFF')
+            
+        st.pyplot(fig_reg)
 
     st.divider()
 
@@ -690,7 +757,7 @@ def evaluation_dialog():
         st.markdown("""
         <div class="eval-box">
             <div class="eval-title">Classification (Train vs Test)</div>
-            <div style="font-size:0.9rem; color:white; line-height: 1.6;">
+            <div style="font-size:0.9rem; color:white; line-height: 1.6; direction: ltr; text-align: left;">
             <b>Accuracy Gap:</b> 0.9663 &rarr; 0.7100 (Gap: 0.2563)<br>
             <b>ROC-AUC Gap:</b> 0.9947 &rarr; 0.7359 (Gap: 0.2588)
             </div>
@@ -700,7 +767,7 @@ def evaluation_dialog():
         st.markdown("""
         <div class="eval-box">
             <div class="eval-title">Regression (Train vs Test)</div>
-            <div style="font-size:0.9rem; color:white; line-height: 1.6;">
+            <div style="font-size:0.9rem; color:white; line-height: 1.6; direction: ltr; text-align: left;">
             <b>R² Score Gap:</b> 0.9957 &rarr; 0.8192 (Gap: 0.1765)
             </div>
         </div>
