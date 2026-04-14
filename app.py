@@ -3,8 +3,6 @@ import numpy as np
 import joblib
 import os
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  PAGE CONFIG.
@@ -362,7 +360,7 @@ div[data-testid="stSlider"] [data-testid="stTickBarMax"] {
 }
 
 /* ════════════════════════════════════════════════════════
-   ANALYZE BUTTON 
+   ANALYZE BUTTON
 ════════════════════════════════════════════════════════ */
 div[data-testid="stButton"] > button {
     width: 100% !important;
@@ -561,18 +559,6 @@ div[data-testid="stButton"] > button:active {
     .result-card { padding: 1.5rem 1.2rem; margin-bottom: 1rem;}
     .sb-section { margin-bottom: 1.5rem;}
 }
-
-/* ── Custom Metric Box for Evaluations ────────────────────────────── */
-.eval-box {
-    background: rgba(0, 45, 75, 0.6);
-    border-left: 4px solid var(--teal);
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    color: white;
-}
-.eval-title { font-size: 0.85rem; color: var(--teal); font-weight: bold; margin-bottom: 0.3rem;}
-.eval-val { font-size: 1.4rem; font-weight: 900;}
 </style>
 """, unsafe_allow_html=True)
 
@@ -653,77 +639,62 @@ def project_info_dialog():
 
 @st.dialog("📊 هەڵسەنگاندنی زانستی مۆدێلەکە (Model Evaluation)", width="large")
 def evaluation_dialog():
-    st.markdown("""
-    <div class="sb-section" style="margin-bottom: 1rem;">
-        <div class="sb-sec-title">📈 پێوەرەکانی مۆدێلی پۆلێنکردن (Risk Scoring)</div>
-        <div class="sb-body">ئەم نمرانە ئاستی ووردی مۆدێلی دیاریکردنی مەترسی نیشان دەدەن.</div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Classification Metrics from your image
-    c1, c2, c3, c4 = st.columns(4)
-    with c1: st.markdown('<div class="eval-box"><div class="eval-title">Accuracy</div><div class="eval-val">0.7100</div></div>', unsafe_allow_html=True)
-    with c2: st.markdown('<div class="eval-box"><div class="eval-title">Precision</div><div class="eval-val">0.6875</div></div>', unsafe_allow_html=True)
-    with c3: st.markdown('<div class="eval-box"><div class="eval-title">Recall</div><div class="eval-val">0.6250</div></div>', unsafe_allow_html=True)
-    with c4: st.markdown('<div class="eval-box"><div class="eval-title">F1-Score</div><div class="eval-val">0.6548</div></div>', unsafe_allow_html=True)
-    
-    st.markdown('<div class="eval-box" style="width: 25%; min-width: 150px;"><div class="eval-title">ROC-AUC</div><div class="eval-val">0.7359</div></div>', unsafe_allow_html=True)
-    
-    st.markdown("""
-    <div class="sb-section" style="margin-top: 1rem; margin-bottom: 1rem;">
-        <div class="sb-sec-title">💳 پێوەرەکانی مۆدێلی بڕی قەرز (Regression)</div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Regression Metrics from your image
-    r1, r2, r3, r4 = st.columns(4)
-    with r1: st.markdown('<div class="eval-box"><div class="eval-title">R² Score</div><div class="eval-val">0.8192</div></div>', unsafe_allow_html=True)
-    with r2: st.markdown('<div class="eval-box"><div class="eval-title">MAE</div><div class="eval-val">$3,460.95</div></div>', unsafe_allow_html=True)
-    with r3: st.markdown('<div class="eval-box"><div class="eval-title">RMSE</div><div class="eval-val">$5,228.30</div></div>', unsafe_allow_html=True)
-    with r4: st.markdown('<div class="eval-box"><div class="eval-title">MSE</div><div class="eval-val" style="font-size:1.1rem;">$27,335,144</div></div>', unsafe_allow_html=True)
-    
-    st.divider()
     st.markdown("### 📉 گرافەکانی مۆدێل (Visualizations)")
+    st.markdown("<p style='color:#7ecfee; font-size:0.85rem;'>گرافی شیکاری ڕاستەقینەی مۆدێلی XGBoost</p>", unsafe_allow_html=True)
     
-    # Recreating Confusion Matrix (Static based on your image)
-    fig_col1, fig_col2 = st.columns(2)
-    
-    with fig_col1:
-        st.markdown("**Risk Classification (Confusion Matrix)**")
-        cm_data = np.array([[87, 25], [33, 55]])
-        fig_cm, ax_cm = plt.subplots(figsize=(5, 4))
-        sns.heatmap(cm_data, annot=True, fmt="d", cmap="Blues", cbar=True, ax=ax_cm, 
-                    xticklabels=['Low Risk', 'High Risk'], yticklabels=['Low Risk', 'High Risk'])
-        ax_cm.set_ylabel('True label')
-        ax_cm.set_xlabel('Predicted label')
-        # Setting a dark transparent background to fit theme
-        fig_cm.patch.set_facecolor('#011928')
-        ax_cm.set_facecolor('#011928')
-        [t.set_color('white') for t in ax_cm.xaxis.get_ticklabels()]
-        [t.set_color('white') for t in ax_cm.yaxis.get_ticklabels()]
-        ax_cm.xaxis.label.set_color('white')
-        ax_cm.yaxis.label.set_color('white')
-        st.pyplot(fig_cm)
+    # دانانی وێنەی گرافەکە وەکو خۆی
+    try:
+        st.image("plot.png", use_container_width=True)
+    except Exception:
+        st.info("تێبینی: بۆ بینینی گرافەکە بە کوالێتی تەواو، ئەو وێنەیەی کە باکگراوندەکەی سپییە ناوی بنێ 'plot.png' و بیخە ناو فۆڵدەری پڕۆژەکەتەوە.")
 
-    with fig_col2:
-        st.markdown("**Credit Limit Prediction (R² = 0.8192)**")
-        # Dummy scatter plot to resemble your image
-        np.random.seed(42)
-        actual = np.random.uniform(5000, 70000, 100)
-        predicted = actual * 0.9 + np.random.normal(0, 5000, 100)
-        
-        fig_reg, ax_reg = plt.subplots(figsize=(5, 4))
-        ax_reg.scatter(actual, predicted, alpha=0.5, color="#00d4ff", s=15)
-        ax_reg.plot([0, 70000], [0, 70000], 'r--', lw=2, label="Perfect Fit")
-        ax_reg.set_xlabel("Actual Credit Limit ($)")
-        ax_reg.set_ylabel("Predicted Credit Limit ($)")
-        ax_reg.legend()
-        fig_reg.patch.set_facecolor('#011928')
-        ax_reg.set_facecolor('#011928')
-        ax_reg.xaxis.label.set_color('white')
-        ax_reg.yaxis.label.set_color('white')
-        ax_reg.tick_params(colors='white')
-        st.pyplot(fig_reg)
+    st.divider()
+
+    st.markdown("### 📝 ڕاپۆرتی تاقیکردنەوە (Test Metrics)")
+    st.code("""CLASSIFICATION (Risk Scoring)
+=========================================
+Accuracy : 0.7100 | Precision: 0.6875
+Recall   : 0.6250 | F1-Score : 0.6548
+ROC-AUC  : 0.7359
+
+              precision    recall  f1-score   support
+
+    Low Risk       0.72      0.78      0.75       112
+   High Risk       0.69      0.62      0.65        88
+
+    accuracy                           0.71       200
+   macro avg       0.71      0.70      0.70       200
+weighted avg       0.71      0.71      0.71       200
+
+REGRESSION (Credit Limit Prediction)
+=========================================
+MSE  : $27,335,144.90
+RMSE : $5,228.30
+MAE  : $3,460.95
+R²   : 0.8192""", language="text")
+
+    st.divider()
+
+    st.markdown("### ⚖️ پشکنینی لایەنگیری (Overfitting Check)")
+    st.code("""TRAINING CLASSIFICATION (Risk Scoring)
+=========================================
+Accuracy : 0.9663 | F1-Score : 0.9610
+ROC-AUC  : 0.9947
+
+TRAINING REGRESSION (Credit Limit Prediction)
+=========================================
+MSE  : $779,947.65
+RMSE : $883.15
+MAE  : $665.25
+R²   : 0.9957
+
+OVERFITTING CHECK:
+=========================================
+If training metrics are significantly better than test metrics, the model may be overfitting.
+Classification - Train Acc: 0.9663 vs Test Acc: 0.7100 (Gap: 0.2563)
+Classification - Train AUC: 0.9947 vs Test AUC: 0.7359 (Gap: 0.2588)
+Regression - Train R²: 0.9957 vs Test R²: 0.8192 (Gap: 0.1765)""", language="text")
+
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  HERO HEADER
