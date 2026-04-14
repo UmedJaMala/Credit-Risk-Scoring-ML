@@ -401,6 +401,21 @@ div[data-testid="stButton"] > button {
     box-shadow: 0 4px 22px rgba(0,170,212,0.35) !important;
     transition: all 0.22s ease !important;
     cursor: pointer !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+div[data-testid="stButton"] > button::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent) !important;
+    transition: left 0.5s !important;
+}
+div[data-testid="stButton"] > button:hover::before {
+    left: 100% !important;
 }
 div[data-testid="stButton"] > button:hover {
     transform: translateY(-2px) !important;
@@ -409,6 +424,16 @@ div[data-testid="stButton"] > button:hover {
 }
 div[data-testid="stButton"] > button:active {
     transform: translateY(0) !important;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    div[data-testid="stButton"] > button {
+        font-size: 1.2rem !important;
+        padding: 1rem 2rem !important;
+        border-radius: 16px !important;
+        min-height: 48px !important; /* Touch-friendly */
+    }
 }
 
 /* ════════════════════════════════════════════════════════
