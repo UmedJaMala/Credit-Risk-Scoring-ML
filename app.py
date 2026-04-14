@@ -65,17 +65,7 @@ html, body, [class*="css"] {
     padding: 1.8rem 2rem 4rem 2rem !important;
     max-width: 1080px !important;
 }
-            
-        /* چاککردنی ڕەنگی تێکستی ناو ئێکسپاندەر */
-    .streamlit-expanderHeader p {
-        color: #00d4ff !important; /* ڕەنگی تێڵ */
-        font-weight: bold !important;
-        font-size: 1.1rem !important;
-    }
-    /* بۆ ئەوەی لەسەر مۆبایل ئایکۆنەکەش ڕەنگی جوان بێت */
-    .streamlit-expanderHeader svg {
-        fill: #ffffff !important;
-    }
+     
 
 /* ════════════════════════════════════════════════════════
    HERO BANNER
@@ -510,7 +500,20 @@ div[data-testid="stButton"] > button:active {
     
     .input-card { padding: 1.2rem 1rem; margin-bottom: 1rem;}
     .result-card { padding: 1.5rem 1.2rem; margin-bottom: 1rem;}
+    
     .sb-section { margin-bottom: 1.5rem;}
+
+    /* ── Expander Text Color Fix (White) ───────────────────────── */
+    .streamlit-expanderHeader p {
+        color: #ffffff !important; /* ڕەنگی سپی */
+        font-weight: 700 !important;
+        font-size: 1.1rem !important;
+    }
+    
+    /* ── Expander Icon Color Fix (White) ───────────────────────── */
+    .streamlit-expanderHeader svg {
+        fill: #ffffff !important; /* ڕەنگی ئایکۆنەکەش سپی دەکات */
+    }
 }
 </style>
 """, unsafe_allow_html=True)
