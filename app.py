@@ -18,31 +18,30 @@ st.set_page_config(
 )
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  GLOBAL CSS  —  Custom Palette Theme (#353535, #3C6E71, #FFFFFF, #D9D9D9, #284B63)
+#  GLOBAL CSS  —  Premium AI Dark Theme (Neon Purple & Cyan)
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <style>
 /* ── Google Font ─────────────────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700;800;900&display=swap');
 
-/* ── CSS Variables (Mapped to your custom palette) ───────────────── */
+/* ── CSS Variables (Premium Dark Mode) ──────────────────────────── */
 :root {
-    --navy:        #353535; /* Dark Charcoal */
-    --navy-mid:    #2b2b2b; /* Slightly darker for background */
-    --navy-light:  #284B63; /* Slate Blue */
-    --teal:        #3C6E71; /* Teal */
-    --teal-dim:    rgba(60, 110, 113, 0.18);
-    --teal-glow:   rgba(60, 110, 113, 0.25);
-    --slate:       #284B63; /* Slate Blue */
-    --slate-card:  rgba(53, 53, 53, 0.85); /* #353535 with opacity */
-    --border:      rgba(217, 217, 217, 0.15); /* #D9D9D9 with opacity */
-    --text-main:   #FFFFFF; /* White */
-    --text-muted:  #D9D9D9; /* Light Gray */
-    --text-label:  #D9D9D9;
-    --green:       #52b788; /* Muted green fitting the palette */
-    --green-dim:   rgba(82, 183, 136, 0.15);
-    --red:         #e07a5f; /* Muted red fitting the palette */
-    --red-dim:     rgba(224, 122, 95, 0.15);
+    --bg-dark:     #050505; /* Deep Space Black */
+    --bg-card:     #121212; /* Very dark gray for cards */
+    --border:      rgba(255, 255, 255, 0.08);
+    --text-main:   #f8fafc; /* Brilliant white */
+    --text-muted:  #a1a1aa; /* Soft gray */
+    --text-label:  #e2e8f0;
+    
+    --accent-1:    #a855f7; /* Neon Purple */
+    --accent-2:    #06b6d4; /* Electric Cyan */
+    --accent-dim:  rgba(168, 85, 247, 0.15);
+    
+    --green:       #10b981; /* Emerald */
+    --green-dim:   rgba(16, 185, 129, 0.15);
+    --red:         #f43f5e; /* Rose/Red */
+    --red-dim:     rgba(244, 63, 94, 0.15);
 }
 
 /* ── Reset & Base ────────────────────────────────────────────────── */
@@ -60,15 +59,16 @@ p, h1, h2, h3, h4, h5, h6, span, label, li, div[data-testid="stMarkdownContainer
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   چارەسەری کۆتایی بۆ پەنجەرەکان (Dialogs & Modals Background Fix)
+   پەنجەرەکان (Dialogs & Modals Background Fix)
 ══════════════════════════════════════════════════════════════════════ */
 div[data-testid="stModal"] > div, 
 div[role="dialog"], 
 section[data-testid="stDialog"] > div {
-    background-color: #353535 !important;
-    background: linear-gradient(145deg, #353535 0%, #2b2b2b 100%) !important;
+    background-color: var(--bg-card) !important;
+    background: linear-gradient(145deg, #121212 0%, #0a0a0a 100%) !important;
     border: 1px solid var(--border) !important;
     border-radius: 16px !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8) !important;
 }
 
 div[data-testid="stModal"] > div > div, 
@@ -76,21 +76,16 @@ div[role="dialog"] > div {
     background-color: transparent !important;
 }
 
-div[role="dialog"] p, 
-div[role="dialog"] h1, 
-div[role="dialog"] h2, 
-div[role="dialog"] h3,
-div[role="dialog"] span,
-div[role="dialog"] div {
-    color: #FFFFFF !important;
+div[role="dialog"] p, div[role="dialog"] h1, div[role="dialog"] h2, 
+div[role="dialog"] h3, div[role="dialog"] span, div[role="dialog"] div {
+    color: var(--text-main) !important;
 }
 
 /* ── App Background ──────────────────────────────────────────────── */
 .stApp {
-    background:
-        radial-gradient(ellipse at 10% 0%, rgba(60, 110, 113, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 90% 100%, rgba(40, 75, 99, 0.15) 0%, transparent 55%),
-        linear-gradient(160deg, #1e1e1e 0%, #2b2b2b 100%);
+    background: radial-gradient(circle at 15% 0%, rgba(168, 85, 247, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 100%, rgba(6, 182, 212, 0.08) 0%, transparent 40%),
+                var(--bg-dark);
     min-height: 100vh;
 }
 
@@ -105,50 +100,56 @@ div[role="dialog"] div {
    HERO BANNER
 ════════════════════════════════════════════════════════ */
 .hero {
-    background: linear-gradient(120deg, rgba(53, 53, 53, 0.8) 0%, rgba(43, 43, 43, 0.95) 100%);
+    background: rgba(18, 18, 18, 0.6);
     border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 2.2rem 2rem 2rem 2rem;
-    margin-bottom: 1.8rem;
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    margin-bottom: 2rem;
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(217, 217, 217, 0.05);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 .hero::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 50% -20%, rgba(60, 110, 113, 0.15) 0%, transparent 65%);
+    background: linear-gradient(135deg, rgba(168,85,247,0.05) 0%, rgba(6,182,212,0.05) 100%);
     pointer-events: none;
 }
-.hero-icon  { font-size: 2.6rem; line-height: 1; margin-bottom: 0.6rem; }
+.hero-icon  { font-size: 3rem; line-height: 1; margin-bottom: 0.8rem; filter: drop-shadow(0 0 10px rgba(168,85,247,0.4)); }
 .hero-title {
-    font-size: clamp(1.45rem, 3.5vw, 2.1rem);
+    font-size: clamp(1.6rem, 3.8vw, 2.4rem);
     font-weight: 900;
     color: var(--text-main);
-    margin-bottom: 0.35rem;
-    line-height: 1.45;
-    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
 }
-.hero-title span { color: var(--teal); }
+.hero-title span {
+    background: linear-gradient(to left, var(--accent-2), var(--accent-1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 .hero-sub {
     color: var(--text-muted);
-    font-size: 0.9rem;
-    font-weight: 400;
-    letter-spacing: 0.02em;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
 }
 .hero-badge {
     display: inline-block;
-    margin-top: 0.9rem;
-    background: var(--teal-dim);
-    border: 1px solid rgba(60, 110, 113, 0.3);
+    margin-top: 1.2rem;
+    background: rgba(168, 85, 247, 0.1);
+    border: 1px solid rgba(168, 85, 247, 0.3);
     border-radius: 50px;
-    padding: 0.22rem 1rem;
-    font-size: 0.75rem;
+    padding: 0.3rem 1.2rem;
+    font-size: 0.8rem;
     font-weight: 700;
-    color: var(--teal);
-    letter-spacing: 0.08em;
+    color: #d8b4fe;
+    letter-spacing: 0.1em;
+    box-shadow: 0 0 15px rgba(168,85,247,0.15);
 }
 
 /* ════════════════════════════════════════════════════════
@@ -158,17 +159,17 @@ div[role="dialog"] div {
     display: flex;
     align-items: center;
     gap: 0.55rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
 }
 .sec-heading-line {
     flex: 1;
     height: 1px;
-    background: linear-gradient(90deg, var(--border) 0%, transparent 100%);
+    background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, transparent 100%);
 }
 .sec-heading-text {
-    color: var(--teal);
-    font-size: 0.78rem;
-    font-weight: 700;
+    color: var(--accent-2);
+    font-size: 0.85rem;
+    font-weight: 800;
     letter-spacing: 0.1em;
     white-space: nowrap;
 }
@@ -177,441 +178,274 @@ div[role="dialog"] div {
    PROJECT INFO 
 ════════════════════════════════════════════════════════ */
 .sb-logo     { text-align: center; padding: 0.5rem 0; font-size: 2.8rem; }
-.sb-app-name { text-align: center; color: var(--teal); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 0.3rem; }
-.sb-ver      { text-align: center; color: rgba(217, 217, 217, 0.4); font-size: 0.75rem; margin-bottom: 1rem; }
+.sb-app-name { text-align: center; color: var(--accent-1); font-size: 1rem; font-weight: 800; letter-spacing: 0.08em; margin-bottom: 0.3rem; }
+.sb-ver      { text-align: center; color: var(--text-muted); font-size: 0.75rem; margin-bottom: 1.5rem; }
 .sb-section  {
-    background: rgba(43, 43, 43, 0.5);
-    border: 1px solid rgba(217, 217, 217, 0.1);
-    border-radius: 13px;
-    padding: 1rem 1.1rem;
-    margin-bottom: 0.9rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
     height: 100%;
 }
 .sb-sec-title {
-    color: var(--teal);
-    font-size: 0.85rem;
+    color: var(--accent-2);
+    font-size: 0.9rem;
     font-weight: 800;
     letter-spacing: 0.08em;
-    margin-bottom: 0.6rem;
-    border-bottom: 1px solid rgba(217, 217, 217, 0.1);
-    padding-bottom: 0.4rem;
+    margin-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
 }
-.sb-body { color: rgba(217, 217, 217, 0.8); font-size: 0.85rem; line-height: 1.8; }
+.sb-body { color: var(--text-muted); font-size: 0.85rem; line-height: 1.8; }
 .sb-body b { color: var(--text-main); font-weight: 600; }
 .sb-tag {
     display: inline-block;
-    background: rgba(60, 110, 113, 0.15);
-    color: var(--teal);
-    border: 1px solid rgba(60, 110, 113, 0.3);
+    background: rgba(6, 182, 212, 0.1);
+    color: var(--accent-2);
+    border: 1px solid rgba(6, 182, 212, 0.25);
     border-radius: 6px;
-    padding: 0.2rem 0.7rem;
+    padding: 0.2rem 0.8rem;
     font-size: 0.75rem;
     font-weight: 700;
-    margin: 0.2rem 0.12rem;
+    margin: 0.25rem 0.15rem;
 }
 
 /* ════════════════════════════════════════════════════════
    INPUT CARDS
 ════════════════════════════════════════════════════════ */
 .input-card {
-    background: linear-gradient(145deg, rgba(53, 53, 53, 0.85) 0%, rgba(43, 43, 43, 0.75) 100%);
+    background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.6rem 1.5rem 1.3rem;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    border-radius: 18px;
+    padding: 1.8rem 1.6rem 1.5rem;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
     height: 100%;
 }
 .card-title {
     color: var(--text-main);
-    font-size: 0.95rem;
-    font-weight: 700;
-    margin-bottom: 1.1rem;
-    padding-bottom: 0.65rem;
-    border-bottom: 1px solid rgba(217, 217, 217, 0.12);
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.5rem;
 }
 .card-title-icon {
-    font-size: 1.1rem;
-    filter: drop-shadow(0 0 6px rgba(217, 217, 217, 0.5));
+    font-size: 1.2rem;
+    filter: drop-shadow(0 0 5px var(--accent-2));
 }
 
-/* ── Label overrides ─────────────────────────────────── */
-label,
-div[data-testid="stWidgetLabel"] > p,
-.stSlider label,
-.stNumberInput label,
-.stSelectbox label {
+/* ── Form Elements ───────────────────────────────────── */
+label, div[data-testid="stWidgetLabel"] > p, .stSlider label, .stNumberInput label, .stSelectbox label {
     color: var(--text-label) !important;
     font-family: 'Noto Sans Arabic', sans-serif !important;
     font-weight: 600 !important;
-    font-size: 0.88rem !important;
+    font-size: 0.9rem !important;
     direction: rtl !important;
     text-align: right !important;
-    margin-bottom: 0.2rem !important;
+    margin-bottom: 0.3rem !important;
 }
 
-/* ── Number Input ────────────────────────────────────── */
-.stNumberInput input {
-    background: rgba(43, 43, 43, 0.8) !important;
-    border: 1.5px solid rgba(60, 110, 113, 0.3) !important;
-    border-radius: 10px !important;
+.stNumberInput input, .stSelectbox > div > div {
+    background: rgba(255,255,255,0.03) !important;
+    border: 1px solid rgba(255,255,255,0.15) !important;
+    border-radius: 8px !important;
     color: var(--text-main) !important;
     font-family: 'Noto Sans Arabic', sans-serif !important;
     font-size: 1rem !important;
     font-weight: 600 !important;
-    padding: 0.55rem 0.9rem !important;
-    direction: ltr !important;
-    text-align: left !important;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    padding: 0.6rem 1rem !important;
+    transition: all 0.2s ease;
 }
-.stNumberInput input:focus {
-    border-color: var(--teal) !important;
-    box-shadow: 0 0 0 3px rgba(60, 110, 113, 0.15) !important;
+.stNumberInput input { direction: ltr !important; text-align: left !important; }
+.stNumberInput input:focus, .stSelectbox > div > div:focus-within {
+    border-color: var(--accent-2) !important;
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2) !important;
     outline: none !important;
 }
+.stSelectbox svg { color: var(--accent-2) !important; }
 
-/* ── Selectbox ───────────────────────────────────────── */
-.stSelectbox > div > div {
-    background: rgba(43, 43, 43, 0.8) !important;
-    border: 1.5px solid rgba(60, 110, 113, 0.3) !important;
-    border-radius: 10px !important;
-    color: var(--text-main) !important;
-    font-family: 'Noto Sans Arabic', sans-serif !important;
-    font-weight: 600 !important;
-}
-.stSelectbox svg { color: var(--teal) !important; }
-
-/* ── Slider — full alignment fix ────────────────────── */
-div[data-testid="stSlider"] {
-    direction: ltr !important;
-    padding: 0 0.25rem;
-}
+/* ── Slider ─────────────────────────────────────────── */
+div[data-testid="stSlider"] { direction: ltr !important; padding: 0 0.3rem; }
 div[data-testid="stSlider"] > div { direction: ltr !important; }
-
-div[data-testid="stSlider"] .rc-slider-rail,
-.stSlider .rc-slider-rail {
-    background: rgba(217, 217, 217, 0.15) !important;
-    border-radius: 4px !important;
-    height: 6px !important;
+div[data-testid="stSlider"] .rc-slider-rail, .stSlider .rc-slider-rail {
+    background: rgba(255,255,255,0.1) !important;
+    border-radius: 5px !important;
+    height: 8px !important;
 }
-div[data-testid="stSlider"] .rc-slider-track,
-.stSlider .rc-slider-track {
-    background: linear-gradient(90deg, var(--navy-light), var(--teal)) !important;
-    height: 6px !important;
-    border-radius: 4px !important;
+div[data-testid="stSlider"] .rc-slider-track, .stSlider .rc-slider-track {
+    background: linear-gradient(90deg, var(--accent-1), var(--accent-2)) !important;
+    height: 8px !important;
+    border-radius: 5px !important;
 }
-div[data-testid="stSlider"] .rc-slider-handle,
-.stSlider .rc-slider-handle {
-    width: 18px !important;
-    height: 18px !important;
-    margin-top: -6px !important;
-    background: var(--teal) !important;
-    border: 3px solid var(--navy) !important;
-    box-shadow: 0 0 0 3px rgba(60, 110, 113, 0.3), 0 2px 8px rgba(0,0,0,0.4) !important;
-    border-radius: 50% !important;
-    transition: box-shadow 0.15s ease;
+div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle {
+    width: 20px !important; height: 20px !important; margin-top: -6px !important;
+    background: var(--text-main) !important;
+    border: 4px solid var(--accent-2) !important;
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.5) !important;
 }
-div[data-testid="stSlider"] .rc-slider-handle:hover,
-.stSlider .rc-slider-handle:hover {
-    box-shadow: 0 0 0 5px rgba(60, 110, 113, 0.4), 0 2px 8px rgba(0,0,0,0.4) !important;
-}
-div[data-testid="stSlider"] [data-testid="stTickBarMin"],
-div[data-testid="stSlider"] [data-testid="stTickBarMax"] {
-    color: var(--text-muted) !important;
-    font-size: 0.72rem !important;
-    font-family: 'Noto Sans Arabic', sans-serif !important;
+div[data-testid="stSlider"] [data-testid="stTickBarMin"], div[data-testid="stSlider"] [data-testid="stTickBarMax"] {
+    color: var(--text-muted) !important; font-size: 0.75rem !important;
 }
 
 /* ════════════════════════════════════════════════════════
    SUMMARY MINI-CARD
 ════════════════════════════════════════════════════════ */
 .summary-card {
-    background: rgba(217, 217, 217, 0.05);
-    border: 1px solid rgba(217, 217, 217, 0.14);
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 0.9rem 1.1rem;
-    margin-top: 0.85rem;
+    padding: 1rem 1.2rem;
+    margin-top: 1rem;
     direction: rtl;
 }
 .summary-card-title {
-    color: var(--teal);
-    font-size: 0.75rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    letter-spacing: 0.06em;
-}
-.summary-row {
-    display: flex;
-    justify-content: space-between;
     color: var(--text-muted);
     font-size: 0.8rem;
-    line-height: 1.85;
-    border-bottom: 1px solid rgba(217, 217, 217, 0.07);
-    padding: 0.1rem 0;
+    font-weight: 800;
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+.summary-row {
+    display: flex; justify-content: space-between;
+    color: var(--text-muted); font-size: 0.85rem; line-height: 2;
+    border-bottom: 1px solid rgba(255,255,255,0.05); padding: 0.15rem 0;
 }
 .summary-row:last-child { border-bottom: none; }
-.summary-val {
-    color: var(--text-main);
-    font-weight: 700;
-    direction: ltr;
-    text-align: left;
-}
+.summary-val { color: var(--text-main); font-weight: 700; direction: ltr; text-align: left; }
 
 /* ════════════════════════════════════════════════════════
-   ANALYZE BUTTON 
+   ANALYZE BUTTON (NEON GRADIENT)
 ════════════════════════════════════════════════════════ */
 div[data-testid="stButton"] > button {
     width: 100% !important;
-    background: linear-gradient(130deg, #284B63 0%, #325e6a 45%, #3C6E71 100%) !important;
+    background: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #06b6d4 100%) !important;
     color: #ffffff !important;
     font-family: 'Noto Sans Arabic', sans-serif !important;
-    font-size: 1.05rem !important;
+    font-size: 1.15rem !important;
     font-weight: 800 !important;
     border: none !important;
     border-radius: 12px !important;
-    padding: 0.8rem 1.5rem !important;
-    letter-spacing: 0.04em !important;
-    box-shadow: 0 4px 15px rgba(60, 110, 113, 0.35) !important;
-    transition: all 0.22s ease !important;
+    padding: 0.9rem 1.5rem !important;
+    letter-spacing: 0.05em !important;
+    box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4) !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
     cursor: pointer !important;
-    position: relative !important;
-    overflow: hidden !important;
-}
-div[data-testid="stButton"] > button::before {
-    content: '' !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: -100% !important;
-    width: 100% !important;
-    height: 100% !important;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent) !important;
-    transition: left 0.5s !important;
-}
-div[data-testid="stButton"] > button:hover::before {
-    left: 100% !important;
 }
 div[data-testid="stButton"] > button:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 20px rgba(60, 110, 113, 0.5) !important;
-    background: linear-gradient(130deg, #3C6E71 0%, #4a878a 45%, #569ea2 100%) !important;
+    transform: translateY(-3px) scale(1.01) !important;
+    box-shadow: 0 10px 25px rgba(6, 182, 212, 0.5) !important;
+    background: linear-gradient(135deg, #b873f8 0%, #787af3 50%, #22c5e5 100%) !important;
 }
 div[data-testid="stButton"] > button:active {
-    transform: translateY(0) !important;
+    transform: translateY(0) scale(0.99) !important;
 }
 
-/* Mobile Styles */
 @media (max-width: 768px) {
-    div[data-testid="stButton"] > button {
-        font-size: 1.2rem !important;
-        padding: 1rem 2rem !important;
-        border-radius: 16px !important;
-        min-height: 48px !important; /* Touch-friendly */
-    }
+    div[data-testid="stButton"] > button { font-size: 1.25rem !important; padding: 1.1rem 2rem !important; }
 }
 
 /* ════════════════════════════════════════════════════════
    RESULT CARDS
 ════════════════════════════════════════════════════════ */
-.result-wrap {
-    animation: fadeUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-@keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
+.result-wrap { animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+
 .result-card {
-    border-radius: 18px;
-    padding: 1.8rem 1.7rem;
+    border-radius: 20px;
+    padding: 2rem;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 6px 32px rgba(0,0,0,0.3);
+    background: var(--bg-card);
+    box-shadow: 0 10px 35px rgba(0,0,0,0.5);
     direction: rtl;
 }
-.result-card::after {
-    content: '';
-    position: absolute;
-    bottom: -40px;
-    left: -30px;
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.025);
-    pointer-events: none;
+.result-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
 }
-/* LOW RISK */
-.rc-low {
-    background: linear-gradient(135deg, rgba(53, 53, 53, 0.95) 0%, rgba(60, 110, 113, 0.4) 100%);
-    border: 1.5px solid rgba(60, 110, 113, 0.4);
-    box-shadow: 0 6px 32px rgba(60, 110, 113, 0.12);
-}
-/* HIGH RISK */
-.rc-high {
-    background: linear-gradient(135deg, rgba(53, 53, 53, 0.95) 0%, rgba(224, 122, 95, 0.5) 100%);
-    border: 1.5px solid rgba(224, 122, 95, 0.45);
-    box-shadow: 0 6px 32px rgba(224, 122, 95, 0.14);
-}
-/* CREDIT LIMIT */
-.rc-limit {
-    background: linear-gradient(135deg, rgba(53, 53, 53, 0.95) 0%, rgba(40, 75, 99, 0.6) 100%);
-    border: 1.5px solid rgba(40, 75, 99, 0.4);
-    box-shadow: 0 6px 32px rgba(40, 75, 99, 0.12);
-}
-.rc-eyebrow {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 0.55rem;
-    opacity: 0.8;
-}
+.rc-low::before { background: var(--green); }
+.rc-high::before { background: var(--red); }
+.rc-limit::before { background: linear-gradient(90deg, var(--accent-1), var(--accent-2)); }
+
+.rc-low { border: 1px solid rgba(16, 185, 129, 0.2); }
+.rc-high { border: 1px solid rgba(244, 63, 94, 0.2); }
+.rc-limit { border: 1px solid rgba(6, 182, 212, 0.2); }
+
+.rc-eyebrow { font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; margin-bottom: 0.8rem; opacity: 0.8; }
 .rc-value {
-    font-size: clamp(2rem, 5vw, 2.9rem);
-    font-weight: 900;
-    line-height: 1.05;
-    margin-bottom: 0.25rem;
-    letter-spacing: -0.02em;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 900; line-height: 1.1; margin-bottom: 0.4rem; letter-spacing: -0.02em;
 }
-.rc-en {
-    font-size: 0.8rem;
-    opacity: 0.5;
-    font-weight: 400;
-    margin-bottom: 0.8rem;
+.rc-limit .rc-value {
+    background: linear-gradient(to right, #06b6d4, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
+.rc-en { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; margin-bottom: 1rem; }
 .rc-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    padding: 0.28rem 0.9rem;
-    border-radius: 50px;
-    font-size: 0.76rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.35rem 1rem; border-radius: 50px; font-size: 0.8rem; font-weight: 700;
 }
-.rc-low  .rc-eyebrow, .rc-low  .rc-value, .rc-low  .rc-en { color: var(--green); }
-.rc-high .rc-eyebrow, .rc-high .rc-value, .rc-high .rc-en { color: var(--red); }
-.rc-limit .rc-eyebrow { color: #87b0c7; }
-.rc-limit .rc-value   { color: #ffffff; }
-.rc-limit .rc-en      { color: var(--text-muted); }
-.badge-low   { background: rgba(82, 183, 136, 0.15); color: var(--green); border: 1px solid rgba(82, 183, 136, 0.3); }
-.badge-high  { background: rgba(224, 122, 95, 0.15); color: var(--red);   border: 1px solid rgba(224, 122, 95, 0.3); }
-.badge-limit { background: rgba(40, 75, 99, 0.2);    color: #87b0c7;      border: 1px solid rgba(40, 75, 99, 0.4); }
+.rc-low  .rc-eyebrow, .rc-low  .rc-value { color: var(--green); }
+.rc-high .rc-eyebrow, .rc-high .rc-value { color: var(--red); }
+.rc-limit .rc-eyebrow { color: var(--accent-2); }
+
+.badge-low   { background: rgba(16, 185, 129, 0.1); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3); }
+.badge-high  { background: rgba(244, 63, 94, 0.1); color: var(--red); border: 1px solid rgba(244, 63, 94, 0.3); }
+.badge-limit { background: rgba(6, 182, 212, 0.1); color: var(--accent-2); border: 1px solid rgba(6, 182, 212, 0.3); }
 
 /* ════════════════════════════════════════════════════════
-   METRIC MINI-CARDS
+   METRIC MINI-CARDS & EVALUATION BOXES
 ════════════════════════════════════════════════════════ */
 .metric-card {
-    background: rgba(53, 53, 53, 0.6);
+    background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.1rem;
+    border-radius: 16px;
+    padding: 1.3rem;
     text-align: center;
-    backdrop-filter: blur(6px);
 }
-.metric-label { color: var(--text-muted); font-size: 0.76rem; font-weight: 600; margin-bottom: 0.35rem; }
-.metric-value { color: var(--text-main);  font-size: 1.6rem;  font-weight: 800; line-height: 1; }
-.metric-en    { color: rgba(217, 217, 217, 0.5); font-size: 0.7rem; margin-top: 0.25rem; }
+.metric-label { color: var(--text-muted); font-size: 0.8rem; font-weight: 700; margin-bottom: 0.4rem; }
+.metric-value { color: var(--text-main);  font-size: 1.8rem;  font-weight: 900; line-height: 1; }
+.metric-en    { color: rgba(255, 255, 255, 0.3); font-size: 0.75rem; margin-top: 0.4rem; }
 
-/* ════════════════════════════════════════════════════════
-   NEW MODERN EVALUATION BOXES & TABS 
-════════════════════════════════════════════════════════ */
 .eval-box {
-    background: linear-gradient(135deg, rgba(40, 75, 99, 0.4) 0%, rgba(60, 110, 113, 0.15) 100%);
-    border-left: 4px solid var(--teal);
-    border-top: 1px solid rgba(217, 217, 217, 0.05);
-    border-right: 1px solid rgba(217, 217, 217, 0.05);
-    border-bottom: 1px solid rgba(217, 217, 217, 0.05);
-    padding: 1.2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-left: 4px solid var(--accent-1);
+    border-top: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 1.3rem;
     border-radius: 12px;
     margin-bottom: 1rem;
-    color: white;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease, background 0.2s ease;
 }
 .eval-box:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(60, 110, 113, 0.25);
+    background: rgba(168, 85, 247, 0.05);
 }
-.eval-title { 
-    font-size: 0.8rem; 
-    color: var(--text-muted); 
-    text-transform: uppercase; 
-    letter-spacing: 1px; 
-    margin-bottom: 0.4rem;
-    font-weight: 700;
-}
-.eval-val { 
-    font-size: 1.6rem; 
-    font-weight: 900; 
-    color: var(--text-main);
-    line-height: 1.1;
-}
+.eval-title { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 800; margin-bottom: 0.5rem;}
+.eval-val { font-size: 1.8rem; font-weight: 900; color: var(--text-main); }
 
 /* Tabs Styling */
-div[data-baseweb="tab-list"] {
-    background-color: transparent !important;
-    border-bottom: 2px solid rgba(217, 217, 217, 0.1);
-    gap: 2rem;
-}
-div[data-baseweb="tab"] {
-    background-color: transparent !important;
-    color: var(--text-muted) !important;
-    font-family: 'Noto Sans Arabic', sans-serif !important;
-    font-weight: 600 !important;
-    padding: 1rem 0 !important;
-}
-div[aria-selected="true"] {
-    color: var(--text-main) !important;
-    border-bottom-color: var(--teal) !important;
-}
+div[data-baseweb="tab-list"] { border-bottom: 2px solid rgba(255, 255, 255, 0.05); gap: 2rem; }
+div[data-baseweb="tab"] { background-color: transparent !important; color: var(--text-muted) !important; font-weight: 600 !important; font-size: 1.05rem !important; padding: 1.2rem 0 !important; }
+div[aria-selected="true"] { color: var(--accent-2) !important; border-bottom-color: var(--accent-2) !important; }
 
 /* ════════════════════════════════════════════════════════
-   WARNING BANNER
+   FOOTER & WARNING
 ════════════════════════════════════════════════════════ */
-.warn-banner {
-    background: rgba(60, 110, 113, 0.1);
-    border: 1px solid rgba(60, 110, 113, 0.4);
-    border-radius: 11px;
-    padding: 0.75rem 1.1rem;
-    color: var(--teal);
-    font-size: 0.84rem;
-    margin-bottom: 1.2rem;
-    direction: rtl;
-    text-align: right;
-}
+.warn-banner { background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.4); border-radius: 12px; padding: 1rem; color: var(--red); font-size: 0.9rem; margin-bottom: 1.5rem; text-align: center; }
+.footer { text-align: center; padding: 2rem 0 1rem; color: rgba(255, 255, 255, 0.3); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 3rem; direction: rtl; }
+.footer strong { color: var(--accent-2); font-weight: 800; }
 
-/* ════════════════════════════════════════════════════════
-   FOOTER
-════════════════════════════════════════════════════════ */
-.footer {
-    text-align: center;
-    padding: 1.6rem 0 0.5rem;
-    color: rgba(217, 217, 217, 0.4);
-    font-size: 0.78rem;
-    border-top: 1px solid rgba(217, 217, 217, 0.08);
-    margin-top: 2.5rem;
-    direction: rtl;
-}
-.footer strong { color: var(--teal); font-weight: 700; }
-
-/* ── Responsive Mobile Edits ──────────────────────────────────────── */
 @media (max-width: 768px) {
     .block-container { padding: 1rem 1rem 3rem 1rem !important; }
-    .hero { padding: 1.5rem 1rem; }
-    .rc-value { font-size: 2.2rem; }
-    
-    div[data-testid="column"] {
-        width: 100% !important;
-        flex: 1 1 100% !important;
-        min-width: 100% !important;
-        margin-bottom: 1rem;
-    }
-    
-    .input-card { padding: 1.2rem 1rem; margin-bottom: 1rem;}
-    .result-card { padding: 1.5rem 1.2rem; margin-bottom: 1rem;}
-    .sb-section { margin-bottom: 1.5rem;}
+    .hero { padding: 2rem 1.2rem; }
+    div[data-testid="column"] { width: 100% !important; flex: 1 1 100% !important; min-width: 100% !important; margin-bottom: 1.2rem; }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -694,7 +528,6 @@ def project_info_dialog():
 @st.dialog("📊 هەڵسەنگاندنی زانستی مۆدێلەکە (Model Evaluation)", width="large")
 def evaluation_dialog():
     
-    # دروستکردنی تابەکان بۆ دیزاینێکی مۆدێرنتر
     tab1, tab2, tab3 = st.tabs(["🎯 پۆلێنکردن (Classification)", "💰 بڕی قەرز (Regression)", "🧠 شیکاری و کاریگەری (Insights)"])
     
     # ── TAB 1: Classification ────────────────────────────────────────────────
@@ -707,31 +540,32 @@ def evaluation_dialog():
         with c4: st.markdown('<div class="eval-box"><div class="eval-title">ROC-AUC</div><div class="eval-val">0.7359</div></div>', unsafe_allow_html=True)
         
         st.divider()
-        st.markdown("<div style='text-align:center; color:#D9D9D9; font-weight:bold; margin-bottom:1rem; font-size:1.1rem;'>Risk Classification (Confusion Matrix)</div>", unsafe_allow_html=True)
+        st.markdown("<div style='text-align:center; color:#a1a1aa; font-weight:800; margin-bottom:1rem; font-size:1.1rem;'>Risk Classification (Confusion Matrix)</div>", unsafe_allow_html=True)
         
         col_space1, col_graph1, col_space2 = st.columns([1, 4, 1])
         with col_graph1:
             cm_data = np.array([[87, 25], [33, 55]])
             fig_cm, ax_cm = plt.subplots(figsize=(6, 4))
             
-            cmap = mcolors.LinearSegmentedColormap.from_list("custom_teal", ["#353535", "#284B63", "#3C6E71", "#D9D9D9"])
+            # گۆڕینی ڕەنگی نەخشەکە بۆ نیۆنی سەردەمیانە
+            cmap = mcolors.LinearSegmentedColormap.from_list("ai_neon", ["#050505", "#18181b", "#6366f1", "#06b6d4"])
             sns.heatmap(cm_data, annot=True, fmt="d", cmap=cmap, cbar=True, ax=ax_cm, 
                         xticklabels=['Low Risk', 'High Risk'], yticklabels=['Low Risk', 'High Risk'],
-                        annot_kws={"size": 12, "weight": "bold"})
+                        annot_kws={"size": 13, "weight": "bold"})
             ax_cm.set_ylabel('True label')
             ax_cm.set_xlabel('Predicted label')
             
-            fig_cm.patch.set_facecolor('#353535') 
-            ax_cm.set_facecolor('#353535') 
+            fig_cm.patch.set_facecolor('#121212') 
+            ax_cm.set_facecolor('#121212') 
             
-            [t.set_color('#FFFFFF') for t in ax_cm.xaxis.get_ticklabels()]
-            [t.set_color('#FFFFFF') for t in ax_cm.yaxis.get_ticklabels()]
-            ax_cm.xaxis.label.set_color('#D9D9D9')
-            ax_cm.yaxis.label.set_color('#D9D9D9')
+            [t.set_color('#f8fafc') for t in ax_cm.xaxis.get_ticklabels()]
+            [t.set_color('#f8fafc') for t in ax_cm.yaxis.get_ticklabels()]
+            ax_cm.xaxis.label.set_color('#a1a1aa')
+            ax_cm.yaxis.label.set_color('#a1a1aa')
             
             cbar = ax_cm.collections[0].colorbar
-            cbar.ax.yaxis.set_tick_params(color='#FFFFFF')
-            plt.setp(plt.getp(cbar.ax.axes, 'yticklabels'), color='#FFFFFF')
+            cbar.ax.yaxis.set_tick_params(color='#f8fafc')
+            plt.setp(plt.getp(cbar.ax.axes, 'yticklabels'), color='#f8fafc')
             
             st.pyplot(fig_cm)
 
@@ -739,13 +573,13 @@ def evaluation_dialog():
     with tab2:
         st.markdown("<br>", unsafe_allow_html=True)
         r1, r2, r3, r4 = st.columns(4)
-        with r1: st.markdown('<div class="eval-box"><div class="eval-title">R² Score</div><div class="eval-val">0.8192</div></div>', unsafe_allow_html=True)
-        with r2: st.markdown('<div class="eval-box"><div class="eval-title">MAE Error</div><div class="eval-val">$3,460</div></div>', unsafe_allow_html=True)
-        with r3: st.markdown('<div class="eval-box"><div class="eval-title">RMSE Error</div><div class="eval-val">$5,228</div></div>', unsafe_allow_html=True)
-        with r4: st.markdown('<div class="eval-box"><div class="eval-title">MSE Error</div><div class="eval-val" style="font-size:1.1rem;">$27.3M</div></div>', unsafe_allow_html=True)
+        with r1: st.markdown('<div class="eval-box" style="border-left-color:#06b6d4;"><div class="eval-title">R² Score</div><div class="eval-val">0.8192</div></div>', unsafe_allow_html=True)
+        with r2: st.markdown('<div class="eval-box" style="border-left-color:#06b6d4;"><div class="eval-title">MAE Error</div><div class="eval-val">$3,460</div></div>', unsafe_allow_html=True)
+        with r3: st.markdown('<div class="eval-box" style="border-left-color:#06b6d4;"><div class="eval-title">RMSE Error</div><div class="eval-val">$5,228</div></div>', unsafe_allow_html=True)
+        with r4: st.markdown('<div class="eval-box" style="border-left-color:#06b6d4;"><div class="eval-title">MSE Error</div><div class="eval-val" style="font-size:1.2rem;">$27.3M</div></div>', unsafe_allow_html=True)
 
         st.divider()
-        st.markdown("<div style='text-align:center; color:#D9D9D9; font-weight:bold; margin-bottom:1rem; font-size:1.1rem;'>Credit Limit Prediction Accuracy</div>", unsafe_allow_html=True)
+        st.markdown("<div style='text-align:center; color:#a1a1aa; font-weight:800; margin-bottom:1rem; font-size:1.1rem;'>Credit Limit Prediction Accuracy</div>", unsafe_allow_html=True)
         
         col_space3, col_graph2, col_space4 = st.columns([1, 4, 1])
         with col_graph2:
@@ -754,25 +588,25 @@ def evaluation_dialog():
             predicted = actual * 0.9 + np.random.normal(0, 5000, 100)
             
             fig_reg, ax_reg = plt.subplots(figsize=(6, 4))
-            ax_reg.scatter(actual, predicted, alpha=0.8, color="#3C6E71", s=25, edgecolor="#284B63")
-            ax_reg.plot([0, 70000], [0, 70000], '--', color="#e07a5f", lw=2, label="Perfect Fit")
+            ax_reg.scatter(actual, predicted, alpha=0.8, color="#06b6d4", s=30, edgecolor="#050505", linewidth=0.5)
+            ax_reg.plot([0, 70000], [0, 70000], '--', color="#f43f5e", lw=2, label="Perfect Fit")
             
             ax_reg.set_xlabel("Actual Credit Limit ($)")
             ax_reg.set_ylabel("Predicted Credit Limit ($)")
             
-            fig_reg.patch.set_facecolor('#353535')
-            ax_reg.set_facecolor('#353535')
-            ax_reg.xaxis.label.set_color('#D9D9D9')
-            ax_reg.yaxis.label.set_color('#D9D9D9')
-            ax_reg.tick_params(colors='#D9D9D9')
-            ax_reg.grid(color='#D9D9D9', linestyle='-', linewidth=0.5, alpha=0.15)
+            fig_reg.patch.set_facecolor('#121212')
+            ax_reg.set_facecolor('#121212')
+            ax_reg.xaxis.label.set_color('#a1a1aa')
+            ax_reg.yaxis.label.set_color('#a1a1aa')
+            ax_reg.tick_params(colors='#a1a1aa')
+            ax_reg.grid(color='#ffffff', linestyle='-', linewidth=0.5, alpha=0.05)
             for spine in ax_reg.spines.values():
-                spine.set_color('#D9D9D9')
-                spine.set_alpha(0.2)
+                spine.set_color('#ffffff')
+                spine.set_alpha(0.1)
                 
-            legend = ax_reg.legend(facecolor='#353535', edgecolor='#D9D9D9')
+            legend = ax_reg.legend(facecolor='#121212', edgecolor='none')
             for text in legend.get_texts():
-                text.set_color('#FFFFFF')
+                text.set_color('#f8fafc')
                 
             st.pyplot(fig_reg)
 
@@ -780,52 +614,49 @@ def evaluation_dialog():
     with tab3:
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # Overfitting check cards
         o1, o2 = st.columns(2)
         with o1:
             st.markdown("""
-            <div class="eval-box">
+            <div class="eval-box" style="border-left-color:#f43f5e;">
                 <div class="eval-title">Classification Overfitting Check</div>
-                <div style="font-size:0.9rem; color:white; line-height: 1.6; direction: ltr; text-align: left; padding-top:0.5rem;">
-                <b>Train Acc:</b> 96.63% &nbsp;&rarr;&nbsp; <b>Test Acc:</b> 71.00%<br>
-                <span style="color:#e07a5f; font-weight:bold;">Gap: 25.63%</span>
+                <div style="font-size:0.95rem; color:white; line-height: 1.8; direction: ltr; text-align: left; padding-top:0.5rem;">
+                <b>Train Acc:</b> 96.63% <span style="color:#a1a1aa;">&rarr;</span> <b>Test Acc:</b> 71.00%<br>
+                <span style="color:#f43f5e; font-weight:800; font-size:1.1rem;">Gap: 25.63%</span>
                 </div>
             </div>
             """, unsafe_allow_html=True)
         with o2:
             st.markdown("""
-            <div class="eval-box">
+            <div class="eval-box" style="border-left-color:#f43f5e;">
                 <div class="eval-title">Regression Overfitting Check</div>
-                <div style="font-size:0.9rem; color:white; line-height: 1.6; direction: ltr; text-align: left; padding-top:0.5rem;">
-                <b>Train R²:</b> 0.9957 &nbsp;&rarr;&nbsp; <b>Test R²:</b> 0.8192<br>
-                <span style="color:#e07a5f; font-weight:bold;">Gap: 0.1765</span>
+                <div style="font-size:0.95rem; color:white; line-height: 1.8; direction: ltr; text-align: left; padding-top:0.5rem;">
+                <b>Train R²:</b> 0.9957 <span style="color:#a1a1aa;">&rarr;</span> <b>Test R²:</b> 0.8192<br>
+                <span style="color:#f43f5e; font-weight:800; font-size:1.1rem;">Gap: 0.1765</span>
                 </div>
             </div>
             """, unsafe_allow_html=True)
 
         st.divider()
-        st.markdown("<div style='text-align:center; color:#D9D9D9; font-weight:bold; margin-bottom:1rem; font-size:1.1rem;'>Feature Importance (XGBoost Engine)</div>", unsafe_allow_html=True)
+        st.markdown("<div style='text-align:center; color:#a1a1aa; font-weight:800; margin-bottom:1rem; font-size:1.1rem;'>Feature Importance (XGBoost Engine)</div>", unsafe_allow_html=True)
         
-        # Feature importance graph
         col_space5, col_graph3, col_space6 = st.columns([1, 4, 1])
         with col_graph3:
             fig_fi, ax_fi = plt.subplots(figsize=(6, 3.5))
             
             features_list = ['Missed Payments', 'Current Debt', 'Annual Income', 'Years in Business', 'Avg Order']
-            importance = [0.42, 0.28, 0.15, 0.10, 0.05] # Standard assumptions for credit risk
+            importance = [0.42, 0.28, 0.15, 0.10, 0.05]
             
-            sns.barplot(x=importance, y=features_list, hue=features_list, palette=["#284B63", "#3C6E71", "#52b788", "#a6c2c6", "#D9D9D9"], legend=False, ax=ax_fi)
+            sns.barplot(x=importance, y=features_list, hue=features_list, palette=["#a855f7", "#8b5cf6", "#6366f1", "#06b6d4", "#3b82f6"], legend=False, ax=ax_fi)
             
             ax_fi.set_xlabel('Relative Importance')
-            fig_fi.patch.set_facecolor('#353535')
-            ax_fi.set_facecolor('#353535')
-            ax_fi.xaxis.label.set_color('#D9D9D9')
-            ax_fi.tick_params(colors='#D9D9D9')
+            fig_fi.patch.set_facecolor('#121212')
+            ax_fi.set_facecolor('#121212')
+            ax_fi.xaxis.label.set_color('#a1a1aa')
+            ax_fi.tick_params(colors='#f8fafc')
             
-            ax_fi.grid(color='#D9D9D9', linestyle='-', linewidth=0.5, alpha=0.15, axis='x')
+            ax_fi.grid(color='#ffffff', linestyle='-', linewidth=0.5, alpha=0.05, axis='x')
             for spine in ax_fi.spines.values():
-                spine.set_color('#D9D9D9')
-                spine.set_alpha(0.2)
+                spine.set_color('none')
                 
             st.pyplot(fig_fi)
 
@@ -860,7 +691,6 @@ if not models_loaded:
         ⚠️ &nbsp;مۆدێلەکان نەدۆزرانەوە. دڵنیابە کە
         <b>risk_model.joblib</b>، <b>limit_model.joblib</b> و <b>scaler.joblib</b>
         لە دەرگەی <b>outputs/</b> دا هەن.
-        هەتا ئەوکاتە، سیستەمەکە بە نموونەیی کار دەکات.
     </div>
     """, unsafe_allow_html=True)
 
@@ -922,7 +752,7 @@ with col_right:
         key="missed",
         format_func=lambda x: "هیچ" if x == 0 else f"{x} جار",
     )
-    # Live summary
+    
     st.markdown(f"""
     <div class="summary-card">
         <div class="summary-card-title">📋 پوختەی زانیاریەکان</div>
