@@ -319,12 +319,12 @@ div[data-testid="stSlider"] [data-testid="stTickBarMin"], div[data-testid="stSli
 .summary-val { color: var(--text-main); font-weight: 700; direction: ltr; text-align: left; }
 
 /* ════════════════════════════════════════════════════════
-   ANALYZE BUTTON (LUXURY METALLIC GOLD & ROYAL BURGUNDY)
+   ANALYZE BUTTON (CUSTOM HEX #625834)
 ════════════════════════════════════════════════════════ */
 div[data-testid="stButton"] > button {
     width: 100% !important;
-    background: linear-gradient(135deg, #D4AF37 0%, #FFDF73 50%, #AA771C 100%) !important;
-    color: #4A040D !important; /* Deep Royal Burgundy Text */
+    background: linear-gradient(135deg, #75693e 0%, #625834 50%, #4d4529 100%) !important;
+    color: #ffffff !important; 
     font-family: 'Noto Sans Arabic', sans-serif !important;
     font-size: 1.15rem !important;
     font-weight: 900 !important;
@@ -332,15 +332,15 @@ div[data-testid="stButton"] > button {
     border-radius: 12px !important;
     padding: 0.9rem 1.5rem !important;
     letter-spacing: 0.05em !important;
-    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3) !important;
+    box-shadow: 0 6px 20px rgba(98, 88, 52, 0.4) !important;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
     cursor: pointer !important;
 }
 div[data-testid="stButton"] > button:hover {
     transform: translateY(-3px) scale(1.01) !important;
-    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5) !important;
-    background: linear-gradient(135deg, #FFDF73 0%, #FFF2A8 50%, #D4AF37 100%) !important;
-    color: #2A0005 !important;
+    box-shadow: 0 10px 25px rgba(98, 88, 52, 0.6) !important;
+    background: linear-gradient(135deg, #827545 0%, #70643b 50%, #5c5230 100%) !important;
+    color: #ffffff !important;
 }
 div[data-testid="stButton"] > button:active {
     transform: translateY(0) scale(0.99) !important;
