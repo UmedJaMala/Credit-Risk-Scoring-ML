@@ -4,13 +4,12 @@ import joblib
 import os
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  PAGE CONFIG
+#  PAGE CONFIG.
 # ══════════════════════════════════════════════════════════════════════════════
 st.set_page_config(
     page_title="سیستەمی زیرەکی نمرەدانی مەترسی و سنووری قەرز",
     page_icon="🏦",
-    layout="wide",
-    initial_sidebar_state="auto", # بۆ مۆبایل داخراو دەبێت
+    layout="wide"
 )
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -140,6 +139,43 @@ html, body, [class*="css"] {
 }
 
 /* ════════════════════════════════════════════════════════
+   PROJECT INFO (Replaced Sidebar)
+════════════════════════════════════════════════════════ */
+.sb-logo     { text-align: center; padding: 0.5rem 0; font-size: 2.8rem; }
+.sb-app-name { text-align: center; color: var(--teal); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 0.3rem; }
+.sb-ver      { text-align: center; color: rgba(0,212,255,0.4); font-size: 0.75rem; margin-bottom: 1rem; }
+.sb-section  {
+    background: rgba(0,45,75,0.4);
+    border: 1px solid rgba(0,212,255,0.1);
+    border-radius: 13px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 0.9rem;
+    height: 100%;
+}
+.sb-sec-title {
+    color: var(--teal);
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(0,212,255,0.1);
+    padding-bottom: 0.4rem;
+}
+.sb-body { color: rgba(180,210,235,0.8); font-size: 0.85rem; line-height: 1.8; }
+.sb-body b { color: var(--text-main); font-weight: 600; }
+.sb-tag {
+    display: inline-block;
+    background: rgba(0,212,255,0.1);
+    color: var(--teal);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 6px;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin: 0.2rem 0.12rem;
+}
+
+/* ════════════════════════════════════════════════════════
    INPUT CARDS
 ════════════════════════════════════════════════════════ */
 .input-card {
@@ -248,7 +284,7 @@ div[data-testid="stSlider"] .rc-slider-handle:hover,
     box-shadow: 0 0 0 5px rgba(0,212,255,0.4), 0 2px 8px rgba(0,0,0,0.4) !important;
 }
 div[data-testid="stSlider"] [data-testid="stTickBarMin"],
-div[data-testid="stSlider"][data-testid="stTickBarMax"] {
+div[data-testid="stSlider"] [data-testid="stTickBarMax"] {
     color: var(--text-muted) !important;
     font-size: 0.72rem !important;
     font-family: 'Noto Sans Arabic', sans-serif !important;
@@ -447,51 +483,6 @@ div[data-testid="stButton"] > button:active {
 }
 .footer strong { color: var(--teal); font-weight: 700; }
 
-/* ════════════════════════════════════════════════════════
-   SIDEBAR
-════════════════════════════════════════════════════════ */
-section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #001626 0%, #002038 60%, #001828 100%) !important;
-    border-left: 1px solid rgba(0,212,255,0.15) !important;
-    direction: rtl !important;
-}
-section[data-testid="stSidebar"] * {
-    font-family: 'Noto Sans Arabic', sans-serif !important;
-    direction: rtl !important;
-    text-align: right !important;
-}
-.sb-logo     { text-align: center; padding: 1.2rem 0 0.5rem; font-size: 2.8rem; }
-.sb-app-name { text-align: center; color: var(--teal); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 0.3rem; }
-.sb-ver      { text-align: center; color: rgba(0,212,255,0.35); font-size: 0.7rem; margin-bottom: 1.4rem; }
-.sb-divider  { height: 1px; background: linear-gradient(90deg, transparent, rgba(0,212,255,0.2), transparent); margin: 1rem 0; }
-.sb-section  {
-    background: rgba(0,45,75,0.4);
-    border: 1px solid rgba(0,212,255,0.1);
-    border-radius: 13px;
-    padding: 1rem 1.1rem;
-    margin-bottom: 0.9rem;
-}
-.sb-sec-title {
-    color: var(--teal);
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    margin-bottom: 0.5rem;
-}
-.sb-body { color: rgba(180,210,235,0.72); font-size: 0.8rem; line-height: 1.75; }
-.sb-body b { color: var(--text-main); font-weight: 600; }
-.sb-tag {
-    display: inline-block;
-    background: rgba(0,212,255,0.1);
-    color: var(--teal);
-    border: 1px solid rgba(0,212,255,0.2);
-    border-radius: 6px;
-    padding: 0.18rem 0.65rem;
-    font-size: 0.72rem;
-    font-weight: 700;
-    margin: 0.2rem 0.12rem;
-}
-
 /* ── Responsive Mobile Edits ──────────────────────────────────────── */
 @media (max-width: 768px) {
     .block-container { padding: 1rem 1rem 3rem 1rem !important; }
@@ -508,75 +499,10 @@ section[data-testid="stSidebar"] * {
     
     .input-card { padding: 1.2rem 1rem; margin-bottom: 1rem;}
     .result-card { padding: 1.5rem 1.2rem; margin-bottom: 1rem;}
+    .sb-section { margin-bottom: 1.5rem;}
 }
 </style>
 """, unsafe_allow_html=True)
-
-
-# ══════════════════════════════════════════════════════════════════════════════
-#  SIDEBAR
-# ══════════════════════════════════════════════════════════════════════════════
-with st.sidebar:
-    st.markdown("""
-    <div class="sb-logo">🏦</div>
-    <div class="sb-app-name">CREDIT RISK AI SYSTEM</div>
-    <div class="sb-ver">v 2.0 · XGBoost Engine</div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="sb-section">
-        <div class="sb-sec-title">📋 دەربارەی پڕۆژە</div>
-        <div class="sb-body">
-            ئەم سیستەمە بەکاردەهێنێت زیرەکی دەستکرد بۆ ئەوەی ئاستی مەترسی
-            کڕیارەکان بخەیتە سەر ئەستۆ و سنووری قەرزی گونجاو دیاری بکات
-            بۆ کۆمپانیا و تازیرەکان.<br><br>
-            بە بەکارهێنانی مۆدێلی <b>XGBoost</b>، سیستەمەکە
-            زانیارییەکانی دارایی و بازرگانی شیکاری دەکاتەوە
-            و بڕیاری زیرەکانە دەدات.
-        </div>
-    </div>
-
-    <div class="sb-section">
-        <div class="sb-sec-title">👨‍💻 گەشەپێدەر</div>
-        <div class="sb-body">
-            <b>ناو:</b> ئومێد جەمال نووری<br>
-            <b>بەش:</b> ئەندازیاری کارەبا<br>
-            <b>قۆناغ:</b> قۆناغی سێیەم<br>
-            <b>ساڵی خوێندن:</b> ٢٠٢٤ — ٢٠٢٥
-        </div>
-    </div>
-
-    <div class="sb-section">
-        <div class="sb-sec-title">⚙️ تەکنەلۆژیاکان</div>
-        <div class="sb-body" style="margin-bottom:0.5rem;">تەکنەلۆژیاکانی بەکارهاتوو:</div>
-        <span class="sb-tag">Python 3</span>
-        <span class="sb-tag">XGBoost</span>
-        <span class="sb-tag">Scikit-learn</span>
-        <span class="sb-tag">Streamlit</span>
-        <span class="sb-tag">Joblib</span>
-        <span class="sb-tag">NumPy</span>
-    </div>
-
-    <div class="sb-section">
-        <div class="sb-sec-title">📁 فایلەکانی مۆدێل</div>
-        <div class="sb-body">
-            📌 <b>risk_model.joblib</b><br>
-            &nbsp;&nbsp;&nbsp;مۆدێلی نمرەدانی مەترسی<br><br>
-            📌 <b>limit_model.joblib</b><br>
-            &nbsp;&nbsp;&nbsp;مۆدێلی سنووری قەرز<br><br>
-            📌 <b>scaler.joblib</b><br>
-            &nbsp;&nbsp;&nbsp;ئامێری نۆرمالکردنەوە
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown('<div class="sb-divider"></div>', unsafe_allow_html=True)
-    st.markdown("""
-    <div style="text-align:center; color:rgba(0,212,255,0.25); font-size:0.7rem; padding:0.4rem 0;">
-        Developed by Umed Jamal Nouri · 2025
-    </div>
-    """, unsafe_allow_html=True)
-
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  LOAD MODELS
@@ -608,6 +534,72 @@ st.markdown("""
     <div class="hero-badge">⚡ XGBoost AI ENGINE · REAL-TIME ANALYSIS</div>
 </div>
 """, unsafe_allow_html=True)
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  PROJECT INFO (Replaced Sidebar with Expander)
+# ══════════════════════════════════════════════════════════════════════════════
+with st.expander("ℹ️ زانیاری زیاتر دەربارەی پڕۆژە و گەشەپێدەر", expanded=False):
+    st.markdown("""
+    <div style="text-align: center; margin-bottom: 1.5rem;">
+        <div class="sb-logo">🏦</div>
+        <div class="sb-app-name">CREDIT RISK AI SYSTEM</div>
+        <div class="sb-ver">v 2.0 · XGBoost Engine</div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    info_col1, info_col2 = st.columns(2, gap="large")
+    
+    with info_col1:
+        st.markdown("""
+        <div class="sb-section">
+            <div class="sb-sec-title">📋 دەربارەی پڕۆژە</div>
+            <div class="sb-body">
+                ئەم سیستەمە بەکاردەهێنێت زیرەکی دەستکرد بۆ ئەوەی ئاستی مەترسی
+                کڕیارەکان بخەیتە سەر ئەستۆ و سنووری قەرزی گونجاو دیاری بکات
+                بۆ کۆمپانیا و تازیرەکان.<br><br>
+                بە بەکارهێنانی مۆدێلی <b>XGBoost</b>، سیستەمەکە
+                زانیارییەکانی دارایی و بازرگانی شیکاری دەکاتەوە
+                و بڕیاری زیرەکانە دەدات.
+            </div>
+        </div>
+
+        <div class="sb-section">
+            <div class="sb-sec-title">👨‍💻 گەشەپێدەر</div>
+            <div class="sb-body">
+                <b>ناو:</b> ئومێد جەمال نوری<br>
+                <b>بەش:</b> ئەندازیاری کارەبا<br>
+                <b>قۆناغ:</b> قۆناغی سێیەم<br>
+                <b>ساڵی خوێندن:</b> ٢٠٢٥ — ٢٠٢٦
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with info_col2:
+        st.markdown("""
+        <div class="sb-section">
+            <div class="sb-sec-title">⚙️ تەکنەلۆژیاکان</div>
+            <div class="sb-body" style="margin-bottom:0.5rem;">تەکنەلۆژیاکانی بەکارهاتوو:</div>
+            <span class="sb-tag">Python 3</span>
+            <span class="sb-tag">XGBoost</span>
+            <span class="sb-tag">Scikit-learn</span>
+            <span class="sb-tag">Streamlit</span>
+            <span class="sb-tag">Joblib</span>
+            <span class="sb-tag">NumPy</span>
+        </div>
+
+        <div class="sb-section">
+            <div class="sb-sec-title">📁 فایلەکانی مۆدێل</div>
+            <div class="sb-body">
+                📌 <b>risk_model.joblib</b><br>
+                &nbsp;&nbsp;&nbsp;مۆدێلی نمرەدانی مەترسی<br><br>
+                📌 <b>limit_model.joblib</b><br>
+                &nbsp;&nbsp;&nbsp;مۆدێلی سنووری قەرز<br><br>
+                📌 <b>scaler.joblib</b><br>
+                &nbsp;&nbsp;&nbsp;ئامێری نۆرمالکردنەوە
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
 
 if not models_loaded:
     st.markdown("""
@@ -829,10 +821,10 @@ if analyze:
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <div class="footer">
-    دروستکراوە لەلایەن &nbsp;<strong>ئومێد جەمال نووری</strong>&nbsp; ·
+    دروستکراوە لەلایەن &nbsp;<strong>ئومێد جەمال نوری</strong>&nbsp; ·
     Developed by <strong>Umed Jamal Nouri</strong><br>
     <span style="font-size:0.7rem; opacity:0.7;">
-        Powered by XGBoost · Scikit-learn · Streamlit · Python
+        Powered by XGBoost · Scikit-learn · Streamlit · Python - 2026
     </span>
 </div>
 """, unsafe_allow_html=True)
