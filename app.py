@@ -432,36 +432,37 @@ div[role="dialog"] p, div[role="dialog"] h1, div[role="dialog"] h2,
 div[role="dialog"] h3, div[role="dialog"] span, div[role="dialog"] div { color: var(--text) !important; }
 
 /* ════════════════════════════════════════════════════════
-   ABOUT SECTION (inside dialog)
+   ABOUT SECTION (inside dialog) - FIXED STACKING
 ════════════════════════════════════════════════════════ */
 .about-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 0.9rem;
-    margin-top: 0.8rem;
+    display: flex;
+    flex-direction: column; /* Forces vertical stacking */
+    gap: 1rem;
+    margin-top: 1rem;
 }
 .about-card {
     background: var(--bg-card2); border: 1px solid var(--border);
     border-radius: 14px; padding: 1.2rem 1.3rem;
+    width: 100%;
 }
 .about-card-title {
-    color: var(--cyan); font-size: 0.78rem; font-weight: 900;
-    letter-spacing: 0.08em; margin-bottom: 0.7rem; padding-bottom: 0.5rem;
+    color: var(--cyan); font-size: 0.85rem; font-weight: 900;
+    letter-spacing: 0.08em; margin-bottom: 0.8rem; padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--border);
 }
-.about-card-body { color: var(--text-2); font-size: 0.82rem; line-height: 1.80; }
+.about-card-body { color: var(--text-2); font-size: 0.85rem; line-height: 1.80; }
 .about-card-body b { color: var(--text); font-weight: 700; }
 .tech-tag {
     display: inline-block;
     background: var(--violet-dim); color: var(--violet);
     border: 1px solid var(--violet-bdr);
     border-radius: 6px; padding: 0.2rem 0.7rem;
-    font-size: 0.72rem; font-weight: 800; margin: 0.2rem 0.12rem;
+    font-size: 0.75rem; font-weight: 800; margin: 0.25rem 0.15rem;
 }
 .about-center { text-align: center; padding: 1rem 0 0.5rem; }
 .about-center-icon { font-size: 2.5rem; margin-bottom: 0.4rem; filter: drop-shadow(0 0 10px rgba(167,139,250,0.4)); }
-.about-center-name { color: var(--violet); font-size: 0.95rem; font-weight: 900; letter-spacing: 0.06em; }
-.about-center-ver  { color: var(--text-3); font-size: 0.73rem; margin-top: 0.2rem; }
+.about-center-name { color: var(--violet); font-size: 1.1rem; font-weight: 900; letter-spacing: 0.06em; }
+.about-center-ver  { color: var(--text-3); font-size: 0.8rem; margin-top: 0.3rem; }
 
 /* ════════════════════════════════════════════════════════
    WARNING & FOOTER
@@ -480,14 +481,21 @@ div[role="dialog"] h3, div[role="dialog"] span, div[role="dialog"] div { color: 
 .footer strong { color: var(--cyan); font-weight: 800; }
 
 /* ════════════════════════════════════════════════════════
-   RESPONSIVE
+   RESPONSIVE (Mobile Fixes)
 ════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
     .block-container { padding: 1rem 0.9rem 3rem !important; }
     .hero { padding: 1.7rem 1rem; }
     .rc-value { font-size: 1.9rem; }
-    .about-grid { grid-template-columns: 1fr; }
     div[data-baseweb="tab"] { font-size: 0.82rem !important; gap: 0.8rem; }
+    
+    /* Ensure columns stack properly on mobile */
+    div[data-testid="column"] {
+        width: 100% !important;
+        flex: 1 1 100% !important;
+        min-width: 100% !important;
+        margin-bottom: 1rem;
+    }
 }
 </style>
 """, unsafe_allow_html=True)
