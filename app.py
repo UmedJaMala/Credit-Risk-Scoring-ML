@@ -65,6 +65,17 @@ html, body, [class*="css"] {
     padding: 1.8rem 2rem 4rem 2rem !important;
     max-width: 1080px !important;
 }
+            
+        /* چاککردنی ڕەنگی تێکستی ناو ئێکسپاندەر */
+    .streamlit-expanderHeader p {
+        color: #00d4ff !important; /* ڕەنگی تێڵ */
+        font-weight: bold !important;
+        font-size: 1.1rem !important;
+    }
+    /* بۆ ئەوەی لەسەر مۆبایل ئایکۆنەکەش ڕەنگی جوان بێت */
+    .streamlit-expanderHeader svg {
+        fill: #00d4ff !important;
+    }
 
 /* ════════════════════════════════════════════════════════
    HERO BANNER
