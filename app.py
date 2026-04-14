@@ -145,10 +145,11 @@ div[data-testid="stMarkdownContainer"] p {
 }
 
 /* ════════════════════════════════════════════════════════
-   ACTION BUTTONS  (About + Eval)
+   ACTION BUTTONS (NATIVE STREAMLIT TYPES)
 ════════════════════════════════════════════════════════ */
-/* Streamlit button reset */
-div[data-testid="stButton"] > button {
+
+/* Primary Button (Analyze/Gold) */
+div[data-testid="stBaseButton-primary"] button, button[kind="primary"] {
     width: 100% !important;
     background: var(--gold-dim) !important;
     border: 1px solid var(--gold-bdr) !important;
@@ -163,18 +164,36 @@ div[data-testid="stButton"] > button {
     transition: all 0.22s ease !important;
     cursor: pointer !important;
 }
-div[data-testid="stButton"] > button:hover {
+div[data-testid="stBaseButton-primary"] button:hover, button[kind="primary"]:hover {
     transform: translateY(-2px) !important;
     background: rgba(212,168,75,0.22) !important;
     box-shadow: 0 8px 28px rgba(212,168,75,0.35) !important;
 }
-div[data-testid="stButton"] > button:active { transform: translateY(0) !important; }
-
-/* ── Override buttons INSIDE dialogs ── */
-.top-action-buttons div[data-testid="stButton"] > button {
-    background: transparent !important;
-    box-shadow: none !important;
+div[data-testid="stBaseButton-primary"] button:active, button[kind="primary"]:active { 
+    transform: translateY(0) !important; 
 }
+
+/* Secondary Buttons (Top Dialog Triggers - Cyan/Dark) */
+div[data-testid="stBaseButton-secondary"] button, button[kind="secondary"] {
+    width: 100% !important;
+    background: var(--bg-card2) !important;
+    border: 1px solid var(--cyan-bdr) !important;
+    color: var(--cyan) !important;
+    font-family: 'Noto Sans Arabic', sans-serif !important;
+    font-size: 0.95rem !important;
+    font-weight: 800 !important;
+    border-radius: var(--r) !important;
+    padding: 0.85rem 1.2rem !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+    transition: all 0.22s ease !important;
+    cursor: pointer !important;
+}
+div[data-testid="stBaseButton-secondary"] button:hover, button[kind="secondary"]:hover {
+    transform: translateY(-2px) !important;
+    background: var(--cyan-dim) !important;
+    box-shadow: 0 6px 20px rgba(34,211,238,0.2) !important;
+}
+
 
 /* ════════════════════════════════════════════════════════
    SECTION HEADING
@@ -377,15 +396,11 @@ div[data-baseweb="tab"] {
 }
 div[aria-selected="true"] { color: var(--cyan) !important; border-bottom-color: var(--cyan) !important; }
 
-/* ════════════════════════════════════════════════════════
-   DIALOG BACKGROUND FIX (Strict Mobile Dark Mode)
-════════════════════════════════════════════════════════ */
+/* Dialog background fix */
 div[data-testid="stModal"] > div,
 div[role="dialog"],
-section[data-testid="stDialog"] > div,
-.stDialog {
+section[data-testid="stDialog"] > div {
     background: #111827 !important;
-    background-color: #111827 !important;
     border: 1px solid var(--border-hi) !important;
     border-radius: 18px !important;
     box-shadow: var(--shadow-lg) !important;
@@ -396,19 +411,19 @@ div[role="dialog"] p, div[role="dialog"] h1, div[role="dialog"] h2,
 div[role="dialog"] h3, div[role="dialog"] span, div[role="dialog"] div { color: var(--text) !important; }
 
 /* ════════════════════════════════════════════════════════
-   ABOUT SECTION (using Streamlit's native columns now)
+   ABOUT SECTION (inside dialog)
 ════════════════════════════════════════════════════════ */
 .about-card {
     background: var(--bg-card2); border: 1px solid var(--border);
     border-radius: 14px; padding: 1.2rem 1.3rem;
-    width: 100%;
+    margin-bottom: 1rem;
 }
 .about-card-title {
     color: var(--cyan); font-size: 0.78rem; font-weight: 900;
     letter-spacing: 0.08em; margin-bottom: 0.7rem; padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--border);
 }
-.about-card-body { color: var(--text-2); font-size: 0.82rem; line-height: 1.80; word-break: break-word; }
+.about-card-body { color: var(--text-2); font-size: 0.82rem; line-height: 1.80; }
 .about-card-body b { color: var(--text); font-weight: 700; }
 .tech-tag {
     display: inline-block;
@@ -417,7 +432,7 @@ div[role="dialog"] h3, div[role="dialog"] span, div[role="dialog"] div { color: 
     border-radius: 6px; padding: 0.2rem 0.7rem;
     font-size: 0.72rem; font-weight: 800; margin: 0.2rem 0.12rem;
 }
-.about-center { text-align: center; padding: 1rem 0 1.5rem; }
+.about-center { text-align: center; padding: 1rem 0 0.5rem; }
 .about-center-icon { font-size: 2.5rem; margin-bottom: 0.4rem; filter: drop-shadow(0 0 10px rgba(167,139,250,0.4)); }
 .about-center-name { color: var(--violet); font-size: 0.95rem; font-weight: 900; letter-spacing: 0.06em; }
 .about-center-ver  { color: var(--text-3); font-size: 0.73rem; margin-top: 0.2rem; }
@@ -439,21 +454,13 @@ div[role="dialog"] h3, div[role="dialog"] span, div[role="dialog"] div { color: 
 .footer strong { color: var(--cyan); font-weight: 800; }
 
 /* ════════════════════════════════════════════════════════
-   RESPONSIVE (Mobile Fixes for Overlapping)
+   RESPONSIVE
 ════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
     .block-container { padding: 1rem 0.9rem 3rem !important; }
     .hero { padding: 1.7rem 1rem; }
     .rc-value { font-size: 1.9rem; }
     div[data-baseweb="tab"] { font-size: 0.82rem !important; gap: 0.8rem; }
-    
-    /* ئەگەر ئەمە نەبێت ئەوا کارتەکانی دەربارە و داخڵکردن تێکەڵ دەبن لە مۆبایل */
-    div[data-testid="column"] { 
-        width: 100% !important; 
-        flex: 1 1 100% !important; 
-        min-width: 100% !important; 
-        margin-bottom: 1.2rem; 
-    }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -504,11 +511,12 @@ def project_info_dialog():
     </div>
     """, unsafe_allow_html=True)
     
+    # Using standard Streamlit columns to prevent overlapping issues on mobile
     info_col1, info_col2 = st.columns(2, gap="large")
     
     with info_col1:
         st.markdown("""
-        <div class="about-card" style="margin-bottom:1rem;">
+        <div class="about-card">
             <div class="about-card-title">📋 دەربارەی پڕۆژە</div>
             <div class="about-card-body">
                 ئەم سیستەمە بە <b>XGBoost</b> ئاستی مەترسی کڕیارەکان
@@ -517,6 +525,9 @@ def project_info_dialog():
                 و بازرگانی.
             </div>
         </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
         <div class="about-card">
             <div class="about-card-title">👨‍💻 گەشەپێدەر</div>
             <div class="about-card-body">
@@ -530,7 +541,7 @@ def project_info_dialog():
 
     with info_col2:
         st.markdown("""
-        <div class="about-card" style="margin-bottom:1rem;">
+        <div class="about-card">
             <div class="about-card-title">⚙️ تەکنەلۆژیاکان</div>
             <div class="about-card-body" style="margin-bottom:0.5rem;">تەکنەلۆژیاکانی بەکارهاتوو:</div>
             <span class="tech-tag">Python 3</span>
@@ -541,6 +552,9 @@ def project_info_dialog():
             <span class="tech-tag">Joblib</span>
             <span class="tech-tag">Matplotlib</span>
         </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
         <div class="about-card">
             <div class="about-card-title">📁 فایلەکانی مۆدێل</div>
             <div class="about-card-body">
@@ -650,8 +664,13 @@ def evaluation_dialog():
                         linewidths=2, linecolor="#0a0f1a")
             ax.set_ylabel("True label", labelpad=10)
             ax.set_xlabel("Predicted label", labelpad=10)
-            [t.set_color("#f1f5f9") for t in ax.xaxis.get_ticklabels()]
-            [t.set_color("#f1f5f9") for t in ax.yaxis.get_ticklabels()]
+            
+            # بەکارهێنانی For-loop لەبری List Comprehension بۆ ئەوەی بۆکسە سپییەکان (NULL) دروست نەبن
+            for t in ax.xaxis.get_ticklabels():
+                t.set_color("#f1f5f9")
+            for t in ax.yaxis.get_ticklabels():
+                t.set_color("#f1f5f9")
+                
             plt.tight_layout()
             st.pyplot(fig, use_container_width=True)
             plt.close(fig)
@@ -775,36 +794,17 @@ st.markdown("""
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  ACTION BUTTONS  (About + Eval)
+#  ACTION BUTTONS  (About + Eval) — styled grid, mobile-safe
 # ══════════════════════════════════════════════════════════════════════════════
 ab_col, ev_col = st.columns(2, gap="medium")
 with ab_col:
-    if st.button("👤  دەربارەی پڕۆژە و گەشەپێدەر", use_container_width=True,
+    if st.button("👤  دەربارەی پڕۆژە و گەشەپێدەر", use_container_width=True, type="secondary",
                  help="زانیاری دەربارەی پڕۆژە، گەشەپێدەر، و تەکنەلۆژیاکان"):
         project_info_dialog()
 with ev_col:
-    if st.button("📊  هەڵسەنگاندنی زانستی مۆدێل", use_container_width=True,
+    if st.button("📊  هەڵسەنگاندنی زانستی مۆدێل", use_container_width=True, type="secondary",
                  help="ئەنجامی تەست، مەتریکەکان، و گرافەکان"):
         evaluation_dialog()
-
-# style the two top buttons differently from the main analyze button
-st.markdown("""
-<style>
-/* First two buttons = outline style */
-div[data-testid="stHorizontalBlock"]:first-of-type div[data-testid="stButton"]:nth-child(1) > button {
-    background: var(--violet-dim) !important;
-    border-color: var(--violet-bdr) !important;
-    color: var(--violet) !important;
-    box-shadow: none !important;
-}
-div[data-testid="stHorizontalBlock"]:first-of-type div[data-testid="stButton"]:nth-child(2) > button {
-    background: var(--cyan-dim) !important;
-    border-color: var(--cyan-bdr) !important;
-    color: var(--cyan) !important;
-    box-shadow: none !important;
-}
-</style>
-""", unsafe_allow_html=True)
 
 # Warning banner
 if not models_loaded:
@@ -868,7 +868,7 @@ with col_r:
 st.markdown("<br>", unsafe_allow_html=True)
 _, btn_col, _ = st.columns([1, 2, 1])
 with btn_col:
-    analyze = st.button("🔮  شیکردنەوە و بڕیاردان", use_container_width=True)
+    analyze = st.button("🔮  شیکردنەوە و بڕیاردان", use_container_width=True, type="primary")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
