@@ -891,7 +891,7 @@ if analyze:
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <div class="footer">
-    دروستکراوە لەلایەن &nbsp;<strong>ئومێد جەمال نوری</strong>&nbsp; ·
+    دروستکراوە لەلایەن &nbsp;<strong>ئومێد جمال نوری</strong>&nbsp; ·
     Developed by <strong>Umed Jamal Nouri</strong><br>
     <span style="font-size:0.7rem; opacity:0.7;">
         Powered by XGBoost · Scikit-learn · Streamlit · Python - 2026
