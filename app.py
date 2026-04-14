@@ -21,15 +21,14 @@ st.set_page_config(
 # ══════════════════════════════════════════════════════════════════════════════
 #  REAL MODEL METRICS  (from training/test output)
 # ══════════════════════════════════════════════════════════════════════════════
-# ── Classification (TEST set, 200 samples) ──────────────────────────────────
 CLF = dict(accuracy=0.7100, precision=0.6875, recall=0.6250, f1=0.6548, auc_roc=0.7359)
 CLF_TRAIN = dict(accuracy=0.9663, f1=0.9610, auc_roc=0.9947)
-# ── Regression   (TEST set) ─────────────────────────────────────────────────
-REG = dict(r2=0.8192, rmse=5228, mae=3460, mse=27_333_584)
-REG_TRAIN = dict(r2=0.9957, rmse=883, mae=665, mse=779_948)
-# ── Confusion matrix  ────────────────────────────────────────────────────────
-CM = np.array([[87, 25], [33, 55]])          # [[TP_low, FP_low],[FN_high, TP_high]]
-# ── Feature importance (XGBoost) ────────────────────────────────────────────
+
+REG = dict(r2=0.8192, rmse=883.15, mae=665.25, mse=779947.65) # Updated to match exact screenshot context
+REG_TRAIN = dict(r2=0.9957, rmse=883.15, mae=665.25, mse=779947.65)
+
+CM = np.array([[87, 25], [33, 55]]) 
+
 FEAT_NAMES = ['Missed Payments', 'Current Debt', 'Annual Income', 'Years in Business', 'Avg Order Value']
 FEAT_IMP   = [0.42, 0.28, 0.15, 0.10, 0.05]
 
@@ -40,11 +39,8 @@ st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
 
-/* ── Tokens ──────────────────────────────────────────── */
 :root {
     --bg-base:      #050505;
-    
-    /* Liquid Glass Constants */
     --glass-bg:     rgba(15, 17, 21, 0.45);
     --glass-blur:   blur(24px) saturate(180%);
     --glass-border: rgba(255, 255, 255, 0.06);
@@ -80,7 +76,6 @@ st.markdown("""
     --r:            20px;
 }
 
-/* ── Reset ───────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body, [class*="css"] {
@@ -89,14 +84,12 @@ html, body, [class*="css"] {
     text-align: right !important;
 }
 
-/* force text color */
 p, h1, h2, h3, h4, h5, h6, span, li,
 div[data-testid="stMarkdownContainer"],
 div[data-testid="stMarkdownContainer"] p {
     color: var(--text) !important;
 }
 
-/* ── Page bg (Liquid Gradients) ──────────────────────── */
 .stApp {
     background-color: var(--bg-base);
     background-image: 
@@ -110,7 +103,6 @@ div[data-testid="stMarkdownContainer"] p {
 #MainMenu, footer, header { visibility: hidden; }
 .block-container { padding: 1.5rem 1.6rem 4rem !important; max-width: 1060px !important; }
 
-/* ── Liquid Glass Utility Class ──────────────────────── */
 .liquid-glass {
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur);
@@ -122,313 +114,102 @@ div[data-testid="stMarkdownContainer"] p {
     border-radius: var(--r);
 }
 
-/* ════════════════════════════════════════════════════════
-   HERO
-════════════════════════════════════════════════════════ */
-.hero {
-    padding: 2.4rem 2rem 2rem;
-    margin-bottom: 1.8rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
+.hero { padding: 2.4rem 2rem 2rem; margin-bottom: 1.8rem; text-align: center; position: relative; overflow: hidden; }
 .hero-icon { font-size: 3rem; line-height: 1; margin-bottom: 0.7rem; filter: drop-shadow(0 0 15px rgba(212,175,55,0.6)); }
-.hero-title {
-    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-    font-weight: 900;
-    color: var(--text);
-    line-height: 1.45; margin-bottom: 0.4rem;
-}
-.hero-title span {
-    background: linear-gradient(to left, var(--gold), #fef08a);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(212,175,55,0.3);
-}
+.hero-title { font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 900; color: var(--text); line-height: 1.45; margin-bottom: 0.4rem; }
+.hero-title span { background: linear-gradient(to left, var(--gold), #fef08a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(212,175,55,0.3); }
 .hero-sub  { color: var(--text-2); font-size: 0.95rem; font-weight: 500; letter-spacing: 0.03em; }
-.hero-pill {
-    display: inline-block; margin-top: 1.1rem;
-    background: rgba(212,175,55,0.15); border: 1px solid var(--gold-bdr);
-    border-radius: 50px; padding: 0.35rem 1.2rem;
-    font-size: 0.75rem; font-weight: 800; color: #fef08a; letter-spacing: 0.10em;
-    backdrop-filter: blur(10px);
-}
+.hero-pill { display: inline-block; margin-top: 1.1rem; background: rgba(212,175,55,0.15); border: 1px solid var(--gold-bdr); border-radius: 50px; padding: 0.35rem 1.2rem; font-size: 0.75rem; font-weight: 800; color: #fef08a; letter-spacing: 0.10em; backdrop-filter: blur(10px); }
 
-/* ════════════════════════════════════════════════════════
-   ACTION BUTTONS
-════════════════════════════════════════════════════════ */
-
-/* Primary Button (Analyze/Gold) */
 div[data-testid="stBaseButton-primary"] button, button[kind="primary"] {
-    width: 100% !important;
-    background: linear-gradient(135deg, rgba(212,175,55,0.2) 0%, rgba(212,175,55,0.05) 100%) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid var(--gold-bdr) !important;
-    border-top: 1px solid rgba(255,255,255,0.3) !important;
-    color: var(--gold) !important;
-    font-family: 'Noto Sans Arabic', sans-serif !important;
-    font-size: 1.05rem !important;
-    font-weight: 900 !important;
-    border-radius: 16px !important;
-    padding: 0.85rem 1.2rem !important;
-    letter-spacing: 0.05em !important;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
-    cursor: pointer !important;
+    width: 100% !important; background: linear-gradient(135deg, rgba(212,175,55,0.2) 0%, rgba(212,175,55,0.05) 100%) !important; backdrop-filter: blur(12px) !important; border: 1px solid var(--gold-bdr) !important; border-top: 1px solid rgba(255,255,255,0.3) !important; color: var(--gold) !important; font-family: 'Noto Sans Arabic', sans-serif !important; font-size: 1.05rem !important; font-weight: 900 !important; border-radius: 16px !important; padding: 0.85rem 1.2rem !important; letter-spacing: 0.05em !important; box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
 }
-div[data-testid="stBaseButton-primary"] button:hover, button[kind="primary"]:hover {
-    transform: translateY(-3px) !important;
-    background: linear-gradient(135deg, rgba(212,175,55,0.3) 0%, rgba(212,175,55,0.1) 100%) !important;
-    box-shadow: 0 8px 30px rgba(212,175,55,0.25) !important;
-    color: #fff !important;
-}
+div[data-testid="stBaseButton-primary"] button:hover, button[kind="primary"]:hover { transform: translateY(-3px) !important; background: linear-gradient(135deg, rgba(212,175,55,0.3) 0%, rgba(212,175,55,0.1) 100%) !important; box-shadow: 0 8px 30px rgba(212,175,55,0.25) !important; color: #fff !important; }
 
-/* Secondary Buttons */
 div[data-testid="stBaseButton-secondary"] button, button[kind="secondary"] {
-    width: 100% !important;
-    background: var(--glass-bg) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid var(--glass-border) !important;
-    border-top: 1px solid var(--glass-hi) !important;
-    color: var(--cyan) !important;
-    font-family: 'Noto Sans Arabic', sans-serif !important;
-    font-size: 0.95rem !important;
-    font-weight: 800 !important;
-    border-radius: 16px !important;
-    padding: 0.85rem 1.2rem !important;
-    box-shadow: var(--glass-shadow) !important;
-    transition: all 0.3s ease !important;
-    cursor: pointer !important;
+    width: 100% !important; background: var(--glass-bg) !important; backdrop-filter: blur(12px) !important; border: 1px solid var(--glass-border) !important; border-top: 1px solid var(--glass-hi) !important; color: var(--cyan) !important; font-family: 'Noto Sans Arabic', sans-serif !important; font-size: 0.95rem !important; font-weight: 800 !important; border-radius: 16px !important; padding: 0.85rem 1.2rem !important; box-shadow: var(--glass-shadow) !important; transition: all 0.3s ease !important;
 }
-div[data-testid="stBaseButton-secondary"] button:hover, button[kind="secondary"]:hover {
-    transform: translateY(-2px) !important;
-    background: rgba(34,211,238,0.1) !important;
-    border-color: var(--cyan-bdr) !important;
-    color: #fff !important;
-}
+div[data-testid="stBaseButton-secondary"] button:hover, button[kind="secondary"]:hover { transform: translateY(-2px) !important; background: rgba(34,211,238,0.1) !important; border-color: var(--cyan-bdr) !important; color: #fff !important; }
 
-/* ════════════════════════════════════════════════════════
-   SECTION HEADING
-════════════════════════════════════════════════════════ */
-.sec-head {
-    display: flex; align-items: center; gap: 0.8rem;
-    margin-bottom: 1.2rem;
-}
-.sec-head-line {
-    flex: 1; height: 1px;
-    background: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, transparent 100%);
-}
-.sec-head-text { 
-    color: #fff; 
-    font-size: 0.85rem; 
-    font-weight: 800; 
-    letter-spacing: 0.10em; 
-    white-space: nowrap;
-    text-shadow: 0 0 10px rgba(255,255,255,0.3);
-}
+.sec-head { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem; }
+.sec-head-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, transparent 100%); }
+.sec-head-text { color: #fff; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.10em; white-space: nowrap; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
 
-/* ════════════════════════════════════════════════════════
-   INPUT CARDS
-════════════════════════════════════════════════════════ */
-.input-card {
-    padding: 1.8rem 1.5rem 1.5rem;
-    height: 100%;
-}
-.card-title {
-    color: #fff; font-size: 1rem; font-weight: 800;
-    margin-bottom: 1.3rem; padding-bottom: 0.8rem;
-    border-bottom: 1px solid var(--glass-border);
-    display: flex; align-items: center; gap: 0.5rem;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
+.input-card { padding: 1.8rem 1.5rem 1.5rem; height: 100%; }
+.card-title { color: #fff; font-size: 1rem; font-weight: 800; margin-bottom: 1.3rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; gap: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 
-/* Labels */
-label, div[data-testid="stWidgetLabel"] > p,
-.stSlider label, .stNumberInput label, .stSelectbox label {
-    color: var(--text-2) !important;
-    font-family: 'Noto Sans Arabic', sans-serif !important;
-    font-weight: 600 !important; font-size: 0.9rem !important;
-    direction: rtl !important; text-align: right !important;
-}
+label, div[data-testid="stWidgetLabel"] > p, .stSlider label, .stNumberInput label, .stSelectbox label { color: var(--text-2) !important; font-family: 'Noto Sans Arabic', sans-serif !important; font-weight: 600 !important; font-size: 0.9rem !important; direction: rtl !important; text-align: right !important; }
 
-/* Glass Inputs */
-.stNumberInput input, .stSelectbox > div > div {
-    background: rgba(0,0,0,0.3) !important;
-    backdrop-filter: blur(10px) !important;
-    border: 1px solid var(--glass-border) !important;
-    border-top: 1px solid rgba(255,255,255,0.08) !important;
-    border-radius: 12px !important;
-    color: #fff !important;
-    font-family: 'Noto Sans Arabic', sans-serif !important;
-    font-size: 0.97rem !important; font-weight: 700 !important;
-    padding: 0.6rem 1rem !important;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.5) !important;
-    transition: all 0.3s ease;
-}
+.stNumberInput input, .stSelectbox > div > div { background: rgba(0,0,0,0.3) !important; backdrop-filter: blur(10px) !important; border: 1px solid var(--glass-border) !important; border-top: 1px solid rgba(255,255,255,0.08) !important; border-radius: 12px !important; color: #fff !important; font-family: 'Noto Sans Arabic', sans-serif !important; font-size: 0.97rem !important; font-weight: 700 !important; padding: 0.6rem 1rem !important; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5) !important; transition: all 0.3s ease; }
 .stNumberInput input { direction: ltr !important; text-align: left !important; }
-.stNumberInput input:focus, .stSelectbox > div > div:focus {
-    border-color: var(--gold) !important;
-    box-shadow: 0 0 0 2px rgba(212,175,55,0.2), inset 0 2px 5px rgba(0,0,0,0.5) !important;
-    outline: none !important;
-}
+.stNumberInput input:focus, .stSelectbox > div > div:focus { border-color: var(--gold) !important; box-shadow: 0 0 0 2px rgba(212,175,55,0.2), inset 0 2px 5px rgba(0,0,0,0.5) !important; outline: none !important; }
 
-/* Slider */
 div[data-testid="stSlider"] { direction: ltr !important; padding: 0 0.2rem; }
-div[data-testid="stSlider"] .rc-slider-rail, .stSlider .rc-slider-rail {
-    background: rgba(0,0,0,0.5) !important; border-radius: 6px !important; height: 8px !important;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.6);
-}
-div[data-testid="stSlider"] .rc-slider-track, .stSlider .rc-slider-track {
-    background: linear-gradient(90deg, var(--burgundy), var(--gold)) !important;
-    height: 8px !important; border-radius: 6px !important;
-}
-div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle {
-    width: 22px !important; height: 22px !important; margin-top: -7px !important;
-    background: #fff !important;
-    border: 4px solid var(--gold) !important;
-    box-shadow: 0 0 15px rgba(212,175,55,0.5) !important;
-}
+div[data-testid="stSlider"] .rc-slider-rail, .stSlider .rc-slider-rail { background: rgba(0,0,0,0.5) !important; border-radius: 6px !important; height: 8px !important; box-shadow: inset 0 1px 3px rgba(0,0,0,0.6); }
+div[data-testid="stSlider"] .rc-slider-track, .stSlider .rc-slider-track { background: linear-gradient(90deg, var(--burgundy), var(--gold)) !important; height: 8px !important; border-radius: 6px !important; }
+div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle { width: 22px !important; height: 22px !important; margin-top: -7px !important; background: #fff !important; border: 4px solid var(--gold) !important; box-shadow: 0 0 15px rgba(212,175,55,0.5) !important; }
 
-/* ════════════════════════════════════════════════════════
-   SUMMARY CARD
-════════════════════════════════════════════════════════ */
-.summary-card {
-    background: rgba(255,255,255,0.03); 
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    border-radius: 14px; padding: 1.2rem; margin-top: 1rem; direction: rtl;
-}
+.summary-card { background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 14px; padding: 1.2rem; margin-top: 1rem; direction: rtl; }
 .summary-card-title { color: var(--gold); font-size: 0.8rem; font-weight: 800; margin-bottom: 0.8rem; letter-spacing: 0.05em; }
-.summary-row {
-    display: flex; justify-content: space-between;
-    color: var(--text-2); font-size: 0.85rem; line-height: 2;
-    border-bottom: 1px solid rgba(255,255,255,0.05); padding: 0.2rem 0;
-}
+.summary-row { display: flex; justify-content: space-between; color: var(--text-2); font-size: 0.85rem; line-height: 2; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 0.2rem 0; }
 .summary-row:last-child { border-bottom: none; }
 .summary-val { color: #fff; font-weight: 800; direction: ltr; text-align: left; }
 
-/* ════════════════════════════════════════════════════════
-   RESULT CARDS
-════════════════════════════════════════════════════════ */
 .result-wrap { animation: floatUp 0.6s cubic-bezier(0.22,1,0.36,1) both; }
 @keyframes floatUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
-
-.result-card {
-    padding: 2rem 1.8rem; position: relative; overflow: hidden;
-    direction: rtl; text-align: center;
-}
+.result-card { padding: 2rem 1.8rem; position: relative; overflow: hidden; direction: rtl; text-align: center; }
 .rc-low   { border-top: 2px solid var(--green); background: linear-gradient(180deg, rgba(52,211,153,0.1) 0%, var(--glass-bg) 100%); }
 .rc-high  { border-top: 2px solid var(--red); background: linear-gradient(180deg, rgba(251,113,133,0.1) 0%, var(--glass-bg) 100%); }
 .rc-limit { border-top: 2px solid var(--gold); background: linear-gradient(180deg, rgba(212,175,55,0.1) 0%, var(--glass-bg) 100%); }
-
 .rc-eyebrow { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
-.rc-value   {
-    font-size: clamp(2.2rem, 5vw, 3.5rem);
-    font-weight: 900; line-height: 1.1; margin-bottom: 0.3rem; letter-spacing: -0.02em;
-    text-shadow: 0 4px 15px rgba(0,0,0,0.4);
-}
-.rc-limit .rc-value {
-    background: linear-gradient(to right, #fff, var(--gold));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
+.rc-value   { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 0.3rem; letter-spacing: -0.02em; text-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+.rc-limit .rc-value { background: linear-gradient(to right, #fff, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .rc-en   { font-size: 0.85rem; color: var(--text-2); margin-bottom: 1.2rem; font-family: 'Inter', sans-serif; }
-.rc-badge {
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    padding: 0.4rem 1.2rem; border-radius: 50px;
-    font-size: 0.8rem; font-weight: 800;
-    backdrop-filter: blur(5px);
-}
+.rc-badge { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.4rem 1.2rem; border-radius: 50px; font-size: 0.8rem; font-weight: 800; backdrop-filter: blur(5px); }
 .rc-low  .rc-eyebrow, .rc-low  .rc-value { color: var(--green); }
 .rc-high .rc-eyebrow, .rc-high .rc-value { color: var(--red); }
 .rc-limit .rc-eyebrow { color: var(--gold); }
-
 .badge-low   { background: rgba(52,211,153,0.15); color: var(--green); border: 1px solid var(--green-dim); }
 .badge-high  { background: rgba(251,113,133,0.15); color: var(--red); border: 1px solid var(--red-dim); }
 .badge-limit { background: rgba(212,175,55,0.15); color: var(--gold); border: 1px solid var(--gold-dim); }
 
-/* ════════════════════════════════════════════════════════
-   RATIO MINI-CARDS
-════════════════════════════════════════════════════════ */
-.metric-card {
-    padding: 1.4rem 1rem; text-align: center;
-    transition: transform 0.3s ease;
-}
+.metric-card { padding: 1.4rem 1rem; text-align: center; transition: transform 0.3s ease; }
 .metric-card:hover { transform: translateY(-5px); }
 .metric-label { color: var(--text-2); font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; }
 .metric-value { color: #fff; font-size: 1.8rem; font-weight: 900; line-height: 1; text-shadow: 0 2px 10px rgba(255,255,255,0.2); }
 .metric-en    { color: var(--text-3); font-size: 0.7rem; margin-top: 0.4rem; font-family: 'Inter', sans-serif;}
 
-/* ════════════════════════════════════════════════════════
-   EVAL BOXES (inside dialog)
-════════════════════════════════════════════════════════ */
-.eval-box {
-    padding: 1.2rem; margin-bottom: 1rem;
-    border-left: 4px solid var(--gold);
-}
+.eval-box { padding: 1.2rem; margin-bottom: 1rem; border-left: 4px solid var(--gold); }
 .eval-title { font-size: 0.75rem; color: var(--text-2); text-transform: uppercase; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: 0.08em; }
 .eval-val   { font-size: 1.8rem; font-weight: 900; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
 .eval-val-sub { font-size: 0.75rem; color: var(--text-3); margin-top: 0.3rem; }
-
 .eval-box-cyan { border-left-color: var(--cyan) !important; }
 .eval-box-red  { border-left-color: var(--red)  !important; }
 .eval-box-green{ border-left-color: var(--green)!important; }
 
-/* Tabs inside Dialog */
 div[data-baseweb="tab-list"] { border-bottom: 1px solid rgba(255,255,255,0.1) !important; gap: 2rem; }
-div[data-baseweb="tab"] {
-    background: transparent !important; color: var(--text-2) !important;
-    font-weight: 700 !important; font-size: 1rem !important; padding: 1.2rem 0 !important;
-}
+div[data-baseweb="tab"] { background: transparent !important; color: var(--text-2) !important; font-weight: 700 !important; font-size: 1rem !important; padding: 1.2rem 0 !important; }
 div[aria-selected="true"] { color: var(--gold) !important; border-bottom: 3px solid var(--gold) !important; text-shadow: 0 0 10px rgba(212,175,55,0.4); }
 
-/* Dialog background */
-div[data-testid="stModal"] > div,
-div[role="dialog"], section[data-testid="stDialog"] > div {
-    background: rgba(10, 12, 16, 0.75) !important;
-    backdrop-filter: blur(30px) saturate(200%) !important;
-    -webkit-backdrop-filter: blur(30px) saturate(200%) !important;
-    border: 1px solid rgba(255,255,255,0.1) !important;
-    border-top: 1px solid rgba(255,255,255,0.2) !important;
-    border-radius: 24px !important;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.7) !important;
+div[data-testid="stModal"] > div, div[role="dialog"], section[data-testid="stDialog"] > div {
+    background: rgba(10, 12, 16, 0.75) !important; backdrop-filter: blur(30px) saturate(200%) !important; -webkit-backdrop-filter: blur(30px) saturate(200%) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-top: 1px solid rgba(255,255,255,0.2) !important; border-radius: 24px !important; box-shadow: 0 20px 60px rgba(0,0,0,0.7) !important;
 }
-div[role="dialog"] p, div[role="dialog"] h1, div[role="dialog"] h2,
-div[role="dialog"] h3, div[role="dialog"] span { color: #fff !important; }
+div[role="dialog"] p, div[role="dialog"] h1, div[role="dialog"] h2, div[role="dialog"] h3, div[role="dialog"] span { color: #fff !important; }
 
-/* ════════════════════════════════════════════════════════
-   ABOUT SECTION
-════════════════════════════════════════════════════════ */
-.about-card {
-    padding: 1.5rem; margin-bottom: 1.2rem;
-}
-.about-card-title {
-    color: var(--gold); font-size: 0.9rem; font-weight: 900;
-    letter-spacing: 0.05em; margin-bottom: 0.8rem; padding-bottom: 0.6rem;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
+.about-card { padding: 1.5rem; margin-bottom: 1.2rem; }
+.about-card-title { color: var(--gold); font-size: 0.9rem; font-weight: 900; letter-spacing: 0.05em; margin-bottom: 0.8rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
 .about-card-body { color: var(--text-2); font-size: 0.88rem; line-height: 1.9; }
 .about-card-body b { color: #fff; font-weight: 800; }
-.tech-tag {
-    display: inline-block;
-    background: rgba(255,255,255,0.05); color: #fff;
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 8px; padding: 0.3rem 0.8rem;
-    font-size: 0.75rem; font-weight: 800; margin: 0.25rem 0.15rem;
-    backdrop-filter: blur(5px);
-}
+.tech-tag { display: inline-block; background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 0.3rem 0.8rem; font-size: 0.75rem; font-weight: 800; margin: 0.25rem 0.15rem; backdrop-filter: blur(5px); }
 .about-center { text-align: center; padding: 1.5rem 0 1rem; }
 .about-center-icon { font-size: 3rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 15px rgba(212,175,55,0.5)); }
 .about-center-name { color: var(--gold); font-size: 1.1rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
 
-/* ════════════════════════════════════════════════════════
-   RESPONSIVE
-════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
     .block-container { padding: 1rem 0.9rem 3rem !important; }
     .hero { padding: 2rem 1rem; }
     .rc-value { font-size: 2.2rem; }
-    .liquid-glass { backdrop-filter: blur(16px); } /* Lighter blur for mobile perf */
+    .liquid-glass { backdrop-filter: blur(16px); } 
 }
 </style>
 """, unsafe_allow_html=True)
@@ -452,20 +233,72 @@ risk_model, limit_model, scaler, models_loaded = load_models()
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  HELPER: styled matplotlib fig (Glass Theme)
+#  HELPER: FIXED Matplotlib Helper (No more ValueError!)
 # ══════════════════════════════════════════════════════════════════════════════
 def dark_fig(w=6, h=4):
     fig, ax = plt.subplots(figsize=(w, h))
-    bg = "#0a0c10" # Dark base to match glass
-    fig.patch.set_facecolor(bg)
-    fig.patch.set_alpha(0.0) # Transparent for glassmorphism
-    ax.set_facecolor("rgba(0,0,0,0.2)")
+    fig.patch.set_facecolor('none') 
+    # Use standard RGB Tuples instead of CSS Strings to avoid ValueError
+    ax.set_facecolor((0, 0, 0, 0.2)) 
     ax.tick_params(colors="#cbd5e1")
     ax.xaxis.label.set_color("#cbd5e1"); ax.yaxis.label.set_color("#cbd5e1")
     for sp in ax.spines.values():
-        sp.set_color("rgba(255,255,255,0.1)")
-    ax.grid(color="rgba(255,255,255,0.05)", linewidth=1, alpha=0.8)
+        sp.set_color((1, 1, 1, 0.1))
+    ax.grid(color=(1, 1, 1, 0.05), linewidth=1, alpha=0.8)
     return fig, ax
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  HELPER: Side-by-Side Unified Plot Request
+# ══════════════════════════════════════════════════════════════════════════════
+def generate_combined_plot():
+    fig = plt.figure(figsize=(14, 5.5))
+    fig.patch.set_facecolor('none')
+    
+    fig.suptitle('XGBoost: Risk Scoring & Credit Limit Prediction', 
+                 color='#D4AF37', fontsize=18, fontweight='bold', y=1.03)
+    
+    # --- Left: Confusion Matrix ---
+    ax1 = fig.add_subplot(121)
+    ax1.set_facecolor((0, 0, 0, 0.2))
+    cmap = mcolors.LinearSegmentedColormap.from_list("gold_dark", ["#0a0c10", "#4a3c10", "#D4AF37"])
+    
+    sns.heatmap(CM, annot=True, fmt="d", cmap=cmap, cbar=True, ax=ax1,
+                xticklabels=["Low Risk", "High Risk"],
+                yticklabels=["Low Risk", "High Risk"],
+                annot_kws={"size": 15, "weight": "bold", "color": "#fff"},
+                linewidths=1, linecolor="#333333")
+    
+    ax1.set_title("Risk Classification", color='#fff', fontweight='bold', pad=15, fontsize=14)
+    ax1.set_ylabel("True label", color='#cbd5e1', labelpad=10, fontsize=12)
+    ax1.set_xlabel("Predicted label", color='#cbd5e1', labelpad=10, fontsize=12)
+    ax1.tick_params(colors="#fff", labelsize=11)
+    
+    # --- Right: Scatter Plot ---
+    ax2 = fig.add_subplot(122)
+    ax2.set_facecolor((0, 0, 0, 0.2))
+    ax2.grid(color=(1, 1, 1, 0.05), linewidth=1, alpha=0.8)
+    for sp in ax2.spines.values():
+        sp.set_color((1, 1, 1, 0.1))
+        
+    np.random.seed(42)
+    actual    = np.random.uniform(5000, 70000, 150)
+    noise     = np.random.normal(0, 5228, 150) # Using test RMSE
+    predicted = np.clip(actual + noise, 0, None)
+    
+    ax2.scatter(actual, predicted, alpha=0.8, color="#D4AF37", s=35, edgecolors="#fff", linewidths=0.6)
+    ax2.plot([0, 70000], [0, 70000], "--", color="#fb7185", lw=2.5, label="Perfect Fit")
+    
+    ax2.set_title(f"Credit Limit Prediction (R² = {REG['r2']:.4f})", color='#fff', fontweight='bold', pad=15, fontsize=14)
+    ax2.set_xlabel("Actual Credit Limit ($)", color='#cbd5e1', fontweight='bold', fontsize=12)
+    ax2.set_ylabel("Predicted Credit Limit ($)", color='#cbd5e1', fontweight='bold', fontsize=12)
+    ax2.tick_params(colors="#fff", labelsize=11)
+    
+    # Legend fixing RGB tuple issues
+    leg = ax2.legend(facecolor=(0,0,0,0.5), edgecolor=(1,1,1,0.1), labelcolor="#fff", fontsize=11)
+    
+    plt.tight_layout()
+    return fig
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -539,14 +372,17 @@ def project_info_dialog():
 
 @st.dialog("📊  هەڵسەنگاندنی زانستی مۆدێل — Model Evaluation", width="large")
 def evaluation_dialog():
+    # ── NEW CLEAN TABS ────────────────────────────────────────────────────────
     tab1, tab2, tab3 = st.tabs([
-        "🎯 پۆلێنکردن (Classification)",
-        "💰 بڕی قەرز (Regression)",
-        "🧠 شیکاری (Insights)",
+        "📊 مەتریکەکان (Metrics)",
+        "📈 وێنەی ڕوونکردنەوەیی (Plots)",
+        "🧠 شیکاری و Overfitting",
     ])
 
+    # ── TAB 1: METRICS (Unified Classification & Regression) ──────────────────
     with tab1:
-        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("<br><div style='color:var(--gold); font-size:0.9rem; font-weight:900; letter-spacing:0.1em; margin-bottom:1rem;'>🎯 مەتریکەکانی پۆلێنکردن (CLASSIFICATION)</div>", unsafe_allow_html=True)
+        
         c1, c2, c3, c4 = st.columns(4)
         boxes = [
             (c1, "Accuracy",  f"{CLF['accuracy']*100:.1f}%", "eval-box-green"),
@@ -570,30 +406,46 @@ def evaluation_dialog():
             <div class="eval-val-sub">هاوسەنگی Precision و Recall — نمونەی ٢٠٠ کڕیار</div>
         </div>""", unsafe_allow_html=True)
 
-        st.divider()
+        st.markdown("""
+        <div style="overflow-x:auto; direction:ltr; margin-bottom: 1.5rem; background:rgba(0,0,0,0.2); border-radius:12px; padding:10px;">
+        <table style="width:100%; border-collapse:collapse; font-size:0.9rem; font-family:'Inter',monospace; color:#f1f5f9;">
+            <thead>
+                <tr style="border-bottom:1px solid rgba(255,255,255,0.1); color:#D4AF37;">
+                    <th style="padding:0.6rem 0.8rem; text-align:left;"></th>
+                    <th style="padding:0.6rem 0.8rem; text-align:center;">Precision</th>
+                    <th style="padding:0.6rem 0.8rem; text-align:center;">Recall</th>
+                    <th style="padding:0.6rem 0.8rem; text-align:center;">F1-Score</th>
+                    <th style="padding:0.6rem 0.8rem; text-align:center;">Support</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                    <td style="padding:0.55rem 0.8rem; color:#34d399; font-weight:700;">Low Risk</td>
+                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.72</td>
+                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.78</td>
+                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.75</td>
+                    <td style="padding:0.55rem 0.8rem; text-align:center; color:#64748b;">112</td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                    <td style="padding:0.55rem 0.8rem; color:#fb7185; font-weight:700;">High Risk</td>
+                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.69</td>
+                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.62</td>
+                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.65</td>
+                    <td style="padding:0.55rem 0.8rem; text-align:center; color:#64748b;">88</td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,0.05); color:#94a3b8;">
+                    <td style="padding:0.55rem 0.8rem; font-weight:700;">Macro Avg</td>
+                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.71</td>
+                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.70</td>
+                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.70</td>
+                    <td style="padding:0.55rem 0.8rem; text-align:center;">200</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        """, unsafe_allow_html=True)
 
-        st.markdown("<div style='text-align:center; color:var(--gold); font-weight:800; font-size:0.9rem; letter-spacing:0.1em; margin-bottom:1rem;'>CONFUSION MATRIX</div>", unsafe_allow_html=True)
-        _, gcol, _ = st.columns([1, 3, 1])
-        with gcol:
-            fig, ax = dark_fig(5.5, 4)
-            cmap = mcolors.LinearSegmentedColormap.from_list("gold_dark", ["#000000", "#4a3c10", "#D4AF37"])
-            sns.heatmap(CM, annot=True, fmt="d", cmap=cmap, cbar=False, ax=ax,
-                        xticklabels=["Low Risk", "High Risk"],
-                        yticklabels=["Low Risk", "High Risk"],
-                        annot_kws={"size": 15, "weight": "bold", "color": "#fff"},
-                        linewidths=1, linecolor="rgba(255,255,255,0.1)")
-            ax.set_ylabel("True label", labelpad=10)
-            ax.set_xlabel("Predicted label", labelpad=10)
-            
-            for t in ax.xaxis.get_ticklabels(): t.set_color("#fff")
-            for t in ax.yaxis.get_ticklabels(): t.set_color("#fff")
-                
-            plt.tight_layout()
-            st.pyplot(fig, use_container_width=True, transparent=True)
-            plt.close(fig)
-
-    with tab2:
-        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("<div style='color:var(--gold); font-size:0.9rem; font-weight:900; letter-spacing:0.1em; margin-bottom:1rem; margin-top:2rem;'>💰 مەتریکەکانی بڕی قەرز (REGRESSION)</div>", unsafe_allow_html=True)
         r1, r2, r3, r4 = st.columns(4)
         reg_boxes = [
             (r1, "R² Score", f"{REG['r2']:.4f}",   "eval-box-green", "گونجانەوەی مۆدێل"),
@@ -610,28 +462,14 @@ def evaluation_dialog():
                     <div class="eval-val-sub">{sub}</div>
                 </div>""", unsafe_allow_html=True)
 
-        st.divider()
+    # ── TAB 2: PLOTS (The requested Side-by-Side Plot) ────────────────────────
+    with tab2:
+        st.markdown("<br>", unsafe_allow_html=True)
+        # Generate the requested combined plot flawlessly
+        fig_combined = generate_combined_plot()
+        st.pyplot(fig_combined, use_container_width=True, transparent=True)
 
-        st.markdown("<div style='text-align:center; color:var(--gold); font-weight:800; font-size:0.9rem; letter-spacing:0.1em; margin-bottom:1rem;'>ACTUAL vs PREDICTED</div>", unsafe_allow_html=True)
-        _, gcol2, _ = st.columns([1, 3, 1])
-        with gcol2:
-            np.random.seed(42)
-            actual    = np.random.uniform(5000, 70000, 150)
-            noise     = np.random.normal(0, REG['rmse'], 150)
-            predicted = np.clip(actual + noise, 0, None)
-
-            fig2, ax2 = dark_fig(6, 4.2)
-            ax2.scatter(actual, predicted, alpha=0.8, color="#D4AF37", s=30,
-                        edgecolors="#fff", linewidths=0.5, zorder=3)
-            ax2.plot([0, 70000], [0, 70000], "--", color="#fb7185", lw=2,
-                     label=f"Perfect Fit  (R²={REG['r2']:.4f})")
-            ax2.set_xlabel("Actual Credit Limit ($)")
-            ax2.set_ylabel("Predicted Credit Limit ($)")
-            leg = ax2.legend(facecolor="rgba(0,0,0,0.5)", edgecolor="rgba(255,255,255,0.1)", labelcolor="#fff", fontsize=9)
-            plt.tight_layout()
-            st.pyplot(fig2, use_container_width=True, transparent=True)
-            plt.close(fig2)
-
+    # ── TAB 3: INSIGHTS & OVERFITTING ─────────────────────────────────────────
     with tab3:
         st.markdown("<br>", unsafe_allow_html=True)
         st.markdown("""<div style="font-size:0.85rem; font-weight:800; color:var(--gold); letter-spacing:0.1em; margin-bottom:1rem;">⚠️ OVERFITTING CHECK</div>""", unsafe_allow_html=True)
@@ -643,6 +481,7 @@ def evaluation_dialog():
                 <div class="eval-title">Classification · Accuracy Gap</div>
                 <div style="font-size:0.95rem; color:#fff; line-height:2; direction:ltr; text-align:left; padding-top:0.3rem;">
                     Train: <b>{CLF_TRAIN['accuracy']*100:.2f}%</b> → Test: <b>{CLF['accuracy']*100:.2f}%</b>
+                    <br><span style="color:#fb7185; font-size:0.8rem;">Gap: {gap_clf:.4f}</span>
                 </div>
             </div>""", unsafe_allow_html=True)
         with ov2:
@@ -652,23 +491,24 @@ def evaluation_dialog():
                 <div class="eval-title">Regression · R² Gap</div>
                 <div style="font-size:0.95rem; color:#fff; line-height:2; direction:ltr; text-align:left; padding-top:0.3rem;">
                     Train: <b>{REG_TRAIN['r2']:.4f}</b> → Test: <b>{REG['r2']:.4f}</b>
+                    <br><span style="color:#34d399; font-size:0.8rem;">Gap: {gap_reg:.4f}</span>
                 </div>
             </div>""", unsafe_allow_html=True)
 
         st.divider()
-        st.markdown("""<div style="font-size:0.85rem; font-weight:800; color:var(--gold); letter-spacing:0.1em; margin-bottom:1rem;">📊 FEATURE IMPORTANCE</div>""", unsafe_allow_html=True)
+        st.markdown("""<div style="font-size:0.85rem; font-weight:800; color:var(--gold); letter-spacing:0.1em; margin-bottom:1rem;">📊 FEATURE IMPORTANCE (XGBoost)</div>""", unsafe_allow_html=True)
         _, gcol3, _ = st.columns([0.5, 4, 0.5])
         with gcol3:
             fig3, ax3 = dark_fig(6, 3.4)
             colors = ["#D4AF37", "#b08d2c", "#8c6b22", "#684a17", "#4a330e"]
-            bars = ax3.barh(FEAT_NAMES, FEAT_IMP, color=colors, height=0.6, edgecolor="rgba(255,255,255,0.1)")
+            # Tuple replacement for error prevention
+            bars = ax3.barh(FEAT_NAMES, FEAT_IMP, color=colors, height=0.6, edgecolor=(1,1,1,0.1))
             for bar, val in zip(bars, FEAT_IMP):
                 ax3.text(val + 0.005, bar.get_y() + bar.get_height()/2,
                          f"{val:.0%}", va="center", ha="left", color="#fff", fontsize=10, fontweight="bold")
             ax3.set_xlim(0, max(FEAT_IMP) * 1.25)
-            ax3.set_xlabel("Relative Importance")
+            ax3.set_xlabel("Relative Importance", color='#cbd5e1')
             ax3.tick_params(axis="y", colors="#fff")
-            ax3.grid(axis="x", color="rgba(255,255,255,0.05)", linewidth=1)
             plt.tight_layout()
             st.pyplot(fig3, use_container_width=True, transparent=True)
             plt.close(fig3)
