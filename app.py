@@ -5,10 +5,12 @@ import os
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  PAGE CONFIG.
+#  PAGE CONFIG.
 # ══════════════════════════════════════════════════════════════════════════════
 st.set_page_config(
     page_title="سیستەمی زیرەکی نمرەدانی مەترسی و سنووری قەرز",
     page_icon="🏦",
+    layout="wide"
     layout="wide"
 )
 
@@ -45,6 +47,7 @@ st.markdown("""
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body, [class*="css"] {
+html, body, [class*="css"] {
     font-family: 'Noto Sans Arabic', sans-serif !important;
     direction: rtl !important;
     text-align: right !important;
@@ -62,6 +65,7 @@ html, body, [class*="css"] {
 /* ── Hide Streamlit chrome ───────────────────────────────────────── */
 #MainMenu, footer, header { visibility: hidden; }
 .block-container {
+    padding: 1.8rem 2rem 4rem 2rem !important;
     padding: 1.8rem 2rem 4rem 2rem !important;
     max-width: 1080px !important;
 }
@@ -85,6 +89,7 @@ html, body, [class*="css"] {
     border: 1px solid var(--border);
     border-radius: 18px;
     padding: 2.2rem 2rem 2rem 2rem;
+    padding: 2.2rem 2rem 2rem 2rem;
     margin-bottom: 1.8rem;
     text-align: center;
     position: relative;
@@ -99,7 +104,9 @@ html, body, [class*="css"] {
     pointer-events: none;
 }
 .hero-icon  { font-size: 2.6rem; line-height: 1; margin-bottom: 0.6rem; }
+.hero-icon  { font-size: 2.6rem; line-height: 1; margin-bottom: 0.6rem; }
 .hero-title {
+    font-size: clamp(1.45rem, 3.5vw, 2.1rem);
     font-size: clamp(1.45rem, 3.5vw, 2.1rem);
     font-weight: 900;
     color: var(--text-main);
@@ -111,6 +118,7 @@ html, body, [class*="css"] {
 .hero-sub {
     color: var(--text-muted);
     font-size: 0.9rem;
+    font-size: 0.9rem;
     font-weight: 400;
     letter-spacing: 0.02em;
 }
@@ -120,6 +128,8 @@ html, body, [class*="css"] {
     background: var(--teal-dim);
     border: 1px solid rgba(0,212,255,0.3);
     border-radius: 50px;
+    padding: 0.22rem 1rem;
+    font-size: 0.75rem;
     padding: 0.22rem 1rem;
     font-size: 0.75rem;
     font-weight: 700;
@@ -187,12 +197,50 @@ html, body, [class*="css"] {
 }
 
 /* ════════════════════════════════════════════════════════
+   PROJECT INFO (Replaced Sidebar)
+════════════════════════════════════════════════════════ */
+.sb-logo     { text-align: center; padding: 0.5rem 0; font-size: 2.8rem; }
+.sb-app-name { text-align: center; color: var(--teal); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 0.3rem; }
+.sb-ver      { text-align: center; color: rgba(0,212,255,0.4); font-size: 0.75rem; margin-bottom: 1rem; }
+.sb-section  {
+    background: rgba(0,45,75,0.4);
+    border: 1px solid rgba(0,212,255,0.1);
+    border-radius: 13px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 0.9rem;
+    height: 100%;
+}
+.sb-sec-title {
+    color: var(--teal);
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(0,212,255,0.1);
+    padding-bottom: 0.4rem;
+}
+.sb-body { color: rgba(180,210,235,0.8); font-size: 0.85rem; line-height: 1.8; }
+.sb-body b { color: var(--text-main); font-weight: 600; }
+.sb-tag {
+    display: inline-block;
+    background: rgba(0,212,255,0.1);
+    color: var(--teal);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 6px;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin: 0.2rem 0.12rem;
+}
+
+/* ════════════════════════════════════════════════════════
    INPUT CARDS
 ════════════════════════════════════════════════════════ */
 .input-card {
     background: linear-gradient(145deg, rgba(0,45,75,0.6) 0%, rgba(0,30,56,0.5) 100%);
     border: 1px solid var(--border);
     border-radius: 16px;
+    padding: 1.6rem 1.5rem 1.3rem;
     padding: 1.6rem 1.5rem 1.3rem;
     backdrop-filter: blur(8px);
     box-shadow: 0 4px 24px rgba(0,0,0,0.25);
@@ -295,6 +343,7 @@ div[data-testid="stSlider"] .rc-slider-handle:hover,
     box-shadow: 0 0 0 5px rgba(0,212,255,0.4), 0 2px 8px rgba(0,0,0,0.4) !important;
 }
 div[data-testid="stSlider"] [data-testid="stTickBarMin"],
+div[data-testid="stSlider"] [data-testid="stTickBarMin"],
 div[data-testid="stSlider"] [data-testid="stTickBarMax"] {
     color: var(--text-muted) !important;
     font-size: 0.72rem !important;
@@ -376,6 +425,7 @@ div[data-testid="stButton"] > button:active {
 .result-card {
     border-radius: 18px;
     padding: 1.8rem 1.7rem;
+    padding: 1.8rem 1.7rem;
     position: relative;
     overflow: hidden;
     box-shadow: 0 6px 32px rgba(0,0,0,0.3);
@@ -420,6 +470,7 @@ div[data-testid="stButton"] > button:active {
 }
 .rc-value {
     font-size: clamp(2rem, 5vw, 2.9rem);
+    font-size: clamp(2rem, 5vw, 2.9rem);
     font-weight: 900;
     line-height: 1.05;
     margin-bottom: 0.25rem;
@@ -458,10 +509,12 @@ div[data-testid="stButton"] > button:active {
     border: 1px solid var(--border);
     border-radius: 14px;
     padding: 1.1rem;
+    padding: 1.1rem;
     text-align: center;
     backdrop-filter: blur(6px);
 }
 .metric-label { color: var(--text-muted); font-size: 0.76rem; font-weight: 600; margin-bottom: 0.35rem; }
+.metric-value { color: var(--text-main);  font-size: 1.6rem;  font-weight: 800; line-height: 1; }
 .metric-value { color: var(--text-main);  font-size: 1.6rem;  font-weight: 800; line-height: 1; }
 .metric-en    { color: rgba(130,170,200,0.45); font-size: 0.7rem; margin-top: 0.25rem; }
 
@@ -497,14 +550,20 @@ div[data-testid="stButton"] > button:active {
 /* ── Responsive Mobile Edits ──────────────────────────────────────── */
 @media (max-width: 768px) {
     .block-container { padding: 1rem 1rem 3rem 1rem !important; }
+/* ── Responsive Mobile Edits ──────────────────────────────────────── */
+@media (max-width: 768px) {
+    .block-container { padding: 1rem 1rem 3rem 1rem !important; }
     .hero { padding: 1.5rem 1rem; }
     .rc-value { font-size: 2.2rem; }
+    .rc-value { font-size: 2.2rem; }
     
+    /* مۆبایل: دوو کۆڵۆمەکە بکە بەیەک */
     /* مۆبایل: دوو کۆڵۆمەکە بکە بەیەک */
     div[data-testid="column"] {
         width: 100% !important;
         flex: 1 1 100% !important;
         min-width: 100% !important;
+        margin-bottom: 1rem;
         margin-bottom: 1rem;
     }
     
