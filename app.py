@@ -10,7 +10,7 @@ st.set_page_config(
     page_title="سیستەمی زیرەکی نمرەدانی مەترسی و سنووری قەرز",
     page_icon="🏦",
     layout="wide",
-    initial_sidebar_state="auto", # بۆ مۆبایل داخراو دەبێت
+    initial_sidebar_state="expanded",
 )
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -248,7 +248,7 @@ div[data-testid="stSlider"] .rc-slider-handle:hover,
     box-shadow: 0 0 0 5px rgba(0,212,255,0.4), 0 2px 8px rgba(0,0,0,0.4) !important;
 }
 div[data-testid="stSlider"] [data-testid="stTickBarMin"],
-div[data-testid="stSlider"][data-testid="stTickBarMax"] {
+div[data-testid="stSlider"] [data-testid="stTickBarMax"] {
     color: var(--text-muted) !important;
     font-size: 0.72rem !important;
     font-family: 'Noto Sans Arabic', sans-serif !important;
@@ -492,22 +492,11 @@ section[data-testid="stSidebar"] * {
     margin: 0.2rem 0.12rem;
 }
 
-/* ── Responsive Mobile Edits ──────────────────────────────────────── */
-@media (max-width: 768px) {
-    .block-container { padding: 1rem 1rem 3rem 1rem !important; }
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 640px) {
+    .block-container { padding: 1rem 0.9rem 3rem !important; }
     .hero { padding: 1.5rem 1rem; }
-    .rc-value { font-size: 2.2rem; }
-    
-    /* مۆبایل: دوو کۆڵۆمەکە بکە بەیەک */
-    div[data-testid="column"] {
-        width: 100% !important;
-        flex: 1 1 100% !important;
-        min-width: 100% !important;
-        margin-bottom: 1rem;
-    }
-    
-    .input-card { padding: 1.2rem 1rem; margin-bottom: 1rem;}
-    .result-card { padding: 1.5rem 1.2rem; margin-bottom: 1rem;}
+    .rc-value { font-size: 2rem; }
 }
 </style>
 """, unsafe_allow_html=True)
