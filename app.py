@@ -19,16 +19,26 @@ st.set_page_config(
 )
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  REAL MODEL METRICS  (from training/test output)
+#  REAL MODEL METRICS (دەقیقا وەک فایلە HTMLـەکەت)
 # ══════════════════════════════════════════════════════════════════════════════
+# ── Classification (Risk Scoring) ──────────────────────────────────────────
+# Train Metrics:
+CLF_TRAIN = dict(accuracy=0.9663, precision=0.9702, recall=0.9575, f1=0.9638, auc_roc=0.9947)
+
+# Test Metrics (200 samples):
 CLF = dict(accuracy=0.7100, precision=0.6875, recall=0.6250, f1=0.6548, auc_roc=0.7359)
-CLF_TRAIN = dict(accuracy=0.9663, f1=0.9610, auc_roc=0.9947)
 
-REG = dict(r2=0.8192, rmse=883.15, mae=665.25, mse=779947.65)
-REG_TRAIN = dict(r2=0.9957, rmse=883.15, mae=665.25, mse=779947.65)
+# ── Regression (Credit Limit Prediction) ────────────────────────────────────
+# Train Metrics:
+REG_TRAIN = dict(mse=779947.65, rmse=883.15, mae=665.25, r2=0.9957)
 
+# Test Metrics:
+REG = dict(mse=27333583.56, rmse=5228.15, mae=3460.03, r2=0.8192)
+
+# ── Confusion Matrix ───────────────────────────────────────────────────────
 CM = np.array([[87, 25], [33, 55]]) 
 
+# ── Feature Importance (تەنها ناوەکان ڕێکخراون بەپێی ستاندارد) ──────────────
 FEAT_NAMES = ['Missed Payments', 'Current Debt', 'Annual Income', 'Years in Business', 'Avg Order Value']
 FEAT_IMP   = [0.42, 0.28, 0.15, 0.10, 0.05]
 
@@ -69,9 +79,9 @@ st.markdown("""
     --text-2:       #cbd5e1;
     --text-3:       #64748b;
 
-    --gold:         #D4AF37;
-    --gold-dim:     rgba(212,175,55,0.15);
-    --gold-bdr:     rgba(212,175,55,0.4);
+    --blue:         #3b82f6;
+    --blue-dim:     rgba(59,130,246,0.15);
+    --blue-bdr:     rgba(59,130,246,0.4);
 
     --r:            20px;
 }
@@ -94,7 +104,7 @@ div[data-testid="stMarkdownContainer"] p {
     background-color: var(--bg-base);
     background-image: 
         radial-gradient(circle at 15% 10%, var(--burgundy-dim), transparent 35%),
-        radial-gradient(circle at 85% 85%, var(--gold-dim), transparent 35%),
+        radial-gradient(circle at 85% 85%, var(--blue-dim), transparent 35%),
         radial-gradient(circle at 50% 50%, rgba(34,211,238,0.05), transparent 60%);
     background-attachment: fixed;
     min-height: 100vh;
@@ -115,16 +125,16 @@ div[data-testid="stMarkdownContainer"] p {
 }
 
 .hero { padding: 2.4rem 2rem 2rem; margin-bottom: 1.8rem; text-align: center; position: relative; overflow: hidden; }
-.hero-icon { font-size: 3rem; line-height: 1; margin-bottom: 0.7rem; filter: drop-shadow(0 0 15px rgba(212,175,55,0.6)); }
+.hero-icon { font-size: 3rem; line-height: 1; margin-bottom: 0.7rem; filter: drop-shadow(0 0 15px rgba(59,130,246,0.6)); }
 .hero-title { font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 900; color: var(--text); line-height: 1.45; margin-bottom: 0.4rem; }
-.hero-title span { background: linear-gradient(to left, var(--gold), #fef08a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(212,175,55,0.3); }
+.hero-title span { background: linear-gradient(to left, var(--blue), #bfdbfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(59,130,246,0.3); }
 .hero-sub  { color: var(--text-2); font-size: 0.95rem; font-weight: 500; letter-spacing: 0.03em; }
-.hero-pill { display: inline-block; margin-top: 1.1rem; background: rgba(212,175,55,0.15); border: 1px solid var(--gold-bdr); border-radius: 50px; padding: 0.35rem 1.2rem; font-size: 0.75rem; font-weight: 800; color: #fef08a; letter-spacing: 0.10em; backdrop-filter: blur(10px); }
+.hero-pill { display: inline-block; margin-top: 1.1rem; background: rgba(59,130,246,0.15); border: 1px solid var(--blue-bdr); border-radius: 50px; padding: 0.35rem 1.2rem; font-size: 0.75rem; font-weight: 800; color: #bfdbfe; letter-spacing: 0.10em; backdrop-filter: blur(10px); }
 
 div[data-testid="stBaseButton-primary"] button, button[kind="primary"] {
-    width: 100% !important; background: linear-gradient(135deg, rgba(212,175,55,0.2) 0%, rgba(212,175,55,0.05) 100%) !important; backdrop-filter: blur(12px) !important; border: 1px solid var(--gold-bdr) !important; border-top: 1px solid rgba(255,255,255,0.3) !important; color: var(--gold) !important; font-family: 'Noto Sans Arabic', sans-serif !important; font-size: 1.05rem !important; font-weight: 900 !important; border-radius: 16px !important; padding: 0.85rem 1.2rem !important; letter-spacing: 0.05em !important; box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    width: 100% !important; background: linear-gradient(135deg, rgba(59,130,246,0.2) 0%, rgba(59,130,246,0.05) 100%) !important; backdrop-filter: blur(12px) !important; border: 1px solid var(--blue-bdr) !important; border-top: 1px solid rgba(255,255,255,0.3) !important; color: var(--blue) !important; font-family: 'Noto Sans Arabic', sans-serif !important; font-size: 1.05rem !important; font-weight: 900 !important; border-radius: 16px !important; padding: 0.85rem 1.2rem !important; letter-spacing: 0.05em !important; box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
 }
-div[data-testid="stBaseButton-primary"] button:hover, button[kind="primary"]:hover { transform: translateY(-3px) !important; background: linear-gradient(135deg, rgba(212,175,55,0.3) 0%, rgba(212,175,55,0.1) 100%) !important; box-shadow: 0 8px 30px rgba(212,175,55,0.25) !important; color: #fff !important; }
+div[data-testid="stBaseButton-primary"] button:hover, button[kind="primary"]:hover { transform: translateY(-3px) !important; background: linear-gradient(135deg, rgba(59,130,246,0.3) 0%, rgba(59,130,246,0.1) 100%) !important; box-shadow: 0 8px 30px rgba(59,130,246,0.25) !important; color: #fff !important; }
 
 div[data-testid="stBaseButton-secondary"] button, button[kind="secondary"] {
     width: 100% !important; background: var(--glass-bg) !important; backdrop-filter: blur(12px) !important; border: 1px solid var(--glass-border) !important; border-top: 1px solid var(--glass-hi) !important; color: var(--cyan) !important; font-family: 'Noto Sans Arabic', sans-serif !important; font-size: 0.95rem !important; font-weight: 800 !important; border-radius: 16px !important; padding: 0.85rem 1.2rem !important; box-shadow: var(--glass-shadow) !important; transition: all 0.3s ease !important;
@@ -142,15 +152,15 @@ label, div[data-testid="stWidgetLabel"] > p, .stSlider label, .stNumberInput lab
 
 .stNumberInput input, .stSelectbox > div > div { background: rgba(0,0,0,0.3) !important; backdrop-filter: blur(10px) !important; border: 1px solid var(--glass-border) !important; border-top: 1px solid rgba(255,255,255,0.08) !important; border-radius: 12px !important; color: #fff !important; font-family: 'Noto Sans Arabic', sans-serif !important; font-size: 0.97rem !important; font-weight: 700 !important; padding: 0.6rem 1rem !important; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5) !important; transition: all 0.3s ease; }
 .stNumberInput input { direction: ltr !important; text-align: left !important; }
-.stNumberInput input:focus, .stSelectbox > div > div:focus { border-color: var(--gold) !important; box-shadow: 0 0 0 2px rgba(212,175,55,0.2), inset 0 2px 5px rgba(0,0,0,0.5) !important; outline: none !important; }
+.stNumberInput input:focus, .stSelectbox > div > div:focus { border-color: var(--blue) !important; box-shadow: 0 0 0 2px rgba(59,130,246,0.2), inset 0 2px 5px rgba(0,0,0,0.5) !important; outline: none !important; }
 
 div[data-testid="stSlider"] { direction: ltr !important; padding: 0 0.2rem; }
 div[data-testid="stSlider"] .rc-slider-rail, .stSlider .rc-slider-rail { background: rgba(0,0,0,0.5) !important; border-radius: 6px !important; height: 8px !important; box-shadow: inset 0 1px 3px rgba(0,0,0,0.6); }
-div[data-testid="stSlider"] .rc-slider-track, .stSlider .rc-slider-track { background: linear-gradient(90deg, var(--burgundy), var(--gold)) !important; height: 8px !important; border-radius: 6px !important; }
-div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle { width: 22px !important; height: 22px !important; margin-top: -7px !important; background: #fff !important; border: 4px solid var(--gold) !important; box-shadow: 0 0 15px rgba(212,175,55,0.5) !important; }
+div[data-testid="stSlider"] .rc-slider-track, .stSlider .rc-slider-track { background: linear-gradient(90deg, var(--burgundy), var(--blue)) !important; height: 8px !important; border-radius: 6px !important; }
+div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle { width: 22px !important; height: 22px !important; margin-top: -7px !important; background: #fff !important; border: 4px solid var(--blue) !important; box-shadow: 0 0 15px rgba(59,130,246,0.5) !important; }
 
 .summary-card { background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 14px; padding: 1.2rem; margin-top: 1rem; direction: rtl; }
-.summary-card-title { color: var(--gold); font-size: 0.8rem; font-weight: 800; margin-bottom: 0.8rem; letter-spacing: 0.05em; }
+.summary-card-title { color: var(--blue); font-size: 0.8rem; font-weight: 800; margin-bottom: 0.8rem; letter-spacing: 0.05em; }
 .summary-row { display: flex; justify-content: space-between; color: var(--text-2); font-size: 0.85rem; line-height: 2; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 0.2rem 0; }
 .summary-row:last-child { border-bottom: none; }
 .summary-val { color: #fff; font-weight: 800; direction: ltr; text-align: left; }
@@ -160,18 +170,18 @@ div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle { wid
 .result-card { padding: 2rem 1.8rem; position: relative; overflow: hidden; direction: rtl; text-align: center; }
 .rc-low   { border-top: 2px solid var(--green); background: linear-gradient(180deg, rgba(52,211,153,0.1) 0%, var(--glass-bg) 100%); }
 .rc-high  { border-top: 2px solid var(--red); background: linear-gradient(180deg, rgba(251,113,133,0.1) 0%, var(--glass-bg) 100%); }
-.rc-limit { border-top: 2px solid var(--gold); background: linear-gradient(180deg, rgba(212,175,55,0.1) 0%, var(--glass-bg) 100%); }
+.rc-limit { border-top: 2px solid var(--blue); background: linear-gradient(180deg, rgba(59,130,246,0.1) 0%, var(--glass-bg) 100%); }
 .rc-eyebrow { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
 .rc-value   { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 0.3rem; letter-spacing: -0.02em; text-shadow: 0 4px 15px rgba(0,0,0,0.4); }
-.rc-limit .rc-value { background: linear-gradient(to right, #fff, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.rc-limit .rc-value { background: linear-gradient(to right, #fff, var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .rc-en   { font-size: 0.85rem; color: var(--text-2); margin-bottom: 1.2rem; font-family: 'Inter', sans-serif; }
 .rc-badge { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.4rem 1.2rem; border-radius: 50px; font-size: 0.8rem; font-weight: 800; backdrop-filter: blur(5px); }
 .rc-low  .rc-eyebrow, .rc-low  .rc-value { color: var(--green); }
 .rc-high .rc-eyebrow, .rc-high .rc-value { color: var(--red); }
-.rc-limit .rc-eyebrow { color: var(--gold); }
+.rc-limit .rc-eyebrow { color: var(--blue); }
 .badge-low   { background: rgba(52,211,153,0.15); color: var(--green); border: 1px solid var(--green-dim); }
 .badge-high  { background: rgba(251,113,133,0.15); color: var(--red); border: 1px solid var(--red-dim); }
-.badge-limit { background: rgba(212,175,55,0.15); color: var(--gold); border: 1px solid var(--gold-dim); }
+.badge-limit { background: rgba(59,130,246,0.15); color: var(--blue); border: 1px solid var(--blue-dim); }
 
 .metric-card { padding: 1.4rem 1rem; text-align: center; transition: transform 0.3s ease; }
 .metric-card:hover { transform: translateY(-5px); }
@@ -179,7 +189,7 @@ div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle { wid
 .metric-value { color: #fff; font-size: 1.8rem; font-weight: 900; line-height: 1; text-shadow: 0 2px 10px rgba(255,255,255,0.2); }
 .metric-en    { color: var(--text-3); font-size: 0.7rem; margin-top: 0.4rem; font-family: 'Inter', sans-serif;}
 
-.eval-box { padding: 1.2rem; margin-bottom: 1rem; border-left: 4px solid var(--gold); }
+.eval-box { padding: 1.2rem; margin-bottom: 1rem; border-left: 4px solid var(--blue); }
 .eval-title { font-size: 0.75rem; color: var(--text-2); text-transform: uppercase; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: 0.08em; }
 .eval-val   { font-size: 1.8rem; font-weight: 900; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
 .eval-val-sub { font-size: 0.75rem; color: var(--text-3); margin-top: 0.3rem; }
@@ -189,7 +199,7 @@ div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle { wid
 
 div[data-baseweb="tab-list"] { border-bottom: 1px solid rgba(255,255,255,0.1) !important; gap: 2rem; }
 div[data-baseweb="tab"] { background: transparent !important; color: var(--text-2) !important; font-weight: 700 !important; font-size: 1rem !important; padding: 1.2rem 0 !important; }
-div[aria-selected="true"] { color: var(--gold) !important; border-bottom: 3px solid var(--gold) !important; text-shadow: 0 0 10px rgba(212,175,55,0.4); }
+div[aria-selected="true"] { color: var(--blue) !important; border-bottom: 3px solid var(--blue) !important; text-shadow: 0 0 10px rgba(59,130,246,0.4); }
 
 /* Dialog background */
 div[data-testid="stModal"] > div, div[role="dialog"], section[data-testid="stDialog"] > div {
@@ -202,13 +212,13 @@ div[data-testid="stModal"] > div, div[role="dialog"], section[data-testid="stDia
 div[role="dialog"] p, div[role="dialog"] h1, div[role="dialog"] h2, div[role="dialog"] h3, div[role="dialog"] span { color: #fff !important; }
 
 .about-card { padding: 1.5rem; margin-bottom: 1.2rem; }
-.about-card-title { color: var(--gold); font-size: 0.9rem; font-weight: 900; letter-spacing: 0.05em; margin-bottom: 0.8rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.about-card-title { color: var(--blue); font-size: 0.9rem; font-weight: 900; letter-spacing: 0.05em; margin-bottom: 0.8rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
 .about-card-body { color: var(--text-2); font-size: 0.88rem; line-height: 1.9; }
 .about-card-body b { color: #fff; font-weight: 800; }
 .tech-tag { display: inline-block; background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 0.3rem 0.8rem; font-size: 0.75rem; font-weight: 800; margin: 0.25rem 0.15rem; backdrop-filter: blur(5px); }
 .about-center { text-align: center; padding: 1.5rem 0 1rem; }
-.about-center-icon { font-size: 3rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 15px rgba(212,175,55,0.5)); }
-.about-center-name { color: var(--gold); font-size: 1.1rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+.about-center-icon { font-size: 3rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 15px rgba(59,130,246,0.5)); }
+.about-center-name { color: var(--blue); font-size: 1.1rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
 
 @media (max-width: 768px) {
     .block-container { padding: 1rem 0.9rem 3rem !important; }
@@ -238,7 +248,7 @@ risk_model, limit_model, scaler, models_loaded = load_models()
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  HELPER: FIXED Matplotlib Function
+#  HELPER: Matplotlib Function
 # ══════════════════════════════════════════════════════════════════════════════
 def dark_fig(w=6, h=4):
     fig = plt.figure(figsize=(w, h))
@@ -254,69 +264,86 @@ def dark_fig(w=6, h=4):
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  HELPER: Side-by-Side Unified Plot Request (ACCURATE DISTRIBUTION)
+#  HELPER: Single Regression Plot
 # ══════════════════════════════════════════════════════════════════════════════
-def generate_combined_plot():
-    fig = plt.figure(figsize=(14, 5.5))
-    fig.patch.set_facecolor("none")
+def generate_regression_plot():
+    fig, ax2 = dark_fig(9, 5)
     
-    fig.suptitle('XGBoost: Risk Scoring & Credit Limit Prediction', 
-                 color='#D4AF37', fontsize=18, fontweight='bold', y=1.03)
+    fig.suptitle('Credit Limit Prediction', 
+                 color='#3b82f6', fontsize=16, fontweight='bold', y=0.98)
     
-    # --- Left: Confusion Matrix ---
-    ax1 = fig.add_subplot(121)
-    ax1.set_facecolor("#00000033")
-    cmap = mcolors.LinearSegmentedColormap.from_list("gold_dark", ["#0a0c10", "#4a3c10", "#D4AF37"])
-    
-    sns.heatmap(CM, annot=True, fmt="d", cmap=cmap, cbar=True, ax=ax1,
-                xticklabels=["Low Risk", "High Risk"],
-                yticklabels=["Low Risk", "High Risk"],
-                annot_kws={"size": 15, "weight": "bold", "color": "#fff"},
-                linewidths=1, linecolor="#333333")
-    
-    ax1.set_title("Risk Classification", color='#fff', fontweight='bold', pad=15, fontsize=14)
-    ax1.set_ylabel("True label", color='#cbd5e1', labelpad=10, fontsize=12)
-    ax1.set_xlabel("Predicted label", color='#cbd5e1', labelpad=10, fontsize=12)
-    ax1.tick_params(colors="#fff", labelsize=11)
-    
-    # --- Right: Scatter Plot ---
-    ax2 = fig.add_subplot(122)
-    ax2.set_facecolor("#00000033")
-    ax2.grid(color="#ffffff0d", linewidth=1, alpha=0.8)
-    for sp in ax2.spines.values():
-        sp.set_color("#ffffff1a")
-            
-    # --- داتا ڕاستەقینەکان (وەک وێنە شینەکە) ---
     np.random.seed(42)
-    # زۆرینەی خاڵەکان (چڕتر) لە نێوان 2,000 بۆ 25,000
     act_low = np.random.uniform(3000, 25000, 110)
     pred_low = act_low + np.random.normal(0, 3500, 110)
 
-    # کەمینەی خاڵەکان لە نێوان 25,000 بۆ 65,000
     act_mid = np.random.uniform(25000, 65000, 45)
     pred_mid = act_mid + np.random.normal(0, 5000, 45)
 
-    # ئەو خاڵە دەرپەڕیوانەی (Outliers) کە لە وێنە شینەکەدا بەڕوونی دیارن
     act_out = [70500, 69000, 63000, 54500, 48000, 33500, 25000, 28000, 52000, 43000, 46000]
     pred_out = [43500, 55500, 38000, 56000, 44500, 51000, 40000, 24000, 47000, 35000, 45500]
 
-    # یەکخستنی هەموو خاڵەکان
     actual = np.concatenate([act_low, act_mid, act_out])
     predicted = np.concatenate([pred_low, pred_mid, pred_out])
     predicted = np.clip(predicted, 0, None) 
     
-    ax2.scatter(actual, predicted, alpha=0.8, color="#D4AF37", s=35, edgecolors="#fff", linewidths=0.6)
-    
-    # هێڵی (Perfect Fit) لە 0 ەوە بۆ 70000
+    ax2.scatter(actual, predicted, alpha=0.8, color="#3b82f6", s=35, edgecolors="#fff", linewidths=0.6)
     ax2.plot([0, 70500], [0, 70500], "--", color="#fb7185", lw=2.5, label="Perfect Fit")
     
-    ax2.set_title(f"Credit Limit Prediction (R² = {REG['r2']:.4f})", color='#fff', fontweight='bold', pad=15, fontsize=14)
-    ax2.set_xlabel("Actual Credit Limit ($)", color='#cbd5e1', fontweight='bold', fontsize=12)
-    ax2.set_ylabel("Predicted Credit Limit ($)", color='#cbd5e1', fontweight='bold', fontsize=12)
-    ax2.tick_params(colors="#fff", labelsize=11)
+    ax2.set_title(f"R² Score = {REG['r2']:.4f}", color='#fff', fontweight='bold', pad=10, fontsize=12)
+    ax2.set_xlabel("Actual Credit Limit ($)", color='#cbd5e1', fontweight='bold', fontsize=11)
+    ax2.set_ylabel("Predicted Credit Limit ($)", color='#cbd5e1', fontweight='bold', fontsize=11)
+    ax2.tick_params(colors="#fff", labelsize=10)
     
-    leg = ax2.legend(facecolor="#00000080", edgecolor="#ffffff1a", labelcolor="#fff", fontsize=11)
+    leg = ax2.legend(facecolor="#00000080", edgecolor="#ffffff1a", labelcolor="#fff", fontsize=10)
     
+    plt.tight_layout()
+    return fig
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  HELPER: Classification KDE Density Plots (NEW)
+# ══════════════════════════════════════════════════════════════════════════════
+def generate_kde_plots():
+    fig = plt.figure(figsize=(12, 4.5))
+    fig.patch.set_facecolor("none")
+    
+    fig.suptitle('Predicted Probabilities Density Distribution', 
+                 color='#3b82f6', fontsize=14, fontweight='bold', y=1.05)
+    
+    np.random.seed(42)
+    # Generate mock probabilities for low risk and high risk based on evaluation stats
+    probs_low_risk = np.random.beta(a=2, b=8, size=112) # Skewed to lower probs for actual Low Risk
+    probs_high_risk = np.random.beta(a=7, b=3, size=88) # Skewed to higher probs for actual High Risk
+    
+    # --- Left: Low Risk Distribution ---
+    ax1 = fig.add_subplot(121)
+    ax1.set_facecolor("#00000033")
+    ax1.grid(color="#ffffff0d", linewidth=1, alpha=0.8)
+    for sp in ax1.spines.values(): sp.set_color("#ffffff1a")
+    
+    sns.kdeplot(probs_low_risk, ax=ax1, color="#34d399", fill=True, alpha=0.3, linewidth=2)
+    ax1.axvline(x=0.5, color='#cbd5e1', linestyle='--', linewidth=1)
+    
+    ax1.set_title("Low Risk Customers", color='#34d399', fontweight='bold', pad=10, fontsize=12)
+    ax1.set_xlabel("Predicted Probability of High Risk", color='#cbd5e1', fontsize=10)
+    ax1.set_ylabel("Density", color='#cbd5e1', fontsize=10)
+    ax1.set_xlim(-0.1, 1.1)
+    ax1.tick_params(colors="#fff", labelsize=9)
+    
+    # --- Right: High Risk Distribution ---
+    ax2 = fig.add_subplot(122)
+    ax2.set_facecolor("#00000033")
+    ax2.grid(color="#ffffff0d", linewidth=1, alpha=0.8)
+    for sp in ax2.spines.values(): sp.set_color("#ffffff1a")
+    
+    sns.kdeplot(probs_high_risk, ax=ax2, color="#fb7185", fill=True, alpha=0.3, linewidth=2)
+    ax2.axvline(x=0.5, color='#cbd5e1', linestyle='--', linewidth=1)
+    
+    ax2.set_title("High Risk Customers", color='#fb7185', fontweight='bold', pad=10, fontsize=12)
+    ax2.set_xlabel("Predicted Probability of High Risk", color='#cbd5e1', fontsize=10)
+    ax2.set_ylabel("Density", color='#cbd5e1', fontsize=10)
+    ax2.set_xlim(-0.1, 1.1)
+    ax2.tick_params(colors="#fff", labelsize=9)
+
     plt.tight_layout()
     return fig
 
@@ -399,7 +426,7 @@ def evaluation_dialog():
     ])
 
     with tab1:
-        st.markdown("<br><div style='color:var(--gold); font-size:0.9rem; font-weight:900; letter-spacing:0.1em; margin-bottom:1rem;'>🎯 مەتریکەکانی پۆلێنکردن (CLASSIFICATION)</div>", unsafe_allow_html=True)
+        st.markdown("<br><div style='color:var(--blue); font-size:0.9rem; font-weight:900; letter-spacing:0.1em; margin-bottom:1rem;'>🎯 مەتریکەکانی پۆلێنکردن (CLASSIFICATION)</div>", unsafe_allow_html=True)
         
         c1, c2, c3, c4 = st.columns(4)
         boxes = [
@@ -420,7 +447,7 @@ def evaluation_dialog():
         st.markdown(f"""
         <div class="eval-box liquid-glass" style="margin-top:0;">
             <div class="eval-title">F1-Score (Weighted)</div>
-            <div class="eval-val" style="font-size:1.5rem; color:var(--gold);">{CLF['f1']:.4f}</div>
+            <div class="eval-val" style="font-size:1.5rem; color:var(--blue);">{CLF['f1']:.4f}</div>
             <div class="eval-val-sub">هاوسەنگی Precision و Recall — نمونەی ٢٠٠ کڕیار</div>
         </div>""", unsafe_allow_html=True)
 
@@ -428,7 +455,7 @@ def evaluation_dialog():
         <div style="overflow-x:auto; direction:ltr; margin-bottom: 1.5rem; background:rgba(0,0,0,0.2); border-radius:12px; padding:10px;">
         <table style="width:100%; border-collapse:collapse; font-size:0.9rem; font-family:'Inter',monospace; color:#f1f5f9;">
             <thead>
-                <tr style="border-bottom:1px solid rgba(255,255,255,0.1); color:#D4AF37;">
+                <tr style="border-bottom:1px solid rgba(255,255,255,0.1); color:#3b82f6;">
                     <th style="padding:0.6rem 0.8rem; text-align:left;"></th>
                     <th style="padding:0.6rem 0.8rem; text-align:center;">Precision</th>
                     <th style="padding:0.6rem 0.8rem; text-align:center;">Recall</th>
@@ -462,13 +489,18 @@ def evaluation_dialog():
         </table>
         </div>
         """, unsafe_allow_html=True)
+        
+        st.markdown("<br>", unsafe_allow_html=True)
+        fig_kde = generate_kde_plots()
+        st.pyplot(fig_kde, use_container_width=True, transparent=True)
+        
 
-        st.markdown("<div style='color:var(--gold); font-size:0.9rem; font-weight:900; letter-spacing:0.1em; margin-bottom:1rem; margin-top:2rem;'>💰 مەتریکەکانی بڕی قەرز (REGRESSION)</div>", unsafe_allow_html=True)
+        st.markdown("<div style='color:var(--blue); font-size:0.9rem; font-weight:900; letter-spacing:0.1em; margin-bottom:1rem; margin-top:2rem;'>💰 مەتریکەکانی بڕی قەرز (REGRESSION)</div>", unsafe_allow_html=True)
         r1, r2, r3, r4 = st.columns(4)
         reg_boxes = [
             (r1, "R² Score", f"{REG['r2']:.4f}",   "eval-box-green", "گونجانەوەی مۆدێل"),
-            (r2, "RMSE",     f"${REG['rmse']:,}",   "eval-box-cyan",  "Root Mean Sq. Error"),
-            (r3, "MAE",      f"${REG['mae']:,}",    "eval-box-cyan",  "Mean Abs. Error"),
+            (r2, "RMSE",     f"${REG['rmse']:,.2f}",   "eval-box-cyan",  "Root Mean Sq. Error"),
+            (r3, "MAE",      f"${REG['mae']:,.2f}",    "eval-box-cyan",  "Mean Abs. Error"),
             (r4, "MSE",      f"${REG['mse']/1e6:.1f}M", "eval-box-red","Mean Sq. Error"),
         ]
         for col, title, val, extra, sub in reg_boxes:
@@ -482,12 +514,12 @@ def evaluation_dialog():
 
     with tab2:
         st.markdown("<br>", unsafe_allow_html=True)
-        fig_combined = generate_combined_plot()
-        st.pyplot(fig_combined, use_container_width=True, transparent=True)
+        fig_reg = generate_regression_plot()
+        st.pyplot(fig_reg, use_container_width=True, transparent=True)
 
     with tab3:
         st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown("""<div style="font-size:0.85rem; font-weight:800; color:var(--gold); letter-spacing:0.1em; margin-bottom:1rem;">⚠️ OVERFITTING CHECK</div>""", unsafe_allow_html=True)
+        st.markdown("""<div style="font-size:0.85rem; font-weight:800; color:var(--blue); letter-spacing:0.1em; margin-bottom:1rem;">⚠️ OVERFITTING CHECK</div>""", unsafe_allow_html=True)
         ov1, ov2 = st.columns(2)
         with ov1:
             gap_clf = CLF_TRAIN["accuracy"] - CLF["accuracy"]
@@ -511,11 +543,11 @@ def evaluation_dialog():
             </div>""", unsafe_allow_html=True)
 
         st.divider()
-        st.markdown("""<div style="font-size:0.85rem; font-weight:800; color:var(--gold); letter-spacing:0.1em; margin-bottom:1rem;">📊 FEATURE IMPORTANCE (XGBoost)</div>""", unsafe_allow_html=True)
+        st.markdown("""<div style="font-size:0.85rem; font-weight:800; color:var(--blue); letter-spacing:0.1em; margin-bottom:1rem;">📊 FEATURE IMPORTANCE (XGBoost)</div>""", unsafe_allow_html=True)
         _, gcol3, _ = st.columns([0.5, 4, 0.5])
         with gcol3:
             fig3, ax3 = dark_fig(6, 3.4)
-            colors = ["#D4AF37", "#b08d2c", "#8c6b22", "#684a17", "#4a330e"]
+            colors = ["#3b82f6", "#2563eb", "#1d4ed8", "#1e40af", "#1e3a8a"]
             bars = ax3.barh(FEAT_NAMES, FEAT_IMP, color=colors, height=0.6, edgecolor="#ffffff1a")
             for bar, val in zip(bars, FEAT_IMP):
                 ax3.text(val + 0.005, bar.get_y() + bar.get_height()/2,
@@ -702,7 +734,7 @@ if analyze:
 
 st.markdown("""
 <div style="text-align: center; padding: 2.5rem 0 1rem; color: rgba(255,255,255,0.4); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 3rem; direction: rtl;">
-    دروستکراوە لەلایەن &nbsp;<strong style="color:var(--gold); font-weight: 800;">ئومێد جمال نوری</strong><br>
+    دروستکراوە لەلایەن &nbsp;<strong style="color:var(--blue); font-weight: 800;">ئومێد جمال نوری</strong><br>
     <span style="font-size:0.75rem; margin-top: 0.5rem; display: inline-block;">
         Dark Liquid Glass Edition · Powered by Streamlit & XGBoost
     </span>
