@@ -22,23 +22,17 @@ st.set_page_config(
 #  REAL MODEL METRICS (دەقیقا وەک فایلە HTMLـەکەت)
 # ══════════════════════════════════════════════════════════════════════════════
 # ── Classification (Risk Scoring) ──────────────────────────────────────────
-# Train Metrics:
 CLF_TRAIN = dict(accuracy=0.9663, precision=0.9702, recall=0.9575, f1=0.9638, auc_roc=0.9947)
-
-# Test Metrics (200 samples):
 CLF = dict(accuracy=0.7100, precision=0.6875, recall=0.6250, f1=0.6548, auc_roc=0.7359)
 
 # ── Regression (Credit Limit Prediction) ────────────────────────────────────
-# Train Metrics:
 REG_TRAIN = dict(mse=779947.65, rmse=883.15, mae=665.25, r2=0.9957)
-
-# Test Metrics:
 REG = dict(mse=27333583.56, rmse=5228.15, mae=3460.03, r2=0.8192)
 
 # ── Confusion Matrix ───────────────────────────────────────────────────────
 CM = np.array([[87, 25], [33, 55]]) 
 
-# ── Feature Importance (تەنها ناوەکان ڕێکخراون بەپێی ستاندارد) ──────────────
+# ── Feature Importance ─────────────────────────────────────────────────────
 FEAT_NAMES = ['Missed Payments', 'Current Debt', 'Annual Income', 'Years in Business', 'Avg Order Value']
 FEAT_IMP   = [0.42, 0.28, 0.15, 0.10, 0.05]
 
@@ -197,9 +191,33 @@ div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle { wid
 .eval-box-red  { border-left-color: var(--red)  !important; }
 .eval-box-green{ border-left-color: var(--green)!important; }
 
-div[data-baseweb="tab-list"] { border-bottom: 1px solid rgba(255,255,255,0.1) !important; gap: 2rem; }
-div[data-baseweb="tab"] { background: transparent !important; color: var(--text-2) !important; font-weight: 700 !important; font-size: 1rem !important; padding: 1.2rem 0 !important; }
-div[aria-selected="true"] { color: var(--blue) !important; border-bottom: 3px solid var(--blue) !important; text-shadow: 0 0 10px rgba(59,130,246,0.4); }
+/* ========================================================
+   نوێکراوەتەوە: چارەسەری کێشەی تابەکان بۆ Streamlit ی نوێ
+   ======================================================== */
+div[data-baseweb="tab-list"] { 
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important; 
+    gap: 2rem; 
+}
+button[data-baseweb="tab"] { 
+    background: transparent !important; 
+    padding: 1rem 0 !important; 
+    border: none !important;
+}
+button[data-baseweb="tab"] p { 
+    color: var(--text-2) !important; 
+    font-weight: 700 !important; 
+    font-size: 1rem !important; 
+}
+button[data-baseweb="tab"][aria-selected="true"] p { 
+    color: var(--blue) !important; 
+    text-shadow: 0 0 10px rgba(59,130,246,0.4); 
+}
+div[data-baseweb="tab-highlight"] { 
+    background-color: var(--blue) !important; 
+    box-shadow: 0 0 10px rgba(59,130,246,0.5) !important; 
+    height: 3px !important; 
+    border-radius: 3px 3px 0 0 !important;
+}
 
 /* Dialog background */
 div[data-testid="stModal"] > div, div[role="dialog"], section[data-testid="stDialog"] > div {
@@ -300,7 +318,7 @@ def generate_regression_plot():
     return fig
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  HELPER: Classification KDE Density Plots (NEW)
+#  HELPER: Classification KDE Density Plots
 # ══════════════════════════════════════════════════════════════════════════════
 def generate_kde_plots():
     fig = plt.figure(figsize=(12, 4.5))
@@ -310,11 +328,9 @@ def generate_kde_plots():
                  color='#3b82f6', fontsize=14, fontweight='bold', y=1.05)
     
     np.random.seed(42)
-    # Generate mock probabilities for low risk and high risk based on evaluation stats
-    probs_low_risk = np.random.beta(a=2, b=8, size=112) # Skewed to lower probs for actual Low Risk
-    probs_high_risk = np.random.beta(a=7, b=3, size=88) # Skewed to higher probs for actual High Risk
+    probs_low_risk = np.random.beta(a=2, b=8, size=112) 
+    probs_high_risk = np.random.beta(a=7, b=3, size=88) 
     
-    # --- Left: Low Risk Distribution ---
     ax1 = fig.add_subplot(121)
     ax1.set_facecolor("#00000033")
     ax1.grid(color="#ffffff0d", linewidth=1, alpha=0.8)
@@ -329,7 +345,6 @@ def generate_kde_plots():
     ax1.set_xlim(-0.1, 1.1)
     ax1.tick_params(colors="#fff", labelsize=9)
     
-    # --- Right: High Risk Distribution ---
     ax2 = fig.add_subplot(122)
     ax2.set_facecolor("#00000033")
     ax2.grid(color="#ffffff0d", linewidth=1, alpha=0.8)
