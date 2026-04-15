@@ -34,7 +34,7 @@ FEAT_NAMES = ['Current_Debt', 'Average_Invoice', 'Unpaid_Invoices', 'Total_Invoi
 FEAT_IMP   = [0.45, 0.25, 0.15, 0.10, 0.05]
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  GLOBAL CSS - DARK LIQUID GLASS EDITION 
+#  GLOBAL CSS - DARK LIQUID GLASS EDITION
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <style>
@@ -148,23 +148,20 @@ label, div[data-testid="stWidgetLabel"] > p, .stSlider label, .stNumberInput lab
     text-align: right !important; 
 }
 
+/* ========================================================
+   نوێکراوەتەوە: دیزاینی بۆکسەکانی ژمارە و هەڵبژاردن بە جیا
+   ======================================================== */
+
+/* ڕێگریکردن لە باکگراوندی بنەڕەتی Streamlit */
 div[data-testid="stNumberInput"] div[data-baseweb="input"],
 div[data-testid="stNumberInput"] div[data-baseweb="base-input"],
-div[data-testid="stNumberInput"] div[data-baseweb="input"] > div,
-div[data-testid="stSelectbox"] div[data-baseweb="select"] > div,
 div[data-testid="stSelectbox"] div[data-baseweb="select"] {
     background-color: transparent !important;
     border: none !important;
 }
 
-div[data-testid="stNumberInputStepUp"],
-div[data-testid="stNumberInputStepDown"] {
-    background-color: rgba(255,255,255,0.05) !important;
-    color: #fff !important;
-    border-radius: 8px !important;
-}
-
-.stNumberInput input, .stSelectbox > div > div, .stSelectbox > div > div > div { 
+/* دیزاینی تایبەت بە Number Input (ژمارەکان) */
+.stNumberInput input { 
     background-color: rgba(0,0,0,0.4) !important; 
     -webkit-appearance: none !important; 
     -moz-appearance: none !important;
@@ -180,38 +177,79 @@ div[data-testid="stNumberInputStepDown"] {
     padding: 0.6rem 1rem !important; 
     box-shadow: inset 0 2px 5px rgba(0,0,0,0.5) !important; 
     transition: all 0.3s ease; 
+    direction: ltr !important; 
+    text-align: left !important;
 }
-.stNumberInput input { direction: ltr !important; text-align: left !important; }
-.stNumberInput input:focus, .stSelectbox > div > div:focus { 
+.stNumberInput input:focus { 
     border-color: var(--blue) !important; 
     box-shadow: 0 0 0 2px rgba(59,130,246,0.2), inset 0 2px 5px rgba(0,0,0,0.5) !important; 
     outline: none !important; 
     background-color: rgba(0,0,0,0.6) !important;
 }
 
+/* دیزاینی تایبەت بە Selectbox (لیستی هەڵبژاردن) - بۆ چارەسەری بچووکبوونەوە */
+div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+    background-color: rgba(0,0,0,0.4) !important; 
+    backdrop-filter: blur(10px) !important; 
+    border: 1px solid var(--glass-border) !important; 
+    border-top: 1px solid rgba(255,255,255,0.08) !important; 
+    border-radius: 12px !important; 
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.5) !important; 
+    min-height: 45px !important; /* دڵنیابوونەوە لە بەرزییەکەی بۆ ئەوەی نەچێتەوە یەک */
+    transition: all 0.3s ease;
+}
+div[data-testid="stSelectbox"] div[data-baseweb="select"] > div:focus-within {
+    border-color: var(--blue) !important; 
+    box-shadow: 0 0 0 2px rgba(59,130,246,0.2), inset 0 2px 5px rgba(0,0,0,0.5) !important; 
+    background-color: rgba(0,0,0,0.6) !important;
+}
+
+/* گەورەکردنی نووسینی ناو لیستی هەڵبژاردنەکە */
+div[data-testid="stSelectbox"] div[data-baseweb="select"] span,
+div[data-testid="stSelectbox"] div[data-baseweb="select"] div[class*="singleValue"] {
+    color: #fff !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    font-family: 'Noto Sans Arabic', sans-serif !important;
+}
+
+/* دوگمەکانی کەم و زیادکردنی ژمارە لە مۆبایل */
+div[data-testid="stNumberInputStepUp"],
+div[data-testid="stNumberInputStepDown"] {
+    background-color: rgba(255,255,255,0.05) !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+}
+
 /* ========================================================
-   نوێکراوەتەوە: چارەسەری لیستی هەڵبژاردنەکان (Dropdown Menu)
+   نوێکراوەتەوە: چارەسەری ڕەنگی سپی Dropdown لە ئەندرۆید و وێبگەڕەکان
    ======================================================== */
-div[data-baseweb="popover"] > div, div[role="listbox"] {
-    background-color: #0f1115 !important;
-    border: 1px solid rgba(255,255,255,0.1) !important;
+div[data-baseweb="popover"] > div, div[role="listbox"], ul[role="listbox"] {
+    background-color: #121418 !important;
+    border: 1px solid rgba(59,130,246,0.3) !important;
     border-radius: 12px !important;
     box-shadow: 0 10px 30px rgba(0,0,0,0.7) !important;
 }
-div[role="listbox"] li[role="option"] {
+div[role="listbox"] li, ul[role="listbox"] li {
     color: #cbd5e1 !important;
     font-family: 'Noto Sans Arabic', sans-serif !important;
+    font-size: 0.95rem !important;
     background-color: transparent !important;
     padding: 0.6rem 1rem !important;
 }
-div[role="listbox"] li[role="option"]:hover, 
-div[role="listbox"] li[role="option"][aria-selected="true"] {
+div[role="listbox"] li:hover, ul[role="listbox"] li:hover,
+div[role="listbox"] li[aria-selected="true"], ul[role="listbox"] li[aria-selected="true"] {
     background-color: rgba(59,130,246,0.2) !important;
     color: #3b82f6 !important;
     font-weight: bold !important;
 }
-div[data-baseweb="select"] span {
+
+/* فۆرسی ئەندرۆید بۆ ئەوەی ڕەنگی Native بگۆڕێت ئەگەر Streamlit بەکاریهێنا */
+select, option {
+    background-color: #121418 !important;
     color: #fff !important;
+    font-family: 'Noto Sans Arabic', sans-serif !important;
+    font-size: 0.95rem !important;
 }
 /* ======================================================== */
 
@@ -258,6 +296,7 @@ div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle { wid
 .eval-box-red  { border-left-color: var(--red)  !important; }
 .eval-box-green{ border-left-color: var(--green)!important; }
 
+/* Tabs */
 div[data-baseweb="tab-list"] { border-bottom: 1px solid rgba(255,255,255,0.1) !important; gap: 2rem; }
 button[data-baseweb="tab"] { background: transparent !important; padding: 1rem 0 !important; border: none !important; }
 button[data-baseweb="tab"] p { color: var(--text-2) !important; font-weight: 700 !important; font-size: 1rem !important; }
