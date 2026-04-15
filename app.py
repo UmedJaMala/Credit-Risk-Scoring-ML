@@ -19,7 +19,7 @@ st.set_page_config(
 )
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  REAL MODEL METRICS
+#  REAL MODEL METRICS (دەقیقا وەک فایلە HTMLـەکەت)
 # ══════════════════════════════════════════════════════════════════════════════
 CLF_TRAIN = dict(accuracy=0.9663, precision=0.9702, recall=0.9575, f1=0.9638, auc_roc=0.9947)
 CLF = dict(accuracy=0.7100, precision=0.6875, recall=0.6250, f1=0.6548, auc_roc=0.7359)
@@ -141,49 +141,50 @@ div[data-testid="stBaseButton-secondary"] button:hover, button[kind="secondary"]
 label, div[data-testid="stWidgetLabel"] > p, .stSlider label, .stNumberInput label, .stSelectbox label { color: var(--text-2) !important; font-family: 'Noto Sans Arabic', sans-serif !important; font-weight: 600 !important; font-size: 0.9rem !important; direction: rtl !important; text-align: right !important; }
 
 /* ========================================================
-   نوێکراوەتەوە: چارەسەری خانەکانی ژمارە لەسەر مۆبایل
+   نوێکراوەتەوە: چارەسەری ڕەنگی سپی لە مۆبایلەکان
    ======================================================== */
-div[data-testid="stNumberInputContainer"], .stSelectbox > div > div { 
-    background: rgba(0,0,0,0.3) !important; 
+/* Override Streamlit BaseWeb backgrounds */
+div[data-testid="stNumberInput"] div[data-baseweb="input"],
+div[data-testid="stNumberInput"] div[data-baseweb="base-input"],
+div[data-testid="stNumberInput"] div[data-baseweb="input"] > div,
+div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+/* Fix step up/down buttons on mobile */
+div[data-testid="stNumberInputStepUp"],
+div[data-testid="stNumberInputStepDown"] {
+    background-color: rgba(255,255,255,0.05) !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+}
+
+.stNumberInput input, .stSelectbox > div > div { 
+    background-color: rgba(0,0,0,0.4) !important; 
+    -webkit-appearance: none !important; /* ڕێگریکردن لە ستایلی مۆبایلی ئایفۆن و ئەندرۆید */
+    -moz-appearance: none !important;
     backdrop-filter: blur(10px) !important; 
     border: 1px solid var(--glass-border) !important; 
     border-top: 1px solid rgba(255,255,255,0.08) !important; 
     border-radius: 12px !important; 
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.5) !important; 
-    transition: all 0.3s ease; 
-    overflow: hidden;
-}
-div[data-testid="stNumberInputContainer"]:focus-within, .stSelectbox > div > div:focus-within { 
-    border-color: var(--blue) !important; 
-    box-shadow: 0 0 0 2px rgba(59,130,246,0.2), inset 0 2px 5px rgba(0,0,0,0.5) !important; 
-}
-
-/* دەقی ناو خانەکان */
-.stNumberInput input, .stSelectbox input { 
-    background: transparent !important; 
     color: #fff !important; 
     font-family: 'Noto Sans Arabic', sans-serif !important; 
     font-size: 0.97rem !important; 
     font-weight: 700 !important; 
-    border: none !important; 
-    box-shadow: none !important;
     padding: 0.6rem 1rem !important; 
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.5) !important; 
+    transition: all 0.3s ease; 
 }
-.stNumberInput input { 
-    direction: ltr !important; 
-    text-align: left !important; 
+.stNumberInput input { direction: ltr !important; text-align: left !important; }
+.stNumberInput input:focus, .stSelectbox > div > div:focus { 
+    border-color: var(--blue) !important; 
+    box-shadow: 0 0 0 2px rgba(59,130,246,0.2), inset 0 2px 5px rgba(0,0,0,0.5) !important; 
+    outline: none !important; 
+    background-color: rgba(0,0,0,0.6) !important;
 }
 
-/* دوگمەکانی کەم و زیادکردنی ژمارە (+ / -) */
-div[data-testid="stNumberInputStepUp"], div[data-testid="stNumberInputStepDown"] {
-    background: rgba(255,255,255,0.03) !important;
-    color: var(--text-2) !important;
-    border-radius: 0 !important;
-}
-div[data-testid="stNumberInputStepUp"]:hover, div[data-testid="stNumberInputStepDown"]:hover {
-    color: var(--blue) !important;
-    background: rgba(59,130,246,0.1) !important;
-}
+/* ======================================================== */
 
 div[data-testid="stSlider"] { direction: ltr !important; padding: 0 0.2rem; }
 div[data-testid="stSlider"] .rc-slider-rail, .stSlider .rc-slider-rail { background: rgba(0,0,0,0.5) !important; border-radius: 6px !important; height: 8px !important; box-shadow: inset 0 1px 3px rgba(0,0,0,0.6); }
@@ -228,6 +229,7 @@ div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle { wid
 .eval-box-red  { border-left-color: var(--red)  !important; }
 .eval-box-green{ border-left-color: var(--green)!important; }
 
+/* Tabs */
 div[data-baseweb="tab-list"] { border-bottom: 1px solid rgba(255,255,255,0.1) !important; gap: 2rem; }
 button[data-baseweb="tab"] { background: transparent !important; padding: 1rem 0 !important; border: none !important; }
 button[data-baseweb="tab"] p { color: var(--text-2) !important; font-weight: 700 !important; font-size: 1rem !important; }
