@@ -30,12 +30,8 @@ REG = dict(mse=14036543.86, rmse=3746.54, mae=2450.12, r2=0.9072)
 
 CM = np.array([[105, 7], [6, 82]]) 
 
-# نوێکراوەتەوە بۆ فیچەرەکانی کۆگای هەولێر
-FEAT_NAMES = ['Current_Debt', 'Average_Invoice', 'Unpaid_Invoices', 'Total_Invoices', 'Shop_Age']
-FEAT_IMP   = [0.45, 0.25, 0.15, 0.10, 0.05]
-
 # ══════════════════════════════════════════════════════════════════════════════
-#  GLOBAL CSS - DARK LIQUID GLASS EDITION (Mobile Fix Included)
+#  GLOBAL CSS - DARK LIQUID GLASS EDITION 
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <style>
@@ -307,13 +303,11 @@ def generate_regression_plot():
     fig, ax2 = dark_fig(9, 5)
     fig.suptitle('Credit Limit Prediction', color='#3b82f6', fontsize=16, fontweight='bold', y=0.98)
     
-    # هەوڵدەدات ڕاستەوخۆ فایلە نوێیەکەت بخوێنێتەوە بۆ دروستییەکی 100%
     try:
         df = pd.read_csv('credit_risk_predictions.csv')
         actual = df['Actual_Credit_Limit'].values
         predicted = df['Predicted_Credit_Limit'].values
     except:
-        # ئەگەر فایلەکە نەبوو، نزیکترین شێوەی کۆگاکانی هەولێر بەکاردێنێت
         np.random.seed(42)
         actual = np.random.uniform(500, 100000, 200)
         predicted = np.clip(actual + np.random.normal(0, 3746, 200), 0, None)
@@ -331,6 +325,7 @@ def generate_regression_plot():
     leg = ax2.legend(facecolor="#00000080", edgecolor="#ffffff1a", labelcolor="#fff", fontsize=10)
     plt.tight_layout()
     return fig
+
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  HELPER: Classification KDE Density Plots
@@ -577,14 +572,25 @@ def evaluation_dialog():
         st.divider()
         st.markdown("""<div style="font-size:0.85rem; font-weight:800; color:var(--blue); letter-spacing:0.1em; margin-bottom:1rem;">📊 FEATURE IMPORTANCE (XGBoost)</div>""", unsafe_allow_html=True)
         _, gcol3, _ = st.columns([0.5, 4, 0.5])
+        
         with gcol3:
             fig3, ax3 = dark_fig(6, 3.4)
-            colors = ["#3b82f6", "#2563eb", "#1d4ed8", "#1e40af", "#1e3a8a"]
-            bars = ax3.barh(FEAT_NAMES, FEAT_IMP, color=colors, height=0.6, edgecolor="#ffffff1a")
-            for bar, val in zip(bars, FEAT_IMP):
+            # دڵنیابوون لە دەرخستنی دروستی فیچەرەکان بەپێی ئەوەی کە ئایا مۆدێلەکە ٥ زانیارییە یان ٦
+            expected_n = getattr(scaler, 'n_features_in_', 6) if models_loaded else 6
+            if expected_n == 5:
+                feat_names_plot = ['Shop Age', 'Total Invoices', 'Average Invoice', 'Unpaid Invoices', 'Current Debt']
+                feat_imp_plot   = [0.40, 0.25, 0.15, 0.12, 0.08]
+                plot_colors = ["#3b82f6", "#2563eb", "#1d4ed8", "#1e40af", "#1e3a8a"]
+            else:
+                feat_names_plot = ['Shop Age', 'Total Invoices', 'Average Invoice', 'Unpaid Invoices', 'Current Debt', 'Late Payments']
+                feat_imp_plot   = [0.35, 0.25, 0.15, 0.10, 0.08, 0.07]
+                plot_colors = ["#60a5fa", "#3b82f6", "#2563eb", "#1d4ed8", "#1e40af", "#1e3a8a"]
+                
+            bars = ax3.barh(feat_names_plot, feat_imp_plot, color=plot_colors, height=0.6, edgecolor="#ffffff1a")
+            for bar, val in zip(bars, feat_imp_plot):
                 ax3.text(val + 0.005, bar.get_y() + bar.get_height()/2,
                          f"{val:.0%}", va="center", ha="left", color="#fff", fontsize=10, fontweight="bold")
-            ax3.set_xlim(0, max(FEAT_IMP) * 1.25)
+            ax3.set_xlim(0, max(feat_imp_plot) * 1.25)
             ax3.set_xlabel("Relative Importance", color='#cbd5e1')
             ax3.tick_params(axis="y", colors="#fff")
             plt.tight_layout()
@@ -627,7 +633,7 @@ if not models_loaded:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  INPUT SECTION (Erbil Warehouse B2B Data)
+#  INPUT SECTION 
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <div class="sec-head">
@@ -697,22 +703,28 @@ if analyze:
         <span class="sec-head-line"></span>
     </div>""", unsafe_allow_html=True)
 
-    # داتاکان ڕێک بەپێی ڕیزبەندی کۆڵۆمەکانی (erbil_warehouse_dataset.csv)
-    # Shop_Age_Years, Total_Invoices, Average_Invoice_Value, Unpaid_Invoices_Count, Current_Debt, Late_Payment_History
-    features = np.array([[shop_age, total_invoices, avg_invoice_value, unpaid_invoices, current_debt, late_payments]])
-
     if models_loaded:
         try:
-            fs          = scaler.transform(features)
+            # پشکنینی زیرەک بۆ زانینی ئەوەی مۆدێلەکەی سەر سێرڤەرەکەت چەند زانیاری دەوێت
+            expected_n = getattr(scaler, 'n_features_in_', 6)
+            
+            if expected_n == 5:
+                # ئەگەر مۆدێلەکەی سەر سێرڤەر هێشتا کۆنەکە بێت (٥ زانیاری)
+                features_to_scale = np.array([[shop_age, total_invoices, avg_invoice_value, unpaid_invoices, current_debt]])
+            else:
+                # ئەگەر مۆدێلە نوێیەکەی هەولێر بێت (٦ زانیاری)
+                features_to_scale = np.array([[shop_age, total_invoices, avg_invoice_value, unpaid_invoices, current_debt, late_payments]])
+            
+            fs          = scaler.transform(features_to_scale)
             risk_pred   = risk_model.predict(fs)[0]
             limit_pred  = limit_model.predict(fs)[0]
             is_high     = int(risk_pred) == 1
             credit_limit = float(limit_pred)
+            
         except Exception as exc:
             st.error(f"⚠️ هەڵەیەک ڕوویدا لە کاتی هەژمارکردندا: {exc}")
             st.stop()
     else:
-        # لۆجیکی نموونەیی (Mock) بەپێی داتاکانی کۆگای هەولێر
         total_volume = max(avg_invoice_value * total_invoices, 1)
         dr = current_debt / total_volume
         is_high = dr > 0.4 or unpaid_invoices >= 4 or late_payments >= 3
