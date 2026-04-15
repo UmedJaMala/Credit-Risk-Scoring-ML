@@ -30,6 +30,9 @@ REG = dict(mse=14036543.86, rmse=3746.54, mae=2450.12, r2=0.9072)
 
 CM = np.array([[105, 7], [6, 82]]) 
 
+FEAT_NAMES = ['Current_Debt', 'Average_Invoice', 'Unpaid_Invoices', 'Total_Invoices', 'Shop_Age']
+FEAT_IMP   = [0.45, 0.25, 0.15, 0.10, 0.05]
+
 # ══════════════════════════════════════════════════════════════════════════════
 #  GLOBAL CSS - DARK LIQUID GLASS EDITION 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -186,6 +189,32 @@ div[data-testid="stNumberInputStepDown"] {
     background-color: rgba(0,0,0,0.6) !important;
 }
 
+/* ========================================================
+   نوێکراوەتەوە: چارەسەری لیستی هەڵبژاردنەکان (Dropdown Menu)
+   ======================================================== */
+div[data-baseweb="popover"] > div, div[role="listbox"] {
+    background-color: #0f1115 !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7) !important;
+}
+div[role="listbox"] li[role="option"] {
+    color: #cbd5e1 !important;
+    font-family: 'Noto Sans Arabic', sans-serif !important;
+    background-color: transparent !important;
+    padding: 0.6rem 1rem !important;
+}
+div[role="listbox"] li[role="option"]:hover, 
+div[role="listbox"] li[role="option"][aria-selected="true"] {
+    background-color: rgba(59,130,246,0.2) !important;
+    color: #3b82f6 !important;
+    font-weight: bold !important;
+}
+div[data-baseweb="select"] span {
+    color: #fff !important;
+}
+/* ======================================================== */
+
 div[data-testid="stSlider"] { direction: ltr !important; padding: 0 0.2rem; }
 div[data-testid="stSlider"] .rc-slider-rail, .stSlider .rc-slider-rail { background: rgba(0,0,0,0.5) !important; border-radius: 6px !important; height: 8px !important; box-shadow: inset 0 1px 3px rgba(0,0,0,0.6); }
 div[data-testid="stSlider"] .rc-slider-track, .stSlider .rc-slider-track { background: linear-gradient(90deg, var(--burgundy), var(--blue)) !important; height: 8px !important; border-radius: 6px !important; }
@@ -325,7 +354,6 @@ def generate_regression_plot():
     leg = ax2.legend(facecolor="#00000080", edgecolor="#ffffff1a", labelcolor="#fff", fontsize=10)
     plt.tight_layout()
     return fig
-
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  HELPER: Classification KDE Density Plots
@@ -575,7 +603,6 @@ def evaluation_dialog():
         
         with gcol3:
             fig3, ax3 = dark_fig(6, 3.4)
-            # دڵنیابوون لە دەرخستنی دروستی فیچەرەکان بەپێی ئەوەی کە ئایا مۆدێلەکە ٥ زانیارییە یان ٦
             expected_n = getattr(scaler, 'n_features_in_', 6) if models_loaded else 6
             if expected_n == 5:
                 feat_names_plot = ['Shop Age', 'Total Invoices', 'Average Invoice', 'Unpaid Invoices', 'Current Debt']
@@ -705,14 +732,11 @@ if analyze:
 
     if models_loaded:
         try:
-            # پشکنینی زیرەک بۆ زانینی ئەوەی مۆدێلەکەی سەر سێرڤەرەکەت چەند زانیاری دەوێت
             expected_n = getattr(scaler, 'n_features_in_', 6)
             
             if expected_n == 5:
-                # ئەگەر مۆدێلەکەی سەر سێرڤەر هێشتا کۆنەکە بێت (٥ زانیاری)
                 features_to_scale = np.array([[shop_age, total_invoices, avg_invoice_value, unpaid_invoices, current_debt]])
             else:
-                # ئەگەر مۆدێلە نوێیەکەی هەولێر بێت (٦ زانیاری)
                 features_to_scale = np.array([[shop_age, total_invoices, avg_invoice_value, unpaid_invoices, current_debt, late_payments]])
             
             fs          = scaler.transform(features_to_scale)
