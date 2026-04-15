@@ -19,31 +19,21 @@ st.set_page_config(
 )
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  REAL MODEL METRICS (نوێکراوەتەوە بەپێی نۆتبووکە نوێیەکەت)
+#  REAL MODEL METRICS (مۆدێلە نوێیەکەت)
 # ══════════════════════════════════════════════════════════════════════════════
-# ── Classification (Risk Scoring) ──────────────────────────────────────────
-# Train Metrics:
 CLF_TRAIN = dict(accuracy=0.9988, precision=0.9972, recall=1.0000, f1=0.9986, auc_roc=1.0000)
-
-# Test Metrics (200 samples):
 CLF = dict(accuracy=0.9400, precision=0.9318, recall=0.9318, f1=0.9318, auc_roc=0.9856)
 
-# ── Regression (Credit Limit Prediction) ────────────────────────────────────
-# Train Metrics:
 REG_TRAIN = dict(mse=120450.25, rmse=347.06, mae=245.50, r2=0.9993)
-
-# Test Metrics:
 REG = dict(mse=14036543.86, rmse=3746.54, mae=2450.12, r2=0.9072)
 
-# ── Confusion Matrix ───────────────────────────────────────────────────────
 CM = np.array([[105, 7], [6, 82]]) 
 
-# ── Feature Importance (لەگەڵ فیچەرە نوێیەکەت) ──────────────────────────────
 FEAT_NAMES = ['Financial Stress', 'Current Debt', 'Annual Income', 'Years in Business', 'Avg Order Value']
 FEAT_IMP   = [0.5834, 0.1825, 0.1245, 0.0712, 0.0384]
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  GLOBAL CSS - DARK LIQUID GLASS EDITION
+#  GLOBAL CSS - DARK LIQUID GLASS EDITION (Mobile Fix Included)
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <style>
@@ -148,18 +138,28 @@ div[data-testid="stBaseButton-secondary"] button:hover, button[kind="secondary"]
 .input-card { padding: 1.8rem 1.5rem 1.5rem; height: 100%; }
 .card-title { color: #fff; font-size: 1rem; font-weight: 800; margin-bottom: 1.3rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; gap: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 
-label, div[data-testid="stWidgetLabel"] > p, .stSlider label, .stNumberInput label, .stSelectbox label { color: var(--text-2) !important; font-family: 'Noto Sans Arabic', sans-serif !important; font-weight: 600 !important; font-size: 0.9rem !important; direction: rtl !important; text-align: right !important; }
+/* ڕێکخستنی نووسینی لیبڵەکان (ناو بۆکسەکان) بە دروستی */
+label, div[data-testid="stWidgetLabel"] > p, .stSlider label, .stNumberInput label, .stSelectbox label { 
+    color: var(--text-2) !important; 
+    font-family: 'Noto Sans Arabic', sans-serif !important; 
+    font-weight: 600 !important; 
+    font-size: 0.9rem !important; 
+    direction: rtl !important; 
+    text-align: right !important; 
+}
 
-/* Override Streamlit BaseWeb backgrounds */
+/* ========================================================
+   نوێکراوەتەوە: چارەسەری ڕەنگی سپی لە مۆبایلەکان (دەقیق کراوە)
+   ======================================================== */
 div[data-testid="stNumberInput"] div[data-baseweb="input"],
 div[data-testid="stNumberInput"] div[data-baseweb="base-input"],
 div[data-testid="stNumberInput"] div[data-baseweb="input"] > div,
-div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+div[data-testid="stSelectbox"] div[data-baseweb="select"] > div,
+div[data-testid="stSelectbox"] div[data-baseweb="select"] {
     background-color: transparent !important;
     border: none !important;
 }
 
-/* Fix step up/down buttons on mobile */
 div[data-testid="stNumberInputStepUp"],
 div[data-testid="stNumberInputStepDown"] {
     background-color: rgba(255,255,255,0.05) !important;
@@ -167,10 +167,11 @@ div[data-testid="stNumberInputStepDown"] {
     border-radius: 8px !important;
 }
 
-.stNumberInput input, .stSelectbox > div > div { 
+.stNumberInput input, .stSelectbox > div > div, .stSelectbox > div > div > div { 
     background-color: rgba(0,0,0,0.4) !important; 
-    -webkit-appearance: none !important; 
+    -webkit-appearance: none !important; /* لابردنی ستایلی ئەپڵ */
     -moz-appearance: none !important;
+    appearance: none !important;
     backdrop-filter: blur(10px) !important; 
     border: 1px solid var(--glass-border) !important; 
     border-top: 1px solid rgba(255,255,255,0.08) !important; 
@@ -190,6 +191,7 @@ div[data-testid="stNumberInputStepDown"] {
     outline: none !important; 
     background-color: rgba(0,0,0,0.6) !important;
 }
+/* ======================================================== */
 
 div[data-testid="stSlider"] { direction: ltr !important; padding: 0 0.2rem; }
 div[data-testid="stSlider"] .rc-slider-rail, .stSlider .rc-slider-rail { background: rgba(0,0,0,0.5) !important; border-radius: 6px !important; height: 8px !important; box-shadow: inset 0 1px 3px rgba(0,0,0,0.6); }
@@ -304,7 +306,7 @@ def dark_fig(w=6, h=4):
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  HELPER: Single Regression Plot (گۆڕدراوە بەپێی R² نوێ)
+#  HELPER: Single Regression Plot
 # ══════════════════════════════════════════════════════════════════════════════
 def generate_regression_plot():
     fig, ax2 = dark_fig(9, 5)
@@ -313,7 +315,6 @@ def generate_regression_plot():
                  color='#3b82f6', fontsize=16, fontweight='bold', y=0.98)
     
     np.random.seed(42)
-    # Tighter distribution since R2 is now 0.9072
     act_low = np.random.uniform(3000, 25000, 110)
     pred_low = act_low + np.random.normal(0, 2500, 110)
 
@@ -341,7 +342,7 @@ def generate_regression_plot():
     return fig
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  HELPER: Classification KDE Density Plots (گۆڕدراوە بەپێی Accuracy نوێ)
+#  HELPER: Classification KDE Density Plots
 # ══════════════════════════════════════════════════════════════════════════════
 def generate_kde_plots():
     fig = plt.figure(figsize=(12, 4.5))
@@ -351,7 +352,6 @@ def generate_kde_plots():
                  color='#3b82f6', fontsize=14, fontweight='bold', y=1.05)
     
     np.random.seed(42)
-    # Clearer separation since accuracy is 94%
     probs_low_risk = np.random.beta(a=1.5, b=10, size=112) 
     probs_high_risk = np.random.beta(a=12, b=2, size=88) 
     
@@ -634,7 +634,7 @@ if not models_loaded:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  INPUT SECTION
+#  INPUT SECTION (بۆکسەکان لەگەڵ هێمای دۆلار بە ڕوونی)
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <div class="sec-head">
@@ -667,7 +667,6 @@ with col_r:
         options=list(range(11)), index=1, key="missed",
         format_func=lambda x: "هیچ" if x == 0 else f"{x} جار")
         
-    # لێرەدا پێوەری فشاری دارایی هەژمار دەکرێت بۆ ئەوەی پیشانی بەکارهێنەریش بدرێت
     financial_stress_index = (current_debt / max(annual_income, 1)) * missed_payments
     
     st.markdown(f"""
@@ -702,8 +701,6 @@ if analyze:
         <span class="sec-head-line"></span>
     </div>""", unsafe_allow_html=True)
 
-    # ⚠️ لێرەدا داتاکان ڕێک بەو ڕیزبەندییە دەدرێتە مۆدێلەکە کە لە نۆتبووکەکەدا هەیە
-    # ['Annual_Income', 'Current_Debt', 'Years_in_Business', 'Avg_Order_Value', 'Financial_Stress_Index']
     features = np.array([[annual_income, current_debt, years_in_business,
                           avg_order_value, financial_stress_index]])
 
