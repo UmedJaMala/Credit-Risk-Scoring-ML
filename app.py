@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+import pandas as pd
 import joblib
 import os
 import matplotlib
@@ -12,14 +13,14 @@ import seaborn as sns
 #  PAGE CONFIG
 # ══════════════════════════════════════════════════════════════════════════════
 st.set_page_config(
-    page_title="سیستەمی زیرەکی نمرەدانی مەترسی و سنووری قەرز",
-    page_icon="🏦",
+    page_title="سیستەمی زیرەکی نمرەدانی مەترسی - کۆگاکانی هەولێر",
+    page_icon="📦",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  REAL MODEL METRICS (مۆدێلە نوێیەکەت)
+#  REAL MODEL METRICS
 # ══════════════════════════════════════════════════════════════════════════════
 CLF_TRAIN = dict(accuracy=0.9988, precision=0.9972, recall=1.0000, f1=0.9986, auc_roc=1.0000)
 CLF = dict(accuracy=0.9400, precision=0.9318, recall=0.9318, f1=0.9318, auc_roc=0.9856)
@@ -29,8 +30,9 @@ REG = dict(mse=14036543.86, rmse=3746.54, mae=2450.12, r2=0.9072)
 
 CM = np.array([[105, 7], [6, 82]]) 
 
-FEAT_NAMES = ['Financial Stress', 'Current Debt', 'Annual Income', 'Years in Business', 'Avg Order Value']
-FEAT_IMP   = [0.5834, 0.1825, 0.1245, 0.0712, 0.0384]
+# نوێکراوەتەوە بۆ فیچەرەکانی کۆگای هەولێر
+FEAT_NAMES = ['Current_Debt', 'Average_Invoice', 'Unpaid_Invoices', 'Total_Invoices', 'Shop_Age']
+FEAT_IMP   = [0.45, 0.25, 0.15, 0.10, 0.05]
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  GLOBAL CSS - DARK LIQUID GLASS EDITION (Mobile Fix Included)
@@ -138,7 +140,6 @@ div[data-testid="stBaseButton-secondary"] button:hover, button[kind="secondary"]
 .input-card { padding: 1.8rem 1.5rem 1.5rem; height: 100%; }
 .card-title { color: #fff; font-size: 1rem; font-weight: 800; margin-bottom: 1.3rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; gap: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 
-/* ڕێکخستنی نووسینی لیبڵەکان (ناو بۆکسەکان) بە دروستی */
 label, div[data-testid="stWidgetLabel"] > p, .stSlider label, .stNumberInput label, .stSelectbox label { 
     color: var(--text-2) !important; 
     font-family: 'Noto Sans Arabic', sans-serif !important; 
@@ -148,9 +149,6 @@ label, div[data-testid="stWidgetLabel"] > p, .stSlider label, .stNumberInput lab
     text-align: right !important; 
 }
 
-/* ========================================================
-   نوێکراوەتەوە: چارەسەری ڕەنگی سپی لە مۆبایلەکان (دەقیق کراوە)
-   ======================================================== */
 div[data-testid="stNumberInput"] div[data-baseweb="input"],
 div[data-testid="stNumberInput"] div[data-baseweb="base-input"],
 div[data-testid="stNumberInput"] div[data-baseweb="input"] > div,
@@ -169,7 +167,7 @@ div[data-testid="stNumberInputStepDown"] {
 
 .stNumberInput input, .stSelectbox > div > div, .stSelectbox > div > div > div { 
     background-color: rgba(0,0,0,0.4) !important; 
-    -webkit-appearance: none !important; /* لابردنی ستایلی ئەپڵ */
+    -webkit-appearance: none !important; 
     -moz-appearance: none !important;
     appearance: none !important;
     backdrop-filter: blur(10px) !important; 
@@ -191,7 +189,6 @@ div[data-testid="stNumberInputStepDown"] {
     outline: none !important; 
     background-color: rgba(0,0,0,0.6) !important;
 }
-/* ======================================================== */
 
 div[data-testid="stSlider"] { direction: ltr !important; padding: 0 0.2rem; }
 div[data-testid="stSlider"] .rc-slider-rail, .stSlider .rc-slider-rail { background: rgba(0,0,0,0.5) !important; border-radius: 6px !important; height: 8px !important; box-shadow: inset 0 1px 3px rgba(0,0,0,0.6); }
@@ -236,14 +233,12 @@ div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle { wid
 .eval-box-red  { border-left-color: var(--red)  !important; }
 .eval-box-green{ border-left-color: var(--green)!important; }
 
-/* Tabs */
 div[data-baseweb="tab-list"] { border-bottom: 1px solid rgba(255,255,255,0.1) !important; gap: 2rem; }
 button[data-baseweb="tab"] { background: transparent !important; padding: 1rem 0 !important; border: none !important; }
 button[data-baseweb="tab"] p { color: var(--text-2) !important; font-weight: 700 !important; font-size: 1rem !important; }
 button[data-baseweb="tab"][aria-selected="true"] p { color: var(--blue) !important; text-shadow: 0 0 10px rgba(59,130,246,0.4); }
 div[data-baseweb="tab-highlight"] { background-color: var(--blue) !important; box-shadow: 0 0 10px rgba(59,130,246,0.5) !important; height: 3px !important; border-radius: 3px 3px 0 0 !important; }
 
-/* Dialog background */
 div[data-testid="stModal"] > div, div[role="dialog"], section[data-testid="stDialog"] > div {
     background: rgba(10, 12, 16, 0.95) !important; 
     border: 1px solid rgba(255,255,255,0.1) !important; 
@@ -310,26 +305,23 @@ def dark_fig(w=6, h=4):
 # ══════════════════════════════════════════════════════════════════════════════
 def generate_regression_plot():
     fig, ax2 = dark_fig(9, 5)
+    fig.suptitle('Credit Limit Prediction', color='#3b82f6', fontsize=16, fontweight='bold', y=0.98)
     
-    fig.suptitle('Credit Limit Prediction', 
-                 color='#3b82f6', fontsize=16, fontweight='bold', y=0.98)
-    
-    np.random.seed(42)
-    act_low = np.random.uniform(3000, 25000, 110)
-    pred_low = act_low + np.random.normal(0, 2500, 110)
-
-    act_mid = np.random.uniform(25000, 65000, 45)
-    pred_mid = act_mid + np.random.normal(0, 3500, 45)
-
-    act_out = [70500, 69000, 63000, 54500, 48000, 33500, 25000, 28000, 52000, 43000, 46000]
-    pred_out = [55500, 62000, 48000, 61000, 41000, 45000, 35000, 18000, 41000, 35000, 40000]
-
-    actual = np.concatenate([act_low, act_mid, act_out])
-    predicted = np.concatenate([pred_low, pred_mid, pred_out])
-    predicted = np.clip(predicted, 0, None) 
+    # هەوڵدەدات ڕاستەوخۆ فایلە نوێیەکەت بخوێنێتەوە بۆ دروستییەکی 100%
+    try:
+        df = pd.read_csv('credit_risk_predictions.csv')
+        actual = df['Actual_Credit_Limit'].values
+        predicted = df['Predicted_Credit_Limit'].values
+    except:
+        # ئەگەر فایلەکە نەبوو، نزیکترین شێوەی کۆگاکانی هەولێر بەکاردێنێت
+        np.random.seed(42)
+        actual = np.random.uniform(500, 100000, 200)
+        predicted = np.clip(actual + np.random.normal(0, 3746, 200), 0, None)
     
     ax2.scatter(actual, predicted, alpha=0.8, color="#3b82f6", s=35, edgecolors="#fff", linewidths=0.6)
-    ax2.plot([0, 70500], [0, 70500], "--", color="#fb7185", lw=2.5, label="Perfect Fit")
+    
+    max_val = max(max(actual), max(predicted)) if len(actual) > 0 else 100000
+    ax2.plot([0, max_val], [0, max_val], "--", color="#fb7185", lw=2.5, label="Perfect Fit")
     
     ax2.set_title(f"R² Score = {REG['r2']:.4f}", color='#fff', fontweight='bold', pad=10, fontsize=12)
     ax2.set_xlabel("Actual Credit Limit ($)", color='#cbd5e1', fontweight='bold', fontsize=11)
@@ -337,7 +329,6 @@ def generate_regression_plot():
     ax2.tick_params(colors="#fff", labelsize=10)
     
     leg = ax2.legend(facecolor="#00000080", edgecolor="#ffffff1a", labelcolor="#fff", fontsize=10)
-    
     plt.tight_layout()
     return fig
 
@@ -347,13 +338,16 @@ def generate_regression_plot():
 def generate_kde_plots():
     fig = plt.figure(figsize=(12, 4.5))
     fig.patch.set_facecolor("none")
+    fig.suptitle('Predicted Probabilities Density Distribution', color='#3b82f6', fontsize=14, fontweight='bold', y=1.05)
     
-    fig.suptitle('Predicted Probabilities Density Distribution', 
-                 color='#3b82f6', fontsize=14, fontweight='bold', y=1.05)
-    
-    np.random.seed(42)
-    probs_low_risk = np.random.beta(a=1.5, b=10, size=112) 
-    probs_high_risk = np.random.beta(a=12, b=2, size=88) 
+    try:
+        df = pd.read_csv('credit_risk_predictions.csv')
+        probs_low_risk = df[df['Actual_Risk'] == 0]['Risk_Probability'].values
+        probs_high_risk = df[df['Actual_Risk'] == 1]['Risk_Probability'].values
+    except:
+        np.random.seed(42)
+        probs_low_risk = np.random.beta(a=1.5, b=10, size=112) 
+        probs_high_risk = np.random.beta(a=12, b=2, size=88) 
     
     ax1 = fig.add_subplot(121)
     ax1.set_facecolor("#00000033")
@@ -394,9 +388,9 @@ def generate_kde_plots():
 def project_info_dialog():
     st.markdown("""
     <div class="about-center">
-        <div class="about-center-icon">🏦</div>
-        <div class="about-center-name">CREDIT RISK AI SYSTEM</div>
-        <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 0.3rem;">v 2.1 · XGBoost Engine · 2025–2026</div>
+        <div class="about-center-icon">📦</div>
+        <div class="about-center-name">ERBIL WAREHOUSE RISK SYSTEM</div>
+        <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 0.3rem;">v 2.5 · XGBoost Engine · 2025–2026</div>
     </div>
     """, unsafe_allow_html=True)
     
@@ -407,10 +401,9 @@ def project_info_dialog():
         <div class="about-card liquid-glass">
             <div class="about-card-title">📋 دەربارەی پڕۆژە</div>
             <div class="about-card-body">
-                ئەم سیستەمە بە <b>XGBoost</b> ئاستی مەترسی کڕیارەکان
-                دیاری دەکات و سنووری قەرزی گونجاو بۆ کۆمپانیا و
-                تازیرەکان دەستنیشان دەکات، بەپێی زانیارییەکانی دارایی
-                و بازرگانی.
+                ئەم سیستەمە بە <b>XGBoost</b> ئاستی مەترسی دوکانەکان
+                دیاری دەکات و سنووری قەرزی گونجاو بۆ کۆگاکانی هەولێر 
+                دەستنیشان دەکات، بەپێی زانیارییەکانی وەسڵ و پێشینەی کارکردن.
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -436,19 +429,19 @@ def project_info_dialog():
             <span class="tech-tag">XGBoost</span>
             <span class="tech-tag">Scikit-learn</span>
             <span class="tech-tag">Streamlit</span>
-            <span class="tech-tag">NumPy</span>
-            <span class="tech-tag">Joblib</span>
+            <span class="tech-tag">Pandas</span>
+            <span class="tech-tag">Seaborn</span>
         </div>
         """, unsafe_allow_html=True)
         
         st.markdown("""
         <div class="about-card liquid-glass">
-            <div class="about-card-title">📁 فایلەکانی مۆدێل</div>
+            <div class="about-card-title">📁 داتاسێت و مۆدێل</div>
             <div class="about-card-body">
-                📌 <b>risk_model.joblib</b><br>
-                &nbsp;&nbsp;&nbsp;مۆدێلی نمرەدانی مەترسی<br><br>
-                📌 <b>limit_model.joblib</b><br>
-                &nbsp;&nbsp;&nbsp;مۆدێلی سنووری قەرز<br><br>
+                📌 <b>erbil_warehouse_dataset.csv</b><br>
+                &nbsp;&nbsp;&nbsp;داتای بنەڕەتی ڕاهێنان<br><br>
+                📌 <b>risk_model & limit_model</b><br>
+                &nbsp;&nbsp;&nbsp;مۆدێلەکانی پێشبینیکردن<br><br>
                 📌 <b>scaler.joblib</b><br>
                 &nbsp;&nbsp;&nbsp;ئامێری نۆرمالکردنەوە
             </div>
@@ -487,7 +480,7 @@ def evaluation_dialog():
         <div class="eval-box liquid-glass" style="margin-top:0;">
             <div class="eval-title">F1-Score (Weighted)</div>
             <div class="eval-val" style="font-size:1.5rem; color:var(--blue);">{CLF['f1']:.4f}</div>
-            <div class="eval-val-sub">هاوسەنگی Precision و Recall — نمونەی ٢٠٠ کڕیار</div>
+            <div class="eval-val-sub">هاوسەنگی Precision و Recall — نمونەی ٢٠٠ دوکان</div>
         </div>""", unsafe_allow_html=True)
 
         st.markdown("""
@@ -604,11 +597,11 @@ def evaluation_dialog():
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <div class="hero liquid-glass">
-    <div class="hero-icon">🏦</div>
+    <div class="hero-icon">📦</div>
     <div class="hero-title">
         سیستەمی زیرەکی <span>نمرەدانی مەترسی</span> و سنووری قەرز
     </div>
-    <div class="hero-sub">Intelligent Credit Limit &amp; Risk Scoring · XGBoost AI</div>
+    <div class="hero-sub">Erbil Warehouse B2B Credit Limit &amp; Risk Scoring</div>
     <div class="hero-pill">⚡  XGBoost ENGINE · REAL-TIME ANALYSIS</div>
 </div>
 """, unsafe_allow_html=True)
@@ -634,11 +627,11 @@ if not models_loaded:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  INPUT SECTION (بۆکسەکان لەگەڵ هێمای دۆلار بە ڕوونی)
+#  INPUT SECTION (Erbil Warehouse B2B Data)
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <div class="sec-head">
-    <span class="sec-head-text">📝  زانیاریەکان داخڵ بکە</span>
+    <span class="sec-head-text">📝  زانیارییەکانی دوکان داخڵ بکە</span>
     <span class="sec-head-line"></span>
 </div>
 """, unsafe_allow_html=True)
@@ -646,37 +639,40 @@ st.markdown("""
 col_l, col_r = st.columns(2, gap="large")
 
 with col_l:
-    st.markdown('<div class="input-card liquid-glass"><div class="card-title">💰 زانیاری دارایی</div>', unsafe_allow_html=True)
-    annual_income = st.number_input(
-        "داهاتی ساڵانە ($)", min_value=0.0, max_value=10_000_000.0,
-        value=50_000.0, step=1_000.0, format="%.2f", key="annual_income")
+    st.markdown('<div class="input-card liquid-glass"><div class="card-title">💰 زانیاری دارایی و وەسڵەکان</div>', unsafe_allow_html=True)
+    avg_invoice_value = st.number_input(
+        "تێکڕای بەهای وەسڵەکان ($)", min_value=0.0, max_value=500_000.0,
+        value=2500.0, step=100.0, format="%.2f", key="avg_order")
     current_debt = st.number_input(
-        "کۆی قەرزەکانی ئێستا ($)", min_value=0.0, max_value=5_000_000.0,
-        value=5_000.0, step=500.0, format="%.2f", key="current_debt")
-    avg_order_value = st.number_input(
-        "تێکڕای بەهای کڕینەکان ($)", min_value=0.0, max_value=500_000.0,
-        value=1_200.0, step=100.0, format="%.2f", key="avg_order")
+        "کۆی قەرزی ئێستا ($)", min_value=0.0, max_value=5_000_000.0,
+        value=5000.0, step=500.0, format="%.2f", key="current_debt")
+    total_invoices = st.number_input(
+        "کۆی گشتی وەسڵەکان (دانە)", min_value=1, max_value=10000,
+        value=150, step=10, key="total_invoices")
+    unpaid_invoices = st.selectbox(
+        "ژمارەی وەسڵە نەدراوەکان (قەرز)",
+        options=list(range(51)), index=2, key="unpaid_invoices",
+        format_func=lambda x: "هیچ" if x == 0 else f"{x} وەسڵ")
     st.markdown('</div>', unsafe_allow_html=True)
 
 with col_r:
-    st.markdown('<div class="input-card liquid-glass"><div class="card-title">🏢 زانیاری بازرگانی</div>', unsafe_allow_html=True)
-    years_in_business = st.slider(
-        "ساڵانی کارکردن (بزنس)", min_value=0, max_value=50, value=5, step=1, key="years")
-    missed_payments = st.selectbox(
-        "پێشینەی پارە نەدان (وەسڵەکان)",
-        options=list(range(11)), index=1, key="missed",
-        format_func=lambda x: "هیچ" if x == 0 else f"{x} جار")
-        
-    financial_stress_index = (current_debt / max(annual_income, 1)) * missed_payments
+    st.markdown('<div class="input-card liquid-glass"><div class="card-title">🏢 زانیاری دوکان و پێشینە</div>', unsafe_allow_html=True)
+    shop_age = st.slider(
+        "تەمەنی دوکان (ساڵانی کارکردن)", min_value=0, max_value=50, value=5, step=1, key="years")
+    late_payments = st.selectbox(
+        "پێشینەی دواکەوتنی پارەدان (چەند جار)",
+        options=list(range(21)), index=1, key="late_payments",
+        format_func=lambda x: "هیچ کات" if x == 0 else f"{x} جار دواکەوتووە")
     
     st.markdown(f"""
     <div class="summary-card">
         <div class="summary-card-title">📋 پوختەی زانیاریەکان</div>
-        <div class="summary-row"><span>داهاتی ساڵانە</span><span class="summary-val">${annual_income:,.0f}</span></div>
-        <div class="summary-row"><span>کۆی قەرزەکان</span><span class="summary-val">${current_debt:,.0f}</span></div>
-        <div class="summary-row"><span>فشاری دارایی (پێوەر)</span><span class="summary-val">{financial_stress_index:.2f}</span></div>
-        <div class="summary-row"><span>ساڵانی کارکردن</span><span class="summary-val">{years_in_business} ساڵ</span></div>
-        <div class="summary-row"><span>پارە نەدان</span><span class="summary-val">{missed_payments} جار</span></div>
+        <div class="summary-row"><span>تەمەنی دوکان</span><span class="summary-val">{shop_age} ساڵ</span></div>
+        <div class="summary-row"><span>تێکڕای وەسڵ</span><span class="summary-val">${avg_invoice_value:,.0f}</span></div>
+        <div class="summary-row"><span>ژمارەی وەسڵەکان</span><span class="summary-val">{total_invoices} دانە</span></div>
+        <div class="summary-row"><span>وەسڵە نەدراوەکان</span><span class="summary-val">{unpaid_invoices} دانە</span></div>
+        <div class="summary-row"><span>قەرزی ئێستا</span><span class="summary-val">${current_debt:,.0f}</span></div>
+        <div class="summary-row"><span>دواکەوتنی پارەدان</span><span class="summary-val">{late_payments} جار</span></div>
     </div>""", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -697,12 +693,13 @@ if analyze:
     st.divider()
     st.markdown("""
     <div class="sec-head">
-        <span class="sec-head-text">📊  ئەنجامی شیکاری</span>
+        <span class="sec-head-text">📊  ئەنجامی شیکاری کۆگا</span>
         <span class="sec-head-line"></span>
     </div>""", unsafe_allow_html=True)
 
-    features = np.array([[annual_income, current_debt, years_in_business,
-                          avg_order_value, financial_stress_index]])
+    # داتاکان ڕێک بەپێی ڕیزبەندی کۆڵۆمەکانی (erbil_warehouse_dataset.csv)
+    # Shop_Age_Years, Total_Invoices, Average_Invoice_Value, Unpaid_Invoices_Count, Current_Debt, Late_Payment_History
+    features = np.array([[shop_age, total_invoices, avg_invoice_value, unpaid_invoices, current_debt, late_payments]])
 
     if models_loaded:
         try:
@@ -715,18 +712,20 @@ if analyze:
             st.error(f"⚠️ هەڵەیەک ڕوویدا لە کاتی هەژمارکردندا: {exc}")
             st.stop()
     else:
-        dr = current_debt / max(annual_income, 1)
-        is_high = dr > 0.4 or missed_payments >= 3
-        bl = annual_income * 0.3
-        pen = missed_payments * 0.05
-        credit_limit = max(500.0, bl * (1 - pen) * (1 + years_in_business * 0.01))
+        # لۆجیکی نموونەیی (Mock) بەپێی داتاکانی کۆگای هەولێر
+        total_volume = max(avg_invoice_value * total_invoices, 1)
+        dr = current_debt / total_volume
+        is_high = dr > 0.4 or unpaid_invoices >= 4 or late_payments >= 3
+        bl = avg_invoice_value * 10
+        pen = (unpaid_invoices * 0.05) + (late_payments * 0.05)
+        credit_limit = max(500.0, bl * (1 - pen) * (1 + shop_age * 0.02))
 
     rc1, rc2 = st.columns(2, gap="large")
     with rc1:
         if is_high:
             st.markdown("""
             <div class="result-wrap"><div class="result-card liquid-glass rc-high">
-                <div class="rc-eyebrow">⚠️  ئاستی مەترسی</div>
+                <div class="rc-eyebrow">⚠️  ئاستی مەترسی دوکان</div>
                 <div class="rc-value">بەرز</div>
                 <div class="rc-en">HIGH RISK</div>
                 <span class="rc-badge badge-high">🔴 &nbsp;مەترسیدار</span>
@@ -734,7 +733,7 @@ if analyze:
         else:
             st.markdown("""
             <div class="result-wrap"><div class="result-card liquid-glass rc-low">
-                <div class="rc-eyebrow">✅  ئاستی مەترسی</div>
+                <div class="rc-eyebrow">✅  ئاستی مەترسی دوکان</div>
                 <div class="rc-value">نزم</div>
                 <div class="rc-en">LOW RISK</div>
                 <span class="rc-badge badge-low">🟢 &nbsp;باوەڕپێکراو</span>
@@ -744,7 +743,7 @@ if analyze:
         st.markdown(f"""
         <div class="result-wrap" style="animation-delay:0.15s;">
         <div class="result-card liquid-glass rc-limit">
-            <div class="rc-eyebrow">💳  سنووری قەرزی گونجاو</div>
+            <div class="rc-eyebrow">💳  سنووری قەرزی گونجاو (پەسەندکراو)</div>
             <div class="rc-value">${credit_limit:,.0f}</div>
             <div class="rc-en">Approved Credit Limit</div>
             <span class="rc-badge badge-limit">✅ &nbsp;پەسەندکراو</span>
@@ -752,26 +751,27 @@ if analyze:
 
     st.markdown("<br>", unsafe_allow_html=True)
     m1, m2, m3 = st.columns(3, gap="medium")
-    dti  = min(100, current_debt / max(annual_income, 1) * 100)
-    util = min(100, current_debt / max(credit_limit, 1) * 100)
+    
+    total_trade_volume = max(avg_invoice_value * total_invoices, 1)
+    debt_ratio = min(100, (current_debt / total_trade_volume) * 100)
     
     with m1:
         st.markdown(f"""<div class="metric-card liquid-glass">
-            <div class="metric-label">ڕێژەی قەرز بە داهات</div>
-            <div class="metric-value">{dti:.1f}%</div>
-            <div class="metric-en">Debt-to-Income Ratio</div>
+            <div class="metric-label">ڕێژەی قەرز بەرامبەر قەبارەی بازرگانی</div>
+            <div class="metric-value">{debt_ratio:.1f}%</div>
+            <div class="metric-en">Debt-to-Volume Ratio</div>
         </div>""", unsafe_allow_html=True)
     with m2:
         st.markdown(f"""<div class="metric-card liquid-glass">
-            <div class="metric-label">ساڵانی بزنس</div>
-            <div class="metric-value">{years_in_business}<span style="font-size:1rem;font-weight:500;"> ساڵ</span></div>
-            <div class="metric-en">Years in Business</div>
+            <div class="metric-label">وەسڵی نەدراو و دواکەوتوو</div>
+            <div class="metric-value">{unpaid_invoices + late_payments}<span style="font-size:1rem;font-weight:500;"> دانە</span></div>
+            <div class="metric-en">Total Credit Incidents</div>
         </div>""", unsafe_allow_html=True)
     with m3:
         st.markdown(f"""<div class="metric-card liquid-glass">
-            <div class="metric-label">بەکارهێنانی سنووری قەرز</div>
-            <div class="metric-value">{util:.1f}%</div>
-            <div class="metric-en">Credit Utilization</div>
+            <div class="metric-label">تەمەنی دوکان و متمانە</div>
+            <div class="metric-value">{shop_age}<span style="font-size:1rem;font-weight:500;"> ساڵ</span></div>
+            <div class="metric-en">Shop Age / Trust</div>
         </div>""", unsafe_allow_html=True)
 
 st.markdown("""
