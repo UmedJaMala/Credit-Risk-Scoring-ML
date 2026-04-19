@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import joblib
 import os
+import json
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -20,18 +21,27 @@ st.set_page_config(
 )
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  REAL MODEL METRICS
+#  DYNAMIC MODEL METRICS (هیچ داتایەکی نەگۆڕی تێدا نەماوە)
 # ══════════════════════════════════════════════════════════════════════════════
-CLF_TRAIN = dict(accuracy=0.9988, precision=0.9972, recall=1.0000, f1=0.9986, auc_roc=1.0000)
-CLF = dict(accuracy=0.9400, precision=0.9318, recall=0.9318, f1=0.9318, auc_roc=0.9856)
+CLF_TRAIN, CLF, REG_TRAIN, REG, FEAT_NAMES, FEAT_IMP = {}, {}, {}, {}, [], []
+metrics_loaded = False
 
-REG_TRAIN = dict(mse=120450.25, rmse=347.06, mae=245.50, r2=0.9993)
-REG = dict(mse=14036543.86, rmse=3746.54, mae=2450.12, r2=0.9072)
+metrics_path = os.path.join("outputs", "model_metrics.json")
 
-CM = np.array([[105, 7], [6, 82]]) 
+if os.path.exists(metrics_path):
+    try:
+        with open(metrics_path, "r", encoding="utf-8") as f:
+            dyn_met = json.load(f)
+            CLF_TRAIN = dyn_met.get("CLF_TRAIN", {})
+            CLF = dyn_met.get("CLF", {})
+            REG_TRAIN = dyn_met.get("REG_TRAIN", {})
+            REG = dyn_met.get("REG", {})
+            FEAT_NAMES = dyn_met.get("FEAT_NAMES", [])
+            FEAT_IMP = dyn_met.get("FEAT_IMP", [])
+            metrics_loaded = True
+    except Exception:
+        pass
 
-FEAT_NAMES = ['Current_Debt', 'Average_Invoice', 'Unpaid_Invoices', 'Total_Invoices', 'Shop_Age']
-FEAT_IMP   = [0.45, 0.25, 0.15, 0.10, 0.05]
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  GLOBAL CSS - DARK LIQUID GLASS EDITION 
@@ -149,7 +159,7 @@ label, div[data-testid="stWidgetLabel"] > p, .stSlider label, .stNumberInput lab
 }
 
 /* ========================================================
-   دیزاینی لاپتۆپ و دەسکتۆپ (وەک خۆی ماوەتەوە بێ دەستکاری)
+   دیزاینی لاپتۆپ و دەسکتۆپ
    ======================================================== */
 div[data-testid="stNumberInput"] div[data-baseweb="input"],
 div[data-testid="stNumberInput"] div[data-baseweb="base-input"],
@@ -271,7 +281,6 @@ div[data-testid="stSelectbox"] div[data-baseweb="select"] span {
     line-height: normal !important;
 }
 
-/* چارەسەری دیارنەمانی ژمارەی هەڵبژێردراو لە لاپتۆپ بەبێ تێکدانی ستایلەکە */
 div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
     min-height: 48px !important;
     display: flex !important;
@@ -294,7 +303,7 @@ div[data-baseweb="popover"] > div, div[role="listbox"], ul[role="listbox"] {
 div[role="listbox"] li, ul[role="listbox"] li {
     color: #ffffff !important;
     background-color: transparent !important;
-    font-size: 1.15rem !important; /* Bigger list items */
+    font-size: 1.15rem !important;
     font-weight: 700 !important;
     padding: 0.8rem 1rem !important;
 }
@@ -318,7 +327,6 @@ select, option {
     .rc-value { font-size: 2.2rem; }
     .liquid-glass { backdrop-filter: blur(16px); } 
     
-    /* چارەسەری بچووکبوونەوەی نووسینەکان لە مۆبایل بە لابردنی پاڵەپەستۆ (Padding) زیادە */
     div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
         min-height: 60px !important;
         display: flex !important;
@@ -369,80 +377,85 @@ def dark_fig(w=6, h=4):
 #  HELPER: Single Regression Plot
 # ══════════════════════════════════════════════════════════════════════════════
 def generate_regression_plot():
-    fig, ax2 = dark_fig(9, 5)
-    fig.suptitle('Credit Limit Prediction', color='#3b82f6', fontsize=16, fontweight='bold', y=0.98)
-    
+    csv_path = os.path.join("outputs", "credit_risk_predictions.csv")
+    if not os.path.exists(csv_path):
+        return None 
+        
     try:
-        df = pd.read_csv('credit_risk_predictions.csv')
+        df = pd.read_csv(csv_path)
         actual = df['Actual_Credit_Limit'].values
         predicted = df['Predicted_Credit_Limit'].values
-    except:
-        np.random.seed(42)
-        actual = np.random.uniform(500, 100000, 200)
-        predicted = np.clip(actual + np.random.normal(0, 3746, 200), 0, None)
-    
-    ax2.scatter(actual, predicted, alpha=0.8, color="#3b82f6", s=35, edgecolors="#fff", linewidths=0.6)
-    
-    max_val = max(max(actual), max(predicted)) if len(actual) > 0 else 100000
-    ax2.plot([0, max_val], [0, max_val], "--", color="#fb7185", lw=2.5, label="Perfect Fit")
-    
-    ax2.set_title(f"R² Score = {REG['r2']:.4f}", color='#fff', fontweight='bold', pad=10, fontsize=12)
-    ax2.set_xlabel("Actual Credit Limit ($)", color='#cbd5e1', fontweight='bold', fontsize=11)
-    ax2.set_ylabel("Predicted Credit Limit ($)", color='#cbd5e1', fontweight='bold', fontsize=11)
-    ax2.tick_params(colors="#fff", labelsize=10)
-    
-    leg = ax2.legend(facecolor="#00000080", edgecolor="#ffffff1a", labelcolor="#fff", fontsize=10)
-    plt.tight_layout()
-    return fig
+        
+        fig, ax2 = dark_fig(9, 5)
+        fig.suptitle('Credit Limit Prediction', color='#3b82f6', fontsize=16, fontweight='bold', y=0.98)
+        
+        ax2.scatter(actual, predicted, alpha=0.8, color="#3b82f6", s=35, edgecolors="#fff", linewidths=0.6)
+        
+        max_val = max(max(actual), max(predicted)) if len(actual) > 0 else 100000
+        ax2.plot([0, max_val], [0, max_val], "--", color="#fb7185", lw=2.5, label="Perfect Fit")
+        
+        r2_val = REG.get('r2', 0) if isinstance(REG, dict) else 0
+        ax2.set_title(f"R² Score = {r2_val:.4f}", color='#fff', fontweight='bold', pad=10, fontsize=12)
+        ax2.set_xlabel("Actual Credit Limit ($)", color='#cbd5e1', fontweight='bold', fontsize=11)
+        ax2.set_ylabel("Predicted Credit Limit ($)", color='#cbd5e1', fontweight='bold', fontsize=11)
+        ax2.tick_params(colors="#fff", labelsize=10)
+        
+        leg = ax2.legend(facecolor="#00000080", edgecolor="#ffffff1a", labelcolor="#fff", fontsize=10)
+        plt.tight_layout()
+        return fig
+    except Exception:
+        return None
 
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  HELPER: Classification KDE Density Plots
 # ══════════════════════════════════════════════════════════════════════════════
 def generate_kde_plots():
-    fig = plt.figure(figsize=(12, 4.5))
-    fig.patch.set_facecolor("none")
-    fig.suptitle('Predicted Probabilities Density Distribution', color='#3b82f6', fontsize=14, fontweight='bold', y=1.05)
-    
+    csv_path = os.path.join("outputs", "credit_risk_predictions.csv")
+    if not os.path.exists(csv_path):
+        return None 
+        
     try:
-        df = pd.read_csv('credit_risk_predictions.csv')
+        df = pd.read_csv(csv_path)
         probs_low_risk = df[df['Actual_Risk'] == 0]['Risk_Probability'].values
         probs_high_risk = df[df['Actual_Risk'] == 1]['Risk_Probability'].values
-    except:
-        np.random.seed(42)
-        probs_low_risk = np.random.beta(a=1.5, b=10, size=112) 
-        probs_high_risk = np.random.beta(a=12, b=2, size=88) 
-    
-    ax1 = fig.add_subplot(121)
-    ax1.set_facecolor("#00000033")
-    ax1.grid(color="#ffffff0d", linewidth=1, alpha=0.8)
-    for sp in ax1.spines.values(): sp.set_color("#ffffff1a")
-    
-    sns.kdeplot(probs_low_risk, ax=ax1, color="#34d399", fill=True, alpha=0.3, linewidth=2)
-    ax1.axvline(x=0.5, color='#cbd5e1', linestyle='--', linewidth=1)
-    
-    ax1.set_title("Low Risk Customers", color='#34d399', fontweight='bold', pad=10, fontsize=12)
-    ax1.set_xlabel("Predicted Probability of High Risk", color='#cbd5e1', fontsize=10)
-    ax1.set_ylabel("Density", color='#cbd5e1', fontsize=10)
-    ax1.set_xlim(-0.1, 1.1)
-    ax1.tick_params(colors="#fff", labelsize=9)
-    
-    ax2 = fig.add_subplot(122)
-    ax2.set_facecolor("#00000033")
-    ax2.grid(color="#ffffff0d", linewidth=1, alpha=0.8)
-    for sp in ax2.spines.values(): sp.set_color("#ffffff1a")
-    
-    sns.kdeplot(probs_high_risk, ax=ax2, color="#fb7185", fill=True, alpha=0.3, linewidth=2)
-    ax2.axvline(x=0.5, color='#cbd5e1', linestyle='--', linewidth=1)
-    
-    ax2.set_title("High Risk Customers", color='#fb7185', fontweight='bold', pad=10, fontsize=12)
-    ax2.set_xlabel("Predicted Probability of High Risk", color='#cbd5e1', fontsize=10)
-    ax2.set_ylabel("Density", color='#cbd5e1', fontsize=10)
-    ax2.set_xlim(-0.1, 1.1)
-    ax2.tick_params(colors="#fff", labelsize=9)
+        
+        fig = plt.figure(figsize=(12, 4.5))
+        fig.patch.set_facecolor("none")
+        fig.suptitle('Predicted Probabilities Density Distribution', color='#3b82f6', fontsize=14, fontweight='bold', y=1.05)
+        
+        ax1 = fig.add_subplot(121)
+        ax1.set_facecolor("#00000033")
+        ax1.grid(color="#ffffff0d", linewidth=1, alpha=0.8)
+        for sp in ax1.spines.values(): sp.set_color("#ffffff1a")
+        
+        sns.kdeplot(probs_low_risk, ax=ax1, color="#34d399", fill=True, alpha=0.3, linewidth=2)
+        ax1.axvline(x=0.5, color='#cbd5e1', linestyle='--', linewidth=1)
+        
+        ax1.set_title("Low Risk Customers", color='#34d399', fontweight='bold', pad=10, fontsize=12)
+        ax1.set_xlabel("Predicted Probability of High Risk", color='#cbd5e1', fontsize=10)
+        ax1.set_ylabel("Density", color='#cbd5e1', fontsize=10)
+        ax1.set_xlim(-0.1, 1.1)
+        ax1.tick_params(colors="#fff", labelsize=9)
+        
+        ax2 = fig.add_subplot(122)
+        ax2.set_facecolor("#00000033")
+        ax2.grid(color="#ffffff0d", linewidth=1, alpha=0.8)
+        for sp in ax2.spines.values(): sp.set_color("#ffffff1a")
+        
+        sns.kdeplot(probs_high_risk, ax=ax2, color="#fb7185", fill=True, alpha=0.3, linewidth=2)
+        ax2.axvline(x=0.5, color='#cbd5e1', linestyle='--', linewidth=1)
+        
+        ax2.set_title("High Risk Customers", color='#fb7185', fontweight='bold', pad=10, fontsize=12)
+        ax2.set_xlabel("Predicted Probability of High Risk", color='#cbd5e1', fontsize=10)
+        ax2.set_ylabel("Density", color='#cbd5e1', fontsize=10)
+        ax2.set_xlim(-0.1, 1.1)
+        ax2.tick_params(colors="#fff", labelsize=9)
 
-    plt.tight_layout()
-    return fig
+        plt.tight_layout()
+        return fig
+    except Exception:
+        return None
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -515,6 +528,10 @@ def project_info_dialog():
 
 @st.dialog("📊  هەڵسەنگاندنی زانستی مۆدێل — Model Evaluation", width="large")
 def evaluation_dialog():
+    if not metrics_loaded:
+        st.error("⚠️ هیچ داتایەکی نوێی هەڵسەنگاندن نەدۆزرایەوە. تکایە سەرەتا کۆدەکانی ناو نۆتبووکەکەت ڕەن بکە بۆ ئەوەی داتا نوێیەکان دروست بن.")
+        return
+
     tab1, tab2, tab3 = st.tabs([
         "📊 مەتریکەکان (Metrics)",
         "📈 وێنەی ڕوونکردنەوەیی (Plots)",
@@ -526,10 +543,10 @@ def evaluation_dialog():
         
         c1, c2, c3, c4 = st.columns(4)
         boxes = [
-            (c1, "Accuracy",  f"{CLF['accuracy']*100:.2f}%", "eval-box-green"),
-            (c2, "Precision", f"{CLF['precision']*100:.2f}%", ""),
-            (c3, "Recall",    f"{CLF['recall']*100:.2f}%",    "eval-box-cyan"),
-            (c4, "ROC-AUC",   f"{CLF['auc_roc']:.4f}",        "eval-box-cyan"),
+            (c1, "Accuracy",  f"{CLF.get('accuracy', 0)*100:.2f}%", "eval-box-green"),
+            (c2, "Precision", f"{CLF.get('precision', 0)*100:.2f}%", ""),
+            (c3, "Recall",    f"{CLF.get('recall', 0)*100:.2f}%",    "eval-box-cyan"),
+            (c4, "ROC-AUC",   f"{CLF.get('auc_roc', 0):.4f}",        "eval-box-cyan"),
         ]
         for col, title, val, extra in boxes:
             with col:
@@ -543,61 +560,27 @@ def evaluation_dialog():
         st.markdown(f"""
         <div class="eval-box liquid-glass" style="margin-top:0;">
             <div class="eval-title">F1-Score (Weighted)</div>
-            <div class="eval-val" style="font-size:1.5rem; color:var(--blue);">{CLF['f1']:.4f}</div>
-            <div class="eval-val-sub">هاوسەنگی Precision و Recall — نمونەی ٢٠٠ دوکان</div>
+            <div class="eval-val" style="font-size:1.5rem; color:var(--blue);">{CLF.get('f1', 0):.4f}</div>
+            <div class="eval-val-sub">هاوسەنگی Precision و Recall</div>
         </div>""", unsafe_allow_html=True)
-
-        st.markdown("""
-        <div style="overflow-x:auto; direction:ltr; margin-bottom: 1.5rem; background:rgba(0,0,0,0.2); border-radius:12px; padding:10px;">
-        <table style="width:100%; border-collapse:collapse; font-size:0.9rem; font-family:'Inter',monospace; color:#f1f5f9;">
-            <thead>
-                <tr style="border-bottom:1px solid rgba(255,255,255,0.1); color:#3b82f6;">
-                    <th style="padding:0.6rem 0.8rem; text-align:left;"></th>
-                    <th style="padding:0.6rem 0.8rem; text-align:center;">Precision</th>
-                    <th style="padding:0.6rem 0.8rem; text-align:center;">Recall</th>
-                    <th style="padding:0.6rem 0.8rem; text-align:center;">F1-Score</th>
-                    <th style="padding:0.6rem 0.8rem; text-align:center;">Support</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
-                    <td style="padding:0.55rem 0.8rem; color:#34d399; font-weight:700;">Low Risk</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.95</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.94</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.94</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center; color:#64748b;">112</td>
-                </tr>
-                <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
-                    <td style="padding:0.55rem 0.8rem; color:#fb7185; font-weight:700;">High Risk</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.92</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.93</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.93</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center; color:#64748b;">88</td>
-                </tr>
-                <tr style="border-bottom:1px solid rgba(255,255,255,0.05); color:#94a3b8;">
-                    <td style="padding:0.55rem 0.8rem; font-weight:700;">Macro Avg</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.93</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.93</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">0.93</td>
-                    <td style="padding:0.55rem 0.8rem; text-align:center;">200</td>
-                </tr>
-            </tbody>
-        </table>
-        </div>
-        """, unsafe_allow_html=True)
         
         st.markdown("<br>", unsafe_allow_html=True)
         fig_kde = generate_kde_plots()
-        st.pyplot(fig_kde, use_container_width=True, transparent=True)
+        if fig_kde:
+            st.pyplot(fig_kde, use_container_width=True, transparent=True)
+            plt.close(fig_kde)
+        else:
+            st.info("⚠️ وێنەی Density بەردەست نییە چونکە فایلی داتاکان (credit_risk_predictions.csv) دروست نەکراوە.")
         
 
-        st.markdown("<div style='color:var(--blue); font-size:0.9rem; font-weight:900; letter-spacing:0.1em; margin-bottom:1rem; margin-top:2rem;'>💰 مەتریکەکانی بڕی قەرز (REGRESSION)</div>", unsafe_allow_html=True)
+    with tab2:
+        st.markdown("<br><div style='color:var(--blue); font-size:0.9rem; font-weight:900; letter-spacing:0.1em; margin-bottom:1rem;'>💰 مەتریکەکانی بڕی قەرز (REGRESSION)</div>", unsafe_allow_html=True)
         r1, r2, r3, r4 = st.columns(4)
         reg_boxes = [
-            (r1, "R² Score", f"{REG['r2']:.4f}",   "eval-box-green", "گونجانەوەی مۆدێل"),
-            (r2, "RMSE",     f"${REG['rmse']:,.2f}",   "eval-box-cyan",  "Root Mean Sq. Error"),
-            (r3, "MAE",      f"${REG['mae']:,.2f}",    "eval-box-cyan",  "Mean Abs. Error"),
-            (r4, "MSE",      f"${REG['mse']/1e6:.1f}M", "eval-box-red","Mean Sq. Error"),
+            (r1, "R² Score", f"{REG.get('r2', 0):.4f}",   "eval-box-green", "گونجانەوەی مۆدێل"),
+            (r2, "RMSE",     f"${REG.get('rmse', 0):,.2f}",   "eval-box-cyan",  "Root Mean Sq. Error"),
+            (r3, "MAE",      f"${REG.get('mae', 0):,.2f}",    "eval-box-cyan",  "Mean Abs. Error"),
+            (r4, "MSE",      f"${REG.get('mse', 0)/1e6:.1f}M", "eval-box-red","Mean Sq. Error"),
         ]
         for col, title, val, extra, sub in reg_boxes:
             with col:
@@ -608,32 +591,35 @@ def evaluation_dialog():
                     <div class="eval-val-sub">{sub}</div>
                 </div>""", unsafe_allow_html=True)
 
-    with tab2:
         st.markdown("<br>", unsafe_allow_html=True)
         fig_reg = generate_regression_plot()
-        st.pyplot(fig_reg, use_container_width=True, transparent=True)
+        if fig_reg:
+            st.pyplot(fig_reg, use_container_width=True, transparent=True)
+            plt.close(fig_reg)
+        else:
+            st.info("⚠️ وێنەی Regression بەردەست نییە چونکە فایلی داتاکان (credit_risk_predictions.csv) دروست نەکراوە.")
 
     with tab3:
         st.markdown("<br>", unsafe_allow_html=True)
         st.markdown("""<div style="font-size:0.85rem; font-weight:800; color:var(--blue); letter-spacing:0.1em; margin-bottom:1rem;">⚠️ OVERFITTING CHECK</div>""", unsafe_allow_html=True)
         ov1, ov2 = st.columns(2)
         with ov1:
-            gap_clf = CLF_TRAIN["accuracy"] - CLF["accuracy"]
+            gap_clf = CLF_TRAIN.get("accuracy", 0) - CLF.get("accuracy", 0)
             st.markdown(f"""
             <div class="eval-box liquid-glass eval-box-red">
                 <div class="eval-title">Classification · Accuracy Gap</div>
                 <div style="font-size:0.95rem; color:#fff; line-height:2; direction:ltr; text-align:left; padding-top:0.3rem;">
-                    Train: <b>{CLF_TRAIN['accuracy']*100:.2f}%</b> → Test: <b>{CLF['accuracy']*100:.2f}%</b>
+                    Train: <b>{CLF_TRAIN.get('accuracy', 0)*100:.2f}%</b> → Test: <b>{CLF.get('accuracy', 0)*100:.2f}%</b>
                     <br><span style="color:#fb7185; font-size:0.8rem;">Gap: {gap_clf:.4f}</span>
                 </div>
             </div>""", unsafe_allow_html=True)
         with ov2:
-            gap_reg = REG_TRAIN["r2"] - REG["r2"]
+            gap_reg = REG_TRAIN.get("r2", 0) - REG.get("r2", 0)
             st.markdown(f"""
             <div class="eval-box liquid-glass eval-box-green">
                 <div class="eval-title">Regression · R² Gap</div>
                 <div style="font-size:0.95rem; color:#fff; line-height:2; direction:ltr; text-align:left; padding-top:0.3rem;">
-                    Train: <b>{REG_TRAIN['r2']:.4f}</b> → Test: <b>{REG['r2']:.4f}</b>
+                    Train: <b>{REG_TRAIN.get('r2', 0):.4f}</b> → Test: <b>{REG.get('r2', 0):.4f}</b>
                     <br><span style="color:#34d399; font-size:0.8rem;">Gap: {gap_reg:.4f}</span>
                 </div>
             </div>""", unsafe_allow_html=True)
@@ -643,27 +629,26 @@ def evaluation_dialog():
         _, gcol3, _ = st.columns([0.5, 4, 0.5])
         
         with gcol3:
-            fig3, ax3 = dark_fig(6, 3.4)
-            expected_n = getattr(scaler, 'n_features_in_', 6) if models_loaded else 6
-            if expected_n == 5:
-                feat_names_plot = ['Shop Age', 'Total Invoices', 'Average Invoice', 'Unpaid Invoices', 'Current Debt']
-                feat_imp_plot   = [0.40, 0.25, 0.15, 0.12, 0.08]
-                plot_colors = ["#3b82f6", "#2563eb", "#1d4ed8", "#1e40af", "#1e3a8a"]
-            else:
-                feat_names_plot = ['Shop Age', 'Total Invoices', 'Average Invoice', 'Unpaid Invoices', 'Current Debt', 'Late Payments']
-                feat_imp_plot   = [0.35, 0.25, 0.15, 0.10, 0.08, 0.07]
-                plot_colors = ["#60a5fa", "#3b82f6", "#2563eb", "#1d4ed8", "#1e40af", "#1e3a8a"]
+            if FEAT_NAMES and FEAT_IMP:
+                fig3, ax3 = dark_fig(6, max(3.4, len(FEAT_NAMES)*0.5))
+                plot_names = FEAT_NAMES[:len(FEAT_IMP)]
+                plot_imp = FEAT_IMP[:len(FEAT_NAMES)]
                 
-            bars = ax3.barh(feat_names_plot, feat_imp_plot, color=plot_colors, height=0.6, edgecolor="#ffffff1a")
-            for bar, val in zip(bars, feat_imp_plot):
-                ax3.text(val + 0.005, bar.get_y() + bar.get_height()/2,
-                         f"{val:.0%}", va="center", ha="left", color="#fff", fontsize=10, fontweight="bold")
-            ax3.set_xlim(0, max(feat_imp_plot) * 1.25)
-            ax3.set_xlabel("Relative Importance", color='#cbd5e1')
-            ax3.tick_params(axis="y", colors="#fff")
-            plt.tight_layout()
-            st.pyplot(fig3, use_container_width=True, transparent=True)
-            plt.close(fig3)
+                colors = ["#60a5fa", "#3b82f6", "#2563eb", "#1d4ed8", "#1e40af", "#1e3a8a", "#172554", "#0f172a"]
+                plot_colors = [colors[i % len(colors)] for i in range(len(plot_names))]
+                
+                bars = ax3.barh(plot_names, plot_imp, color=plot_colors, height=0.6, edgecolor="#ffffff1a")
+                for bar, val in zip(bars, plot_imp):
+                    ax3.text(val + 0.005, bar.get_y() + bar.get_height()/2,
+                             f"{val:.0%}", va="center", ha="left", color="#fff", fontsize=10, fontweight="bold")
+                ax3.set_xlim(0, max(plot_imp) * 1.25)
+                ax3.set_xlabel("Relative Importance", color='#cbd5e1')
+                ax3.tick_params(axis="y", colors="#fff")
+                plt.tight_layout()
+                st.pyplot(fig3, use_container_width=True, transparent=True)
+                plt.close(fig3)
+            else:
+                st.info("⚠️ داتای گرنگی تایبەتمەندییەکان بەردەست نییە.")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -773,17 +758,21 @@ if analyze:
 
     if models_loaded:
         try:
-            # 1. Prepare 6 base features for Classification
+            # 1. Prepare base features
             clf_features = np.array([[shop_age, total_invoices, avg_invoice_value, unpaid_invoices, current_debt, late_payments]])
-            fs_clf = scaler_clf.transform(clf_features)
+            
+            # Use dynamic slicing to match scaler's expected shape just in case
+            expected_n = getattr(scaler_clf, 'n_features_in_', 6)
+            fs_clf = scaler_clf.transform(clf_features[:, :expected_n])
             
             # 2. Predict Risk
             risk_pred = risk_model.predict(fs_clf)[0]
             is_high = int(risk_pred) == 1
             
-            # 3. Append Risk Prediction to features to create 7 features for Regression
+            # 3. Append Risk Prediction to features to create features for Regression
             reg_features = np.array([[shop_age, total_invoices, avg_invoice_value, unpaid_invoices, current_debt, late_payments, risk_pred]])
-            fs_reg = scaler_reg.transform(reg_features)
+            expected_reg_n = getattr(scaler_reg, 'n_features_in_', 7)
+            fs_reg = scaler_reg.transform(reg_features[:, :expected_reg_n])
             
             # 4. Predict Credit Limit
             limit_pred = limit_model.predict(fs_reg)[0]
