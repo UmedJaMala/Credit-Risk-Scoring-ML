@@ -312,7 +312,7 @@ div[role="dialog"] p, div[role="dialog"] h1, div[role="dialog"] h2, div[role="di
 #  LOAD MODELS
 # ══════════════════════════════════════════════════════════════════════════════
 @st.cache_resource
-def load_models():
+def load_ml_models():
     base = "outputs"
     try:
         rm = joblib.load(os.path.join(base, "risk_model_improved.joblib"))
@@ -323,7 +323,7 @@ def load_models():
     except Exception:
         return None, None, None, None, False
 
-risk_model, limit_model, scaler_clf, scaler_reg, models_loaded = load_models()
+risk_model, limit_model, scaler_clf, scaler_reg, models_loaded = load_ml_models()
 
 
 # ══════════════════════════════════════════════════════════════════════════════
