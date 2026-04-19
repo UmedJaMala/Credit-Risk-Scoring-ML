@@ -315,14 +315,15 @@ div[role="dialog"] p, div[role="dialog"] h1, div[role="dialog"] h2, div[role="di
 def load_models():
     base = "outputs"
     try:
-        rm = joblib.load(os.path.join(base, "risk_model.joblib"))
-        lm = joblib.load(os.path.join(base, "limit_model.joblib"))
-        sc = joblib.load(os.path.join(base, "scaler.joblib"))
-        return rm, lm, sc, True
+        rm = joblib.load(os.path.join(base, "risk_model_improved.joblib"))
+        lm = joblib.load(os.path.join(base, "limit_model_improved.joblib"))
+        sc_clf = joblib.load(os.path.join(base, "scaler_clf_improved.joblib"))
+        sc_reg = joblib.load(os.path.join(base, "scaler_reg_improved.joblib"))
+        return rm, lm, sc_clf, sc_reg, True
     except Exception:
-        return None, None, None, False
+        return None, None, None, None, False
 
-risk_model, limit_model, scaler, models_loaded = load_models()
+risk_model, limit_model, scaler_clf, scaler_reg, models_loaded = load_models()
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -749,17 +750,20 @@ if analyze:
 
     if models_loaded:
         try:
-            expected_n = getattr(scaler, 'n_features_in_', 6)
+            # 1. Prepare 6 base features for Classification
+            clf_features = np.array([[shop_age, total_invoices, avg_invoice_value, unpaid_invoices, current_debt, late_payments]])
+            fs_clf = scaler_clf.transform(clf_features)
             
-            if expected_n == 5:
-                features_to_scale = np.array([[shop_age, total_invoices, avg_invoice_value, unpaid_invoices, current_debt]])
-            else:
-                features_to_scale = np.array([[shop_age, total_invoices, avg_invoice_value, unpaid_invoices, current_debt, late_payments]])
+            # 2. Predict Risk
+            risk_pred = risk_model.predict(fs_clf)[0]
+            is_high = int(risk_pred) == 1
             
-            fs          = scaler.transform(features_to_scale)
-            risk_pred   = risk_model.predict(fs)[0]
-            limit_pred  = limit_model.predict(fs)[0]
-            is_high     = int(risk_pred) == 1
+            # 3. Append Risk Prediction to features to create 7 features for Regression
+            reg_features = np.array([[shop_age, total_invoices, avg_invoice_value, unpaid_invoices, current_debt, late_payments, risk_pred]])
+            fs_reg = scaler_reg.transform(reg_features)
+            
+            # 4. Predict Credit Limit
+            limit_pred = limit_model.predict(fs_reg)[0]
             credit_limit = float(limit_pred)
             
         except Exception as exc:
