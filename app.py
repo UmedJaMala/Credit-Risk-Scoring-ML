@@ -260,7 +260,57 @@ div[role="dialog"] p, div[role="dialog"] h1, div[role="dialog"] h2, div[role="di
 .about-center-name { color: var(--blue); font-size: 1.1rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
 
 /* ========================================================
-   نوێکراوەتەوە: چارەسەری کێشەی بۆکسەکانی هەڵبژاردن تەنها بۆ مۆبایل
+   چارەسەری کێشەی بۆکسەکانی هەڵبژاردن بۆ هەموو ئامێرەکان
+   ======================================================== */
+div[data-testid="stSelectbox"] div[data-baseweb="select"] div[class*="singleValue"],
+div[data-testid="stSelectbox"] div[data-baseweb="select"] span {
+    color: #ffffff !important;
+    font-family: 'Noto Sans Arabic', sans-serif !important;
+    font-size: 0.97rem !important; 
+    font-weight: 700 !important;
+    line-height: normal !important;
+}
+
+/* چارەسەری دیارنەمانی ژمارەی هەڵبژێردراو لە لاپتۆپ بەبێ تێکدانی ستایلەکە */
+div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+    min-height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+div[data-testid="stSelectbox"] div[data-baseweb="select"] div[class*="ValueContainer"] {
+    display: flex !important;
+    align-items: center !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    height: 100% !important;
+}
+
+div[data-baseweb="popover"] > div, div[role="listbox"], ul[role="listbox"] {
+    background-color: #121418 !important;
+    border: 1px solid rgba(59,130,246,0.4) !important;
+    border-radius: 12px !important;
+}
+div[role="listbox"] li, ul[role="listbox"] li {
+    color: #ffffff !important;
+    background-color: transparent !important;
+    font-size: 1.15rem !important; /* Bigger list items */
+    font-weight: 700 !important;
+    padding: 0.8rem 1rem !important;
+}
+div[role="listbox"] li:hover, div[role="listbox"] li[aria-selected="true"] {
+    background-color: rgba(59,130,246,0.3) !important;
+    color: #60a5fa !important;
+}
+
+select, option {
+    background-color: #121418 !important;
+    color: #ffffff !important;
+    font-size: 1.15rem !important;
+}
+
+/* ========================================================
+   دیزاینی تایبەت بە مۆبایل
    ======================================================== */
 @media (max-width: 768px) {
     .block-container { padding: 1rem 0.9rem 3rem !important; }
@@ -270,38 +320,11 @@ div[role="dialog"] p, div[role="dialog"] h1, div[role="dialog"] h2, div[role="di
     
     /* چارەسەری بچووکبوونەوەی نووسینەکان لە مۆبایل بە لابردنی پاڵەپەستۆ (Padding) زیادە */
     div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
-        min-height: 48px !important;
+        min-height: 60px !important;
+        display: flex !important;
+        align-items: center !important;
         padding-right: 0.2rem !important;
         padding-left: 0.2rem !important;
-    }
-    div[data-testid="stSelectbox"] div[data-baseweb="select"] div[class*="singleValue"],
-    div[data-testid="stSelectbox"] div[data-baseweb="select"] span {
-        color: #ffffff !important;
-        font-size: 0.98rem !important;
-    }
-
-    /* چارەسەری سپیبوونی لیستی هەڵبژاردنەکان (Dropdown/Popover) لە ئەندرۆید و وێبگەڕەکانی مۆبایل */
-    div[data-baseweb="popover"] > div, div[role="listbox"], ul[role="listbox"] {
-        background-color: #121418 !important;
-        border: 1px solid rgba(59,130,246,0.4) !important;
-        border-radius: 12px !important;
-    }
-    div[role="listbox"] li, ul[role="listbox"] li {
-        color: #ffffff !important;
-        background-color: transparent !important;
-        font-size: 1rem !important;
-        padding: 0.8rem 1rem !important;
-    }
-    div[role="listbox"] li:hover, div[role="listbox"] li[aria-selected="true"] {
-        background-color: rgba(59,130,246,0.3) !important;
-        color: #60a5fa !important;
-    }
-
-    /* ناچارکردنی سیستەمی ئەندرۆید بۆ قبوڵکردنی ڕەنگی تاریک بۆ خودی Select Box ڕەسەنەکان */
-    select, option {
-        background-color: #121418 !important;
-        color: #ffffff !important;
-        font-size: 1rem !important;
     }
 }
 </style>
