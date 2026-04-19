@@ -776,7 +776,7 @@ if analyze:
             
             # 4. Predict Credit Limit
             limit_pred = limit_model.predict(fs_reg)[0]
-            credit_limit = float(limit_pred)
+            credit_limit = max(500.0, float(limit_pred))
             
         except Exception as exc:
             st.error(f"⚠️ هەڵەیەک ڕوویدا لە کاتی هەژمارکردندا: {exc}")
