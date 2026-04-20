@@ -9,7 +9,6 @@ import json
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  PAGE CONFIG
@@ -129,13 +128,24 @@ div[data-testid="stBaseButton-primary"] button, button[kind="primary"] {
 div[data-testid="stBaseButton-primary"] button:hover, button[kind="primary"]:hover { transform: translateY(-3px) !important; background: linear-gradient(135deg, rgba(59,130,246,0.3) 0%, rgba(59,130,246,0.1) 100%) !important; box-shadow: 0 8px 30px rgba(59,130,246,0.25) !important; color: #fff !important; }
 
 div[data-testid="stBaseButton-secondary"] button, button[kind="secondary"] {
-    width: 100% !important; background: var(--glass-bg) !important; backdrop-filter: blur(12px) !important; border: 1px solid var(--glass-border) !important; border-top: 1px solid var(--glass-hi) !important; color: var(--cyan) !important; font-family: 'Noto Sans Arabic', sans-serif !important; font-size: 0.95rem !important; font-weight: 800 !important; border-radius: 16px !important; padding: 0.85rem 1.2rem !important; box-shadow: var(--glass-shadow) !important; transition: all 0.3s ease !important;
+    width: 100% !important; background: var(--glass-bg) !important; backdrop-filter: blur(12px) !important; border: 1px solid var(--glass-border) !important; border-top: 1px solid var(--glass-hi) !important; color: var(--cyan) !important; font-family: 'Inter', sans-serif !important; font-size: 0.95rem !important; font-weight: 800 !important; border-radius: 16px !important; padding: 0.85rem 1.2rem !important; box-shadow: var(--glass-shadow) !important; transition: all 0.3s ease !important;
 }
 div[data-testid="stBaseButton-secondary"] button:hover, button[kind="secondary"]:hover { transform: translateY(-2px) !important; background: rgba(34,211,238,0.1) !important; border-color: var(--cyan-bdr) !important; color: #fff !important; }
 
 .sec-head { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem; }
 .sec-head-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, transparent 100%); }
 .sec-head-text { color: #fff; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.10em; white-space: nowrap; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+
+/* Dialog Section Styling (English Left-to-Right) */
+.eng-dialog { direction: ltr !important; text-align: left !important; font-family: 'Inter', sans-serif !important; }
+.eng-dialog p, .eng-dialog h1, .eng-dialog h2, .eng-dialog h3, .eng-dialog span, .eng-dialog div { direction: ltr !important; text-align: left !important; font-family: 'Inter', sans-serif !important; }
+
+/* Custom Tabs Styling */
+div[data-baseweb="tab-list"] { border-bottom: 1px solid rgba(255,255,255,0.1) !important; gap: 2rem; }
+button[data-baseweb="tab"] { background: transparent !important; padding: 1rem 0 !important; border: none !important; }
+button[data-baseweb="tab"] p { color: var(--text-2) !important; font-weight: 700 !important; font-size: 1rem !important; }
+button[data-baseweb="tab"][aria-selected="true"] p { color: var(--blue) !important; text-shadow: 0 0 10px rgba(59,130,246,0.4); }
+div[data-baseweb="tab-highlight"] { background-color: var(--blue) !important; box-shadow: 0 0 10px rgba(59,130,246,0.5) !important; height: 3px !important; border-radius: 3px 3px 0 0 !important; }
 
 .input-card { padding: 1.8rem 1.5rem 1.5rem; height: 100%; }
 .card-title { color: #fff; font-size: 1rem; font-weight: 800; margin-bottom: 1.3rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; gap: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
@@ -221,9 +231,8 @@ div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle { wid
 
 .metric-card { padding: 1.4rem 1rem; text-align: center; transition: transform 0.3s ease; border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; background: rgba(0,0,0,0.3); backdrop-filter: blur(10px);}
 .metric-card:hover { transform: translateY(-5px); border-color: rgba(59,130,246,0.3); }
-.metric-label { color: var(--text-2); font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; }
-.metric-value { color: #fff; font-size: 1.8rem; font-weight: 900; line-height: 1; text-shadow: 0 2px 10px rgba(255,255,255,0.2); direction: ltr;}
-.metric-en    { color: var(--text-3); font-size: 0.7rem; margin-top: 0.4rem; font-family: 'Inter', sans-serif;}
+.metric-label { color: var(--text-2); font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.metric-value { color: #fff; font-size: 1.8rem; font-weight: 900; line-height: 1; text-shadow: 0 2px 10px rgba(255,255,255,0.2); }
 
 div[data-testid="stModal"] > div, div[role="dialog"], section[data-testid="stDialog"] > div {
     background: rgba(10, 12, 16, 0.95) !important; 
@@ -235,7 +244,7 @@ div[data-testid="stModal"] > div, div[role="dialog"], section[data-testid="stDia
 div[role="dialog"] p, div[role="dialog"] h1, div[role="dialog"] h2, div[role="dialog"] h3, div[role="dialog"] span { color: #fff !important; }
 
 .about-card { padding: 1.5rem; margin-bottom: 1.2rem; }
-.about-card-title { color: var(--blue); font-size: 0.9rem; font-weight: 900; letter-spacing: 0.05em; margin-bottom: 0.8rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.about-card-title { color: var(--blue); font-size: 0.9rem; font-weight: 900; letter-spacing: 0.05em; margin-bottom: 0.8rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); text-transform: uppercase; }
 .about-card-body { color: var(--text-2); font-size: 0.88rem; line-height: 1.9; }
 .about-card-body b { color: #fff; font-weight: 800; }
 .tech-tag { display: inline-block; background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 0.3rem 0.8rem; font-size: 0.75rem; font-weight: 800; margin: 0.25rem 0.15rem; backdrop-filter: blur(5px); }
@@ -289,58 +298,112 @@ risk_model, limit_model, scaler_clf, scaler_reg, models_loaded = load_ml_models(
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  DIALOGS (EVALUATION & ABOUT)
+#  DIALOGS (ENGLISH EVALUATION & ABOUT)
 # ══════════════════════════════════════════════════════════════════════════════
-@st.dialog("📈 هەڵسەنگاندنی مۆدێلەکان (Model Evaluation)", width="large")
+@st.dialog("📊 Model Evaluation Metrics", width="large")
 def model_evaluation_dialog():
+    st.markdown('<div class="eng-dialog">', unsafe_allow_html=True)
     if not metrics_data:
-        st.warning("⚠️ داتای هەڵسەنگاندن نەدۆزرایەوە! تکایە دڵنیابە لەوەی نۆتبووکەکەت ڕەن کردووە.")
+        st.warning("⚠️ Evaluation data not found! Please run the notebook first.")
+        st.markdown('</div>', unsafe_allow_html=True)
         return
-        
-    clf = metrics_data.get("CLF", {})
-    reg = metrics_data.get("REG", {})
-    
-    st.markdown("""
-    <div class="sec-head" style="margin-top: 1rem;">
-        <span class="sec-head-text">🎯  مۆدێلی پۆلێنکردنی مەترسی (Classification)</span>
-        <span class="sec-head-line"></span>
-    </div>""", unsafe_allow_html=True)
-    
-    c1, c2, c3 = st.columns(3)
-    with c1:
-        st.markdown(f"""<div class="metric-card"><div class="metric-label">ڕێژەی ڕاستی (Accuracy)</div>
-        <div class="metric-value">{clf.get('accuracy', 0)*100:.1f}%</div></div>""", unsafe_allow_html=True)
-    with c2:
-        st.markdown(f"""<div class="metric-card"><div class="metric-label">هێزی جیاکردنەوە (ROC-AUC)</div>
-        <div class="metric-value">{clf.get('auc_roc', 0)*100:.1f}%</div></div>""", unsafe_allow_html=True)
-    with c3:
-        st.markdown(f"""<div class="metric-card"><div class="metric-label">بڕواپێکراوی (F1-Score)</div>
-        <div class="metric-value">{clf.get('f1', 0)*100:.1f}%</div></div>""", unsafe_allow_html=True)
 
-    st.markdown("""
-    <div class="sec-head" style="margin-top: 2rem;">
-        <span class="sec-head-text">💰  مۆدێلی پێشبینیکردنی قەرز (Regression)</span>
-        <span class="sec-head-line"></span>
-    </div>""", unsafe_allow_html=True)
+    # دروستکردنی دوو تاب (دەریچە) یەکێکیان بۆ Test و ئەوەی تر بۆ Train
+    tab_test, tab_train = st.tabs(["🧪 Test Data (تاقیکردنەوە)", "📚 Train Data (ڕاهێنان)"])
     
-    r1, r2, r3 = st.columns(3)
-    with r1:
-        st.markdown(f"""<div class="metric-card"><div class="metric-label">ڕێژەی سەرکەوتن (R² Score)</div>
-        <div class="metric-value">{reg.get('r2', 0)*100:.1f}%</div></div>""", unsafe_allow_html=True)
-    with r2:
-        st.markdown(f"""<div class="metric-card"><div class="metric-label">تێکڕای هەڵە (RMSE)</div>
-        <div class="metric-value">${reg.get('rmse', 0):,.0f}</div></div>""", unsafe_allow_html=True)
-    with r3:
-        st.markdown(f"""<div class="metric-card"><div class="metric-label">هەڵەی ڕەها (MAE)</div>
-        <div class="metric-value">${reg.get('mae', 0):,.0f}</div></div>""", unsafe_allow_html=True)
+    # === TAB 1: TEST DATA ===
+    with tab_test:
+        clf = metrics_data.get("CLF", {})
+        reg = metrics_data.get("REG", {})
         
-    img_path = os.path.join("outputs", "feature_importance.png")
-    if os.path.exists(img_path):
-        st.markdown("<br><br>", unsafe_allow_html=True)
-        st.image(img_path, use_container_width=True)
+        st.markdown("""
+        <div class="sec-head" style="margin-top: 1rem; direction: ltr;">
+            <span class="sec-head-text" style="font-family: 'Inter', sans-serif;">🎯 Risk Classification Model (Test Data)</span>
+            <span class="sec-head-line" style="background: linear-gradient(270deg, rgba(255,255,255,0.2) 0%, transparent 100%);"></span>
+        </div>""", unsafe_allow_html=True)
+        
+        c1, c2, c3 = st.columns(3)
+        with c1:
+            st.markdown(f"""<div class="metric-card"><div class="metric-label">Accuracy</div>
+            <div class="metric-value">{clf.get('accuracy', 0)*100:.2f}%</div></div>""", unsafe_allow_html=True)
+        with c2:
+            st.markdown(f"""<div class="metric-card"><div class="metric-label">ROC-AUC Score</div>
+            <div class="metric-value">{clf.get('auc_roc', 0)*100:.2f}%</div></div>""", unsafe_allow_html=True)
+        with c3:
+            st.markdown(f"""<div class="metric-card"><div class="metric-label">F1-Score</div>
+            <div class="metric-value">{clf.get('f1', 0)*100:.2f}%</div></div>""", unsafe_allow_html=True)
 
-@st.dialog("ℹ️  دەربارەی پڕۆژە", width="large")
+        st.markdown("""
+        <div class="sec-head" style="margin-top: 2.5rem; direction: ltr;">
+            <span class="sec-head-text" style="font-family: 'Inter', sans-serif;">💰 Credit Limit Regression (Test Data)</span>
+            <span class="sec-head-line" style="background: linear-gradient(270deg, rgba(255,255,255,0.2) 0%, transparent 100%);"></span>
+        </div>""", unsafe_allow_html=True)
+        
+        r1, r2, r3 = st.columns(3)
+        with r1:
+            st.markdown(f"""<div class="metric-card"><div class="metric-label">R² Score</div>
+            <div class="metric-value">{reg.get('r2', 0)*100:.2f}%</div></div>""", unsafe_allow_html=True)
+        with r2:
+            st.markdown(f"""<div class="metric-card"><div class="metric-label">RMSE (Root Mean Sq Error)</div>
+            <div class="metric-value">${reg.get('rmse', 0):,.2f}</div></div>""", unsafe_allow_html=True)
+        with r3:
+            st.markdown(f"""<div class="metric-card"><div class="metric-label">MAE (Mean Abs Error)</div>
+            <div class="metric-value">${reg.get('mae', 0):,.2f}</div></div>""", unsafe_allow_html=True)
+            
+        img_results_path = os.path.join("outputs", "credit_risk_scoring_results.png")
+        if os.path.exists(img_results_path):
+            st.markdown("<br><br>", unsafe_allow_html=True)
+            st.image(img_results_path, use_container_width=True)
+
+        img_feat_path = os.path.join("outputs", "feature_importance.png")
+        if os.path.exists(img_feat_path):
+            st.markdown("<br><br>", unsafe_allow_html=True)
+            st.image(img_feat_path, use_container_width=True)
+
+    # === TAB 2: TRAIN DATA ===
+    with tab_train:
+        clf_train = metrics_data.get("CLF_TRAIN", {})
+        reg_train = metrics_data.get("REG_TRAIN", {})
+        
+        st.markdown("""
+        <div class="sec-head" style="margin-top: 1rem; direction: ltr;">
+            <span class="sec-head-text" style="font-family: 'Inter', sans-serif;">🎯 Risk Classification Model (Training Data)</span>
+            <span class="sec-head-line" style="background: linear-gradient(270deg, rgba(255,255,255,0.2) 0%, transparent 100%);"></span>
+        </div>""", unsafe_allow_html=True)
+        
+        c1, c2, c3 = st.columns(3)
+        with c1:
+            st.markdown(f"""<div class="metric-card"><div class="metric-label">Accuracy</div>
+            <div class="metric-value">{clf_train.get('accuracy', 0)*100:.2f}%</div></div>""", unsafe_allow_html=True)
+        with c2:
+            st.markdown(f"""<div class="metric-card"><div class="metric-label">ROC-AUC Score</div>
+            <div class="metric-value">{clf_train.get('auc_roc', 0)*100:.2f}%</div></div>""", unsafe_allow_html=True)
+        with c3:
+            st.markdown(f"""<div class="metric-card"><div class="metric-label">F1-Score</div>
+            <div class="metric-value">{clf_train.get('f1', 0)*100:.2f}%</div></div>""", unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="sec-head" style="margin-top: 2.5rem; direction: ltr;">
+            <span class="sec-head-text" style="font-family: 'Inter', sans-serif;">💰 Credit Limit Regression (Training Data)</span>
+            <span class="sec-head-line" style="background: linear-gradient(270deg, rgba(255,255,255,0.2) 0%, transparent 100%);"></span>
+        </div>""", unsafe_allow_html=True)
+        
+        r1, r2, r3 = st.columns(3)
+        with r1:
+            st.markdown(f"""<div class="metric-card"><div class="metric-label">R² Score</div>
+            <div class="metric-value">{reg_train.get('r2', 0)*100:.2f}%</div></div>""", unsafe_allow_html=True)
+        with r2:
+            st.markdown(f"""<div class="metric-card"><div class="metric-label">RMSE (Root Mean Sq Error)</div>
+            <div class="metric-value">${reg_train.get('rmse', 0):,.2f}</div></div>""", unsafe_allow_html=True)
+        with r3:
+            st.markdown(f"""<div class="metric-card"><div class="metric-label">MAE (Mean Abs Error)</div>
+            <div class="metric-value">${reg_train.get('mae', 0):,.2f}</div></div>""", unsafe_allow_html=True)
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
+@st.dialog("ℹ️ About Project & Developer", width="large")
 def project_info_dialog():
+    st.markdown('<div class="eng-dialog">', unsafe_allow_html=True)
     st.markdown("""
     <div class="about-center">
         <div class="about-center-icon">📦</div>
@@ -353,28 +416,42 @@ def project_info_dialog():
     with info_col1:
         st.markdown("""
         <div class="about-card liquid-glass">
-            <div class="about-card-title">📋 دەربارەی پڕۆژە</div>
+            <div class="about-card-title">📋 Project Overview</div>
             <div class="about-card-body">
-                ئەم سیستەمە بە <b>XGBoost</b> ئاستی مەترسی دیاری دەکات. لەم وەشانەدا پێوەرەکانی <b>RFM</b> (تازەیی، دووبارەبوونەوە، قەبارەی پارە) بەکارهاتووە بۆ بڕیاردانێکی زۆر زیرەکتر.
+                This system utilizes an <b>XGBoost</b> machine learning engine to evaluate B2B store risk levels. It incorporates <b>RFM</b> (Recency, Frequency, Monetary) and transaction velocity metrics to provide highly accurate and dynamic credit limit decisions for Erbil warehouses.
             </div>
         </div>
         <div class="about-card liquid-glass">
-            <div class="about-card-title">👨‍💻 گەشەپێدەر</div>
-            <div class="about-card-body"><b>ئومێد جەمال نوری</b><br>ئەندازیاری کارەبا - قۆناغی سێیەم</div>
+            <div class="about-card-title">👨‍💻 Developer Info</div>
+            <div class="about-card-body">
+                <b>Omed Jamal Nuri</b><br>
+                Electrical Engineering - 3rd Stage<br>
+                Academic Year: 2025 - 2026
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
     with info_col2:
         st.markdown("""
         <div class="about-card liquid-glass">
-            <div class="about-card-title">⚙️ تەکنەلۆژیاکان</div>
-            <div class="about-card-body" style="margin-bottom:0.7rem;">تەکنەلۆژیاکانی بەکارهاتوو:</div>
+            <div class="about-card-title">⚙️ Technologies Used</div>
+            <div class="about-card-body" style="margin-bottom:0.7rem;">Core Tech Stack:</div>
             <span class="tech-tag">Python 3</span>
             <span class="tech-tag">XGBoost</span>
             <span class="tech-tag">Scikit-learn</span>
             <span class="tech-tag">Streamlit</span>
+            <span class="tech-tag">Pandas</span>
+        </div>
+        <div class="about-card liquid-glass">
+            <div class="about-card-title">📁 Model Assets</div>
+            <div class="about-card-body">
+                📌 <b>risk_model_improved.joblib</b> (Classifier)<br>
+                📌 <b>limit_model_improved.joblib</b> (Regressor)<br>
+                📌 <b>scaler_*.joblib</b> (Standardization)<br>
+            </div>
         </div>
         """, unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -397,10 +474,10 @@ st.markdown("""
 # ══════════════════════════════════════════════════════════════════════════════
 ab_col1, ab_col2, ab_col3, ab_col4 = st.columns([1, 1.5, 1.5, 1])
 with ab_col2:
-    if st.button("👤  دەربارەی پڕۆژە", use_container_width=True, type="secondary"):
+    if st.button("ℹ️  About Project", use_container_width=True, type="secondary"):
         project_info_dialog()
 with ab_col3:
-    if st.button("📈  هەڵسەنگاندنی مۆدێل", use_container_width=True, type="secondary"):
+    if st.button("📈  Model Evaluation", use_container_width=True, type="secondary"):
         model_evaluation_dialog()
 
 if not models_loaded:
@@ -472,20 +549,15 @@ if analyze:
 
     if models_loaded:
         try:
-            # 1. Prepare base features for Classification Model
-            # Order must exactly match: ['Shop_Age_Years', 'Days_Since_Last_Order', 'Order_Freq_Per_Month', 'Average_Invoice_Value', 'Total_Trade_Volume', 'Unpaid_Invoice_Ratio', 'Debt_To_Volume_Ratio', 'Late_Payment_History']
             clf_features = np.array([[shop_age, days_since_last, freq_per_month, avg_invoice, total_volume, unpaid_ratio, debt_ratio, late_history]])
             fs_clf = scaler_clf.transform(clf_features)
             
-            # Predict Risk
             risk_pred = risk_model.predict(fs_clf)[0]
             is_high = int(risk_pred) == 1
             
-            # 2. Prepare features for Regression Model (Base Features + Risk Prediction)
             reg_features = np.array([[shop_age, days_since_last, freq_per_month, avg_invoice, total_volume, unpaid_ratio, debt_ratio, late_history, risk_pred]])
             fs_reg = scaler_reg.transform(reg_features)
             
-            # Predict Credit Limit
             limit_pred = limit_model.predict(fs_reg)[0]
             credit_limit = float(limit_pred)
             
@@ -493,11 +565,9 @@ if analyze:
             st.error(f"⚠️ هەڵەیەک ڕوویدا لە کاتی هەژمارکردندا: {exc}")
             st.stop()
     else:
-        # Mock logic if models are not loaded
         is_high = debt_ratio > 0.4 or unpaid_ratio > 0.3 or late_history > 3
         credit_limit = max(500.0, avg_invoice * freq_per_month * 2)
 
-    # UI Display
     rc1, rc2 = st.columns(2, gap="large")
     with rc1:
         if is_high:
