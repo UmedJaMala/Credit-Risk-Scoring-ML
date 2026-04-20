@@ -159,6 +159,9 @@ label, div[data-testid="stWidgetLabel"] > p, .stSlider label, .stNumberInput lab
     text-align: right !important; 
 }
 
+/* ========================================================
+   دیزاینی لاپتۆپ و دەسکتۆپ
+   ======================================================== */
 div[data-testid="stNumberInput"] div[data-baseweb="input"],
 div[data-testid="stNumberInput"] div[data-baseweb="base-input"],
 div[data-testid="stNumberInput"] div[data-baseweb="input"] > div,
@@ -229,10 +232,10 @@ div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle { wid
 .badge-high  { background: rgba(251,113,133,0.15); color: var(--red); border: 1px solid var(--red-dim); }
 .badge-limit { background: rgba(59,130,246,0.15); color: var(--blue); border: 1px solid var(--blue-dim); }
 
-.metric-card { padding: 1.4rem 1rem; text-align: center; transition: transform 0.3s ease; border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; background: rgba(0,0,0,0.3); backdrop-filter: blur(10px);}
-.metric-card:hover { transform: translateY(-5px); border-color: rgba(59,130,246,0.3); }
-.metric-label { color: var(--text-2); font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
-.metric-value { color: #fff; font-size: 1.8rem; font-weight: 900; line-height: 1; text-shadow: 0 2px 10px rgba(255,255,255,0.2); }
+.metric-card { padding: 1rem 0.5rem; text-align: center; transition: transform 0.3s ease; border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; background: rgba(0,0,0,0.3); backdrop-filter: blur(10px);}
+.metric-card:hover { transform: translateY(-3px); border-color: rgba(59,130,246,0.3); }
+.metric-label { color: var(--text-2); font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.metric-value { color: #fff; font-size: 1.5rem; font-weight: 900; line-height: 1; text-shadow: 0 2px 10px rgba(255,255,255,0.2); }
 
 div[data-testid="stModal"] > div, div[role="dialog"], section[data-testid="stDialog"] > div {
     background: rgba(10, 12, 16, 0.95) !important; 
@@ -252,6 +255,9 @@ div[role="dialog"] p, div[role="dialog"] h1, div[role="dialog"] h2, div[role="di
 .about-center-icon { font-size: 3rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 15px rgba(59,130,246,0.5)); }
 .about-center-name { color: var(--blue); font-size: 1.1rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
 
+/* ========================================================
+   چارەسەری کێشەی بۆکسەکانی هەڵبژاردن بۆ هەموو ئامێرەکان
+   ======================================================== */
 div[data-testid="stSelectbox"] div[data-baseweb="select"] div[class*="singleValue"],
 div[data-testid="stSelectbox"] div[data-baseweb="select"] span {
     color: #ffffff !important;
@@ -261,15 +267,64 @@ div[data-testid="stSelectbox"] div[data-baseweb="select"] span {
     line-height: normal !important;
 }
 
+div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+    min-height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+div[data-testid="stSelectbox"] div[data-baseweb="select"] div[class*="ValueContainer"] {
+    display: flex !important;
+    align-items: center !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    height: 100% !important;
+}
+
 div[data-baseweb="popover"] > div, div[role="listbox"], ul[role="listbox"] {
     background-color: #121418 !important;
     border: 1px solid rgba(59,130,246,0.4) !important;
     border-radius: 12px !important;
 }
-div[role="listbox"] li, ul[role="listbox"] li { color: #ffffff !important; font-size: 1rem !important; font-weight: 700 !important; }
-div[role="listbox"] li:hover, div[role="listbox"] li[aria-selected="true"] { background-color: rgba(59,130,246,0.3) !important; }
+div[role="listbox"] li, ul[role="listbox"] li {
+    color: #ffffff !important;
+    background-color: transparent !important;
+    font-size: 1.15rem !important;
+    font-weight: 700 !important;
+    padding: 0.8rem 1rem !important;
+}
+div[role="listbox"] li:hover, div[role="listbox"] li[aria-selected="true"] {
+    background-color: rgba(59,130,246,0.3) !important;
+    color: #60a5fa !important;
+}
 
-/* Custom Alert Box for RFM & Model Explanation */
+select, option {
+    background-color: #121418 !important;
+    color: #ffffff !important;
+    font-size: 1.15rem !important;
+}
+
+/* ========================================================
+   دیزاینی تایبەت بە مۆبایل
+   ======================================================== */
+@media (max-width: 768px) {
+    .block-container { padding: 1rem 0.9rem 3rem !important; }
+    .hero { padding: 2rem 1rem; }
+    .rc-value { font-size: 2.2rem; }
+    .liquid-glass { backdrop-filter: blur(16px); } 
+    div[data-baseweb="tab-list"] { gap: 1rem; }
+    button[data-baseweb="tab"] p { font-size: 0.85rem !important; }
+    
+    div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+        min-height: 60px !important;
+        display: flex !important;
+        align-items: center !important;
+        padding-right: 0.2rem !important;
+        padding-left: 0.2rem !important;
+    }
+}
+
+/* Custom Alert Box for RFM Information */
 .rfm-alert {
     background: rgba(59, 130, 246, 0.1);
     border-left: 4px solid var(--blue);
@@ -303,15 +358,6 @@ div[role="listbox"] li:hover, div[role="listbox"] li[aria-selected="true"] { bac
     margin-bottom: 1.5rem;
     width: 100%;
     height: auto;
-}
-
-@media (max-width: 768px) {
-    .block-container { padding: 1rem 0.9rem 3rem !important; }
-    .hero { padding: 2rem 1rem; }
-    .rc-value { font-size: 2.2rem; }
-    .liquid-glass { backdrop-filter: blur(16px); } 
-    div[data-baseweb="tab-list"] { gap: 1rem; }
-    button[data-baseweb="tab"] p { font-size: 0.85rem !important; }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -402,7 +448,6 @@ def model_evaluation_dialog():
         img_results_path = os.path.join("outputs", "credit_risk_scoring_results.png")
         if os.path.exists(img_results_path):
             st.markdown("<br>", unsafe_allow_html=True)
-            st.markdown(f'<img src="app/static/credit_risk_scoring_results.png" class="chart-img" onerror="this.src=\'{img_results_path}\'"/>', unsafe_allow_html=True)
             st.image(img_results_path, use_container_width=True)
 
         img_feat_path = os.path.join("outputs", "feature_importance.png")
@@ -491,7 +536,7 @@ def project_info_dialog():
                 Electrical Engineering - 3rd Stage<br>
                 Academic Year: 2025 - 2026<br><br>
                 🔗 <a href="https://github.com/UMEDJAMALA" target="_blank" style="color: #60a5fa; text-decoration: none;"><b>GitHub Profile (@UMEDJAMALA)</b></a><br>
-                🔗 <a href="https://www.linkedin.com/in/umedjamala" target="_blank" style="color: #60a5fa; text-decoration: none;"><b>LinkedIn Profile</b></a><br>
+                🔗 <a href="https://facebook.com/umedjamala" target="_blank" style="color: #60a5fa; text-decoration: none;"><b>Facebook Profile</b></a><br>
                 📧 <a href="mailto:umedjamal2005@gmail.com" style="color: #60a5fa; text-decoration: none;"><b>Contact Email</b></a>
             </div>
         </div>
@@ -581,6 +626,10 @@ with col_r:
         <div class="summary-row"><span>تازەیی مامەڵە (Recency)</span><span class="summary-val">{days_since_last} ڕۆژ</span></div>
         <div class="summary-row"><span>خێرایی کڕین (Frequency)</span><span class="summary-val">{freq_per_month} مانگانە</span></div>
         <div class="summary-row"><span>قەبارەی پارە (Monetary)</span><span class="summary-val">${total_volume:,.0f}</span></div>
+        <div class="summary-row"><span>تەمەنی دوکان</span><span class="summary-val">{shop_age} ساڵ</span></div>
+        <div class="summary-row"><span>ڕێژەی قەرز</span><span class="summary-val">{debt_ratio_display}%</span></div>
+        <div class="summary-row"><span>وەسڵی نەدراو</span><span class="summary-val">{unpaid_ratio_display}%</span></div>
+        <div class="summary-row"><span>کێشەی پارەدان</span><span class="summary-val">{late_history} جار</span></div>
     </div>""", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
