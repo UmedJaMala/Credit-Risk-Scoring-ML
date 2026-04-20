@@ -491,7 +491,7 @@ def project_info_dialog():
                 Electrical Engineering - 3rd Stage<br>
                 Academic Year: 2025 - 2026<br><br>
                 🔗 <a href="https://github.com/UMEDJAMALA" target="_blank" style="color: #60a5fa; text-decoration: none;"><b>GitHub Profile (@UMEDJAMALA)</b></a><br>
-                🔗 <a href="#" target="_blank" style="color: #60a5fa; text-decoration: none;"><b>LinkedIn Profile</b></a><br>
+                🔗 <a href="https://www.linkedin.com/in/umedjamala" target="_blank" style="color: #60a5fa; text-decoration: none;"><b>LinkedIn Profile</b></a><br>
                 📧 <a href="mailto:umedjamal2005@gmail.com" style="color: #60a5fa; text-decoration: none;"><b>Contact Email</b></a>
             </div>
         </div>
