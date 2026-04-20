@@ -159,9 +159,6 @@ label, div[data-testid="stWidgetLabel"] > p, .stSlider label, .stNumberInput lab
     text-align: right !important; 
 }
 
-/* ========================================================
-   دیزاینی لاپتۆپ و دەسکتۆپ
-   ======================================================== */
 div[data-testid="stNumberInput"] div[data-baseweb="input"],
 div[data-testid="stNumberInput"] div[data-baseweb="base-input"],
 div[data-testid="stNumberInput"] div[data-baseweb="input"] > div,
@@ -255,9 +252,6 @@ div[role="dialog"] p, div[role="dialog"] h1, div[role="dialog"] h2, div[role="di
 .about-center-icon { font-size: 3rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 15px rgba(59,130,246,0.5)); }
 .about-center-name { color: var(--blue); font-size: 1.1rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
 
-/* ========================================================
-   چارەسەری کێشەی بۆکسەکانی هەڵبژاردن بۆ هەموو ئامێرەکان
-   ======================================================== */
 div[data-testid="stSelectbox"] div[data-baseweb="select"] div[class*="singleValue"],
 div[data-testid="stSelectbox"] div[data-baseweb="select"] span {
     color: #ffffff !important;
@@ -267,62 +261,15 @@ div[data-testid="stSelectbox"] div[data-baseweb="select"] span {
     line-height: normal !important;
 }
 
-div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
-    min-height: 48px !important;
-    display: flex !important;
-    align-items: center !important;
-}
-
-div[data-testid="stSelectbox"] div[data-baseweb="select"] div[class*="ValueContainer"] {
-    display: flex !important;
-    align-items: center !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    height: 100% !important;
-}
-
 div[data-baseweb="popover"] > div, div[role="listbox"], ul[role="listbox"] {
     background-color: #121418 !important;
     border: 1px solid rgba(59,130,246,0.4) !important;
     border-radius: 12px !important;
 }
-div[role="listbox"] li, ul[role="listbox"] li {
-    color: #ffffff !important;
-    background-color: transparent !important;
-    font-size: 1.15rem !important;
-    font-weight: 700 !important;
-    padding: 0.8rem 1rem !important;
-}
-div[role="listbox"] li:hover, div[role="listbox"] li[aria-selected="true"] {
-    background-color: rgba(59,130,246,0.3) !important;
-    color: #60a5fa !important;
-}
+div[role="listbox"] li, ul[role="listbox"] li { color: #ffffff !important; font-size: 1rem !important; font-weight: 700 !important; }
+div[role="listbox"] li:hover, div[role="listbox"] li[aria-selected="true"] { background-color: rgba(59,130,246,0.3) !important; }
 
-select, option {
-    background-color: #121418 !important;
-    color: #ffffff !important;
-    font-size: 1.15rem !important;
-}
-
-/* ========================================================
-   دیزاینی تایبەت بە مۆبایل
-   ======================================================== */
-@media (max-width: 768px) {
-    .block-container { padding: 1rem 0.9rem 3rem !important; }
-    .hero { padding: 2rem 1rem; }
-    .rc-value { font-size: 2.2rem; }
-    .liquid-glass { backdrop-filter: blur(16px); } 
-    
-    div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
-        min-height: 60px !important;
-        display: flex !important;
-        align-items: center !important;
-        padding-right: 0.2rem !important;
-        padding-left: 0.2rem !important;
-    }
-}
-
-/* Custom Alert Box for RFM Information */
+/* Custom Alert Box for RFM & Model Explanation */
 .rfm-alert {
     background: rgba(59, 130, 246, 0.1);
     border-left: 4px solid var(--blue);
@@ -347,6 +294,25 @@ select, option {
     font-family: 'Inter', sans-serif;
 }
 .footer-section strong { color: #60a5fa; font-weight: 700; }
+
+/* Image Styling for Mobile */
+.chart-img {
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    margin-bottom: 1.5rem;
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .block-container { padding: 1rem 0.9rem 3rem !important; }
+    .hero { padding: 2rem 1rem; }
+    .rc-value { font-size: 2.2rem; }
+    .liquid-glass { backdrop-filter: blur(16px); } 
+    div[data-baseweb="tab-list"] { gap: 1rem; }
+    button[data-baseweb="tab"] p { font-size: 0.85rem !important; }
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -380,7 +346,20 @@ def model_evaluation_dialog():
         st.markdown('</div>', unsafe_allow_html=True)
         return
 
-    tab_test, tab_train = st.tabs(["🧪 Test Data", "📚 Training Data"])
+    st.markdown("""
+    <div class="rfm-alert">
+        <div class="rfm-title">📈 Understanding the Metrics</div>
+        <div class="rfm-text">
+            <b>Accuracy:</b> The percentage of total correct predictions.<br>
+            <b>ROC-AUC:</b> The model's ability to distinguish between High & Low risk classes.<br>
+            <b>F1-Score:</b> Balance between precision and recall (reliability).<br>
+            <b>R² Score:</b> Percentage of variance explained by the regression model.<br>
+            <b>RMSE & MAE:</b> Average prediction error in USD (lower is better).
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    tab_test, tab_train = st.tabs(["🧪 Test Data Performance", "📚 Training Data Performance"])
     
     with tab_test:
         clf = metrics_data.get("CLF", {})
@@ -388,7 +367,7 @@ def model_evaluation_dialog():
         
         st.markdown("""
         <div class="sec-head" style="margin-top: 1rem; direction: ltr;">
-            <span class="sec-head-text" style="font-family: 'Inter', sans-serif;">🎯 Risk Classification Model (Test Data)</span>
+            <span class="sec-head-text" style="font-family: 'Inter', sans-serif;">🎯 Risk Classification Model (XGBoost)</span>
             <span class="sec-head-line" style="background: linear-gradient(270deg, rgba(255,255,255,0.2) 0%, transparent 100%);"></span>
         </div>""", unsafe_allow_html=True)
         
@@ -405,7 +384,7 @@ def model_evaluation_dialog():
 
         st.markdown("""
         <div class="sec-head" style="margin-top: 2.5rem; direction: ltr;">
-            <span class="sec-head-text" style="font-family: 'Inter', sans-serif;">💰 Credit Limit Regression (Test Data)</span>
+            <span class="sec-head-text" style="font-family: 'Inter', sans-serif;">💰 Credit Limit Regression (XGBoost)</span>
             <span class="sec-head-line" style="background: linear-gradient(270deg, rgba(255,255,255,0.2) 0%, transparent 100%);"></span>
         </div>""", unsafe_allow_html=True)
         
@@ -414,21 +393,29 @@ def model_evaluation_dialog():
             st.markdown(f"""<div class="metric-card"><div class="metric-label">R² Score</div>
             <div class="metric-value">{reg.get('r2', 0)*100:.2f}%</div></div>""", unsafe_allow_html=True)
         with r2:
-            st.markdown(f"""<div class="metric-card"><div class="metric-label">RMSE (Root Mean Sq Error)</div>
+            st.markdown(f"""<div class="metric-card"><div class="metric-label">RMSE Error</div>
             <div class="metric-value">${reg.get('rmse', 0):,.2f}</div></div>""", unsafe_allow_html=True)
         with r3:
-            st.markdown(f"""<div class="metric-card"><div class="metric-label">MAE (Mean Abs Error)</div>
+            st.markdown(f"""<div class="metric-card"><div class="metric-label">MAE Error</div>
             <div class="metric-value">${reg.get('mae', 0):,.2f}</div></div>""", unsafe_allow_html=True)
             
         img_results_path = os.path.join("outputs", "credit_risk_scoring_results.png")
         if os.path.exists(img_results_path):
-            st.markdown("<br><br>", unsafe_allow_html=True)
+            st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown(f'<img src="app/static/credit_risk_scoring_results.png" class="chart-img" onerror="this.src=\'{img_results_path}\'"/>', unsafe_allow_html=True)
             st.image(img_results_path, use_container_width=True)
 
         img_feat_path = os.path.join("outputs", "feature_importance.png")
         if os.path.exists(img_feat_path):
-            st.markdown("<br><br>", unsafe_allow_html=True)
+            st.markdown("<br>", unsafe_allow_html=True)
             st.image(img_feat_path, use_container_width=True)
+
+        # Conclusion Text
+        st.markdown("""
+        <div style="background: rgba(52, 211, 153, 0.1); border-left: 4px solid var(--green); padding: 1rem; border-radius: 0 8px 8px 0; margin-top: 1.5rem; direction: ltr; font-family: 'Inter', sans-serif;">
+            <b>💡 Conclusion:</b> The model demonstrates robust predictive capabilities on unseen data with an accuracy of over 87% and an R² score of ~91%. It effectively balances risk classification and credit limit assignment without significant overfitting.
+        </div>
+        """, unsafe_allow_html=True)
 
     with tab_train:
         clf_train = metrics_data.get("CLF_TRAIN", {})
@@ -436,7 +423,7 @@ def model_evaluation_dialog():
         
         st.markdown("""
         <div class="sec-head" style="margin-top: 1rem; direction: ltr;">
-            <span class="sec-head-text" style="font-family: 'Inter', sans-serif;">🎯 Risk Classification Model (Training Data)</span>
+            <span class="sec-head-text" style="font-family: 'Inter', sans-serif;">🎯 Risk Classification Model (Train Data)</span>
             <span class="sec-head-line" style="background: linear-gradient(270deg, rgba(255,255,255,0.2) 0%, transparent 100%);"></span>
         </div>""", unsafe_allow_html=True)
         
@@ -453,7 +440,7 @@ def model_evaluation_dialog():
 
         st.markdown("""
         <div class="sec-head" style="margin-top: 2.5rem; direction: ltr;">
-            <span class="sec-head-text" style="font-family: 'Inter', sans-serif;">💰 Credit Limit Regression (Training Data)</span>
+            <span class="sec-head-text" style="font-family: 'Inter', sans-serif;">💰 Credit Limit Regression (Train Data)</span>
             <span class="sec-head-line" style="background: linear-gradient(270deg, rgba(255,255,255,0.2) 0%, transparent 100%);"></span>
         </div>""", unsafe_allow_html=True)
         
@@ -462,10 +449,10 @@ def model_evaluation_dialog():
             st.markdown(f"""<div class="metric-card"><div class="metric-label">R² Score</div>
             <div class="metric-value">{reg_train.get('r2', 0)*100:.2f}%</div></div>""", unsafe_allow_html=True)
         with r2:
-            st.markdown(f"""<div class="metric-card"><div class="metric-label">RMSE (Root Mean Sq Error)</div>
+            st.markdown(f"""<div class="metric-card"><div class="metric-label">RMSE Error</div>
             <div class="metric-value">${reg_train.get('rmse', 0):,.2f}</div></div>""", unsafe_allow_html=True)
         with r3:
-            st.markdown(f"""<div class="metric-card"><div class="metric-label">MAE (Mean Abs Error)</div>
+            st.markdown(f"""<div class="metric-card"><div class="metric-label">MAE Error</div>
             <div class="metric-value">${reg_train.get('mae', 0):,.2f}</div></div>""", unsafe_allow_html=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
@@ -503,7 +490,8 @@ def project_info_dialog():
                 <b>Umed Jamal Nouri</b><br>
                 Electrical Engineering - 3rd Stage<br>
                 Academic Year: 2025 - 2026<br><br>
-                🔗 <a href="#" target="_blank" style="color: #60a5fa; text-decoration: none;"><b>GitHub Profile</b></a><br>
+                🔗 <a href="https://github.com/UMEDJAMALA" target="_blank" style="color: #60a5fa; text-decoration: none;"><b>GitHub Profile (@UMEDJAMALA)</b></a><br>
+                🔗 <a href="#" target="_blank" style="color: #60a5fa; text-decoration: none;"><b>LinkedIn Profile</b></a><br>
                 📧 <a href="mailto:umedjamal2005@gmail.com" style="color: #60a5fa; text-decoration: none;"><b>Contact Email</b></a>
             </div>
         </div>
@@ -593,10 +581,6 @@ with col_r:
         <div class="summary-row"><span>تازەیی مامەڵە (Recency)</span><span class="summary-val">{days_since_last} ڕۆژ</span></div>
         <div class="summary-row"><span>خێرایی کڕین (Frequency)</span><span class="summary-val">{freq_per_month} مانگانە</span></div>
         <div class="summary-row"><span>قەبارەی پارە (Monetary)</span><span class="summary-val">${total_volume:,.0f}</span></div>
-        <div class="summary-row"><span>تەمەنی دوکان</span><span class="summary-val">{shop_age} ساڵ</span></div>
-        <div class="summary-row"><span>ڕێژەی قەرز</span><span class="summary-val">{debt_ratio_display}%</span></div>
-        <div class="summary-row"><span>وەسڵی نەدراو</span><span class="summary-val">{unpaid_ratio_display}%</span></div>
-        <div class="summary-row"><span>کێشەی پارەدان</span><span class="summary-val">{late_history} جار</span></div>
     </div>""", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
