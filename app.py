@@ -233,6 +233,7 @@ div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle { wid
 .metric-card:hover { transform: translateY(-5px); border-color: rgba(59,130,246,0.3); }
 .metric-label { color: var(--text-2); font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
 .metric-value { color: #fff; font-size: 1.8rem; font-weight: 900; line-height: 1; text-shadow: 0 2px 10px rgba(255,255,255,0.2); }
+.metric-en    { color: var(--text-3); font-size: 0.7rem; margin-top: 0.4rem; font-family: 'Inter', sans-serif;}
 
 div[data-testid="stModal"] > div, div[role="dialog"], section[data-testid="stDialog"] > div {
     background: rgba(10, 12, 16, 0.95) !important; 
@@ -275,6 +276,21 @@ div[role="listbox"] li:hover, div[role="listbox"] li[aria-selected="true"] { bac
     .rc-value { font-size: 2.2rem; }
     .liquid-glass { backdrop-filter: blur(16px); } 
 }
+
+/* Custom Alert Box for RFM Information */
+.rfm-alert {
+    background: rgba(59, 130, 246, 0.1);
+    border-left: 4px solid var(--blue);
+    padding: 1rem;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 1.5rem;
+    direction: ltr;
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+}
+.rfm-title { font-weight: 800; color: var(--blue); margin-bottom: 0.5rem; font-size: 0.95rem; }
+.rfm-text { font-size: 0.85rem; color: var(--text-2); line-height: 1.6; }
+.rfm-text b { color: #fff; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -308,10 +324,8 @@ def model_evaluation_dialog():
         st.markdown('</div>', unsafe_allow_html=True)
         return
 
-    # دروستکردنی دوو تاب (دەریچە) یەکێکیان بۆ Test و ئەوەی تر بۆ Train
-    tab_test, tab_train = st.tabs(["🧪 Test Data (تاقیکردنەوە)", "📚 Train Data (ڕاهێنان)"])
+    tab_test, tab_train = st.tabs(["🧪 Test Data", "📚 Training Data"])
     
-    # === TAB 1: TEST DATA ===
     with tab_test:
         clf = metrics_data.get("CLF", {})
         reg = metrics_data.get("REG", {})
@@ -360,7 +374,6 @@ def model_evaluation_dialog():
             st.markdown("<br><br>", unsafe_allow_html=True)
             st.image(img_feat_path, use_container_width=True)
 
-    # === TAB 2: TRAIN DATA ===
     with tab_train:
         clf_train = metrics_data.get("CLF_TRAIN", {})
         reg_train = metrics_data.get("REG_TRAIN", {})
@@ -412,21 +425,30 @@ def project_info_dialog():
     </div>
     """, unsafe_allow_html=True)
     
+    st.markdown("""
+    <div class="rfm-alert">
+        <div class="rfm-title">🔍 What is RFM Analysis?</div>
+        <div class="rfm-text">
+            <b>RFM</b> stands for <b>Recency, Frequency, and Monetary value</b>. It is a marketing analysis method used to evaluate customer behavior. In this system: <br>
+            • <b>Recency:</b> Days since the store's last order.<br>
+            • <b>Frequency:</b> Average number of orders per month.<br>
+            • <b>Monetary:</b> Total trade volume in USD.<br>
+            By combining these metrics with their payment history, our XGBoost model can make highly accurate and dynamic credit limit decisions.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
     info_col1, info_col2 = st.columns(2, gap="large")
     with info_col1:
         st.markdown("""
-        <div class="about-card liquid-glass">
-            <div class="about-card-title">📋 Project Overview</div>
-            <div class="about-card-body">
-                This system utilizes an <b>XGBoost</b> machine learning engine to evaluate B2B store risk levels. It incorporates <b>RFM</b> (Recency, Frequency, Monetary) and transaction velocity metrics to provide highly accurate and dynamic credit limit decisions for Erbil warehouses.
-            </div>
-        </div>
         <div class="about-card liquid-glass">
             <div class="about-card-title">👨‍💻 Developer Info</div>
             <div class="about-card-body">
                 <b>Omed Jamal Nuri</b><br>
                 Electrical Engineering - 3rd Stage<br>
-                Academic Year: 2025 - 2026
+                Academic Year: 2025 - 2026<br><br>
+                🔗 <a href="#" target="_blank" style="color: #60a5fa; text-decoration: none;"><b>GitHub Profile</b></a><br>
+                📧 <a href="mailto:omed@example.com" style="color: #60a5fa; text-decoration: none;"><b>Contact Email</b></a>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -441,14 +463,6 @@ def project_info_dialog():
             <span class="tech-tag">Scikit-learn</span>
             <span class="tech-tag">Streamlit</span>
             <span class="tech-tag">Pandas</span>
-        </div>
-        <div class="about-card liquid-glass">
-            <div class="about-card-title">📁 Model Assets</div>
-            <div class="about-card-body">
-                📌 <b>risk_model_improved.joblib</b> (Classifier)<br>
-                📌 <b>limit_model_improved.joblib</b> (Regressor)<br>
-                📌 <b>scaler_*.joblib</b> (Standardization)<br>
-            </div>
         </div>
         """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
@@ -543,7 +557,7 @@ if analyze:
     st.divider()
     st.markdown("""
     <div class="sec-head">
-        <span class="sec-head-text">📊  ئەنجامی شیکاری کۆگا</span>
+        <span class="sec-head-text">📊  ئەنجامی شیکاری کۆگا (Analytics Dashboard)</span>
         <span class="sec-head-line"></span>
     </div>""", unsafe_allow_html=True)
 
@@ -596,6 +610,30 @@ if analyze:
             <div class="rc-en">Approved Credit Limit</div>
             <span class="rc-badge badge-limit">✅ &nbsp;پەسەندکراو</span>
         </div></div>""", unsafe_allow_html=True)
+
+    # 3 Metrics Dashboard
+    st.markdown("<br>", unsafe_allow_html=True)
+    m1, m2, m3 = st.columns(3, gap="medium")
+    with m1:
+        st.markdown(f"""<div class="metric-card liquid-glass">
+            <div class="metric-label">ڕێژەی قەرز بۆ مامەڵە</div>
+            <div class="metric-value">{debt_ratio_display}%</div>
+            <div class="metric-en">Debt to Volume Ratio</div>
+        </div>""", unsafe_allow_html=True)
+    with m2:
+        incidents = int((unpaid_ratio_display / 100 * freq_per_month * 12) + late_history)
+        st.markdown(f"""<div class="metric-card liquid-glass">
+            <div class="metric-label">کێشەکانی پارەدان</div>
+            <div class="metric-value">{incidents} <span style="font-size:1rem;">جار</span></div>
+            <div class="metric-en">Total Credit Incidents</div>
+        </div>""", unsafe_allow_html=True)
+    with m3:
+        st.markdown(f"""<div class="metric-card liquid-glass">
+            <div class="metric-label">تەمەنی دوکان و متمانە</div>
+            <div class="metric-value">{shop_age} <span style="font-size:1rem;">ساڵ</span></div>
+            <div class="metric-en">Shop Age / Trust</div>
+        </div>""", unsafe_allow_html=True)
+
 
 st.markdown("""
 <div style="text-align: center; padding: 2.5rem 0 1rem; color: rgba(255,255,255,0.4); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 3rem; direction: rtl;">
