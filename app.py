@@ -1,3 +1,5 @@
+# --- START OF FILE app.py ---
+
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -7,7 +9,6 @@ import json
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import matplotlib.colors as mcolors
 import seaborn as sns
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -21,27 +22,17 @@ st.set_page_config(
 )
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  DYNAMIC MODEL METRICS (هیچ داتایەکی نەگۆڕی تێدا نەماوە)
+#  DYNAMIC MODEL METRICS LOAD
 # ══════════════════════════════════════════════════════════════════════════════
-CLF_TRAIN, CLF, REG_TRAIN, REG, FEAT_NAMES, FEAT_IMP = {}, {}, {}, {}, [], []
-metrics_loaded = False
-
+metrics_data = {}
 metrics_path = os.path.join("outputs", "model_metrics.json")
 
 if os.path.exists(metrics_path):
     try:
         with open(metrics_path, "r", encoding="utf-8") as f:
-            dyn_met = json.load(f)
-            CLF_TRAIN = dyn_met.get("CLF_TRAIN", {})
-            CLF = dyn_met.get("CLF", {})
-            REG_TRAIN = dyn_met.get("REG_TRAIN", {})
-            REG = dyn_met.get("REG", {})
-            FEAT_NAMES = dyn_met.get("FEAT_NAMES", [])
-            FEAT_IMP = dyn_met.get("FEAT_IMP", [])
-            metrics_loaded = True
+            metrics_data = json.load(f)
     except Exception:
         pass
-
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  GLOBAL CSS - DARK LIQUID GLASS EDITION 
@@ -158,9 +149,6 @@ label, div[data-testid="stWidgetLabel"] > p, .stSlider label, .stNumberInput lab
     text-align: right !important; 
 }
 
-/* ========================================================
-   دیزاینی لاپتۆپ و دەسکتۆپ
-   ======================================================== */
 div[data-testid="stNumberInput"] div[data-baseweb="input"],
 div[data-testid="stNumberInput"] div[data-baseweb="base-input"],
 div[data-testid="stNumberInput"] div[data-baseweb="input"] > div,
@@ -231,25 +219,11 @@ div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle { wid
 .badge-high  { background: rgba(251,113,133,0.15); color: var(--red); border: 1px solid var(--red-dim); }
 .badge-limit { background: rgba(59,130,246,0.15); color: var(--blue); border: 1px solid var(--blue-dim); }
 
-.metric-card { padding: 1.4rem 1rem; text-align: center; transition: transform 0.3s ease; }
-.metric-card:hover { transform: translateY(-5px); }
+.metric-card { padding: 1.4rem 1rem; text-align: center; transition: transform 0.3s ease; border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; background: rgba(0,0,0,0.3); backdrop-filter: blur(10px);}
+.metric-card:hover { transform: translateY(-5px); border-color: rgba(59,130,246,0.3); }
 .metric-label { color: var(--text-2); font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; }
-.metric-value { color: #fff; font-size: 1.8rem; font-weight: 900; line-height: 1; text-shadow: 0 2px 10px rgba(255,255,255,0.2); }
+.metric-value { color: #fff; font-size: 1.8rem; font-weight: 900; line-height: 1; text-shadow: 0 2px 10px rgba(255,255,255,0.2); direction: ltr;}
 .metric-en    { color: var(--text-3); font-size: 0.7rem; margin-top: 0.4rem; font-family: 'Inter', sans-serif;}
-
-.eval-box { padding: 1.2rem; margin-bottom: 1rem; border-left: 4px solid var(--blue); }
-.eval-title { font-size: 0.75rem; color: var(--text-2); text-transform: uppercase; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: 0.08em; }
-.eval-val   { font-size: 1.8rem; font-weight: 900; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
-.eval-val-sub { font-size: 0.75rem; color: var(--text-3); margin-top: 0.3rem; }
-.eval-box-cyan { border-left-color: var(--cyan) !important; }
-.eval-box-red  { border-left-color: var(--red)  !important; }
-.eval-box-green{ border-left-color: var(--green)!important; }
-
-div[data-baseweb="tab-list"] { border-bottom: 1px solid rgba(255,255,255,0.1) !important; gap: 2rem; }
-button[data-baseweb="tab"] { background: transparent !important; padding: 1rem 0 !important; border: none !important; }
-button[data-baseweb="tab"] p { color: var(--text-2) !important; font-weight: 700 !important; font-size: 1rem !important; }
-button[data-baseweb="tab"][aria-selected="true"] p { color: var(--blue) !important; text-shadow: 0 0 10px rgba(59,130,246,0.4); }
-div[data-baseweb="tab-highlight"] { background-color: var(--blue) !important; box-shadow: 0 0 10px rgba(59,130,246,0.5) !important; height: 3px !important; border-radius: 3px 3px 0 0 !important; }
 
 div[data-testid="stModal"] > div, div[role="dialog"], section[data-testid="stDialog"] > div {
     background: rgba(10, 12, 16, 0.95) !important; 
@@ -269,9 +243,6 @@ div[role="dialog"] p, div[role="dialog"] h1, div[role="dialog"] h2, div[role="di
 .about-center-icon { font-size: 3rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 15px rgba(59,130,246,0.5)); }
 .about-center-name { color: var(--blue); font-size: 1.1rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
 
-/* ========================================================
-   چارەسەری کێشەی بۆکسەکانی هەڵبژاردن بۆ هەموو ئامێرەکان
-   ======================================================== */
 div[data-testid="stSelectbox"] div[data-baseweb="select"] div[class*="singleValue"],
 div[data-testid="stSelectbox"] div[data-baseweb="select"] span {
     color: #ffffff !important;
@@ -281,59 +252,19 @@ div[data-testid="stSelectbox"] div[data-baseweb="select"] span {
     line-height: normal !important;
 }
 
-div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
-    min-height: 48px !important;
-    display: flex !important;
-    align-items: center !important;
-}
-
-div[data-testid="stSelectbox"] div[data-baseweb="select"] div[class*="ValueContainer"] {
-    display: flex !important;
-    align-items: center !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    height: 100% !important;
-}
-
 div[data-baseweb="popover"] > div, div[role="listbox"], ul[role="listbox"] {
     background-color: #121418 !important;
     border: 1px solid rgba(59,130,246,0.4) !important;
     border-radius: 12px !important;
 }
-div[role="listbox"] li, ul[role="listbox"] li {
-    color: #ffffff !important;
-    background-color: transparent !important;
-    font-size: 1.15rem !important;
-    font-weight: 700 !important;
-    padding: 0.8rem 1rem !important;
-}
-div[role="listbox"] li:hover, div[role="listbox"] li[aria-selected="true"] {
-    background-color: rgba(59,130,246,0.3) !important;
-    color: #60a5fa !important;
-}
+div[role="listbox"] li, ul[role="listbox"] li { color: #ffffff !important; font-size: 1rem !important; font-weight: 700 !important; }
+div[role="listbox"] li:hover, div[role="listbox"] li[aria-selected="true"] { background-color: rgba(59,130,246,0.3) !important; }
 
-select, option {
-    background-color: #121418 !important;
-    color: #ffffff !important;
-    font-size: 1.15rem !important;
-}
-
-/* ========================================================
-   دیزاینی تایبەت بە مۆبایل
-   ======================================================== */
 @media (max-width: 768px) {
     .block-container { padding: 1rem 0.9rem 3rem !important; }
     .hero { padding: 2rem 1rem; }
     .rc-value { font-size: 2.2rem; }
     .liquid-glass { backdrop-filter: blur(16px); } 
-    
-    div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
-        min-height: 60px !important;
-        display: flex !important;
-        align-items: center !important;
-        padding-right: 0.2rem !important;
-        padding-left: 0.2rem !important;
-    }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -358,142 +289,78 @@ risk_model, limit_model, scaler_clf, scaler_reg, models_loaded = load_ml_models(
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  HELPER: Matplotlib Function
+#  DIALOGS (EVALUATION & ABOUT)
 # ══════════════════════════════════════════════════════════════════════════════
-def dark_fig(w=6, h=4):
-    fig = plt.figure(figsize=(w, h))
-    ax = fig.add_subplot(111)
-    fig.patch.set_facecolor("none") 
-    ax.set_facecolor("#00000033") 
-    ax.tick_params(colors="#cbd5e1")
-    ax.xaxis.label.set_color("#cbd5e1"); ax.yaxis.label.set_color("#cbd5e1")
-    for sp in ax.spines.values():
-        sp.set_color("#ffffff1a")
-    ax.grid(color="#ffffff0d", linewidth=1, alpha=0.8)
-    return fig, ax
+@st.dialog("📈 هەڵسەنگاندنی مۆدێلەکان (Model Evaluation)", width="large")
+def model_evaluation_dialog():
+    if not metrics_data:
+        st.warning("⚠️ داتای هەڵسەنگاندن نەدۆزرایەوە! تکایە دڵنیابە لەوەی نۆتبووکەکەت ڕەن کردووە.")
+        return
+        
+    clf = metrics_data.get("CLF", {})
+    reg = metrics_data.get("REG", {})
+    
+    st.markdown("""
+    <div class="sec-head" style="margin-top: 1rem;">
+        <span class="sec-head-text">🎯  مۆدێلی پۆلێنکردنی مەترسی (Classification)</span>
+        <span class="sec-head-line"></span>
+    </div>""", unsafe_allow_html=True)
+    
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        st.markdown(f"""<div class="metric-card"><div class="metric-label">ڕێژەی ڕاستی (Accuracy)</div>
+        <div class="metric-value">{clf.get('accuracy', 0)*100:.1f}%</div></div>""", unsafe_allow_html=True)
+    with c2:
+        st.markdown(f"""<div class="metric-card"><div class="metric-label">هێزی جیاکردنەوە (ROC-AUC)</div>
+        <div class="metric-value">{clf.get('auc_roc', 0)*100:.1f}%</div></div>""", unsafe_allow_html=True)
+    with c3:
+        st.markdown(f"""<div class="metric-card"><div class="metric-label">بڕواپێکراوی (F1-Score)</div>
+        <div class="metric-value">{clf.get('f1', 0)*100:.1f}%</div></div>""", unsafe_allow_html=True)
 
+    st.markdown("""
+    <div class="sec-head" style="margin-top: 2rem;">
+        <span class="sec-head-text">💰  مۆدێلی پێشبینیکردنی قەرز (Regression)</span>
+        <span class="sec-head-line"></span>
+    </div>""", unsafe_allow_html=True)
+    
+    r1, r2, r3 = st.columns(3)
+    with r1:
+        st.markdown(f"""<div class="metric-card"><div class="metric-label">ڕێژەی سەرکەوتن (R² Score)</div>
+        <div class="metric-value">{reg.get('r2', 0)*100:.1f}%</div></div>""", unsafe_allow_html=True)
+    with r2:
+        st.markdown(f"""<div class="metric-card"><div class="metric-label">تێکڕای هەڵە (RMSE)</div>
+        <div class="metric-value">${reg.get('rmse', 0):,.0f}</div></div>""", unsafe_allow_html=True)
+    with r3:
+        st.markdown(f"""<div class="metric-card"><div class="metric-label">هەڵەی ڕەها (MAE)</div>
+        <div class="metric-value">${reg.get('mae', 0):,.0f}</div></div>""", unsafe_allow_html=True)
+        
+    img_path = os.path.join("outputs", "feature_importance.png")
+    if os.path.exists(img_path):
+        st.markdown("<br><br>", unsafe_allow_html=True)
+        st.image(img_path, use_container_width=True)
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  HELPER: Single Regression Plot
-# ══════════════════════════════════════════════════════════════════════════════
-def generate_regression_plot():
-    csv_path = os.path.join("outputs", "credit_risk_predictions.csv")
-    if not os.path.exists(csv_path):
-        return None 
-        
-    try:
-        df = pd.read_csv(csv_path)
-        actual = df['Actual_Credit_Limit'].values
-        predicted = df['Predicted_Credit_Limit'].values
-        
-        fig, ax2 = dark_fig(9, 5)
-        fig.suptitle('Credit Limit Prediction', color='#3b82f6', fontsize=16, fontweight='bold', y=0.98)
-        
-        ax2.scatter(actual, predicted, alpha=0.8, color="#3b82f6", s=35, edgecolors="#fff", linewidths=0.6)
-        
-        max_val = max(max(actual), max(predicted)) if len(actual) > 0 else 100000
-        ax2.plot([0, max_val], [0, max_val], "--", color="#fb7185", lw=2.5, label="Perfect Fit")
-        
-        r2_val = REG.get('r2', 0) if isinstance(REG, dict) else 0
-        ax2.set_title(f"R² Score = {r2_val:.4f}", color='#fff', fontweight='bold', pad=10, fontsize=12)
-        ax2.set_xlabel("Actual Credit Limit ($)", color='#cbd5e1', fontweight='bold', fontsize=11)
-        ax2.set_ylabel("Predicted Credit Limit ($)", color='#cbd5e1', fontweight='bold', fontsize=11)
-        ax2.tick_params(colors="#fff", labelsize=10)
-        
-        leg = ax2.legend(facecolor="#00000080", edgecolor="#ffffff1a", labelcolor="#fff", fontsize=10)
-        plt.tight_layout()
-        return fig
-    except Exception:
-        return None
-
-
-# ══════════════════════════════════════════════════════════════════════════════
-#  HELPER: Classification KDE Density Plots
-# ══════════════════════════════════════════════════════════════════════════════
-def generate_kde_plots():
-    csv_path = os.path.join("outputs", "credit_risk_predictions.csv")
-    if not os.path.exists(csv_path):
-        return None 
-        
-    try:
-        df = pd.read_csv(csv_path)
-        probs_low_risk = df[df['Actual_Risk'] == 0]['Risk_Probability'].values
-        probs_high_risk = df[df['Actual_Risk'] == 1]['Risk_Probability'].values
-        
-        fig = plt.figure(figsize=(12, 4.5))
-        fig.patch.set_facecolor("none")
-        fig.suptitle('Predicted Probabilities Density Distribution', color='#3b82f6', fontsize=14, fontweight='bold', y=1.05)
-        
-        ax1 = fig.add_subplot(121)
-        ax1.set_facecolor("#00000033")
-        ax1.grid(color="#ffffff0d", linewidth=1, alpha=0.8)
-        for sp in ax1.spines.values(): sp.set_color("#ffffff1a")
-        
-        sns.kdeplot(probs_low_risk, ax=ax1, color="#34d399", fill=True, alpha=0.3, linewidth=2)
-        ax1.axvline(x=0.5, color='#cbd5e1', linestyle='--', linewidth=1)
-        
-        ax1.set_title("Low Risk Customers", color='#34d399', fontweight='bold', pad=10, fontsize=12)
-        ax1.set_xlabel("Predicted Probability of High Risk", color='#cbd5e1', fontsize=10)
-        ax1.set_ylabel("Density", color='#cbd5e1', fontsize=10)
-        ax1.set_xlim(-0.1, 1.1)
-        ax1.tick_params(colors="#fff", labelsize=9)
-        
-        ax2 = fig.add_subplot(122)
-        ax2.set_facecolor("#00000033")
-        ax2.grid(color="#ffffff0d", linewidth=1, alpha=0.8)
-        for sp in ax2.spines.values(): sp.set_color("#ffffff1a")
-        
-        sns.kdeplot(probs_high_risk, ax=ax2, color="#fb7185", fill=True, alpha=0.3, linewidth=2)
-        ax2.axvline(x=0.5, color='#cbd5e1', linestyle='--', linewidth=1)
-        
-        ax2.set_title("High Risk Customers", color='#fb7185', fontweight='bold', pad=10, fontsize=12)
-        ax2.set_xlabel("Predicted Probability of High Risk", color='#cbd5e1', fontsize=10)
-        ax2.set_ylabel("Density", color='#cbd5e1', fontsize=10)
-        ax2.set_xlim(-0.1, 1.1)
-        ax2.tick_params(colors="#fff", labelsize=9)
-
-        plt.tight_layout()
-        return fig
-    except Exception:
-        return None
-
-
-# ══════════════════════════════════════════════════════════════════════════════
-#  DIALOGS
-# ══════════════════════════════════════════════════════════════════════════════
-@st.dialog("ℹ️  دەربارەی پڕۆژە و گەشەپێدەر", width="large")
+@st.dialog("ℹ️  دەربارەی پڕۆژە", width="large")
 def project_info_dialog():
     st.markdown("""
     <div class="about-center">
         <div class="about-center-icon">📦</div>
         <div class="about-center-name">ERBIL WAREHOUSE RISK SYSTEM</div>
-        <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 0.3rem;">v 2.5 · XGBoost Engine · 2025–2026</div>
+        <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 0.3rem;">v 3.0 · Advanced RFM XGBoost · 2025–2026</div>
     </div>
     """, unsafe_allow_html=True)
     
     info_col1, info_col2 = st.columns(2, gap="large")
-    
     with info_col1:
         st.markdown("""
         <div class="about-card liquid-glass">
             <div class="about-card-title">📋 دەربارەی پڕۆژە</div>
             <div class="about-card-body">
-                ئەم سیستەمە بە <b>XGBoost</b> ئاستی مەترسی دوکانەکان
-                دیاری دەکات و سنووری قەرزی گونجاو بۆ کۆگاکانی هەولێر 
-                دەستنیشان دەکات، بەپێی زانیارییەکانی وەسڵ و پێشینەی کارکردن.
+                ئەم سیستەمە بە <b>XGBoost</b> ئاستی مەترسی دیاری دەکات. لەم وەشانەدا پێوەرەکانی <b>RFM</b> (تازەیی، دووبارەبوونەوە، قەبارەی پارە) بەکارهاتووە بۆ بڕیاردانێکی زۆر زیرەکتر.
             </div>
         </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown("""
         <div class="about-card liquid-glass">
             <div class="about-card-title">👨‍💻 گەشەپێدەر</div>
-            <div class="about-card-body">
-                <b>ناو:</b> ئومێد جەمال نوری<br>
-                <b>بەش:</b> ئەندازیاری کارەبا<br>
-                <b>قۆناغ:</b> قۆناغی سێیەم<br>
-                <b>ساڵی خوێندن:</b> ٢٠٢٥ — ٢٠٢٦
-            </div>
+            <div class="about-card-body"><b>ئومێد جەمال نوری</b><br>ئەندازیاری کارەبا - قۆناغی سێیەم</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -506,149 +373,8 @@ def project_info_dialog():
             <span class="tech-tag">XGBoost</span>
             <span class="tech-tag">Scikit-learn</span>
             <span class="tech-tag">Streamlit</span>
-            <span class="tech-tag">Pandas</span>
-            <span class="tech-tag">Seaborn</span>
         </div>
         """, unsafe_allow_html=True)
-        
-        st.markdown("""
-        <div class="about-card liquid-glass">
-            <div class="about-card-title">📁 داتاسێت و مۆدێل</div>
-            <div class="about-card-body">
-                📌 <b>erbil_warehouse_dataset.csv</b><br>
-                &nbsp;&nbsp;&nbsp;داتای بنەڕەتی ڕاهێنان<br><br>
-                📌 <b>risk_model & limit_model</b><br>
-                &nbsp;&nbsp;&nbsp;مۆدێلەکانی پێشبینیکردن<br><br>
-                📌 <b>scaler.joblib</b><br>
-                &nbsp;&nbsp;&nbsp;ئامێری نۆرمالکردنەوە
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-
-@st.dialog("📊  هەڵسەنگاندنی زانستی مۆدێل — Model Evaluation", width="large")
-def evaluation_dialog():
-    if not metrics_loaded:
-        st.error("⚠️ هیچ داتایەکی نوێی هەڵسەنگاندن نەدۆزرایەوە. تکایە سەرەتا کۆدەکانی ناو نۆتبووکەکەت ڕەن بکە بۆ ئەوەی داتا نوێیەکان دروست بن.")
-        return
-
-    tab1, tab2, tab3 = st.tabs([
-        "📊 مەتریکەکان (Metrics)",
-        "📈 وێنەی ڕوونکردنەوەیی (Plots)",
-        "🧠 شیکاری و Overfitting",
-    ])
-
-    with tab1:
-        st.markdown("<br><div style='color:var(--blue); font-size:0.9rem; font-weight:900; letter-spacing:0.1em; margin-bottom:1rem;'>🎯 مەتریکەکانی پۆلێنکردن (CLASSIFICATION)</div>", unsafe_allow_html=True)
-        
-        c1, c2, c3, c4 = st.columns(4)
-        boxes = [
-            (c1, "Accuracy",  f"{CLF.get('accuracy', 0)*100:.2f}%", "eval-box-green"),
-            (c2, "Precision", f"{CLF.get('precision', 0)*100:.2f}%", ""),
-            (c3, "Recall",    f"{CLF.get('recall', 0)*100:.2f}%",    "eval-box-cyan"),
-            (c4, "ROC-AUC",   f"{CLF.get('auc_roc', 0):.4f}",        "eval-box-cyan"),
-        ]
-        for col, title, val, extra in boxes:
-            with col:
-                st.markdown(f"""
-                <div class="eval-box liquid-glass {extra}">
-                    <div class="eval-title">{title}</div>
-                    <div class="eval-val">{val}</div>
-                    <div class="eval-val-sub">TEST SET</div>
-                </div>""", unsafe_allow_html=True)
-
-        st.markdown(f"""
-        <div class="eval-box liquid-glass" style="margin-top:0;">
-            <div class="eval-title">F1-Score (Weighted)</div>
-            <div class="eval-val" style="font-size:1.5rem; color:var(--blue);">{CLF.get('f1', 0):.4f}</div>
-            <div class="eval-val-sub">هاوسەنگی Precision و Recall</div>
-        </div>""", unsafe_allow_html=True)
-        
-        st.markdown("<br>", unsafe_allow_html=True)
-        fig_kde = generate_kde_plots()
-        if fig_kde:
-            st.pyplot(fig_kde, use_container_width=True, transparent=True)
-            plt.close(fig_kde)
-        else:
-            st.info("⚠️ وێنەی Density بەردەست نییە چونکە فایلی داتاکان (credit_risk_predictions.csv) دروست نەکراوە.")
-        
-
-    with tab2:
-        st.markdown("<br><div style='color:var(--blue); font-size:0.9rem; font-weight:900; letter-spacing:0.1em; margin-bottom:1rem;'>💰 مەتریکەکانی بڕی قەرز (REGRESSION)</div>", unsafe_allow_html=True)
-        r1, r2, r3, r4 = st.columns(4)
-        reg_boxes = [
-            (r1, "R² Score", f"{REG.get('r2', 0):.4f}",   "eval-box-green", "گونجانەوەی مۆدێل"),
-            (r2, "RMSE",     f"${REG.get('rmse', 0):,.2f}",   "eval-box-cyan",  "Root Mean Sq. Error"),
-            (r3, "MAE",      f"${REG.get('mae', 0):,.2f}",    "eval-box-cyan",  "Mean Abs. Error"),
-            (r4, "MSE",      f"${REG.get('mse', 0)/1e6:.1f}M", "eval-box-red","Mean Sq. Error"),
-        ]
-        for col, title, val, extra, sub in reg_boxes:
-            with col:
-                st.markdown(f"""
-                <div class="eval-box liquid-glass {extra}">
-                    <div class="eval-title">{title}</div>
-                    <div class="eval-val">{val}</div>
-                    <div class="eval-val-sub">{sub}</div>
-                </div>""", unsafe_allow_html=True)
-
-        st.markdown("<br>", unsafe_allow_html=True)
-        fig_reg = generate_regression_plot()
-        if fig_reg:
-            st.pyplot(fig_reg, use_container_width=True, transparent=True)
-            plt.close(fig_reg)
-        else:
-            st.info("⚠️ وێنەی Regression بەردەست نییە چونکە فایلی داتاکان (credit_risk_predictions.csv) دروست نەکراوە.")
-
-    with tab3:
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown("""<div style="font-size:0.85rem; font-weight:800; color:var(--blue); letter-spacing:0.1em; margin-bottom:1rem;">⚠️ OVERFITTING CHECK</div>""", unsafe_allow_html=True)
-        ov1, ov2 = st.columns(2)
-        with ov1:
-            gap_clf = CLF_TRAIN.get("accuracy", 0) - CLF.get("accuracy", 0)
-            st.markdown(f"""
-            <div class="eval-box liquid-glass eval-box-red">
-                <div class="eval-title">Classification · Accuracy Gap</div>
-                <div style="font-size:0.95rem; color:#fff; line-height:2; direction:ltr; text-align:left; padding-top:0.3rem;">
-                    Train: <b>{CLF_TRAIN.get('accuracy', 0)*100:.2f}%</b> → Test: <b>{CLF.get('accuracy', 0)*100:.2f}%</b>
-                    <br><span style="color:#fb7185; font-size:0.8rem;">Gap: {gap_clf:.4f}</span>
-                </div>
-            </div>""", unsafe_allow_html=True)
-        with ov2:
-            gap_reg = REG_TRAIN.get("r2", 0) - REG.get("r2", 0)
-            st.markdown(f"""
-            <div class="eval-box liquid-glass eval-box-green">
-                <div class="eval-title">Regression · R² Gap</div>
-                <div style="font-size:0.95rem; color:#fff; line-height:2; direction:ltr; text-align:left; padding-top:0.3rem;">
-                    Train: <b>{REG_TRAIN.get('r2', 0):.4f}</b> → Test: <b>{REG.get('r2', 0):.4f}</b>
-                    <br><span style="color:#34d399; font-size:0.8rem;">Gap: {gap_reg:.4f}</span>
-                </div>
-            </div>""", unsafe_allow_html=True)
-
-        st.divider()
-        st.markdown("""<div style="font-size:0.85rem; font-weight:800; color:var(--blue); letter-spacing:0.1em; margin-bottom:1rem;">📊 FEATURE IMPORTANCE (XGBoost)</div>""", unsafe_allow_html=True)
-        _, gcol3, _ = st.columns([0.5, 4, 0.5])
-        
-        with gcol3:
-            if FEAT_NAMES and FEAT_IMP:
-                fig3, ax3 = dark_fig(6, max(3.4, len(FEAT_NAMES)*0.5))
-                plot_names = FEAT_NAMES[:len(FEAT_IMP)]
-                plot_imp = FEAT_IMP[:len(FEAT_NAMES)]
-                
-                colors = ["#60a5fa", "#3b82f6", "#2563eb", "#1d4ed8", "#1e40af", "#1e3a8a", "#172554", "#0f172a"]
-                plot_colors = [colors[i % len(colors)] for i in range(len(plot_names))]
-                
-                bars = ax3.barh(plot_names, plot_imp, color=plot_colors, height=0.6, edgecolor="#ffffff1a")
-                for bar, val in zip(bars, plot_imp):
-                    ax3.text(val + 0.005, bar.get_y() + bar.get_height()/2,
-                             f"{val:.0%}", va="center", ha="left", color="#fff", fontsize=10, fontweight="bold")
-                ax3.set_xlim(0, max(plot_imp) * 1.25)
-                ax3.set_xlabel("Relative Importance", color='#cbd5e1')
-                ax3.tick_params(axis="y", colors="#fff")
-                plt.tight_layout()
-                st.pyplot(fig3, use_container_width=True, transparent=True)
-                plt.close(fig3)
-            else:
-                st.info("⚠️ داتای گرنگی تایبەتمەندییەکان بەردەست نییە.")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -660,36 +386,36 @@ st.markdown("""
     <div class="hero-title">
         سیستەمی زیرەکی <span>نمرەدانی مەترسی</span> و سنووری قەرز
     </div>
-    <div class="hero-sub">Erbil Warehouse B2B Credit Limit &amp; Risk Scoring</div>
+    <div class="hero-sub">Erbil Warehouse B2B Credit Limit &amp; Advanced RFM Scoring</div>
     <div class="hero-pill">⚡  XGBoost ENGINE · REAL-TIME ANALYSIS</div>
 </div>
 """, unsafe_allow_html=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  ACTION BUTTONS
+#  ACTION BUTTONS (TOP)
 # ══════════════════════════════════════════════════════════════════════════════
-ab_col, ev_col = st.columns(2, gap="medium")
-with ab_col:
-    if st.button("👤  دەربارەی پڕۆژە و گەشەپێدەر", use_container_width=True, type="secondary"):
+ab_col1, ab_col2, ab_col3, ab_col4 = st.columns([1, 1.5, 1.5, 1])
+with ab_col2:
+    if st.button("👤  دەربارەی پڕۆژە", use_container_width=True, type="secondary"):
         project_info_dialog()
-with ev_col:
-    if st.button("📊  هەڵسەنگاندنی زانستی مۆدێل", use_container_width=True, type="secondary"):
-        evaluation_dialog()
+with ab_col3:
+    if st.button("📈  هەڵسەنگاندنی مۆدێل", use_container_width=True, type="secondary"):
+        model_evaluation_dialog()
 
 if not models_loaded:
     st.markdown("""
     <div class="liquid-glass" style="padding: 1rem; border-color: rgba(251,113,133,0.3); color: #fb7185; text-align: center; margin-bottom: 1.5rem;">
-        ⚠️ &nbsp;مۆدێلەکان نەدۆزرانەوە. ئێستا سیستەمەکە بەشێوەی نموونەیی (Mock) کار دەکات.
+        ⚠️ &nbsp;مۆدێلەکان نەدۆزرانەوە. تکایە سەرەتا نۆتبووکەکە ڕەن بکە بۆ دروستکردنی مۆدێلەکان.
     </div>
     """, unsafe_allow_html=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  INPUT SECTION 
+#  INPUT SECTION (8 Features)
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
-<div class="sec-head">
+<div class="sec-head" style="margin-top: 1.5rem;">
     <span class="sec-head-text">📝  زانیارییەکانی دوکان داخڵ بکە</span>
     <span class="sec-head-line"></span>
 </div>
@@ -698,40 +424,28 @@ st.markdown("""
 col_l, col_r = st.columns(2, gap="large")
 
 with col_l:
-    st.markdown('<div class="input-card liquid-glass"><div class="card-title">💰 زانیاری دارایی و وەسڵەکان</div>', unsafe_allow_html=True)
-    avg_invoice_value = st.number_input(
-        "تێکڕای بەهای وەسڵەکان ($)", min_value=0.0, max_value=500_000.0,
-        value=2500.0, step=100.0, format="%.2f", key="avg_order")
-    current_debt = st.number_input(
-        "کۆی قەرزی ئێستا ($)", min_value=0.0, max_value=5_000_000.0,
-        value=5000.0, step=500.0, format="%.2f", key="current_debt")
-    total_invoices = st.number_input(
-        "کۆی گشتی وەسڵەکان (دانە)", min_value=1, max_value=10000,
-        value=150, step=10, key="total_invoices")
-    unpaid_invoices = st.selectbox(
-        "ژمارەی وەسڵە نەدراوەکان (قەرز)",
-        options=list(range(51)), index=2, key="unpaid_invoices",
-        format_func=lambda x: "هیچ" if x == 0 else f"{x} وەسڵ")
+    st.markdown('<div class="input-card liquid-glass"><div class="card-title">💰 زانیاری دارایی و مامەڵەکان</div>', unsafe_allow_html=True)
+    avg_invoice = st.number_input("تێکڕای بەهای یەک وەسڵ ($)", min_value=0.0, value=2500.0, step=100.0, format="%.0f")
+    freq_per_month = st.number_input("تێکڕای وەسڵەکان لە مانگێکدا (دانە)", min_value=0.0, value=12.0, step=1.0)
+    total_volume = st.number_input("کۆی قەبارەی بازرگانی ($)", min_value=0.0, value=50000.0, step=1000.0, format="%.0f")
+    unpaid_ratio_display = st.slider("ڕێژەی وەسڵە نەدراوەکان لەسەدا (%)", min_value=0, max_value=100, value=10, step=1)
+    unpaid_ratio = unpaid_ratio_display / 100.0
     st.markdown('</div>', unsafe_allow_html=True)
 
 with col_r:
     st.markdown('<div class="input-card liquid-glass"><div class="card-title">🏢 زانیاری دوکان و پێشینە</div>', unsafe_allow_html=True)
-    shop_age = st.slider(
-        "تەمەنی دوکان (ساڵانی کارکردن)", min_value=0, max_value=50, value=5, step=1, key="years")
-    late_payments = st.selectbox(
-        "پێشینەی دواکەوتنی پارەدان (چەند جار)",
-        options=list(range(21)), index=1, key="late_payments",
-        format_func=lambda x: "هیچ کات" if x == 0 else f"{x} جار دواکەوتووە")
+    shop_age = st.slider("تەمەنی دوکان (ساڵانی کارکردن)", min_value=0, max_value=50, value=5, step=1)
+    days_since_last = st.number_input("چەند ڕۆژ بەسەر کۆتا مامەڵە تێپەڕیوە", min_value=0, value=15, step=1)
+    debt_ratio_display = st.slider("ڕێژەی قەرز بۆ قەبارەی مامەڵە (%)", min_value=0, max_value=100, value=15, step=1)
+    debt_ratio = debt_ratio_display / 100.0
+    late_history = st.selectbox("پێشینەی دواکەوتنی پارەدان (جار)", options=list(range(31)), index=1, format_func=lambda x: "هیچ کات" if x == 0 else f"{x} جار دواکەوتووە")
     
     st.markdown(f"""
     <div class="summary-card">
-        <div class="summary-card-title">📋 پوختەی زانیاریەکان</div>
-        <div class="summary-row"><span>تەمەنی دوکان</span><span class="summary-val">{shop_age} ساڵ</span></div>
-        <div class="summary-row"><span>تێکڕای وەسڵ</span><span class="summary-val">${avg_invoice_value:,.0f}</span></div>
-        <div class="summary-row"><span>ژمارەی وەسڵەکان</span><span class="summary-val">{total_invoices} دانە</span></div>
-        <div class="summary-row"><span>وەسڵە نەدراوەکان</span><span class="summary-val">{unpaid_invoices} دانە</span></div>
-        <div class="summary-row"><span>قەرزی ئێستا</span><span class="summary-val">${current_debt:,.0f}</span></div>
-        <div class="summary-row"><span>دواکەوتنی پارەدان</span><span class="summary-val">{late_payments} جار</span></div>
+        <div class="summary-card-title">📋 پوختەی فیچەرەکانی RFM</div>
+        <div class="summary-row"><span>تازەیی مامەڵە (Recency)</span><span class="summary-val">{days_since_last} ڕۆژ</span></div>
+        <div class="summary-row"><span>خێرایی کڕین (Frequency)</span><span class="summary-val">{freq_per_month} مانگانە</span></div>
+        <div class="summary-row"><span>قەبارەی پارە (Monetary)</span><span class="summary-val">${total_volume:,.0f}</span></div>
     </div>""", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -758,37 +472,32 @@ if analyze:
 
     if models_loaded:
         try:
-            # 1. Prepare base features
-            clf_features = np.array([[shop_age, total_invoices, avg_invoice_value, unpaid_invoices, current_debt, late_payments]])
+            # 1. Prepare base features for Classification Model
+            # Order must exactly match: ['Shop_Age_Years', 'Days_Since_Last_Order', 'Order_Freq_Per_Month', 'Average_Invoice_Value', 'Total_Trade_Volume', 'Unpaid_Invoice_Ratio', 'Debt_To_Volume_Ratio', 'Late_Payment_History']
+            clf_features = np.array([[shop_age, days_since_last, freq_per_month, avg_invoice, total_volume, unpaid_ratio, debt_ratio, late_history]])
+            fs_clf = scaler_clf.transform(clf_features)
             
-            # Use dynamic slicing to match scaler's expected shape just in case
-            expected_n = getattr(scaler_clf, 'n_features_in_', 6)
-            fs_clf = scaler_clf.transform(clf_features[:, :expected_n])
-            
-            # 2. Predict Risk
+            # Predict Risk
             risk_pred = risk_model.predict(fs_clf)[0]
             is_high = int(risk_pred) == 1
             
-            # 3. Append Risk Prediction to features to create features for Regression
-            reg_features = np.array([[shop_age, total_invoices, avg_invoice_value, unpaid_invoices, current_debt, late_payments, risk_pred]])
-            expected_reg_n = getattr(scaler_reg, 'n_features_in_', 7)
-            fs_reg = scaler_reg.transform(reg_features[:, :expected_reg_n])
+            # 2. Prepare features for Regression Model (Base Features + Risk Prediction)
+            reg_features = np.array([[shop_age, days_since_last, freq_per_month, avg_invoice, total_volume, unpaid_ratio, debt_ratio, late_history, risk_pred]])
+            fs_reg = scaler_reg.transform(reg_features)
             
-            # 4. Predict Credit Limit
+            # Predict Credit Limit
             limit_pred = limit_model.predict(fs_reg)[0]
-            credit_limit = max(500.0, float(limit_pred))
+            credit_limit = float(limit_pred)
             
         except Exception as exc:
             st.error(f"⚠️ هەڵەیەک ڕوویدا لە کاتی هەژمارکردندا: {exc}")
             st.stop()
     else:
-        total_volume = max(avg_invoice_value * total_invoices, 1)
-        dr = current_debt / total_volume
-        is_high = dr > 0.4 or unpaid_invoices >= 4 or late_payments >= 3
-        bl = avg_invoice_value * 10
-        pen = (unpaid_invoices * 0.05) + (late_payments * 0.05)
-        credit_limit = max(500.0, bl * (1 - pen) * (1 + shop_age * 0.02))
+        # Mock logic if models are not loaded
+        is_high = debt_ratio > 0.4 or unpaid_ratio > 0.3 or late_history > 3
+        credit_limit = max(500.0, avg_invoice * freq_per_month * 2)
 
+    # UI Display
     rc1, rc2 = st.columns(2, gap="large")
     with rc1:
         if is_high:
@@ -818,36 +527,13 @@ if analyze:
             <span class="rc-badge badge-limit">✅ &nbsp;پەسەندکراو</span>
         </div></div>""", unsafe_allow_html=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
-    m1, m2, m3 = st.columns(3, gap="medium")
-    
-    total_trade_volume = max(avg_invoice_value * total_invoices, 1)
-    debt_ratio = min(100, (current_debt / total_trade_volume) * 100)
-    
-    with m1:
-        st.markdown(f"""<div class="metric-card liquid-glass">
-            <div class="metric-label">ڕێژەی قەرز بەرامبەر قەبارەی بازرگانی</div>
-            <div class="metric-value">{debt_ratio:.1f}%</div>
-            <div class="metric-en">Debt-to-Volume Ratio</div>
-        </div>""", unsafe_allow_html=True)
-    with m2:
-        st.markdown(f"""<div class="metric-card liquid-glass">
-            <div class="metric-label">وەسڵی نەدراو و دواکەوتوو</div>
-            <div class="metric-value">{unpaid_invoices + late_payments}<span style="font-size:1rem;font-weight:500;"> دانە</span></div>
-            <div class="metric-en">Total Credit Incidents</div>
-        </div>""", unsafe_allow_html=True)
-    with m3:
-        st.markdown(f"""<div class="metric-card liquid-glass">
-            <div class="metric-label">تەمەنی دوکان و متمانە</div>
-            <div class="metric-value">{shop_age}<span style="font-size:1rem;font-weight:500;"> ساڵ</span></div>
-            <div class="metric-en">Shop Age / Trust</div>
-        </div>""", unsafe_allow_html=True)
-
 st.markdown("""
 <div style="text-align: center; padding: 2.5rem 0 1rem; color: rgba(255,255,255,0.4); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 3rem; direction: rtl;">
     دروستکراوە لەلایەن &nbsp;<strong style="color:var(--blue); font-weight: 800;">ئومێد جمال نوری</strong><br>
     <span style="font-size:0.75rem; margin-top: 0.5rem; display: inline-block;">
-        Dark Liquid Glass Edition · Powered by Streamlit & XGBoost
+        Advanced RFM Edition · Powered by Streamlit & XGBoost
     </span>
 </div>
 """, unsafe_allow_html=True)
+
+# --- END OF FILE app.py ---
