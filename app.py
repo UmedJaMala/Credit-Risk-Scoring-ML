@@ -159,6 +159,9 @@ label, div[data-testid="stWidgetLabel"] > p, .stSlider label, .stNumberInput lab
     text-align: right !important; 
 }
 
+/* ========================================================
+   دیزاینی لاپتۆپ و دەسکتۆپ
+   ======================================================== */
 div[data-testid="stNumberInput"] div[data-baseweb="input"],
 div[data-testid="stNumberInput"] div[data-baseweb="base-input"],
 div[data-testid="stNumberInput"] div[data-baseweb="input"] > div,
@@ -233,7 +236,6 @@ div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle { wid
 .metric-card:hover { transform: translateY(-5px); border-color: rgba(59,130,246,0.3); }
 .metric-label { color: var(--text-2); font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
 .metric-value { color: #fff; font-size: 1.8rem; font-weight: 900; line-height: 1; text-shadow: 0 2px 10px rgba(255,255,255,0.2); }
-.metric-en    { color: var(--text-3); font-size: 0.7rem; margin-top: 0.4rem; font-family: 'Inter', sans-serif;}
 
 div[data-testid="stModal"] > div, div[role="dialog"], section[data-testid="stDialog"] > div {
     background: rgba(10, 12, 16, 0.95) !important; 
@@ -253,6 +255,9 @@ div[role="dialog"] p, div[role="dialog"] h1, div[role="dialog"] h2, div[role="di
 .about-center-icon { font-size: 3rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 15px rgba(59,130,246,0.5)); }
 .about-center-name { color: var(--blue); font-size: 1.1rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
 
+/* ========================================================
+   چارەسەری کێشەی بۆکسەکانی هەڵبژاردن بۆ هەموو ئامێرەکان
+   ======================================================== */
 div[data-testid="stSelectbox"] div[data-baseweb="select"] div[class*="singleValue"],
 div[data-testid="stSelectbox"] div[data-baseweb="select"] span {
     color: #ffffff !important;
@@ -262,19 +267,59 @@ div[data-testid="stSelectbox"] div[data-baseweb="select"] span {
     line-height: normal !important;
 }
 
+div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+    min-height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+div[data-testid="stSelectbox"] div[data-baseweb="select"] div[class*="ValueContainer"] {
+    display: flex !important;
+    align-items: center !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    height: 100% !important;
+}
+
 div[data-baseweb="popover"] > div, div[role="listbox"], ul[role="listbox"] {
     background-color: #121418 !important;
     border: 1px solid rgba(59,130,246,0.4) !important;
     border-radius: 12px !important;
 }
-div[role="listbox"] li, ul[role="listbox"] li { color: #ffffff !important; font-size: 1rem !important; font-weight: 700 !important; }
-div[role="listbox"] li:hover, div[role="listbox"] li[aria-selected="true"] { background-color: rgba(59,130,246,0.3) !important; }
+div[role="listbox"] li, ul[role="listbox"] li {
+    color: #ffffff !important;
+    background-color: transparent !important;
+    font-size: 1.15rem !important;
+    font-weight: 700 !important;
+    padding: 0.8rem 1rem !important;
+}
+div[role="listbox"] li:hover, div[role="listbox"] li[aria-selected="true"] {
+    background-color: rgba(59,130,246,0.3) !important;
+    color: #60a5fa !important;
+}
 
+select, option {
+    background-color: #121418 !important;
+    color: #ffffff !important;
+    font-size: 1.15rem !important;
+}
+
+/* ========================================================
+   دیزاینی تایبەت بە مۆبایل
+   ======================================================== */
 @media (max-width: 768px) {
     .block-container { padding: 1rem 0.9rem 3rem !important; }
     .hero { padding: 2rem 1rem; }
     .rc-value { font-size: 2.2rem; }
     .liquid-glass { backdrop-filter: blur(16px); } 
+    
+    div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+        min-height: 60px !important;
+        display: flex !important;
+        align-items: center !important;
+        padding-right: 0.2rem !important;
+        padding-left: 0.2rem !important;
+    }
 }
 
 /* Custom Alert Box for RFM Information */
@@ -291,6 +336,17 @@ div[role="listbox"] li:hover, div[role="listbox"] li[aria-selected="true"] { bac
 .rfm-title { font-weight: 800; color: var(--blue); margin-bottom: 0.5rem; font-size: 0.95rem; }
 .rfm-text { font-size: 0.85rem; color: var(--text-2); line-height: 1.6; }
 .rfm-text b { color: #fff; }
+
+.footer-section {
+    text-align: center; 
+    padding: 2.5rem 0 1rem; 
+    color: rgba(255,255,255,0.4); 
+    font-size: 0.8rem; 
+    border-top: 1px solid rgba(255,255,255,0.05); 
+    margin-top: 3rem; 
+    font-family: 'Inter', sans-serif;
+}
+.footer-section strong { color: #60a5fa; font-weight: 700; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -444,11 +500,11 @@ def project_info_dialog():
         <div class="about-card liquid-glass">
             <div class="about-card-title">👨‍💻 Developer Info</div>
             <div class="about-card-body">
-                <b>Omed Jamal Nuri</b><br>
+                <b>Umed Jamal Nouri</b><br>
                 Electrical Engineering - 3rd Stage<br>
                 Academic Year: 2025 - 2026<br><br>
                 🔗 <a href="#" target="_blank" style="color: #60a5fa; text-decoration: none;"><b>GitHub Profile</b></a><br>
-                📧 <a href="mailto:omed@example.com" style="color: #60a5fa; text-decoration: none;"><b>Contact Email</b></a>
+                📧 <a href="mailto:umedjamal2005@gmail.com" style="color: #60a5fa; text-decoration: none;"><b>Contact Email</b></a>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -537,6 +593,10 @@ with col_r:
         <div class="summary-row"><span>تازەیی مامەڵە (Recency)</span><span class="summary-val">{days_since_last} ڕۆژ</span></div>
         <div class="summary-row"><span>خێرایی کڕین (Frequency)</span><span class="summary-val">{freq_per_month} مانگانە</span></div>
         <div class="summary-row"><span>قەبارەی پارە (Monetary)</span><span class="summary-val">${total_volume:,.0f}</span></div>
+        <div class="summary-row"><span>تەمەنی دوکان</span><span class="summary-val">{shop_age} ساڵ</span></div>
+        <div class="summary-row"><span>ڕێژەی قەرز</span><span class="summary-val">{debt_ratio_display}%</span></div>
+        <div class="summary-row"><span>وەسڵی نەدراو</span><span class="summary-val">{unpaid_ratio_display}%</span></div>
+        <div class="summary-row"><span>کێشەی پارەدان</span><span class="summary-val">{late_history} جار</span></div>
     </div>""", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -557,7 +617,7 @@ if analyze:
     st.divider()
     st.markdown("""
     <div class="sec-head">
-        <span class="sec-head-text">📊  ئەنجامی شیکاری کۆگا (Analytics Dashboard)</span>
+        <span class="sec-head-text">📊  ئەنجامی شیکاری کۆگا</span>
         <span class="sec-head-line"></span>
     </div>""", unsafe_allow_html=True)
 
@@ -611,36 +671,10 @@ if analyze:
             <span class="rc-badge badge-limit">✅ &nbsp;پەسەندکراو</span>
         </div></div>""", unsafe_allow_html=True)
 
-    # 3 Metrics Dashboard
-    st.markdown("<br>", unsafe_allow_html=True)
-    m1, m2, m3 = st.columns(3, gap="medium")
-    with m1:
-        st.markdown(f"""<div class="metric-card liquid-glass">
-            <div class="metric-label">ڕێژەی قەرز بۆ مامەڵە</div>
-            <div class="metric-value">{debt_ratio_display}%</div>
-            <div class="metric-en">Debt to Volume Ratio</div>
-        </div>""", unsafe_allow_html=True)
-    with m2:
-        incidents = int((unpaid_ratio_display / 100 * freq_per_month * 12) + late_history)
-        st.markdown(f"""<div class="metric-card liquid-glass">
-            <div class="metric-label">کێشەکانی پارەدان</div>
-            <div class="metric-value">{incidents} <span style="font-size:1rem;">جار</span></div>
-            <div class="metric-en">Total Credit Incidents</div>
-        </div>""", unsafe_allow_html=True)
-    with m3:
-        st.markdown(f"""<div class="metric-card liquid-glass">
-            <div class="metric-label">تەمەنی دوکان و متمانە</div>
-            <div class="metric-value">{shop_age} <span style="font-size:1rem;">ساڵ</span></div>
-            <div class="metric-en">Shop Age / Trust</div>
-        </div>""", unsafe_allow_html=True)
-
-
 st.markdown("""
-<div style="text-align: center; padding: 2.5rem 0 1rem; color: rgba(255,255,255,0.4); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 3rem; direction: rtl;">
-    دروستکراوە لەلایەن &nbsp;<strong style="color:var(--blue); font-weight: 800;">ئومێد جمال نوری</strong><br>
-    <span style="font-size:0.75rem; margin-top: 0.5rem; display: inline-block;">
-        Advanced RFM Edition · Powered by Streamlit & XGBoost
-    </span>
+<div class="footer-section">
+    &copy; 2026 Erbil Warehouse B2B Credit Limit System.<br>
+    Developed by <strong>Umed Jamal Nouri</strong> | Advanced RFM Edition
 </div>
 """, unsafe_allow_html=True)
 
