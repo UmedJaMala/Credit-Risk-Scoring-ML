@@ -128,7 +128,7 @@ div[data-testid="stBaseButton-primary"] button, button[kind="primary"] {
 div[data-testid="stBaseButton-primary"] button:hover, button[kind="primary"]:hover { transform: translateY(-3px) !important; background: linear-gradient(135deg, rgba(59,130,246,0.3) 0%, rgba(59,130,246,0.1) 100%) !important; box-shadow: 0 8px 30px rgba(59,130,246,0.25) !important; color: #fff !important; }
 
 div[data-testid="stBaseButton-secondary"] button, button[kind="secondary"] {
-    width: 100% !important; background: var(--glass-bg) !important; backdrop-filter: blur(12px) !important; border: 1px solid var(--glass-border) !important; border-top: 1px solid var(--glass-hi) !important; color: var(--cyan) !important; font-family: 'Inter', sans-serif !important; font-size: 0.95rem !important; font-weight: 800 !important; border-radius: 16px !important; padding: 0.85rem 1.2rem !important; box-shadow: var(--glass-shadow) !important; transition: all 0.3s ease !important;
+    width: 100% !important; background: var(--glass-bg) !important; backdrop-filter: blur(12px) !important; border: 1px solid var(--glass-border) !important; border-top: 1px solid var(--glass-hi) !important; color: var(--cyan) !important; font-family: 'Noto Sans Arabic', sans-serif !important; font-size: 0.95rem !important; font-weight: 800 !important; border-radius: 16px !important; padding: 0.85rem 1.2rem !important; box-shadow: var(--glass-shadow) !important; transition: all 0.3s ease !important;
 }
 div[data-testid="stBaseButton-secondary"] button:hover, button[kind="secondary"]:hover { transform: translateY(-2px) !important; background: rgba(34,211,238,0.1) !important; border-color: var(--cyan-bdr) !important; color: #fff !important; }
 
@@ -234,7 +234,7 @@ div[data-testid="stSlider"] .rc-slider-handle, .stSlider .rc-slider-handle { wid
 
 .metric-card { padding: 1rem 0.5rem; text-align: center; transition: transform 0.3s ease; border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; background: rgba(0,0,0,0.3); backdrop-filter: blur(10px);}
 .metric-card:hover { transform: translateY(-3px); border-color: rgba(59,130,246,0.3); }
-.metric-label { color: var(--text-2); font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.05em; font-family: 'Inter', sans-serif; }
+.metric-label { color: var(--text-2); font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'Inter', sans-serif; }
 .metric-value { color: #fff; font-size: 1.5rem; font-weight: 900; line-height: 1; text-shadow: 0 2px 10px rgba(255,255,255,0.2); font-family: 'Inter', sans-serif; direction: ltr;}
 
 div[data-testid="stModal"] > div, div[role="dialog"], section[data-testid="stDialog"] > div {
@@ -466,11 +466,8 @@ def model_evaluation_dialog():
             st.image(img_feat_path, use_container_width=True)
 
         st.markdown("""
-        <div class="info-box" style="border-left-color: #34d399; background: rgba(52, 211, 153, 0.1);">
-            <div class="info-title" style="color: #34d399;">💡 ئەنجامی کۆتایی</div>
-            <div class="info-text">
-                مۆدێلەکەمان بە سەرکەوتوویی توانای پێشبینیکردنی هەیە بە ڕێژەی زیاتر لە <b>%87</b> بۆ مەترسی و <b>%90</b> بۆ بڕی قەرز لەسەر داتای نەبینراو (Test). ئەنجامەکانی Test و Train زۆر نزیکن لە یەکەوە، ئەمەش دەریدەخات کە مۆدێلەکە زۆر جێگیرە و کێشەی (Overfitting)ی نییە.
-            </div>
+        <div style="background: rgba(52, 211, 153, 0.1); border-left: 4px solid var(--green); padding: 1rem; border-radius: 8px 0 0 8px; margin-top: 1.5rem;">
+            <b>💡 ئەنجامی کۆتایی:</b> مۆدێلەکەمان بە سەرکەوتوویی توانای پێشبینیکردنی هەیە بە ڕێژەی زیاتر لە %87 بۆ مەترسی و %90 بۆ بڕی قەرز لەسەر داتای نەبینراو (Test). ئەمەش دەریدەخات کە مۆدێلەکە زۆر جێگیرە و کێشەی (Overfitting)ی نییە.
         </div>
         """, unsafe_allow_html=True)
 
@@ -513,13 +510,29 @@ def model_evaluation_dialog():
             <div class="metric-value">${reg_train.get('mae', 0):,.2f}</div></div>""", unsafe_allow_html=True)
 
 # 3. About Dialog
-@st.dialog("ℹ️ دەربارەی پڕۆژە و گەشەپێدەر", width="large")
+@st.dialog("ℹ️ دەربارەی پڕۆژە", width="large")
 def project_info_dialog():
     st.markdown("""
     <div class="about-center">
         <div class="about-center-icon">📦</div>
         <div class="about-center-name">ERBIL WAREHOUSE RISK SYSTEM</div>
         <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 0.3rem;">v 3.0 · Advanced RFM XGBoost · 2025–2026</div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="info-box">
+        <div class="info-title">🤔 کێشەکە چییە؟ (The Problem)</div>
+        <div class="info-text">
+            لە کاتی ئێستادا، زۆربەی کۆگاکانی فرۆشتنی کۆ (B2B) لە هەولێر و کوردستان بە گشتی، بڕیاردان لەسەر پێدانی قەرز بە دوکانەکان بە شێوەیەکی <b>هەڕەمەکی و کەسی</b> دەدەن. هیچ پێوەرێکی زانستی نییە بۆ ئەوەی بزانرێت ئایا ئەم دوکانە شایەنی چەند قەرزە، یان ئایا ئەگەری هەیە پارەکە نەگەڕێنێتەوە. ئەمەش دەبێتە هۆی <b>کەڵەکەبوونی قەرز، درەنگ کەوتنی پارەدان، و لەدەستدانی سەرمایەی کۆگاکان</b>.
+        </div>
+    </div>
+    
+    <div class="info-box" style="border-left-color: #34d399; background: rgba(52, 211, 153, 0.1);">
+        <div class="info-title" style="color: #34d399;">💡 چارەسەرەکە (The Solution)</div>
+        <div class="info-text">
+            ئەم پڕۆژەیە سیستەمێکی ژیری دەستکردی پێشکەوتووە بە بەکارهێنانی ئەلگۆریتمی <b>XGBoost</b> کە پشتبەست بە پێوەرەکانی <b>RFM (Recency, Frequency, Monetary)</b> کاردەکات. سیستەمەکە لە جێگەی مرۆڤ شیکارییەکی خێرا و ورد بۆ مێژووی دوکانەکە دەکات، و بە شێوەیەکی ئۆتۆماتیکی پێتدەڵێت کە ئایا ئەم دوکانە جێی متمانەیە یان مەترسیدارە، وە بە تەواوی <b>دەستنیشانی دەکات کە تا چەند دۆلار سەلامەتە قەرزی پێ بدرێت</b>.
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
