@@ -128,13 +128,17 @@ div[data-testid="stBaseButton-primary"] button, button[kind="primary"] {
 div[data-testid="stBaseButton-primary"] button:hover, button[kind="primary"]:hover { transform: translateY(-3px) !important; background: linear-gradient(135deg, rgba(59,130,246,0.3) 0%, rgba(59,130,246,0.1) 100%) !important; box-shadow: 0 8px 30px rgba(59,130,246,0.25) !important; color: #fff !important; }
 
 div[data-testid="stBaseButton-secondary"] button, button[kind="secondary"] {
-    width: 100% !important; background: var(--glass-bg) !important; backdrop-filter: blur(12px) !important; border: 1px solid var(--glass-border) !important; border-top: 1px solid var(--glass-hi) !important; color: var(--cyan) !important; font-family: 'Noto Sans Arabic', sans-serif !important; font-size: 0.95rem !important; font-weight: 800 !important; border-radius: 16px !important; padding: 0.85rem 1.2rem !important; box-shadow: var(--glass-shadow) !important; transition: all 0.3s ease !important;
+    width: 100% !important; background: var(--glass-bg) !important; backdrop-filter: blur(12px) !important; border: 1px solid var(--glass-border) !important; border-top: 1px solid var(--glass-hi) !important; color: var(--cyan) !important; font-family: 'Inter', sans-serif !important; font-size: 0.95rem !important; font-weight: 800 !important; border-radius: 16px !important; padding: 0.85rem 1.2rem !important; box-shadow: var(--glass-shadow) !important; transition: all 0.3s ease !important;
 }
 div[data-testid="stBaseButton-secondary"] button:hover, button[kind="secondary"]:hover { transform: translateY(-2px) !important; background: rgba(34,211,238,0.1) !important; border-color: var(--cyan-bdr) !important; color: #fff !important; }
 
 .sec-head { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem; }
 .sec-head-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, transparent 100%); }
 .sec-head-text { color: #fff; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.10em; white-space: nowrap; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+
+/* Dialog Section Styling (English Left-to-Right) */
+.eng-dialog { direction: ltr !important; text-align: left !important; font-family: 'Inter', sans-serif !important; }
+.eng-dialog p, .eng-dialog h1, .eng-dialog h2, .eng-dialog h3, .eng-dialog span, .eng-dialog div { direction: ltr !important; text-align: left !important; font-family: 'Inter', sans-serif !important; }
 
 /* Custom Tabs Styling */
 div[data-baseweb="tab-list"] { border-bottom: 1px solid rgba(255,255,255,0.1) !important; gap: 2rem; direction: rtl !important; }
@@ -280,19 +284,19 @@ div[data-baseweb="popover"] > div, div[role="listbox"], ul[role="listbox"] {
 div[role="listbox"] li, ul[role="listbox"] li { color: #ffffff !important; font-size: 0.95rem !important; font-weight: 700 !important; padding: 0.8rem !important; white-space: normal !important; }
 div[role="listbox"] li:hover, div[role="listbox"] li[aria-selected="true"] { background-color: rgba(59,130,246,0.3) !important; }
 
-/* Custom Alert Box for RFM Information */
-.rfm-alert {
+/* Custom Alert Box for Information */
+.info-box {
     background: rgba(59, 130, 246, 0.1);
     border-left: 4px solid var(--blue);
-    padding: 1rem;
+    padding: 1.2rem;
     border-radius: 8px 0 0 8px;
     margin-bottom: 1.5rem;
     direction: rtl;
     text-align: right;
 }
-.rfm-title { font-weight: 800; color: var(--blue); margin-bottom: 0.5rem; font-size: 0.95rem; }
-.rfm-text { font-size: 0.85rem; color: var(--text-2); line-height: 1.8; }
-.rfm-text b { color: #fff; }
+.info-title { font-weight: 800; color: var(--blue); margin-bottom: 0.6rem; font-size: 1rem; }
+.info-text { font-size: 0.9rem; color: var(--text-2); line-height: 2; }
+.info-text b { color: #fff; }
 
 .footer-section {
     text-align: center; 
@@ -323,6 +327,14 @@ div[role="listbox"] li:hover, div[role="listbox"] li[aria-selected="true"] { bac
     .liquid-glass { backdrop-filter: blur(16px); } 
     div[data-baseweb="tab-list"] { gap: 1rem; }
     button[data-baseweb="tab"] p { font-size: 0.85rem !important; }
+    
+    div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+        min-height: 60px !important;
+        display: flex !important;
+        align-items: center !important;
+        padding-right: 0.2rem !important;
+        padding-left: 0.2rem !important;
+    }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -347,18 +359,53 @@ risk_model, limit_model, scaler_clf, scaler_reg, models_loaded = load_ml_models(
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  DIALOGS (EVALUATION & ABOUT)
+#  DIALOGS (DATASET & EVALUATION & ABOUT)
 # ══════════════════════════════════════════════════════════════════════════════
-@st.dialog("📊 هەڵسەنگاندن و ئاستی مۆدێلەکان", width="large")
+
+# 1. Dataset & Model Info Dialog
+@st.dialog("📊 زانیاری داتاسێت و مۆدێلەکان", width="large")
+def dataset_model_info_dialog():
+    st.markdown("""
+    <div class="info-box">
+        <div class="info-title">📁 داتاسێت (Dataset)</div>
+        <div class="info-text">
+            ئەم داتاسێتە پێکهاتووە لە <b>1200 کۆرپوس (ڕیز)</b> کە تایبەتە بە بازرگانی (B2B) کۆگاکانی هەولێر، پاش چارەسەرکردنی داتا نابەرامبەرەکان (Imbalanced Data) بە تەکنیکی <b>SMOTE</b> ژمارەی داتاکان بووەتە نزیکەی 1800 بە هاوسەنگی تەواو.<br>
+            داتاسێتەکە پێکهاتووە لە <b>8 فیچەر (تایبەتمەندی)</b>:
+            <ul style="margin-top: 5px;">
+                <li><b>Shop_Age_Years:</b> تەمەنی دوکانەکە بە ساڵ (متمانەی کڕیار).</li>
+                <li><b>Days_Since_Last_Order:</b> پێوەری (Recency) - چەند ڕۆژە کاڵای نەبردووە.</li>
+                <li><b>Order_Freq_Per_Month:</b> پێوەری (Frequency) - چەند جار لە مانگێکدا وەسڵی هەیە.</li>
+                <li><b>Average_Invoice_Value:</b> تێکڕای بەهای مامەڵەکانی.</li>
+                <li><b>Total_Trade_Volume:</b> پێوەری (Monetary) - کۆی قەبارەی بازرگانی.</li>
+                <li><b>Unpaid_Invoice_Ratio:</b> ڕێژەی وەسڵە نەدراوەکان.</li>
+                <li><b>Debt_To_Volume_Ratio:</b> ڕێژەی قەرز بەراورد بە قەبارەی مامەڵە.</li>
+                <li><b>Late_Payment_History:</b> ژمارەی جارەکانی دواکەوتنی قەرز.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="info-box" style="border-left-color: #34d399; background: rgba(52, 211, 153, 0.1);">
+        <div class="info-title" style="color: #34d399;">⚙️ مۆدێلەکانی ڕاهێنان (XGBoost)</div>
+        <div class="info-text">
+            لەم پڕۆژەیەدا سوود لە ئەلگۆریتمی پێشکەوتووی <b>XGBoost</b> وەرگیراوە بۆ دروستکردنی دوو مۆدێلی جیاواز کە بە تەکنیکی <b>RandomizedSearchCV</b> باشترین پارامێتەرەکانیان بۆ دۆزراوەتەوە:<br>
+            <b>1. مۆدێلی پۆلێنکردن (Classification):</b> بۆ جیاکردنەوەی کڕیارەکان بۆ دوو جۆر (High Risk و Low Risk).<br>
+            <b>2. مۆدێلی پێشبینیکردن (Regression):</b> بۆ پێشبینیکردنی بڕی قەرزی گونجاو (Credit Limit) بە دۆلار بۆ هەر کڕیارێک بە پشتبەستن بە مەترسییەکەی.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+# 2. Model Evaluation Dialog
+@st.dialog("📈 هەڵسەنگاندن و ئاستی مۆدێلەکان", width="large")
 def model_evaluation_dialog():
     if not metrics_data:
         st.warning("⚠️ داتای هەڵسەنگاندن نەدۆزرایەوە! تکایە سەرەتا نۆتبووکەکە ڕەن بکە.")
         return
 
     st.markdown("""
-    <div class="rfm-alert">
-        <div class="rfm-title">📈 تێگەیشتن لە پێوەرەکانی هەڵسەنگاندن</div>
-        <div class="rfm-text">
+    <div class="info-box">
+        <div class="info-title">📊 تێگەیشتن لە پێوەرەکانی هەڵسەنگاندن</div>
+        <div class="info-text">
             <b>Accuracy:</b> ڕێژەی سەرکەوتنی مۆدێلەکە لە دیاریکردنی مەترسی (بەرز یان نزم).<br>
             <b>ROC-AUC:</b> توانای مۆدێلەکە بۆ جیاکردنەوەی دوو جۆرە کڕیارەکە بە دروستی.<br>
             <b>F1-Score:</b> هاوسەنگی نێوان وردبینی و دۆزینەوەی دروست.<br>
@@ -419,8 +466,11 @@ def model_evaluation_dialog():
             st.image(img_feat_path, use_container_width=True)
 
         st.markdown("""
-        <div style="background: rgba(52, 211, 153, 0.1); border-left: 4px solid var(--green); padding: 1rem; border-radius: 8px 0 0 8px; margin-top: 1.5rem;">
-            <b>💡 ئەنجامی کۆتایی:</b> مۆدێلەکەمان بە سەرکەوتوویی توانای پێشبینیکردنی هەیە بە ڕێژەی زیاتر لە %87 بۆ مەترسی و %90 بۆ بڕی قەرز لەسەر داتای نەبینراو (Test). ئەمەش دەریدەخات کە مۆدێلەکە زۆر جێگیرە و کێشەی (Overfitting)ی نییە.
+        <div class="info-box" style="border-left-color: #34d399; background: rgba(52, 211, 153, 0.1);">
+            <div class="info-title" style="color: #34d399;">💡 ئەنجامی کۆتایی</div>
+            <div class="info-text">
+                مۆدێلەکەمان بە سەرکەوتوویی توانای پێشبینیکردنی هەیە بە ڕێژەی زیاتر لە <b>%87</b> بۆ مەترسی و <b>%90</b> بۆ بڕی قەرز لەسەر داتای نەبینراو (Test). ئەنجامەکانی Test و Train زۆر نزیکن لە یەکەوە، ئەمەش دەریدەخات کە مۆدێلەکە زۆر جێگیرە و کێشەی (Overfitting)ی نییە.
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -462,6 +512,7 @@ def model_evaluation_dialog():
             st.markdown(f"""<div class="metric-card"><div class="metric-label">MAE (هەڵەی ڕەها)</div>
             <div class="metric-value">${reg_train.get('mae', 0):,.2f}</div></div>""", unsafe_allow_html=True)
 
+# 3. About Dialog
 @st.dialog("ℹ️ دەربارەی پڕۆژە و گەشەپێدەر", width="large")
 def project_info_dialog():
     st.markdown("""
@@ -469,19 +520,6 @@ def project_info_dialog():
         <div class="about-center-icon">📦</div>
         <div class="about-center-name">ERBIL WAREHOUSE RISK SYSTEM</div>
         <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 0.3rem;">v 3.0 · Advanced RFM XGBoost · 2025–2026</div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
-    <div class="rfm-alert">
-        <div class="rfm-title">🔍 شیکاری RFM چییە؟</div>
-        <div class="rfm-text">
-            <b>RFM</b> کورتکراوەی (<b>Recency, Frequency, Monetary</b>)یە، کە پێوەرێکی جیهانییە بۆ شیکردنەوەی ڕەفتاری کڕیار. لەم سیستەمەدا: <br>
-            • <b>تازەیی (Recency):</b> چەند ڕۆژە دوکانەکە هیچ مامەڵەیەکی نەکردووە.<br>
-            • <b>دووبارەبوونەوە (Frequency):</b> مانگانە چەند جار کاڵا دەبات.<br>
-            • <b>قەبارە (Monetary):</b> کۆی قەبارەی بازرگانییەکەی چەندە بە دۆلار.<br>
-            بە تێکەڵکردنی ئەم زانیارییانە لەگەڵ مێژووی قەرزەکان، مۆدێلی XGBoostـەکەمان بڕیارێکی زۆر ورد و بێلایەنانە دەدات.
-        </div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -533,17 +571,21 @@ st.markdown("""
 # ══════════════════════════════════════════════════════════════════════════════
 #  ACTION BUTTONS (TOP)
 # ══════════════════════════════════════════════════════════════════════════════
-ab_col1, ab_col2, ab_col3, ab_col4 = st.columns([1, 1.5, 1.5, 1])
+ab_col1, ab_col2, ab_col3, ab_col4, ab_col5 = st.columns([0.5, 1.5, 1.5, 1.5, 0.5])
+
 with ab_col2:
     if st.button("ℹ️  دەربارەی پڕۆژە", use_container_width=True, type="secondary"):
         project_info_dialog()
 with ab_col3:
-    if st.button("📈  هەڵسەنگاندنی مۆدێل", use_container_width=True, type="secondary"):
+    if st.button("📁  داتاسێت و مۆدێل", use_container_width=True, type="secondary"):
+        dataset_model_info_dialog()
+with ab_col4:
+    if st.button("📈  هەڵسەنگاندن", use_container_width=True, type="secondary"):
         model_evaluation_dialog()
 
 if not models_loaded:
     st.markdown("""
-    <div class="liquid-glass" style="padding: 1rem; border-color: rgba(251,113,133,0.3); color: #fb7185; text-align: center; margin-bottom: 1.5rem;">
+    <div class="liquid-glass" style="padding: 1rem; border-color: rgba(251,113,133,0.3); color: #fb7185; text-align: center; margin-bottom: 1.5rem; margin-top: 1.5rem;">
         ⚠️ &nbsp;مۆدێلەکان نەدۆزرانەوە. تکایە سەرەتا نۆتبووکەکە ڕەن بکە بۆ دروستکردنی مۆدێلەکان.
     </div>
     """, unsafe_allow_html=True)
