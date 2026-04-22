@@ -685,14 +685,14 @@ if analyze:
             fs_reg = scaler_reg.transform(reg_features)
             
             limit_pred = limit_model.predict(fs_reg)[0]
-            credit_limit = max(0.0, float(limit_pred))
+            credit_limit = max(0, float(limit_pred))
             
         except Exception as exc:
             st.error(f"⚠️ هەڵەیەک ڕوویدا لە کاتی هەژمارکردندا: {exc}")
             st.stop()
     else:
         is_high = debt_ratio > 0.4 or unpaid_ratio > 0.3 or late_history > 3
-        credit_limit = max(100.0, avg_invoice * freq_per_month * 0.5)
+        credit_limit = max(0, avg_invoice * freq_per_month * 0.5)
 
     rc1, rc2 = st.columns(2, gap="large")
     with rc1:
