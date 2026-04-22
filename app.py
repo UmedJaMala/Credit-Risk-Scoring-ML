@@ -685,7 +685,7 @@ if analyze:
             fs_reg = scaler_reg.transform(reg_features)
             
             limit_pred = limit_model.predict(fs_reg)[0]
-            credit_limit = float(limit_pred)
+            credit_limit = max(0.0, float(limit_pred))
             
         except Exception as exc:
             st.error(f"⚠️ هەڵەیەک ڕوویدا لە کاتی هەژمارکردندا: {exc}")
