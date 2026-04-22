@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 #  PAGE CONFIG
 # ══════════════════════════════════════════════════════════════════════════════
 st.set_page_config(
-    page_title="سیستەمی زیرەکی نمرەدانی مەترسی - کۆگاکانی هەولێر",
+    page_title="سیستەمی زیرەکی نمرەدانی مەترسی",
     page_icon="📦",
     layout="wide",
     initial_sidebar_state="collapsed",
