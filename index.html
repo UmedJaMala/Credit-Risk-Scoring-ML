@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سیستەمی زیرەکی نمرەدانی مەترسی</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* هەمان CSSی Streamlit فایلەکەی خۆت بەبێ هیچ دەستکارییەک */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        :root {
+            --bg-base: #08090a;
+            --glass-bg: rgba(15, 17, 21, 0.55);
+            --glass-blur: blur(30px) saturate(200%);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-hi: rgba(255, 255, 255, 0.15);
+            --glass-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
+
+            --cyan: #00f2fe;
+            --cyan-dim: rgba(0, 242, 254, 0.15);
+            --cyan-bdr: rgba(0, 242, 254, 0.35);
+
+            --green: #00e676;
+            --red: #ff1744;
+            --text: #f8fafc;
+            --text-2: #e2e8f0;
+            --blue: #2979ff;
+            --blue-bdr: rgba(41, 121, 255, 0.4);
+            --r: 20px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            font-family: 'Noto Sans Arabic', 'Inter', sans-serif !important;
+            direction: rtl !important;
+            text-align: right !important;
+            background-color: var(--bg-base);
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(157, 78, 221, 0.2), transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(41, 121, 255, 0.15), transparent 45%),
+                radial-gradient(circle at 50% 50%, var(--cyan-dim), transparent 60%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--text);
+        }
+
+        .liquid-glass {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-top: 1px solid var(--glass-hi);
+            box-shadow: var(--glass-shadow);
+            border-radius: var(--r);
+        }
+
+        .hero {
+            padding: 2.4rem 2rem 2rem;
+            margin-bottom: 1.8rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-icon {
+            font-size: 3rem;
+            line-height: 1;
+            margin-bottom: 0.7rem;
+            filter: drop-shadow(0 0 15px rgba(41, 121, 255, 0.6));
+        }
+
+        .hero-title {
+            font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+            font-weight: 900;
+            color: var(--text);
+            line-height: 1.45;
+            margin-bottom: 0.4rem;
+        }
+
+        .hero-title span {
+            background: linear-gradient(to left, var(--cyan), var(--blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(41, 121, 255, 0.4);
+        }
+
+        .hero-sub {
+            color: var(--text-2);
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+        }
+
+        .hero-pill {
+            display: inline-block;
+            margin-top: 1.1rem;
+            background: rgba(41, 121, 255, 0.15);
+            border: 1px solid var(--blue-bdr);
+            border-radius: 50px;
+            padding: 0.35rem 1.2rem;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--cyan);
+            letter-spacing: 0.10em;
+        }
+
+        .sec-head {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .sec-head-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
+        }
+
+        .sec-head-text {
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 0.10em;
+            white-space: nowrap;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+        }
+
+        .input-card {
+            padding: 1.8rem 1.5rem 1.5rem;
+            height: 100%;
+        }
+
+        .card-title {
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 1.3rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        label {
+            color: var(--text-2);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .custom-input {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.97rem;
+            font-weight: 700;
+            padding: 0.6rem 1rem;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s ease;
+            direction: ltr;
+            margin-bottom: 0.2rem;
+        }
+
+        .custom-input:focus {
+            border-color: var(--cyan);
+            outline: none;
+            background-color: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 0 0 2px rgba(0, 242, 254, 0.3), inset 0 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+        .helper-text {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 15px;
+            direction: rtl;
+        }
+
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(135deg, rgba(41, 121, 255, 0.25) 0%, rgba(41, 121, 255, 0.05) 100%);
+            border: 1px solid var(--blue-bdr);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            font-size: 1.05rem;
+            font-weight: 900;
+            border-radius: 16px;
+            padding: 0.85rem 1.2rem;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, rgba(41, 121, 255, 0.4) 0%, rgba(41, 121, 255, 0.1) 100%);
+            box-shadow: 0 8px 30px rgba(41, 121, 255, 0.35);
+        }
+
+        /* ئەنجامەکان */
+        .result-wrap {
+            animation: floatUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        @keyframes floatUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-card {
+            padding: 2rem 1.8rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .rc-low {
+            border-top: 2px solid var(--green);
+            background: linear-gradient(180deg, rgba(0, 230, 118, 0.15) 0%, var(--glass-bg) 100%);
+        }
+
+        .rc-high {
+            border-top: 2px solid var(--red);
+            background: linear-gradient(180deg, rgba(255, 23, 68, 0.15) 0%, var(--glass-bg) 100%);
+        }
+
+        .rc-limit {
+            border-top: 2px solid var(--cyan);
+            background: linear-gradient(180deg, rgba(0, 242, 254, 0.15) 0%, var(--glass-bg) 100%);
+        }
+
+        .rc-eyebrow {
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .rc-value {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 0.3rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .rc-limit .rc-value {
+            background: linear-gradient(to right, #fff, var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .rc-en {
+            font-size: 0.85rem;
+            color: var(--text-2);
+            margin-bottom: 1.2rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .rc-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 800;
+        }
+
+        .rc-low .rc-eyebrow,
+        .rc-low .rc-value {
+            color: var(--green);
+        }
+
+        .badge-low {
+            background: rgba(0, 230, 118, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(0, 230, 118, 0.15);
+        }
+
+        .rc-high .rc-eyebrow,
+        .rc-high .rc-value {
+            color: var(--red);
+        }
+
+        .badge-high {
+            background: rgba(255, 23, 68, 0.15);
+            color: var(--red);
+            border: 1px solid rgba(255, 23, 68, 0.15);
+        }
+
+        .rc-limit .rc-eyebrow {
+            color: var(--cyan);
+        }
+
+        .badge-limit {
+            background: rgba(0, 242, 254, 0.15);
+            color: var(--cyan);
+            border: 1px solid var(--cyan-dim);
+        }
+    </style>
+</head>
+
+<body class="p-6 md:p-10 max-w-6xl mx-auto">
+
+    <div class="hero liquid-glass">
+        <div class="hero-icon">📦</div>
+        <div class="hero-title">سیستەمی زیرەکی <span>نمرەدانی مەترسی</span> و سنووری قەرز</div>
+        <div class="hero-sub">Erbil Warehouse B2B Credit Limit & Advanced RFM Scoring</div>
+        <div class="hero-pill">⚡ XGBoost ENGINE · FASTAPI BACKEND</div>
+    </div>
+
+    <div class="sec-head mt-8">
+        <span class="sec-head-text">📝 زانیارییەکانی دوکان داخڵ بکە</span>
+        <span class="sec-head-line"></span>
+    </div>
+
+    <form id="predictForm" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="input-card liquid-glass">
+            <div class="card-title">💰 زانیاری دارایی و مامەڵەکان</div>
+
+            <label>تێکڕای بەهای یەک وەسڵ ($)</label>
+            <input type="number" id="avg_invoice" class="custom-input" value="250" step="10" required>
+            <div class="helper-text">زۆربەی وەسڵەکانی ئەم دوکانە چەند دۆلارە؟ (ئاسایی 50 بۆ 500)</div>
+
+            <label>تێکڕای وەسڵەکان لە مانگێکدا (دانە)</label>
+            <input type="number" id="freq_per_month" class="custom-input" value="5" step="1" required>
+            <div class="helper-text">لە مانگێکدا نزیکەی چەند جار کاڵا دەبات؟ (ئاسایی 2 بۆ 15)</div>
+
+            <label>کۆی قەبارەی بازرگانی ($)</label>
+            <input type="number" id="total_volume" class="custom-input" value="5000" step="100" required>
+            <div class="helper-text">کۆی ئەو پارەیەی تا ئێستا کڕینی پێ کردووە چەندە؟</div>
+
+            <label>ڕێژەی وەسڵە نەدراوەکان لەسەدا (%)</label>
+            <div style="display:flex; align-items:center; gap: 10px;">
+                <input type="range" id="unpaid_ratio_slider" min="0" max="100" value="5" class="w-full"
+                    oninput="document.getElementById('unpaid_val').innerText=this.value+'%'">
+                <span id="unpaid_val" class="font-bold font-['Inter']">5%</span>
+            </div>
+            <div class="helper-text mt-2">چەند لەسەدای وەسڵەکانی هێشتا پارەیان نەدراوە؟ (0 باشترینە)</div>
+        </div>
+
+        <div class="input-card liquid-glass">
+            <div class="card-title">🏢 زانیاری دوکان و پێشینە</div>
+
+            <label>تەمەنی دوکان (ساڵانی کارکردن)</label>
+            <div style="display:flex; align-items:center; gap: 10px;">
+                <input type="range" id="shop_age" min="0" max="50" value="5" class="w-full"
+                    oninput="document.getElementById('age_val').innerText=this.value">
+                <span id="age_val" class="font-bold font-['Inter']">5</span>
+            </div>
+            <div class="helper-text mt-2">چەند ساڵە ئەم دوکانە لە بازاڕدا کار دەکات؟</div>
+
+            <label>چەند ڕۆژ بەسەر کۆتا مامەڵە تێپەڕیوە</label>
+            <input type="number" id="days_since_last" class="custom-input" value="15" step="1" required>
+            <div class="helper-text">دوایین جار کەی شتی لە کۆگاکەت کڕیوە؟ (ژمارەی ڕۆژەکان)</div>
+
+            <label>ڕێژەی قەرز بۆ قەبارەی مامەڵە (%)</label>
+            <div style="display:flex; align-items:center; gap: 10px;">
+                <input type="range" id="debt_ratio_slider" min="0" max="100" value="15" class="w-full"
+                    oninput="document.getElementById('debt_val').innerText=this.value+'%'">
+                <span id="debt_val" class="font-bold font-['Inter']">15%</span>
+            </div>
+            <div class="helper-text mt-2">ڕێژەی قەرزەکانی چەندە بەراورد بە کۆی مامەڵەکانی؟</div>
+
+            <label>پێشینەی دواکەوتنی پارەدان (جار)</label>
+            <select id="late_history" class="custom-input">
+                <option value="0">هیچ کات</option>
+                <option value="1" selected>1 جار دواکەوتووە</option>
+                <option value="2">2 جار دواکەوتووە</option>
+                <option value="3">3 جار دواکەوتووە</option>
+                <option value="4">4 جار دواکەوتووە</option>
+                <option value="5">5+ جار دواکەوتووە</option>
+            </select>
+            <div class="helper-text">تا ئێستا چەند جار لە کاتی دیاریکراو پارەی نەداوە؟</div>
+        </div>
+
+        <div class="col-span-1 md:col-span-2 flex justify-center mt-4">
+            <button type="submit" class="btn-primary md:w-1/2">🔮 شیکردنەوە و بڕیاردان</button>
+        </div>
+    </form>
+
+    <div id="resultsContainer" class="hidden mt-10">
+        <div class="sec-head">
+            <span class="sec-head-text">📊 ئەنجامی شیکاری کۆگا</span>
+            <span class="sec-head-line"></span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div id="riskCardBox"></div>
+
+            <div class="result-wrap" style="animation-delay:0.15s;">
+                <div class="result-card liquid-glass rc-limit">
+                    <div class="rc-eyebrow">💳 سنووری قەرزی گونجاو (پەسەندکراو)</div>
+                    <div id="limitValue" class="rc-value">$0</div>
+                    <div class="rc-en">Approved Credit Limit</div>
+                    <span class="rc-badge badge-limit">✅ &nbsp;پەسەندکراو</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('predictForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            // دروستکردنی JSON Object لەسەر بنەمای هەمان ٨ فیچەرەکەی باک-ئێند
+            const payload = {
+                shop_age: parseInt(document.getElementById('shop_age').value),
+                days_since_last: parseInt(document.getElementById('days_since_last').value),
+                freq_per_month: parseFloat(document.getElementById('freq_per_month').value),
+                avg_invoice: parseFloat(document.getElementById('avg_invoice').value),
+                total_volume: parseFloat(document.getElementById('total_volume').value),
+                unpaid_ratio: parseFloat(document.getElementById('unpaid_ratio_slider').value) / 100.0,
+                debt_ratio: parseFloat(document.getElementById('debt_ratio_slider').value) / 100.0,
+                late_history: parseInt(document.getElementById('late_history').value)
+            };
+
+            try {
+                // ناردنی داتا بۆ FastAPI
+                const response = await fetch('http://localhost:8000/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) throw new Error("کێشەیەک هەیە لە پەیوەندی کردن بە سێرڤەرەکە.");
+                const data = await response.json();
+
+                // دەرخستنی ئەنجامەکان
+                document.getElementById('resultsContainer').classList.remove('hidden');
+
+                const riskCardBox = document.getElementById('riskCardBox');
+                if (data.is_high_risk) {
+                    riskCardBox.innerHTML = `
+                    <div class="result-wrap"><div class="result-card liquid-glass rc-high">
+                        <div class="rc-eyebrow">⚠️ ئاستی مەترسی دوکان</div>
+                        <div class="rc-value">بەرز</div>
+                        <div class="rc-en">HIGH RISK</div>
+                        <span class="rc-badge badge-high">🔴 &nbsp;مەترسیدار</span>
+                    </div></div>`;
+                } else {
+                    riskCardBox.innerHTML = `
+                    <div class="result-wrap"><div class="result-card liquid-glass rc-low">
+                        <div class="rc-eyebrow">✅ ئاستی مەترسی دوکان</div>
+                        <div class="rc-value">نزم</div>
+                        <div class="rc-en">LOW RISK</div>
+                        <span class="rc-badge badge-low">🟢 &nbsp;باوەڕپێکراو</span>
+                    </div></div>`;
+                }
+
+                // فۆرماتکردنی دۆلار
+                const formattedLimit = "$" + Math.max(0, data.credit_limit).toLocaleString('en-US', { maximumFractionDigits: 0 });
+                document.getElementById('limitValue').innerText = formattedLimit;
+
+            } catch (error) {
+                alert("پەیوەندی بە সێرڤەرەوە پچڕاوە. دڵنیابە کە FastAPI ئیش دەکات (uvicorn main:app).");
+            }
+        });
+    </script>
+</body>
+
+</html>
