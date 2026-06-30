@@ -544,6 +544,18 @@
             btn.disabled = false;
         }
     });
+    // زیادکردنی ڕەنگ بۆ لای چەپی سلایدەرەکان
+    document.querySelectorAll('.custom-slider').forEach(slider => {
+        const updateBackground = () => {
+            const min = parseFloat(slider.min) || 0;
+            const max = parseFloat(slider.max) || 100;
+            const val = parseFloat(slider.value);
+            const percentage = ((val - min) / (max - min)) * 100;
+            slider.style.setProperty('--val', percentage + '%');
+        };
+        slider.addEventListener('input', updateBackground);
+        updateBackground(); // بۆ یەکەم جار کە وێبسایتەکە دەکرێتەوە
+    });
 </script>
 </body>
 </html>
