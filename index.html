@@ -25,12 +25,18 @@
             --violet-dim: rgba(157, 78, 221, 0.2);
 
             --green: #00e676;
+            --green-dim: rgba(0, 230, 118, 0.15);
+
             --red: #ff1744;
+            --red-dim: rgba(255, 23, 68, 0.15);
+
             --text: #f8fafc;
             --text-2: #e2e8f0;
+
             --blue: #2979ff;
             --blue-dim: rgba(41, 121, 255, 0.15);
             --blue-bdr: rgba(41, 121, 255, 0.4);
+
             --r: 20px;
         }
 
@@ -50,12 +56,15 @@
             color: var(--text);
         }
 
+        .container-box { max-width: 1060px !important; margin: 0 auto; padding: 1.5rem 1.6rem 4rem !important; }
+
         .liquid-glass {
             background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--glass-border);
             border-top: 1px solid var(--glass-hi);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: var(--glass-shadow);
             border-radius: var(--r);
         }
@@ -65,12 +74,12 @@
         .hero-title { font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 900; color: var(--text); line-height: 1.45; margin-bottom: 0.4rem; }
         .hero-title span { background: linear-gradient(to left, var(--cyan), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(41, 121, 255, 0.4); }
         .hero-sub { color: var(--text-2); font-size: 0.95rem; font-weight: 500; letter-spacing: 0.03em; }
-        .hero-pill { display: inline-block; margin-top: 1.1rem; background: rgba(41, 121, 255, 0.15); border: 1px solid var(--blue-bdr); border-radius: 50px; padding: 0.35rem 1.2rem; font-size: 0.75rem; font-weight: 800; color: var(--cyan); letter-spacing: 0.10em; }
+        .hero-pill { display: inline-block; margin-top: 1.1rem; background: rgba(41, 121, 255, 0.15); border: 1px solid var(--blue-bdr); border-radius: 50px; padding: 0.35rem 1.2rem; font-size: 0.75rem; font-weight: 800; color: var(--cyan); letter-spacing: 0.10em; backdrop-filter: blur(10px); }
 
-        .btn-primary { width: 100%; background: linear-gradient(135deg, rgba(41, 121, 255, 0.25) 0%, rgba(41, 121, 255, 0.05) 100%); border: 1px solid var(--blue-bdr); border-top: 1px solid rgba(255, 255, 255, 0.3); color: #fff; font-size: 1.05rem; font-weight: 900; border-radius: 16px; padding: 0.85rem 1.2rem; letter-spacing: 0.05em; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); }
-        .btn-primary:hover { transform: translateY(-3px); background: linear-gradient(135deg, rgba(41, 121, 255, 0.4) 0%, rgba(41, 121, 255, 0.1) 100%); box-shadow: 0 8px 30px rgba(41, 121, 255, 0.35); }
+        .btn-primary { width: 100%; background: linear-gradient(135deg, rgba(41, 121, 255, 0.25) 0%, rgba(41, 121, 255, 0.05) 100%); backdrop-filter: blur(12px); border: 1px solid var(--blue-bdr); border-top: 1px solid rgba(255, 255, 255, 0.3); color: #fff; font-family: 'Noto Sans Arabic', sans-serif; font-size: 1.05rem; font-weight: 900; border-radius: 16px; padding: 0.85rem 1.2rem; letter-spacing: 0.05em; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer; }
+        .btn-primary:hover { transform: translateY(-3px); background: linear-gradient(135deg, rgba(41, 121, 255, 0.4) 0%, rgba(41, 121, 255, 0.1) 100%); box-shadow: 0 8px 30px rgba(41, 121, 255, 0.35); text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
 
-        .btn-secondary { width: 100%; background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-top: 1px solid var(--glass-hi); color: var(--cyan); font-size: 0.95rem; font-weight: 800; border-radius: 16px; padding: 0.85rem 1.2rem; box-shadow: var(--glass-shadow); transition: all 0.3s ease; cursor: pointer; }
+        .btn-secondary { width: 100%; background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-top: 1px solid var(--glass-hi); color: var(--cyan); font-family: 'Noto Sans Arabic', sans-serif; font-size: 0.95rem; font-weight: 800; border-radius: 16px; padding: 0.85rem 1.2rem; box-shadow: var(--glass-shadow); transition: all 0.3s ease; cursor: pointer; }
         .btn-secondary:hover { transform: translateY(-2px); background: rgba(0, 242, 254, 0.15); border-color: var(--cyan-bdr); color: #fff; }
 
         .sec-head { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem; }
@@ -78,52 +87,84 @@
         .sec-head-text { color: #fff; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.10em; white-space: nowrap; text-shadow: 0 0 10px rgba(255, 255, 255, 0.4); }
 
         .input-card { padding: 1.8rem 1.5rem 1.5rem; height: 100%; }
-        .card-title { color: #fff; font-size: 1rem; font-weight: 800; margin-bottom: 1.3rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; gap: 0.5rem; }
+        .card-title { color: #fff; font-size: 1rem; font-weight: 800; margin-bottom: 1.3rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; gap: 0.5rem; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); }
 
-        label { color: var(--text-2); font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 0.5rem; }
-        .custom-input { width: 100%; background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-top: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: #fff; font-family: 'Inter', sans-serif; font-size: 0.97rem; font-weight: 700; padding: 0.6rem 1rem; transition: all 0.3s ease; direction: ltr; margin-bottom: 0.2rem; }
-        .custom-input:focus { border-color: var(--cyan); outline: none; background-color: rgba(0, 0, 0, 0.7); box-shadow: 0 0 0 2px rgba(0, 242, 254, 0.3); }
-        .helper-text { font-size: 0.75rem; color: rgba(255, 255, 255, 0.5); margin-bottom: 15px; }
+        label { color: var(--text-2); font-family: 'Noto Sans Arabic', sans-serif; font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 0.5rem; }
+        
+        .custom-input { width: 100%; background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-top: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: #fff; font-family: 'Inter', sans-serif; font-size: 0.97rem; font-weight: 700; padding: 0.6rem 1rem; box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.6); transition: all 0.3s ease; direction: ltr; margin-bottom: 0.2rem; }
+        .custom-input:focus { border-color: var(--cyan); outline: none; background-color: rgba(0, 0, 0, 0.7); box-shadow: 0 0 0 2px rgba(0, 242, 254, 0.3), inset 0 2px 5px rgba(0, 0, 0, 0.6); }
+        select.custom-input { direction: rtl; text-align: right; font-family: 'Noto Sans Arabic', sans-serif; appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: left 1rem top 50%; background-size: 0.65rem auto; }
+        select.custom-input option { background-color: #0c0d11; color: #fff; }
+
+        /* Sliders Styling Exactly like Streamlit */
+        .slider-container { display: flex; align-items: center; gap: 1rem; direction: ltr; margin-bottom: 0.2rem; }
+        .custom-slider { -webkit-appearance: none; width: 100%; background: transparent; }
+        .custom-slider:focus { outline: none; }
+        .custom-slider::-webkit-slider-runnable-track { height: 8px; background: linear-gradient(90deg, var(--violet), var(--cyan)); border-radius: 6px; box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8); cursor: pointer; }
+        .custom-slider::-webkit-slider-thumb { -webkit-appearance: none; height: 22px; width: 22px; border-radius: 50%; background: #fff; border: 4px solid var(--cyan); box-shadow: 0 0 15px rgba(0, 242, 254, 0.6); margin-top: -7px; cursor: pointer; }
+        .slider-val { color: #fff; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.97rem; min-width: 45px; text-align: right; }
+
+        .helper-text { font-size: 0.75rem; color: rgba(255, 255, 255, 0.5); margin-top: -5px; margin-bottom: 15px; direction: rtl; text-align: right; }
 
         /* ئەنجامەکان */
         .result-wrap { animation: floatUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
         @keyframes floatUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .result-card { padding: 2rem 1.8rem; position: relative; overflow: hidden; text-align: center; }
+        .result-card { padding: 2rem 1.8rem; position: relative; overflow: hidden; direction: rtl; text-align: center; }
         .rc-low { border-top: 2px solid var(--green); background: linear-gradient(180deg, rgba(0, 230, 118, 0.15) 0%, var(--glass-bg) 100%); }
         .rc-high { border-top: 2px solid var(--red); background: linear-gradient(180deg, rgba(255, 23, 68, 0.15) 0%, var(--glass-bg) 100%); }
         .rc-limit { border-top: 2px solid var(--cyan); background: linear-gradient(180deg, rgba(0, 242, 254, 0.15) 0%, var(--glass-bg) 100%); }
         .rc-eyebrow { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
-        .rc-value { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 0.3rem; font-family: 'Inter', sans-serif; }
+        .rc-value { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 0.3rem; letter-spacing: -0.02em; text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); font-family: 'Inter', sans-serif; }
         .rc-limit .rc-value { background: linear-gradient(to right, #fff, var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .rc-en { font-size: 0.85rem; color: var(--text-2); margin-bottom: 1.2rem; font-family: 'Inter', sans-serif; }
-        .rc-badge { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.4rem 1.2rem; border-radius: 50px; font-size: 0.8rem; font-weight: 800; }
-        .badge-low { background: rgba(0, 230, 118, 0.15); color: var(--green); border: 1px solid rgba(0, 230, 118, 0.15); }
-        .badge-high { background: rgba(255, 23, 68, 0.15); color: var(--red); border: 1px solid rgba(255, 23, 68, 0.15); }
+        .rc-badge { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.4rem 1.2rem; border-radius: 50px; font-size: 0.8rem; font-weight: 800; backdrop-filter: blur(5px); }
+        .badge-low { background: rgba(0, 230, 118, 0.15); color: var(--green); border: 1px solid var(--green-dim); }
+        .badge-high { background: rgba(255, 23, 68, 0.15); color: var(--red); border: 1px solid var(--red-dim); }
         .badge-limit { background: rgba(0, 242, 254, 0.15); color: var(--cyan); border: 1px solid var(--cyan-dim); }
 
         /* مۆداڵ (پەنجەرەکان) */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); z-index: 1000; display: none; align-items: center; justify-content: center; }
-        .modal-content { background: rgba(10, 12, 16, 0.95); border: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.2); border-radius: 24px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; padding: 2rem; position: relative; }
-        .close-btn { position: absolute; top: 1.5rem; left: 1.5rem; background: transparent; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; transition: 0.2s; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 12, 16, 0.8); backdrop-filter: blur(8px); z-index: 1000; display: none; align-items: center; justify-content: center; }
+        .modal-content { background: rgba(10, 12, 16, 0.95); border: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.2); border-radius: 24px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8); width: 90%; max-width: 850px; max-height: 90vh; overflow-y: auto; padding: 2.5rem; position: relative; direction: rtl; }
+        .close-btn { position: absolute; top: 1.5rem; left: 1.5rem; background: transparent; border: none; color: #fff; font-size: 1.8rem; cursor: pointer; transition: 0.2s; line-height: 1; }
         .close-btn:hover { color: var(--red); transform: scale(1.1); }
 
-        .info-box { background: rgba(0, 242, 254, 0.08); border-right: 4px solid var(--cyan); padding: 1.2rem; border-radius: 8px 0 0 8px; margin-bottom: 1.5rem; }
+        /* Tab System in Modal */
+        .tab-list { display: flex; border-bottom: 1px solid rgba(255, 255, 255, 0.1); gap: 2rem; margin-bottom: 1.5rem; }
+        .tab-btn { background: transparent; padding: 1rem 0; border: none; color: var(--text-2); font-weight: 700; font-size: 1rem; cursor: pointer; position: relative; font-family: 'Noto Sans Arabic', sans-serif; transition: 0.3s; }
+        .tab-btn.active { color: var(--cyan); text-shadow: 0 0 10px rgba(0, 242, 254, 0.5); }
+        .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 3px; background-color: var(--cyan); box-shadow: 0 0 10px rgba(0, 242, 254, 0.6); border-radius: 3px 3px 0 0; }
+        .tab-content { display: none; animation: floatUp 0.4s ease; }
+        .tab-content.active { display: block; }
+
+        .info-box { background: rgba(0, 242, 254, 0.08); border-right: 4px solid var(--cyan); padding: 1.2rem; border-radius: 8px 0 0 8px; margin-bottom: 1.5rem; text-align: right; }
         .info-title { font-weight: 800; color: var(--cyan); margin-bottom: 0.6rem; font-size: 1rem; }
         .info-text { font-size: 0.9rem; color: var(--text-2); line-height: 2; }
         .info-text b { color: #fff; }
+        .info-text ul { margin-top: 5px; margin-right: 20px; list-style-type: disc; }
 
-        .about-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 1.5rem; border-radius: 16px; }
-        .tech-tag { display: inline-block; background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 0.3rem 0.8rem; font-size: 0.75rem; font-weight: 800; margin: 0.25rem 0.15rem; }
+        .about-card { background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); padding: 1.5rem; border-radius: 16px; margin-bottom: 1.2rem; }
+        .about-card-title { color: var(--cyan); font-size: 0.9rem; font-weight: 900; letter-spacing: 0.05em; margin-bottom: 0.8rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .about-card-body { color: var(--text-2); font-size: 0.88rem; line-height: 1.9; }
+        .about-card-body b { color: #fff; font-weight: 800; }
+        .tech-tag { display: inline-block; background: rgba(255, 255, 255, 0.08); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; padding: 0.3rem 0.8rem; font-size: 0.75rem; font-weight: 800; margin: 0.25rem 0.15rem; backdrop-filter: blur(5px); }
+        .about-center { text-align: center; padding: 1.5rem 0 1rem; }
+        .about-center-icon { font-size: 3rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6)); }
+        .about-center-name { color: var(--cyan); font-size: 1.1rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; font-family: 'Inter', sans-serif; }
 
-        .metric-card { padding: 1rem 0.5rem; text-align: center; border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; background: rgba(0,0,0,0.4); }
-        .metric-label { color: var(--text-2); font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .metric-value { color: #fff; font-size: 1.5rem; font-weight: 900; font-family: 'Inter', sans-serif; direction: ltr; }
+        .metric-card { padding: 1rem 0.5rem; text-align: center; transition: transform 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); }
+        .metric-card:hover { transform: translateY(-3px); border-color: rgba(0, 242, 254, 0.4); box-shadow: 0 5px 15px rgba(0, 242, 254, 0.1); }
+        .metric-label { color: var(--text-2); font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.05em; font-family: 'Inter', sans-serif; }
+        .metric-value { color: #fff; font-size: 1.5rem; font-weight: 900; line-height: 1; text-shadow: 0 2px 10px rgba(255, 255, 255, 0.2); font-family: 'Inter', sans-serif; direction: ltr; }
+
+        .footer-section { text-align: center; padding: 2.5rem 0 1rem; color: rgba(255, 255, 255, 0.5); font-size: 0.8rem; border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 3rem; font-family: 'Inter', sans-serif; direction: ltr; }
+        .footer-section strong { color: var(--cyan); font-weight: 700; }
     </style>
 </head>
 
-<body class="p-4 md:p-10 max-w-6xl mx-auto">
+<body>
 
-    <!-- بەشی هێرۆ (سەرەوە) -->
+<div class="container-box">
+    <!-- Hero Section -->
     <div class="hero liquid-glass">
         <div class="hero-icon">📦</div>
         <div class="hero-title">سیستەمی زیرەکی <span>نمرەدانی مەترسی</span> و سنووری قەرز</div>
@@ -131,8 +172,8 @@
         <div class="hero-pill">⚡ XGBoost ENGINE · REAL-TIME ANALYSIS</div>
     </div>
 
-    <!-- دوگمەکانی ناوەڕاست (شێوازی Streamlit) -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+    <!-- Action Buttons -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 mt-6 md:px-16">
         <button class="btn-secondary" onclick="openModal('aboutModal')">ℹ️ دەربارەی پڕۆژە</button>
         <button class="btn-secondary" onclick="openModal('datasetModal')">📁 داتاسێت و مۆدێل</button>
         <button class="btn-secondary" onclick="openModal('evalModal')">📈 هەڵسەنگاندن</button>
@@ -143,7 +184,7 @@
         <span class="sec-head-line"></span>
     </div>
 
-    <!-- فۆڕمەکە -->
+    <!-- Main Form -->
     <form id="predictForm" class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div class="input-card liquid-glass">
             <div class="card-title">💰 زانیاری دارایی و مامەڵەکان</div>
@@ -154,43 +195,43 @@
 
             <label>تێکڕای وەسڵەکان لە مانگێکدا (دانە)</label>
             <input type="number" id="freq_per_month" class="custom-input" value="5" step="1" required>
-            <div class="helper-text">لە مانگێکدا نزیکەی چەند جار کاڵا دەبات؟</div>
+            <div class="helper-text">لە مانگێکدا نزیکەی چەند جار کاڵا دەبات؟ (ئاسایی 2 بۆ 15)</div>
 
             <label>کۆی قەبارەی بازرگانی ($)</label>
             <input type="number" id="total_volume" class="custom-input" value="5000" step="100" required>
             <div class="helper-text">کۆی ئەو پارەیەی تا ئێستا کڕینی پێ کردووە چەندە؟</div>
 
             <label>ڕێژەی وەسڵە نەدراوەکان لەسەدا (%)</label>
-            <div style="display:flex; align-items:center; gap: 10px; direction: ltr;">
-                <span id="unpaid_val" class="font-bold font-['Inter'] text-white">5%</span>
-                <input type="range" id="unpaid_ratio_slider" min="0" max="100" value="5" class="w-full"
+            <div class="slider-container">
+                <input type="range" id="unpaid_ratio_slider" min="0" max="100" value="5" class="custom-slider"
                     oninput="document.getElementById('unpaid_val').innerText=this.value+'%'">
+                <span id="unpaid_val" class="slider-val">5%</span>
             </div>
-            <div class="helper-text mt-2">چەند لەسەدای وەسڵەکانی هێشتا پارەیان نەدراوە؟ (0 باشترینە)</div>
+            <div class="helper-text">چەند لەسەدای وەسڵەکانی هێشتا پارەیان نەدراوە؟ (0 باشترینە)</div>
         </div>
 
         <div class="input-card liquid-glass">
             <div class="card-title">🏢 زانیاری دوکان و پێشینە</div>
 
             <label>تەمەنی دوکان (ساڵانی کارکردن)</label>
-            <div style="display:flex; align-items:center; gap: 10px; direction: ltr;">
-                <span id="age_val" class="font-bold font-['Inter'] text-white">5</span>
-                <input type="range" id="shop_age" min="0" max="50" value="5" class="w-full"
+            <div class="slider-container">
+                <input type="range" id="shop_age" min="0" max="50" value="5" class="custom-slider"
                     oninput="document.getElementById('age_val').innerText=this.value">
+                <span id="age_val" class="slider-val">5</span>
             </div>
-            <div class="helper-text mt-2">چەند ساڵە ئەم دوکانە لە بازاڕدا کار دەکات؟</div>
+            <div class="helper-text">چەند ساڵە ئەم دوکانە لە بازاڕدا کار دەکات؟</div>
 
             <label>چەند ڕۆژ بەسەر کۆتا مامەڵە تێپەڕیوە</label>
             <input type="number" id="days_since_last" class="custom-input" value="15" step="1" required>
             <div class="helper-text">دوایین جار کەی شتی لە کۆگاکەت کڕیوە؟ (ژمارەی ڕۆژەکان)</div>
 
             <label>ڕێژەی قەرز بۆ قەبارەی مامەڵە (%)</label>
-            <div style="display:flex; align-items:center; gap: 10px; direction: ltr;">
-                <span id="debt_val" class="font-bold font-['Inter'] text-white">15%</span>
-                <input type="range" id="debt_ratio_slider" min="0" max="100" value="15" class="w-full"
+            <div class="slider-container">
+                <input type="range" id="debt_ratio_slider" min="0" max="100" value="15" class="custom-slider"
                     oninput="document.getElementById('debt_val').innerText=this.value+'%'">
+                <span id="debt_val" class="slider-val">15%</span>
             </div>
-            <div class="helper-text mt-2">ڕێژەی قەرزەکانی چەندە بەراورد بە کۆی مامەڵەکانی؟</div>
+            <div class="helper-text">ڕێژەی قەرزەکانی چەندە بەراورد بە کۆی مامەڵەکانی؟ (ئاسایی ژێر 30%)</div>
 
             <label>پێشینەی دواکەوتنی پارەدان (جار)</label>
             <select id="late_history" class="custom-input">
@@ -204,13 +245,13 @@
             <div class="helper-text">تا ئێستا چەند جار لە کاتی دیاریکراو پارەی نەداوە؟</div>
         </div>
 
-        <div class="col-span-1 md:col-span-2 flex justify-center mt-4">
+        <div class="col-span-1 md:col-span-2 flex justify-center mt-6">
             <button type="submit" class="btn-primary md:w-1/2">🔮 شیکردنەوە و بڕیاردان</button>
         </div>
     </form>
 
-    <!-- ئەنجامەکان -->
-    <div id="resultsContainer" class="hidden mt-10">
+    <!-- Results Section -->
+    <div id="resultsContainer" class="hidden mt-12">
         <div class="sec-head">
             <span class="sec-head-text">📊 ئەنجامی شیکاری کۆگا</span>
             <span class="sec-head-line"></span>
@@ -229,180 +270,264 @@
         </div>
     </div>
 
-    <!-- مۆداڵی دەربارەی پڕۆژە -->
-    <div id="aboutModal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('aboutModal')">×</button>
-            <div class="sec-head"><span class="sec-head-text">ℹ️ دەربارەی پڕۆژە و گەشەپێدەر</span><span class="sec-head-line"></span></div>
-            
-            <div class="info-box">
-                <div class="info-title">🤔 کێشەکە چییە؟ (The Problem)</div>
-                <div class="info-text">لە کاتی ئێستادا، زۆربەی کۆگاکانی فرۆشتنی کۆ (B2B) لە هەولێر و کوردستان بڕیاردان لەسەر پێدانی قەرز بە دوکانەکان بە شێوەیەکی <b>هەڕەمەکی و کەسی</b> دەدەن. ئەمەش دەبێتە هۆی <b>کەڵەکەبوونی قەرز و لەدەستدانی سەرمایەی کۆگاکان</b>.</div>
-            </div>
-            
-            <div class="info-box" style="border-right-color: var(--violet); background: rgba(157, 78, 221, 0.1);">
-                <div class="info-title" style="color: var(--violet);">💡 چارەسەرەکە (The Solution)</div>
-                <div class="info-text">ئەم پڕۆژەیە سیستەمێکی ژیری دەستکردی پێشکەوتووە بە بەکارهێنانی ئەلگۆریتمی <b>XGBoost</b> کە پشتبەست بە پێوەرەکانی <b>RFM</b> کاردەکات و بە شێوەیەکی ئۆتۆماتیکی پێتدەڵێت کە <b>تا چەند دۆلار سەلامەتە قەرزی پێ بدرێت</b>.</div>
-            </div>
+    <div class="footer-section">
+        &copy; 2026 Erbil Warehouse B2B Credit Limit System.<br>
+        Developed by <strong>Umed Jamal Nouri</strong> | Advanced RFM Edition
+    </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                <div class="about-card">
-                    <h3 class="text-cyan-400 font-bold mb-4">👨‍💻 زانیاری گەشەپێدەر</h3>
-                    <p class="text-sm text-gray-300 leading-relaxed mb-4">
-                        <b>ئومێد جەمال نوری</b><br>
-                        ئەندازیاری کارەبا - قۆناغی سێیەم<br>
-                        ساڵی خوێندن: ٢٠٢٥ - ٢٠٢٦
-                    </p>
-                    <a href="https://github.com/UMEDJAMALA" target="_blank" class="block text-cyan-400 text-sm mb-2">🔗 GitHub Profile</a>
-                    <a href="https://facebook.com/umedjamala" target="_blank" class="block text-cyan-400 text-sm">🔗 Facebook Profile</a>
+</div> <!-- End Container -->
+
+
+<!-- Modals -->
+
+<!-- 1. About Modal -->
+<div id="aboutModal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModal('aboutModal')">×</button>
+        <div class="about-center">
+            <div class="about-center-icon">📦</div>
+            <div class="about-center-name">ERBIL WAREHOUSE RISK SYSTEM</div>
+            <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 0.3rem;">v 3.0 · Advanced RFM XGBoost · 2025–2026</div>
+        </div>
+        
+        <div class="info-box">
+            <div class="info-title">🤔 کێشەکە چییە؟ (The Problem)</div>
+            <div class="info-text">لە کاتی ئێستادا، زۆربەی کۆگاکانی فرۆشتنی کۆ (B2B) لە هەولێر و کوردستان بە گشتی، بڕیاردان لەسەر پێدانی قەرز بە دوکانەکان بە شێوەیەکی <b>هەڕەمەکی و کەسی</b> دەدەن. هیچ پێوەرێکی زانستی نییە، ئەمەش دەبێتە هۆی <b>کەڵەکەبوونی قەرز، درەنگ کەوتنی پارەدان، و لەدەستدانی سەرمایەی کۆگاکان</b>.</div>
+        </div>
+        
+        <div class="info-box" style="border-right-color: #00f2fe; background: rgba(0, 242, 254, 0.1);">
+            <div class="info-title" style="color: #00f2fe;">💡 چارەسەرەکە (The Solution)</div>
+            <div class="info-text">ئەم پڕۆژەیە سیستەمێکی ژیری دەستکردی پێشکەوتووە بە بەکارهێنانی ئەلگۆریتمی <b>XGBoost</b> کە پشتبەست بە پێوەرەکانی <b>RFM (Recency, Frequency, Monetary)</b> کاردەکات. بە شێوەیەکی ئۆتۆماتیکی پێتدەڵێت کە ئایا ئەم دوکانە جێی متمانەیە یان مەترسیدارە، وە بە تەواوی <b>دەستنیشانی دەکات کە تا چەند دۆلار سەلامەتە قەرزی پێ بدرێت</b>.</div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div class="about-card">
+                <div class="about-card-title">👨‍💻 زانیاری گەشەپێدەر</div>
+                <div class="about-card-body">
+                    <b>ئومێد جەمال نوری</b><br>
+                    ئەندازیاری کارەبا - قۆناغی سێیەم<br>
+                    ساڵی خوێندن: ٢٠٢٥ - ٢٠٢٦<br><br>
+                    🔗 <a href="https://github.com/UMEDJAMALA" target="_blank" style="color: #00f2fe; text-decoration: none;"><b>GitHub Profile (@UMEDJAMALA)</b></a><br>
+                    🔗 <a href="https://facebook.com/umedjamala" target="_blank" style="color: #00f2fe; text-decoration: none;"><b>Facebook Profile</b></a><br>
+                    📧 <a href="mailto:umedjamal2005@gmail.com" style="color: #00f2fe; text-decoration: none;"><b>Contact Email</b></a>
                 </div>
-                <div class="about-card">
-                    <h3 class="text-cyan-400 font-bold mb-4">⚙️ تەکنەلۆژیاکانی بەکارهاتوو</h3>
-                    <span class="tech-tag">Python 3</span>
-                    <span class="tech-tag">FastAPI</span>
-                    <span class="tech-tag">XGBoost</span>
-                    <span class="tech-tag">Docker</span>
-                    <span class="tech-tag">HuggingFace</span>
-                    <span class="tech-tag">TailwindCSS</span>
-                </div>
+            </div>
+            <div class="about-card">
+                <div class="about-card-title">⚙️ تەکنەلۆژیاکانی بەکارهاتوو</div>
+                <div class="about-card-body" style="margin-bottom:0.7rem;">ئەم پڕۆژەیە بەم تەکنەلۆژیایانە دروستکراوە:</div>
+                <span class="tech-tag">Python 3</span>
+                <span class="tech-tag">XGBoost</span>
+                <span class="tech-tag">Scikit-learn</span>
+                <span class="tech-tag">FastAPI</span>
+                <span class="tech-tag">HTML/JS</span>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- مۆداڵی داتاسێت -->
-    <div id="datasetModal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('datasetModal')">×</button>
-            <div class="sec-head"><span class="sec-head-text">📁 زانیاری داتاسێت و مۆدێلەکان</span><span class="sec-head-line"></span></div>
-            
-            <div class="info-box">
-                <div class="info-title">📁 داتاسێت (Dataset)</div>
-                <div class="info-text">ئەم داتاسێتە لە <b>زیاتر لە 1500 کۆرپوس</b> پێکدێت کە تایبەتە بە بازرگانی (B2B) کۆگاکانی هەولێر. تەکنیکی <b>SMOTE</b> بەکارهێنراوە بۆ هاوسەنگکردنەوەی داتاکان.<br><br>پێکهاتووە لە 8 فیچەری سەرەکی وەک تەمەنی دوکان، دوایین مامەڵە (Recency)، ڕێژەی وەسڵەکان (Frequency) و کۆی قەبارەی بازرگانی (Monetary).</div>
+<!-- 2. Dataset Modal -->
+<div id="datasetModal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModal('datasetModal')">×</button>
+        
+        <div class="info-box">
+            <div class="info-title">📁 داتاسێت (Dataset)</div>
+            <div class="info-text">
+                ئەم داتاسێتە سەرەتا لە <b>1200 کۆرپوس (ڕیز)</b> پێکدێت کە تایبەتە بە بازرگانی (B2B) کۆگاکانی هەولێر. لەبەر ئەوەی زۆربەی کڕیارەکان لە یەک جۆر بوون، تەکنیکی <b>SMOTE</b> بەکارهێنراوە بۆ هاوسەنگکردنەوەی داتاکان، کە بەهۆیەوە قەبارەی داتاسێتەکە بەرزبووەتەوە بۆ <b>زیاتر لە 1500 کۆرپوس</b>.<br>
+                داتاسێتەکە پێکهاتووە لە <b>8 فیچەر (تایبەتمەندی)</b>:
+                <ul>
+                    <li><b>Shop_Age_Years:</b> تەمەنی دوکانەکە بە ساڵ (متمانەی کڕیار).</li>
+                    <li><b>Days_Since_Last_Order:</b> پێوەری (Recency) - چەند ڕۆژە کاڵای نەبردووە.</li>
+                    <li><b>Order_Freq_Per_Month:</b> پێوەری (Frequency) - چەند جار لە مانگێکدا وەسڵی هەیە.</li>
+                    <li><b>Average_Invoice_Value:</b> تێکڕای بەهای مامەڵەکانی.</li>
+                    <li><b>Total_Trade_Volume:</b> پێوەری (Monetary) - کۆی قەبارەی بازرگانی.</li>
+                    <li><b>Unpaid_Invoice_Ratio:</b> ڕێژەی وەسڵە نەدراوەکان.</li>
+                    <li><b>Debt_To_Volume_Ratio:</b> ڕێژەی قەرز بەراورد بە قەبارەی مامەڵە.</li>
+                    <li><b>Late_Payment_History:</b> ژمارەی جارەکانی دواکەوتنی قەرز.</li>
+                </ul>
             </div>
-            
-            <div class="info-box" style="border-right-color: var(--green); background: rgba(0, 230, 118, 0.1);">
-                <div class="info-title" style="color: var(--green);">⚙️ مۆدێلەکانی ڕاهێنان (XGBoost)</div>
-                <div class="info-text">
-                    <b>1. مۆدێلی پۆلێنکردن (Classification):</b> بۆ جیاکردنەوەی کڕیارەکان بۆ (High Risk و Low Risk).<br>
-                    <b>2. مۆدێلی پێشبینیکردن (Regression):</b> بۆ پێشبینیکردنی بڕی قەرزی گونجاو بە دۆلار بە پشتبەستن بە مەترسییەکەی.
-                </div>
+        </div>
+        
+        <div class="info-box" style="border-right-color: #00f2fe; background: rgba(0, 242, 254, 0.1);">
+            <div class="info-title" style="color: #00f2fe;">⚙️ مۆدێلەکانی ڕاهێنان (XGBoost)</div>
+            <div class="info-text">
+                لەم پڕۆژەیەدا سوود لە ئەلگۆریتمی پێشکەوتووی <b>XGBoost</b> وەرگیراوە بۆ دروستکردنی دوو مۆدێلی جیاواز کە بە تەکنیکی <b>RandomizedSearchCV</b> باشترین پارامێتەرەکانیان بۆ دۆزراوەتەوە:<br>
+                <b>1. مۆدێلی پۆلێنکردن (Classification):</b> بۆ جیاکردنەوەی کڕیارەکان بۆ دوو جۆر (High Risk و Low Risk).<br>
+                <b>2. مۆدێلی پێشبینیکردن (Regression):</b> بۆ پێشبینیکردنی بڕی قەرزی گونجاو (Credit Limit) بە دۆلار بۆ هەر کڕیارێک بە پشتبەستن بە مەترسییەکەی.
             </div>
         </div>
     </div>
+</div>
 
-    <!-- مۆداڵی هەڵسەنگاندن -->
-    <div id="evalModal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('evalModal')">×</button>
-            <div class="sec-head"><span class="sec-head-text">📈 هەڵسەنگاندن و ئاستی مۆدێلەکان</span><span class="sec-head-line"></span></div>
-            
-            <h3 class="text-white font-bold mb-4 mt-6 text-sm">🎯 مۆدێلی پۆلێنکردنی مەترسی (Classification)</h3>
-            <div class="grid grid-cols-3 gap-4 mb-6">
-                <div class="metric-card"><div class="metric-label">Accuracy</div><div class="metric-value">95.16%</div></div>
-                <div class="metric-card"><div class="metric-label">ROC-AUC</div><div class="metric-value">99.10%</div></div>
+<!-- 3. Evaluation Modal with Tabs -->
+<div id="evalModal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModal('evalModal')">×</button>
+        
+        <div class="info-box">
+            <div class="info-title">📊 تێگەیشتن لە پێوەرەکانی هەڵسەنگاندن</div>
+            <div class="info-text">
+                <b>Accuracy:</b> ڕێژەی سەرکەوتنی مۆدێلەکە لە دیاریکردنی مەترسی (بەرز یان نزم).<br>
+                <b>ROC-AUC:</b> توانای مۆدێلەکە بۆ جیاکردنەوەی دوو جۆرە کڕیارەکە بە دروستی.<br>
+                <b>F1-Score:</b> هاوسەنگی نێوان وردبینی و دۆزینەوەی دروست.<br>
+                <b>R² Score:</b> ڕێژەی دروستی پێشبینیکردنی بڕی قەرزەکە (چەند نزیکە لە ڕاستی).<br>
+                <b>RMSE & MAE:</b> تێکڕای هەڵەی پێشبینی قەرز بە دۆلار (هەرچەند کەمتر بێت باشترە).
+            </div>
+        </div>
+
+        <div class="tab-list">
+            <button class="tab-btn active" onclick="switchTab('testTab', this)">🧪 ئەنجامی تاقیکردنەوە (Test Data)</button>
+            <button class="tab-btn" onclick="switchTab('trainTab', this)">📚 ئەنجامی ڕاهێنان (Train Data)</button>
+        </div>
+
+        <!-- Test Tab Content -->
+        <div id="testTab" class="tab-content active">
+            <div class="sec-head mt-4">
+                <span class="sec-head-text">🎯 مۆدێلی پۆلێنکردنی مەترسی (XGBoost Classifier)</span>
+                <span class="sec-head-line"></span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="metric-card"><div class="metric-label">Accuracy (ڕێژەی ڕاستی)</div><div class="metric-value">90.84%</div></div>
+                <div class="metric-card"><div class="metric-label">ROC-AUC Score</div><div class="metric-value">95.92%</div></div>
+                <div class="metric-card"><div class="metric-label">F1-Score</div><div class="metric-value">90.84%</div></div>
+            </div>
+
+            <div class="sec-head mt-8">
+                <span class="sec-head-text">💰 مۆدێلی پێشبینیکردنی قەرز (XGBoost Regressor)</span>
+                <span class="sec-head-line"></span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="metric-card"><div class="metric-label">R² Score (ڕێژەی سەرکەوتن)</div><div class="metric-value">94.52%</div></div>
+                <div class="metric-card"><div class="metric-label">RMSE (تێکڕای هەڵە)</div><div class="metric-value">$85.40</div></div>
+                <div class="metric-card"><div class="metric-label">MAE (هەڵەی ڕەها)</div><div class="metric-value">$32.10</div></div>
+            </div>
+
+            <div style="background: rgba(0, 242, 254, 0.1); border-right: 4px solid var(--cyan); padding: 1rem; border-radius: 8px 0 0 8px; margin-top: 1.5rem; text-align: right;">
+                <b>💡 ئەنجامی کۆتایی:</b> مۆدێلەکەمان بە سەرکەوتوویی توانای پێشبینیکردنی هەیە بە ڕێژەی زیاتر لە %90 بۆ مەترسی و %94 بۆ بڕی قەرز لەسەر داتای نەبینراو (Test). ئەنجامەکانی Test و Train زۆر نزیکن لە یەکەوە، ئەمەش دەریدەخات کە مۆدێلەکە زۆر جێگیرە و کێشەی (Overfitting)ی نییە.
+            </div>
+        </div>
+
+        <!-- Train Tab Content -->
+        <div id="trainTab" class="tab-content">
+            <div class="sec-head mt-4">
+                <span class="sec-head-text">🎯 مۆدێلی پۆلێنکردنی مەترسی (Train Data)</span>
+                <span class="sec-head-line"></span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="metric-card"><div class="metric-label">Accuracy (ڕێژەی ڕاستی)</div><div class="metric-value">95.16%</div></div>
+                <div class="metric-card"><div class="metric-label">ROC-AUC Score</div><div class="metric-value">99.10%</div></div>
                 <div class="metric-card"><div class="metric-label">F1-Score</div><div class="metric-value">95.23%</div></div>
             </div>
 
-            <h3 class="text-white font-bold mb-4 mt-8 text-sm">💰 مۆدێلی پێشبینیکردنی قەرز (Regression)</h3>
-            <div class="grid grid-cols-3 gap-4 mb-6">
-                <div class="metric-card"><div class="metric-label">R² Score</div><div class="metric-value">98.66%</div></div>
-                <div class="metric-card"><div class="metric-label">RMSE</div><div class="metric-value">$46.32</div></div>
-                <div class="metric-card"><div class="metric-label">MAE</div><div class="metric-value">$15.29</div></div>
+            <div class="sec-head mt-8">
+                <span class="sec-head-text">💰 مۆدێلی پێشبینیکردنی قەرز (Train Data)</span>
+                <span class="sec-head-line"></span>
             </div>
-
-            <div class="info-box mt-8">
-                <div class="info-text"><b>💡 ئەنجامی کۆتایی:</b> مۆدێلەکەمان بە سەرکەوتوویی توانای پێشبینیکردنی هەیە بە ڕێژەی زیاتر لە %95 بۆ مەترسی و %98 بۆ بڕی قەرز. ئەنجامەکان زۆر جێگیرن و کێشەی (Overfitting)ی نییە.</div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="metric-card"><div class="metric-label">R² Score (ڕێژەی سەرکەوتن)</div><div class="metric-value">98.66%</div></div>
+                <div class="metric-card"><div class="metric-label">RMSE (تێکڕای هەڵە)</div><div class="metric-value">$46.32</div></div>
+                <div class="metric-card"><div class="metric-label">MAE (هەڵەی ڕەها)</div><div class="metric-value">$15.29</div></div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        // مۆداڵەکان
-        function openModal(id) {
-            document.getElementById(id).style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // بۆ ئەوەی وێبسایتەکە سکڕۆڵ نەبێت کاتێک پەنجەرەکە کراوەیە
-        }
 
-        function closeModal(id) {
-            document.getElementById(id).style.display = 'none';
+<script>
+    // Modal Functions
+    function openModal(id) {
+        document.getElementById(id).style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal-overlay')) {
+            event.target.style.display = "none";
             document.body.style.overflow = 'auto';
         }
+    }
 
-        // داخستنی پەنجەرەکە ئەگەر کلیک لە دەرەوەی کرا
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal-overlay')) {
-                event.target.style.display = "none";
-                document.body.style.overflow = 'auto';
+    // Tab Function
+    function switchTab(tabId, btn) {
+        // Hide all tabs
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        // Remove active class from all buttons
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        
+        // Show selected tab and activate button
+        document.getElementById(tabId).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    // Form Submission
+    document.getElementById('predictForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const payload = {
+            shop_age: parseInt(document.getElementById('shop_age').value),
+            days_since_last: parseInt(document.getElementById('days_since_last').value),
+            freq_per_month: parseFloat(document.getElementById('freq_per_month').value),
+            avg_invoice: parseFloat(document.getElementById('avg_invoice').value),
+            total_volume: parseFloat(document.getElementById('total_volume').value),
+            unpaid_ratio: parseFloat(document.getElementById('unpaid_ratio_slider').value) / 100.0,
+            debt_ratio: parseFloat(document.getElementById('debt_ratio_slider').value) / 100.0,
+            late_history: parseInt(document.getElementById('late_history').value)
+        };
+
+        const btn = document.querySelector('.btn-primary');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '⏳ تکایە چاوەڕێبە...';
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('https://umedjamala-credit-risk-scoring-ml.hf.space/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) throw new Error("کێشەیەک هەیە لە پەیوەندی کردن بە سێرڤەرەکە.");
+            const data = await response.json();
+
+            document.getElementById('resultsContainer').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('resultsContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+
+            const riskCardBox = document.getElementById('riskCardBox');
+            if (data.is_high_risk) {
+                riskCardBox.innerHTML = `
+                <div class="result-wrap"><div class="result-card liquid-glass rc-high">
+                    <div class="rc-eyebrow">⚠️ ئاستی مەترسی دوکان</div>
+                    <div class="rc-value">بەرز</div>
+                    <div class="rc-en">HIGH RISK</div>
+                    <span class="rc-badge badge-high">🔴 &nbsp;مەترسیدار</span>
+                </div></div>`;
+            } else {
+                riskCardBox.innerHTML = `
+                <div class="result-wrap"><div class="result-card liquid-glass rc-low">
+                    <div class="rc-eyebrow">✅ ئاستی مەترسی دوکان</div>
+                    <div class="rc-value">نزم</div>
+                    <div class="rc-en">LOW RISK</div>
+                    <span class="rc-badge badge-low">🟢 &nbsp;باوەڕپێکراو</span>
+                </div></div>`;
             }
+
+            const formattedLimit = "$" + Math.max(0, data.credit_limit).toLocaleString('en-US', { maximumFractionDigits: 0 });
+            document.getElementById('limitValue').innerText = formattedLimit;
+
+        } catch (error) {
+            alert("پەیوەندی بە سێرڤەرەوە پچڕاوە. دڵنیابە کە سێرڤەرەکە لە ئینتەرنێت ئیش دەکات.");
+        } finally {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
         }
-
-        // ناردنی داتا بۆ باک-ئێند
-        document.getElementById('predictForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            const payload = {
-                shop_age: parseInt(document.getElementById('shop_age').value),
-                days_since_last: parseInt(document.getElementById('days_since_last').value),
-                freq_per_month: parseFloat(document.getElementById('freq_per_month').value),
-                avg_invoice: parseFloat(document.getElementById('avg_invoice').value),
-                total_volume: parseFloat(document.getElementById('total_volume').value),
-                unpaid_ratio: parseFloat(document.getElementById('unpaid_ratio_slider').value) / 100.0,
-                debt_ratio: parseFloat(document.getElementById('debt_ratio_slider').value) / 100.0,
-                late_history: parseInt(document.getElementById('late_history').value)
-            };
-
-            // گۆڕینی دوگمەکە بۆ کاتی لۆدین
-            const btn = document.querySelector('.btn-primary');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '⏳ تکایە چاوەڕێبە...';
-            btn.disabled = true;
-
-            try {
-                // لینکی Hugging Face بەکارهاتووە
-                const response = await fetch('https://umedjamala-credit-risk-scoring-ml.hf.space/predict', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) throw new Error("کێشەیەک هەیە لە پەیوەندی کردن بە سێرڤەرەکە.");
-                const data = await response.json();
-
-                document.getElementById('resultsContainer').classList.remove('hidden');
-                
-                // بۆ ئەوەی ڕاستەوخۆ سکڕۆڵ ببێت بۆ خوارەوە بۆ بینینی ئەنجامەکان
-                document.getElementById('resultsContainer').scrollIntoView({ behavior: 'smooth' });
-
-                const riskCardBox = document.getElementById('riskCardBox');
-                if (data.is_high_risk) {
-                    riskCardBox.innerHTML = `
-                    <div class="result-wrap"><div class="result-card liquid-glass rc-high">
-                        <div class="rc-eyebrow">⚠️ ئاستی مەترسی دوکان</div>
-                        <div class="rc-value">بەرز</div>
-                        <div class="rc-en">HIGH RISK</div>
-                        <span class="rc-badge badge-high">🔴 &nbsp;مەترسیدار</span>
-                    </div></div>`;
-                } else {
-                    riskCardBox.innerHTML = `
-                    <div class="result-wrap"><div class="result-card liquid-glass rc-low">
-                        <div class="rc-eyebrow">✅ ئاستی مەترسی دوکان</div>
-                        <div class="rc-value">نزم</div>
-                        <div class="rc-en">LOW RISK</div>
-                        <span class="rc-badge badge-low">🟢 &nbsp;باوەڕپێکراو</span>
-                    </div></div>`;
-                }
-
-                const formattedLimit = "$" + Math.max(0, data.credit_limit).toLocaleString('en-US', { maximumFractionDigits: 0 });
-                document.getElementById('limitValue').innerText = formattedLimit;
-
-            } catch (error) {
-                alert("پەیوەندی بە سێرڤەرەوە پچڕاوە. دڵنیابە کە سێرڤەرەکە لە ئینتەرنێت ئیش دەکات.");
-            } finally {
-                // گەڕاندنەوەی دوگمەکە بۆ دۆخی ئاسایی
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            }
-        });
-    </script>
+    });
+</script>
 </body>
 </html>
