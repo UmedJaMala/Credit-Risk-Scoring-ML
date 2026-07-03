@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سیستەمی زیرەکی نمرەدانی مەترسی</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -61,8 +61,8 @@
         /* ═══════════ DESIGN SYSTEM VARIABLES ═══════════ */
         :root {
             /* Light Mode - Balanced Earthy / Forest colors */
-            --bg-base: #e5eae8; 
-            --glass-bg: rgba(255, 255, 255, 0.9);
+            --bg-base: #e0e6e4; 
+            --glass-bg: rgba(255, 255, 255, 0.92);
             --glass-border: rgba(17, 48, 53, 0.15);
             --text-main: #112022;
             --text-muted: #4e5e60;
@@ -84,19 +84,19 @@
         }
 
         .dark {
-            /* Dark Mode - Premium Earthy / Forest colors */
-            --bg-base: #030a0b; 
-            --glass-bg: rgba(10, 26, 29, 0.85);
-            --glass-border: rgba(167, 203, 142, 0.08);
+            /* Dark Mode - Premium Earthy / Forest colors (Contrast Enhanced) */
+            --bg-base: #020809; 
+            --glass-bg: rgba(8, 22, 25, 0.88);
+            --glass-border: rgba(167, 203, 142, 0.12);
             --text-main: #ffffff;
-            --text-muted: #b8c7c9;
-            --input-bg: rgba(5, 14, 16, 0.7);
-            --modal-bg: rgba(10, 26, 29, 0.98);
+            --text-muted: #c5d4d6;
+            --input-bg: rgba(5, 14, 16, 0.75);
+            --modal-bg: rgba(8, 22, 25, 0.98);
             
-            /* Gradient Orbs in dark mode */
-            --orb-1: rgba(17, 48, 53, 0.35);
-            --orb-2: rgba(167, 203, 142, 0.15);
-            --orb-3: rgba(243, 163, 50, 0.12);
+            /* Gradient Orbs in dark mode - richer opacity */
+            --orb-1: rgba(9, 35, 39, 0.65);
+            --orb-2: rgba(167, 203, 142, 0.22);
+            --orb-3: rgba(243, 163, 50, 0.18);
             
             --primary: #a7cb8e; /* Sage green as primary for high contrast on dark */
             --primary-glow: rgba(167, 203, 142, 0.35);
@@ -121,15 +121,15 @@
             position: absolute;
             border-radius: 50%;
             animation: floatParticle var(--d, 15s) linear infinite;
-            opacity: var(--op, 0.5);
+            opacity: var(--op, 0.6);
             will-change: transform;
             backface-visibility: hidden;
         }
         .star {
-            background: radial-gradient(circle, rgba(167, 203, 142, 0.4) 0%, rgba(243, 163, 50, 0.1) 60%, transparent 100%);
+            background: radial-gradient(circle, rgba(167, 203, 142, 0.6) 0%, rgba(243, 163, 50, 0.25) 60%, transparent 100%);
         }
         .dark .star {
-            background: radial-gradient(circle, rgba(167, 203, 142, 0.5) 0%, rgba(17, 48, 53, 0.15) 60%, transparent 100%);
+            background: radial-gradient(circle, rgba(167, 203, 142, 0.75) 0%, rgba(17, 48, 53, 0.4) 60%, transparent 100%);
         }
         @keyframes floatParticle {
             0% {
@@ -143,21 +143,21 @@
             }
         }
 
-        /* ═══════════ SUBTLE GRID OVERLAY ═══════════ */
+        /* ═══════════ SUBTLE GRID OVERLAY (Contrast Enhanced) ═══════════ */
         .bg-grid {
             position: fixed;
             inset: 0;
             z-index: -2;
             pointer-events: none;
-            background-image: linear-gradient(rgba(167, 203, 142, 0.04) 1px, transparent 1px), 
-                              linear-gradient(90deg, rgba(167, 203, 142, 0.04) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(167, 203, 142, 0.06) 1px, transparent 1px), 
+                              linear-gradient(90deg, rgba(167, 203, 142, 0.06) 1px, transparent 1px);
             background-size: 50px 50px;
             mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 20%, transparent 100%);
             -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 20%, transparent 100%);
         }
         .dark .bg-grid {
-            background-image: linear-gradient(rgba(167, 203, 142, 0.03) 1px, transparent 1px), 
-                              linear-gradient(90deg, rgba(167, 203, 142, 0.03) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(167, 203, 142, 0.08) 1px, transparent 1px), 
+                              linear-gradient(90deg, rgba(167, 203, 142, 0.08) 1px, transparent 1px);
         }
 
         /* ═══════════ BACKGROUND ORBS ═══════════ */
@@ -187,7 +187,7 @@
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.05);
         }
         .dark .glass-panel:hover {
-            box-shadow: 0 20px 50px rgba(167, 203, 142, 0.1);
+            box-shadow: 0 20px 50px rgba(167, 203, 142, 0.15);
         }
 
         /* ═══════════ THEME TOGGLE ═══════════ */
@@ -323,6 +323,66 @@
         }
         #toastContainer > div {
             pointer-events: auto;
+        }
+
+        /* ═══════════ MOBILE & TABLET RESPONSIVENESS SCALING ═══════════ */
+        @media (max-width: 768px) {
+            .container-box {
+                padding: 1rem 0.75rem 3rem !important;
+            }
+            .hero {
+                padding: 2.2rem 1rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            .hero-title {
+                font-size: 1.6rem !important;
+            }
+            .hero-sub {
+                font-size: 0.9rem !important;
+            }
+            .btn-ghost {
+                padding: 0.8rem 1rem !important;
+                font-size: 0.9rem !important;
+            }
+            .input-card {
+                padding: 1.25rem !important;
+                gap: 1.25rem !important;
+            }
+            .sec-title {
+                font-size: 1rem !important;
+                margin-bottom: 1.2rem !important;
+                padding-bottom: 0.6rem !important;
+            }
+            .glass-panel {
+                --r: 14px !important; /* Slightly smaller borders for small viewports */
+            }
+            .custom-input {
+                padding: 0.7rem 1rem !important;
+                font-size: 0.95rem !important;
+            }
+            .result-card {
+                padding: 1.5rem 1rem !important;
+            }
+            .rc-value {
+                font-size: 2.2rem !important;
+            }
+            .metric-grid {
+                gap: 0.5rem !important;
+            }
+            .metric-box {
+                padding: 1rem 0.5rem !important;
+            }
+            .metric-value {
+                font-size: 1.25rem !important;
+            }
+            .modal-content {
+                padding: 1.5rem !important;
+                width: 95% !important;
+            }
+            .tech-pill {
+                padding: 0.35rem 0.8rem !important;
+                font-size: 0.75rem !important;
+            }
         }
     </style>
 </head>
