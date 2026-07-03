@@ -36,7 +36,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
         
-        /* ═══════════ TYPOGRAPHY (LOCAL FONT)    ══════════ */
+        /* ═══════════ TYPOGRAPHY (LOCAL FONT) ═══════════ */
         @font-face {
             font-family: 'Yuni Qaidar _ News Headline 058';
             src: local('Yuni Qaidar _ News Headline 058'), local('YuniQaidar'), local('Arial');
@@ -332,7 +332,7 @@
             padding: 1.5rem; 
             margin-bottom: 1.5rem; 
             width: 100% !important;
-            min-height: 280px;
+            min-height: 350px; 
         }
 
         .footer { text-align: center; padding-top: 3rem; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 4rem; font-family: 'Inter', sans-serif; direction: ltr; }
@@ -411,7 +411,7 @@
             }
             .chart-container {
                 padding: 0.75rem 0.5rem !important;
-                min-height: 250px;
+                min-height: 330px !important; 
             }
             .info-card {
                 padding: 1rem 0.75rem !important;
@@ -699,7 +699,7 @@
             <div class="info-card-title"><i class="fa-solid fa-table-list"></i> داتاسێت (Dataset)</div>
             <div class="info-text">
                 <bdi>
-                    ئەم داتاسێتە سەرەتا لە <b>1200 کۆرپوس (ڕیز)</b> پێکدێت کە تایبەتە بە بازرگانی (B2B) کۆگاکانی هەولێر. لەبەر ئەوەی زۆربەی کڕیارەکان لە یەک جۆر بوون، بۆ دروستکردنی مۆدێلێکی بێلایەن، تەکنیکی <b>SMOTE</b> بەکارهێنراوە بۆ هاوسەنگکردنەوەی داتاکان, کە بەهۆیەوە قەبارەی داتاسێتەکە بەرزبووەتەوە بۆ <b>زیاتر لە 1500 کۆرپوس</b> بە یەکسانی تەواو لە نێوان هەردوو جۆری مەترسیدار و باوەڕپێکراودا.
+                    ئەم داتاسێتە سەرەتا لە <b>1200 کۆرپوس (ڕیز)</b> پێکدێت کە تایبەتە بە بازرگانی (B2B) کۆگاکانی هەولێر. لەبەر ئەوەی زۆربەی کڕیارەکان لە یەک جۆر بوون، بۆ دروستکردنی مۆدێلێکی بێلایەن، تەکنیکی <b>SMOTE</b> بەکارهێنراوە بۆ هاوسەنگکردنەوەی داتاکان، کە بەهۆیەوە قەبارەی داتاسێتەکە بەرزبووەتەوە بۆ <b>زیاتر لە 1500 کۆرپوس</b> بە یەکسانی تەواو لە نێوان هەردوو جۆری مەترسیدار و باوەڕپێکراودا.
                 </bdi>
                 <br><br>
                 داتاسێتەکە پێکهاتووە لە <b>8 فیچەر (تایبەتمەندی)</b>:
@@ -996,8 +996,10 @@
             responsive: [{
                 breakpoint: 480,
                 options: {
-                    plotOptions: { bar: { columnWidth: '70%' } },
-                    xaxis: { labels: { style: { fontSize: '9px' } } }
+                    chart: { height: 300 },
+                    plotOptions: { bar: { columnWidth: '80%', borderRadius: 3 } },
+                    xaxis: { labels: { style: { fontSize: '10px' } } },
+                    yaxis: { labels: { style: { fontSize: '10px' } } }
                 }
             }]
         });
@@ -1013,15 +1015,17 @@
             plotOptions: { bar: { horizontal: true, barHeight: '60%', borderRadius: 4 } },
             dataLabels: { enabled: true, formatter: function (val) { return val.toFixed(2) + "%"; }, style: { colors: ['#fff'] } },
             xaxis: { categories: ['ڕێژەی وەسڵە نەدراوەکان', 'ڕێژەی قەرز بە مامەڵە', 'مەترسی پێشبینیکراو', 'کۆی قەبارەی بازرگانی', 'تێکڕای وەسڵ لە مانگێکدا', 'تێکڕای بەهای وەسڵ', 'تەمەنی دوکان', 'دواکەوتنی پێشینە', 'ڕۆژانی کۆتا وەسڵ'], labels: { style: { colors: textColorVal } } },
-            yaxis: { labels: { style: { colors: textColorVal }, maxWidth: 150 } },
+            yaxis: { labels: { style: { colors: textColorVal }, maxWidth: 220 } },
             grid: { borderColor: gridColorVal },
             colors: ['#a7cb8e'], // Soft Sage Green
             tooltip: { theme: tooltipTheme },
             responsive: [{
                 breakpoint: 480,
                 options: {
+                    chart: { height: 300 },
                     dataLabels: { enabled: false },
-                    yaxis: { labels: { style: { fontSize: '8px' }, maxWidth: 100 } }
+                    yaxis: { labels: { style: { fontSize: '9px' }, maxWidth: 220 } },
+                    xaxis: { labels: { style: { fontSize: '9px' } } }
                 }
             }]
         });
@@ -1033,15 +1037,15 @@
                 {
                     name: 'مەترسیدار (High Risk) - Actual',
                     data: [
-                        { x: 'باوەڕپێکراو (Low) - Pred', y: 12 },
-                        { x: 'مەترسیدار (High) - Pred', y: 179 }
+                        { x: 'Low - Pred', y: 12 },
+                        { x: 'High - Pred', y: 179 }
                     ]
                 },
                 {
                     name: 'باوەڕپێکراو (Low Risk) - Actual',
                     data: [
-                        { x: 'باوەڕپێکراو (Low) - Pred', y: 168 },
-                        { x: 'مەترسیدار (High) - Pred', y: 23 }
+                        { x: 'Low - Pred', y: 168 },
+                        { x: 'High - Pred', y: 23 }
                     ]
                 }
             ],
@@ -1063,7 +1067,8 @@
             responsive: [{
                 breakpoint: 480,
                 options: {
-                    dataLabels: { style: { fontSize: '11px' } },
+                    chart: { height: 300 },
+                    dataLabels: { style: { fontSize: '10px' } },
                     xaxis: { labels: { style: { fontSize: '9px' } } },
                     yaxis: { labels: { style: { fontSize: '9px' } } }
                 }
@@ -1116,8 +1121,9 @@
             responsive: [{
                 breakpoint: 480,
                 options: {
-                    chart: { height: 280 },
-                    xaxis: { labels: { style: { fontSize: '9px' } } }
+                    chart: { height: 280, margin: { top: 0, left: 10, right: 10, bottom: 0 } },
+                    xaxis: { labels: { style: { fontSize: '9px' } } },
+                    legend: { position: 'bottom' }
                 }
             }]
         });
@@ -1149,8 +1155,9 @@
             responsive: [{
                 breakpoint: 480,
                 options: {
+                    chart: { height: 260 },
                     plotOptions: { bar: { horizontal: true, columnWidth: '55%' } },
-                    dataLabels: { enabled: false },
+                    dataLabels: { enabled: true, style: { fontSize: '9px' } },
                     yaxis: { labels: { style: { fontSize: '9px' } } },
                     xaxis: { labels: { style: { fontSize: '9px' } }, title: { text: '' } }
                 }
@@ -1184,8 +1191,14 @@
             responsive: [{
                 breakpoint: 480,
                 options: {
+                    chart: { height: 260 },
                     dataLabels: { enabled: false },
-                    yaxis: { labels: { style: { fontSize: '8px' }, maxWidth: 110 } }
+                    yaxis: {
+                        labels: {
+                            maxWidth: 220,
+                            style: { fontSize: '9px' }
+                        }
+                    }
                 }
             }]
         });
