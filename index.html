@@ -78,10 +78,8 @@
 
         .btn-primary { width: 100%; background: linear-gradient(135deg, rgba(41, 121, 255, 0.25) 0%, rgba(41, 121, 255, 0.05) 100%); backdrop-filter: blur(12px); border: 1px solid var(--blue-bdr); border-top: 1px solid rgba(255, 255, 255, 0.3); color: #fff; font-family: 'Noto Sans Arabic', sans-serif; font-size: 1.05rem; font-weight: 900; border-radius: 16px; padding: 0.85rem 1.2rem; letter-spacing: 0.05em; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer; }
         .btn-primary:hover { transform: translateY(-3px); background: linear-gradient(135deg, rgba(41, 121, 255, 0.4) 0%, rgba(41, 121, 255, 0.1) 100%); box-shadow: 0 8px 30px rgba(41, 121, 255, 0.35); text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
-
-        .btn-secondary { width: 100%; background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-top: 1px solid var(--glass-hi); color: var(--cyan); font-family: 'Noto Sans Arabic', sans-serif; font-size: 0.95rem; font-weight: 800; border-radius: 16px; padding: 0.85rem 1.2rem; box-shadow: var(--glass-shadow); transition: all 0.3s ease; cursor: pointer; }
-        .btn-secondary:hover { transform: translateY(-2px); background: rgba(0, 242, 254, 0.15); border-color: var(--cyan-bdr); color: #fff; }
-
+.btn-secondary { width: 100%; background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-top: 1px solid var(--glass-hi); color: #fff; font-family: 'Noto Sans Arabic', sans-serif; font-size: 0.95rem; font-weight: 800; border-radius: 16px; padding: 0.85rem 1.2rem; box-shadow: var(--glass-shadow); transition: all 0.3s ease; cursor: pointer; }
+        .btn-secondary:hover { transform: translateY(-2px); background: rgba(0, 242, 254, 0.15); border-color: var(--cyan-bdr); color: #fff; box-shadow: 0 4px 15px rgba(0, 242, 254, 0.2); }
         .sec-head { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem; }
         .sec-head-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%); }
         .sec-head-text { color: #fff; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.10em; white-space: nowrap; text-shadow: 0 0 10px rgba(255, 255, 255, 0.4); }
@@ -424,7 +422,11 @@
                 <b>💡 ئەنجامی کۆتایی:</b> مۆدێلەکەمان بە سەرکەوتوویی توانای پێشبینیکردنی هەیە بە ڕێژەی زیاتر لە %90 بۆ مەترسی و %94 بۆ بڕی قەرز لەسەر داتای نەبینراو (Test). ئەنجامەکانی Test و Train زۆر نزیکن لە یەکەوە، ئەمەش دەریدەخات کە مۆدێلەکە زۆر جێگیرە و کێشەی (Overfitting)ی نییە.
             </div>
         </div>
-
+<!-- بەشی وێنەکانی هەڵسەنگاندن -->
+            <div class="mt-8 mb-6">
+                <img src="./outputs/credit_risk_scoring_results.png" alt="شیکاری ئەنجامەکان" class="chart-img">
+                <img src="./outputs/feature_importance.png" alt="گرنگی فیچەرەکان" class="chart-img mt-4">
+            </div>
         <!-- Train Tab Content -->
         <div id="trainTab" class="tab-content">
             <div class="sec-head mt-4">
