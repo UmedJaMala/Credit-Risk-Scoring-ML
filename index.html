@@ -6,38 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سیستەمی زیرەکی نمرەدانی مەترسی</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
 
+        /* سکڕۆڵی زۆر نەرم */
         html { scroll-behavior: smooth; }
 
+        /* شاردنەوەی سکڕۆڵبار بۆ جوانی زیاتر */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #374151; }
+
         :root {
-            --bg-base: #08090a;
-            --glass-bg: rgba(15, 17, 21, 0.55);
-            --glass-blur: blur(30px) saturate(200%);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-hi: rgba(255, 255, 255, 0.15);
-            --glass-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
-
-            --primary: #3B82F6;
-            --primary-glow: rgba(59, 130, 246, 0.5);
-            --cyan: #00f2fe;
-            --cyan-dim: rgba(0, 242, 254, 0.15);
-            --cyan-bdr: rgba(0, 242, 254, 0.35);
-
-            --violet: #9d4edd;
-            --violet-dim: rgba(157, 78, 221, 0.2);
-
-            --green: #00e676;
-            --green-dim: rgba(0, 230, 118, 0.15);
-
-            --red: #ff1744;
-            --red-dim: rgba(255, 23, 68, 0.15);
-
+            /* ڕەنگە سەرەکییەکان - Dark Theme */
+            --bg-dark: #050505;
+            --accent-cyan: #00f2fe;
+            --accent-purple: #9d4edd;
+            --accent-blue: #3B82F6;
+            
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
 
-            --r: 20px;
+            /* دیزاینی شوشەی تاریک (Dark Glass) */
+            --dark-glass-bg: rgba(20, 20, 25, 0.4);
+            --dark-glass-border: rgba(255, 255, 255, 0.05);
+            --dark-glass-blur: blur(20px);
+            --dark-glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            
+            --r: 24px;
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -46,202 +44,231 @@
             font-family: 'Noto Sans Arabic', 'Inter', sans-serif !important;
             direction: rtl !important;
             text-align: right !important;
-            background-color: var(--bg-base);
-            background-image:
-                radial-gradient(circle at 10% 20%, var(--violet-dim), transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(41, 121, 255, 0.15), transparent 45%),
-                radial-gradient(circle at 50% 50%, var(--cyan-dim), transparent 60%);
-            background-attachment: fixed;
-            min-height: 100vh;
+            background-color: var(--bg-dark);
             color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
         }
 
-        .container-box { max-width: 1060px !important; margin: 0 auto; padding: 1.5rem 1.6rem 4rem !important; }
+        /* باکگراوندی بریقەدار (Glowing Background Orbs) */
+        .bg-orb-1 { position: fixed; top: -15%; left: -10%; width: 50vw; height: 50vw; border-radius: 50%; background: radial-gradient(circle, rgba(0, 242, 254, 0.08) 0%, transparent 70%); filter: blur(60px); z-index: -1; animation: float 10s ease-in-out infinite alternate; }
+        .bg-orb-2 { position: fixed; bottom: -15%; right: -10%; width: 50vw; height: 50vw; border-radius: 50%; background: radial-gradient(circle, rgba(157, 78, 221, 0.08) 0%, transparent 70%); filter: blur(60px); z-index: -1; animation: float 12s ease-in-out infinite alternate-reverse; }
 
-        .liquid-glass {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border);
-            border-top: 1px solid var(--glass-hi);
-            box-shadow: var(--glass-shadow);
+        @keyframes float { 
+            0% { transform: translateY(0px) scale(1); } 
+            100% { transform: translateY(30px) scale(1.05); } 
+        }
+
+        .container-box { max-width: 1060px !important; margin: 0 auto; padding: 2rem 1.5rem 5rem !important; position: relative; z-index: 1; }
+
+        /* شوشەی تاریک */
+        .dark-glass {
+            background: var(--dark-glass-bg);
+            backdrop-filter: var(--dark-glass-blur);
+            -webkit-backdrop-filter: var(--dark-glass-blur);
+            border: 1px solid var(--dark-glass-border);
+            box-shadow: var(--dark-glass-shadow);
             border-radius: var(--r);
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
+        .dark-glass:hover { border-color: rgba(255, 255, 255, 0.1); }
 
-        /* Hero Section */
-        .hero { padding: 3rem 2rem; margin-bottom: 2rem; text-align: center; position: relative; overflow: hidden; }
-        .hero-title { font-size: clamp(1.6rem, 4vw, 2.5rem); font-weight: 900; line-height: 1.4; margin-bottom: 0.8rem; letter-spacing: -0.02em; }
-        .hero-title span { background: linear-gradient(to left, var(--cyan), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(41, 121, 255, 0.4); }
-        .hero-sub { color: var(--text-muted); font-size: 1rem; font-weight: 500; letter-spacing: 0.03em; }
-        .hero-pill { display: inline-block; margin-top: 1.5rem; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 50px; padding: 0.4rem 1.2rem; font-size: 0.75rem; font-weight: 800; color: var(--cyan); letter-spacing: 0.10em; backdrop-filter: blur(10px); }
-
-        /* Buttons */
-        .btn-secondary {
-            background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-top: 1px solid var(--glass-hi); color: #fff;
-            font-family: 'Noto Sans Arabic', sans-serif; font-size: 0.95rem; font-weight: 800; border-radius: 16px; padding: 0.85rem 1.2rem; box-shadow: var(--glass-shadow); transition: all 0.3s ease; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
-        }
-        .btn-secondary:hover { transform: translateY(-2px); background: var(--cyan-dim); border-color: var(--cyan-bdr); box-shadow: 0 4px 15px rgba(0, 242, 254, 0.2); }
-
-        .btn-primary {
-            width: 100%; background: linear-gradient(135deg, rgba(41, 121, 255, 0.25) 0%, rgba(41, 121, 255, 0.05) 100%); backdrop-filter: blur(12px); border: 1px solid rgba(41, 121, 255, 0.4); border-top: 1px solid rgba(255, 255, 255, 0.3); color: #fff;
-            font-family: 'Noto Sans Arabic', sans-serif; font-size: 1.1rem; font-weight: 900; border-radius: 14px; padding: 1rem 1.5rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-        }
-        .btn-primary:hover { transform: translateY(-3px); background: linear-gradient(135deg, rgba(41, 121, 255, 0.4) 0%, rgba(41, 121, 255, 0.1) 100%); box-shadow: 0 8px 30px rgba(41, 121, 255, 0.35); text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
-
-        /* Form Sections */
-        .sec-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-        .sec-head-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%); }
-        .sec-head-text { color: #fff; font-size: 0.9rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; text-shadow: 0 0 10px rgba(255, 255, 255, 0.4); }
-
-        .input-card { padding: 2rem; height: 100%; display: flex; flex-direction: column; gap: 1.2rem; }
-        .card-title { color: #fff; font-size: 1.05rem; font-weight: 800; padding-bottom: 1rem; border-bottom: 1px solid var(--glass-border); text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); }
-
-        .input-group { display: flex; flex-direction: column; gap: 0.4rem; }
-        label { color: var(--text-main); font-weight: 600; font-size: 0.9rem; font-family: 'Noto Sans Arabic', sans-serif; }
+        /* بەشی هێرۆ (سەرەوە) */
+        .hero { padding: 4rem 2rem; margin-bottom: 3rem; text-align: center; }
+        .hero-title { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; line-height: 1.3; margin-bottom: 1rem; letter-spacing: -0.02em; }
+        .hero-title span { background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-sub { color: var(--text-muted); font-size: 1.05rem; font-weight: 500; letter-spacing: 0.02em; }
         
-        .custom-input { width: 100%; background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-top: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: #fff; font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; padding: 0.7rem 1rem; box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.6); transition: all 0.3s ease; direction: ltr; }
-        .custom-input:focus { border-color: var(--cyan); outline: none; background-color: rgba(0, 0, 0, 0.7); box-shadow: 0 0 0 2px rgba(0, 242, 254, 0.3), inset 0 2px 5px rgba(0, 0, 0, 0.6); }
-        
-        select.custom-input { direction: rtl; text-align: right; font-family: 'Noto Sans Arabic', sans-serif; appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: left 1rem top 50%; background-size: 0.65rem auto; }
-        select.custom-input option { background-color: #0c0d11; color: #fff; }
+        .status-badge { display: inline-flex; align-items: center; gap: 8px; margin-top: 1.5rem; background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.2); border-radius: 50px; padding: 0.4rem 1.2rem; font-size: 0.8rem; font-weight: 600; color: var(--accent-cyan); }
+        .status-dot { width: 8px; height: 8px; background-color: var(--accent-cyan); border-radius: 50%; box-shadow: 0 0 10px var(--accent-cyan); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
 
-        /* Sliders */
+        /* دوگمە مۆدێرنەکان */
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-family: 'Noto Sans Arabic', sans-serif;
+            font-size: 0.95rem; font-weight: 600;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* جوڵەی باونسی نەرم */
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+        }
+        .btn-ghost:hover { background: rgba(255, 255, 255, 0.08); color: #fff; border-color: rgba(255, 255, 255, 0.2); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .btn-ghost i { font-size: 1.1rem; color: var(--accent-cyan); transition: transform 0.3s ease; }
+        .btn-ghost:hover i { transform: scale(1.2); }
+
+        .btn-glow {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: #fff;
+            font-family: 'Noto Sans Arabic', sans-serif;
+            font-size: 1.1rem; font-weight: 800;
+            border-radius: 16px;
+            padding: 1.2rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+            position: relative; overflow: hidden;
+        }
+        .btn-glow::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent); transform: skewX(-20deg); transition: all 0.6s ease; }
+        .btn-glow:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 15px 40px rgba(157, 78, 221, 0.4); }
+        .btn-glow:hover::after { left: 200%; }
+        .btn-glow:disabled { opacity: 0.7; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* فۆڕم و ئینپووتەکان */
+        .sec-title { font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 2rem; display: flex; align-items: center; gap: 10px; }
+        .sec-title i { color: var(--accent-cyan); }
+
+        .input-card { padding: 2.5rem 2rem; height: 100%; display: flex; flex-direction: column; gap: 1.5rem; }
+
+        .input-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        label { color: var(--text-main); font-weight: 600; font-size: 0.95rem; }
+        .helper-text { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.2rem; }
+        
+        .custom-input { width: 100%; background-color: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; color: #fff; font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600; padding: 0.8rem 1.2rem; transition: all 0.3s ease; direction: ltr; }
+        .custom-input:focus { border-color: var(--accent-cyan); outline: none; background-color: rgba(0, 0, 0, 0.6); box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.15); }
+        
+        select.custom-input { direction: rtl; text-align: right; font-family: 'Noto Sans Arabic', sans-serif; appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394A3B8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: left 1.2rem top 50%; background-size: 0.65rem auto; }
+        select.custom-input option { background-color: #0F172A; color: #fff; }
+
+        /* مۆدێرنکردنی سلایدەرەکان */
         .slider-container { display: flex; align-items: center; gap: 1rem; direction: ltr; }
         .custom-slider { -webkit-appearance: none; width: 100%; background: transparent; }
         .custom-slider:focus { outline: none; }
         .custom-slider::-webkit-slider-runnable-track { 
-            height: 8px; background-color: rgba(0, 0, 0, 0.6); 
-            background-image: linear-gradient(90deg, var(--blue) var(--val, 0%), transparent var(--val, 0%));
-            border-radius: 6px; box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8); border: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer; 
+            height: 6px; background-color: rgba(0, 0, 0, 0.5); 
+            background-image: linear-gradient(90deg, var(--accent-cyan) var(--val, 0%), transparent var(--val, 0%));
+            border-radius: 6px; cursor: pointer; border: 1px solid rgba(255,255,255,0.05);
         }
         .custom-slider::-webkit-slider-thumb { 
-            -webkit-appearance: none; height: 22px; width: 22px; border-radius: 50%; 
-            background: #fff; border: 4px solid var(--red); box-shadow: 0 0 15px rgba(255, 23, 68, 0.6); 
-            margin-top: -8px; cursor: pointer; transition: transform 0.2s;
+            -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; 
+            background: #fff; border: 3px solid var(--accent-cyan); box-shadow: 0 0 10px rgba(0,242,254,0.4); 
+            margin-top: -6px; cursor: pointer; transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .custom-slider::-webkit-slider-thumb:hover { transform: scale(1.1); }
-        .slider-val { color: #fff; font-family: 'Inter', sans-serif; font-weight: 800; font-size: 1rem; min-width: 45px; text-align: right; }
+        .custom-slider::-webkit-slider-thumb:hover { transform: scale(1.3); }
+        .slider-val { color: var(--accent-cyan); font-family: 'Inter', sans-serif; font-weight: 800; font-size: 1rem; min-width: 45px; text-align: right; }
 
-        .helper-text { font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); direction: rtl; text-align: right; letter-spacing: 0.02em; margin-bottom: 0.2rem;}
-
-        /* Results */
-        .result-wrap { animation: floatUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
-        @keyframes floatUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        /* ئەنجامەکان */
+        .result-wrap { opacity: 0; transform: translateY(30px); transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .result-wrap.show { opacity: 1; transform: translateY(0); }
         
-        .result-card { padding: 2.5rem 2rem; position: relative; overflow: hidden; direction: rtl; text-align: center; border-radius: var(--r); }
-        .rc-low { border-top: 2px solid var(--green); background: linear-gradient(180deg, var(--green-dim) 0%, var(--glass-bg) 100%); }
-        .rc-high { border-top: 2px solid var(--red); background: linear-gradient(180deg, var(--red-dim) 0%, var(--glass-bg) 100%); }
-        .rc-limit { border-top: 2px solid var(--cyan); background: linear-gradient(180deg, var(--cyan-dim) 0%, var(--glass-bg) 100%); }
+        .result-card { padding: 3rem 2rem; position: relative; overflow: hidden; text-align: center; }
+        .rc-eyebrow { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 1.5rem; letter-spacing: 0.05em; }
+        .rc-value { font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 900; line-height: 1; margin-bottom: 0.5rem; font-family: 'Inter', sans-serif; letter-spacing: -0.03em; }
+        .rc-en { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; font-family: 'Inter', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; }
         
-        .rc-eyebrow { font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 0.1em; }
-        .rc-value { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1; margin-bottom: 0.5rem; font-family: 'Inter', sans-serif; letter-spacing: -0.02em; text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); }
-        .rc-limit .rc-value { background: linear-gradient(to right, #fff, var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .rc-en { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.2rem; font-family: 'Inter', sans-serif; }
+        .status-circle { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 1.5rem; }
         
-        .rc-badge { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.4rem 1.2rem; border-radius: 50px; font-size: 0.85rem; font-weight: 800; backdrop-filter: blur(5px);}
-        .badge-low { background: var(--green-dim); color: var(--green); border: 1px solid rgba(0, 230, 118, 0.3); }
-        .badge-high { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255, 23, 68, 0.3); }
-        .badge-limit { background: var(--cyan-dim); color: var(--cyan); border: 1px solid rgba(0, 242, 254, 0.3); }
-        .rc-low .rc-eyebrow, .rc-low .rc-value { color: var(--green); }
-        .rc-high .rc-eyebrow, .rc-high .rc-value { color: var(--red); }
-        .rc-limit .rc-eyebrow { color: var(--cyan); }
+        .low-risk .status-circle { background: rgba(16, 185, 129, 0.1); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.2); box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
+        .low-risk .rc-value { color: #10B981; text-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
+        
+        .high-risk .status-circle { background: rgba(239, 68, 68, 0.1); color: #EF4444; border: 1px solid rgba(239, 68, 68, 0.2); box-shadow: 0 0 20px rgba(239, 68, 68, 0.2); }
+        .high-risk .rc-value { color: #EF4444; text-shadow: 0 0 20px rgba(239, 68, 68, 0.3); }
+        
+        .limit-card .status-circle { background: rgba(0, 242, 254, 0.1); color: var(--accent-cyan); border: 1px solid rgba(0, 242, 254, 0.2); box-shadow: 0 0 20px rgba(0, 242, 254, 0.2); }
+        .limit-card .rc-value { background: linear-gradient(to right, #fff, var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Modals */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 12, 16, 0.95); z-index: 1000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
-        .modal-overlay.show { opacity: 1; display: flex; }
-        .modal-content { background: rgba(15, 17, 21, 0.95); border: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.2); border-radius: 24px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8); width: 90%; max-width: 850px; max-height: 90vh; overflow-y: auto; padding: 2.5rem; position: relative; direction: rtl; transform: scale(0.95); transition: transform 0.3s ease; }
-        .modal-overlay.show .modal-content { transform: scale(1); }
-        .close-btn { position: absolute; top: 1.5rem; left: 1.5rem; background: transparent; border: none; color: #fff; font-size: 1.8rem; cursor: pointer; transition: 0.2s; line-height: 1; }
-        .close-btn:hover { color: var(--red); transform: scale(1.1); }
+        /* مۆداڵ (پەنجەرەکان) زۆر نەرم */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.4s ease; }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content { background: rgba(15, 15, 20, 0.95); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); width: 90%; max-width: 800px; max-height: 85vh; overflow-y: auto; padding: 2.5rem; position: relative; transform: scale(0.9) translateY(20px); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
+        
+        .close-btn { position: absolute; top: 1.5rem; left: 1.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-muted); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease; }
+        .close-btn:hover { background: rgba(239, 68, 68, 0.1); color: #EF4444; border-color: rgba(239, 68, 68, 0.3); transform: rotate(90deg); }
 
-        /* Tabs */
-        .tab-list { display: flex; border-bottom: 1px solid rgba(255, 255, 255, 0.1); gap: 2rem; margin-bottom: 2rem; }
-        .tab-btn { background: transparent; padding: 1rem 0; border: none; color: var(--text-muted); font-weight: 700; font-size: 1rem; cursor: pointer; position: relative; font-family: 'Noto Sans Arabic', sans-serif; transition: 0.3s; }
+        /* زانیارییەکانی ناو مۆداڵ */
+        .info-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 16px; margin-bottom: 1.5rem; transition: transform 0.3s ease; }
+        .info-card:hover { transform: translateY(-2px); border-color: rgba(255, 255, 255, 0.1); }
+        .info-card-title { color: #fff; font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
+        .info-card-title i { color: var(--accent-cyan); }
+        .info-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; }
+        .info-text b { color: #fff; font-weight: 700; }
+        
+        .tech-pill { display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.05); color: var(--text-main); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50px; padding: 0.4rem 1rem; font-size: 0.8rem; font-weight: 600; margin: 0.25rem; font-family: 'Inter', sans-serif;}
+
+        /* Tab System */
+        .tab-list { display: flex; background: rgba(0,0,0,0.3); border-radius: 12px; padding: 0.4rem; margin-bottom: 2rem; }
+        .tab-btn { flex: 1; background: transparent; padding: 0.8rem 0; border: none; border-radius: 8px; color: var(--text-muted); font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.3s ease; }
         .tab-btn:hover { color: #fff; }
-        .tab-btn.active { color: var(--cyan); text-shadow: 0 0 10px rgba(0, 242, 254, 0.5); }
-        .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 3px; background-color: var(--cyan); box-shadow: 0 0 10px rgba(0, 242, 254, 0.6); border-radius: 3px 3px 0 0; }
-        .tab-content { display: none; animation: floatUp 0.4s ease; }
+        .tab-btn.active { background: rgba(255,255,255,0.08); color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .tab-content { display: none; animation: fadeIn 0.4s ease; }
         .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Modal Info Boxes */
-        .info-box { background: rgba(0, 242, 254, 0.08); border-right: 4px solid var(--cyan); padding: 1.2rem; border-radius: 8px 0 0 8px; margin-bottom: 1.5rem; text-align: right; }
-        .info-title { font-weight: 800; color: var(--cyan); margin-bottom: 0.6rem; font-size: 1rem; }
-        .info-text { font-size: 0.9rem; color: var(--text-muted); line-height: 2; }
-        .info-text b { color: #fff; }
-        .info-text ul { margin-top: 5px; margin-right: 20px; list-style-type: disc; }
+        .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+        .metric-box { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 1.5rem 1rem; border-radius: 16px; text-align: center; }
+        .metric-label { color: var(--text-muted); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        .metric-value { color: #fff; font-size: 1.6rem; font-weight: 900; font-family: 'Inter', sans-serif; direction: ltr; }
+        .metric-value.cyan { color: var(--accent-cyan); text-shadow: 0 0 15px rgba(0, 242, 254, 0.3); }
 
-        .about-card { background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); padding: 1.5rem; border-radius: 16px; margin-bottom: 1.2rem; }
-        .about-card-title { color: var(--cyan); font-size: 0.9rem; font-weight: 900; letter-spacing: 0.05em; margin-bottom: 0.8rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        .about-card-body { color: var(--text-muted); font-size: 0.88rem; line-height: 1.9; }
-        .about-card-body b { color: #fff; font-weight: 800; }
-        .tech-tag { display: inline-block; background: rgba(255, 255, 255, 0.08); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; padding: 0.3rem 0.8rem; font-size: 0.75rem; font-weight: 800; margin: 0.25rem 0.15rem; backdrop-filter: blur(5px); }
-        
-        .about-center { text-align: center; padding: 1.5rem 0 1rem; }
-        .about-center-icon { font-size: 3rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6)); }
-        .about-center-name { color: var(--cyan); font-size: 1.1rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; font-family: 'Inter', sans-serif; }
+        .chart-img { border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); width: 100%; height: auto; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); transition: transform 0.3s ease; }
+        .chart-img:hover { transform: scale(1.02); }
 
-        .metric-card { padding: 1rem 0.5rem; text-align: center; transition: transform 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); }
-        .metric-card:hover { transform: translateY(-3px); border-color: rgba(0, 242, 254, 0.4); box-shadow: 0 5px 15px rgba(0, 242, 254, 0.1); }
-        .metric-label { color: var(--text-muted); font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.05em; font-family: 'Inter', sans-serif; }
-        .metric-value { color: #fff; font-size: 1.5rem; font-weight: 900; line-height: 1; text-shadow: 0 2px 10px rgba(255, 255, 255, 0.2); font-family: 'Inter', sans-serif; direction: ltr; }
-
-        .chart-img { border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); width: 100%; height: auto; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); }
-
-        .footer-section { text-align: center; padding: 2.5rem 0 1rem; color: rgba(255, 255, 255, 0.5); font-size: 0.8rem; border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 4rem; font-family: 'Inter', sans-serif; direction: ltr; }
-        .footer-section strong { color: var(--cyan); font-weight: 700; }
+        .footer { text-align: center; padding-top: 3rem; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 4rem; font-family: 'Inter', sans-serif; direction: ltr; }
     </style>
 </head>
 
 <body>
 
+<!-- Background Effects -->
+<div class="bg-orb-1"></div>
+<div class="bg-orb-2"></div>
+
 <div class="container-box">
     
     <!-- Hero Section -->
-    <div class="hero liquid-glass">
-        <div class="hero-icon">📦</div>
-        <div class="hero-title">سیستەمی زیرەکی <span>نمرەدانی مەترسی</span> و سنووری قەرز</div>
-        <div class="hero-sub">Erbil Warehouse B2B Credit Limit & Advanced RFM Scoring</div>
-        <div class="hero-pill">⚡ XGBoost ENGINE · REAL-TIME ANALYSIS</div>
+    <div class="hero dark-glass">
+        <h1 class="hero-title">سیستەمی زیرەکی <span>نمرەدانی مەترسی</span></h1>
+        <p class="hero-sub">Erbil B2B Warehouse Credit Limit & Risk Prediction</p>
+        <div class="status-badge">
+            <div class="status-dot"></div>
+            API Online & Ready
+        </div>
     </div>
 
-    <!-- Action Buttons -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 mt-6 md:px-16">
-        <button class="btn-secondary" onclick="openModal('aboutModal')">ℹ️ دەربارەی پڕۆژە</button>
-        <button class="btn-secondary" onclick="openModal('datasetModal')">📁 داتاسێت و مۆدێل</button>
-        <button class="btn-secondary" onclick="openModal('evalModal')">📈 هەڵسەنگاندن</button>
-    </div>
-
-    <div class="sec-head mt-8">
-        <span class="sec-head-text">📝 زانیارییەکانی دوکان داخڵ بکە</span>
-        <span class="sec-head-line"></span>
+    <!-- Action Buttons (Ghost Style) -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12 md:px-8">
+        <button class="btn-ghost" onclick="openModal('aboutModal')">
+            <i class="fa-solid fa-circle-info"></i> دەربارەی پڕۆژە
+        </button>
+        <button class="btn-ghost" onclick="openModal('datasetModal')">
+            <i class="fa-solid fa-database"></i> داتاسێت و مۆدێل
+        </button>
+        <button class="btn-ghost" onclick="openModal('evalModal')">
+            <i class="fa-solid fa-chart-line"></i> هەڵسەنگاندن
+        </button>
     </div>
 
     <!-- Main Form -->
-    <form id="predictForm" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="input-card liquid-glass">
-            <div class="card-title">💰 زانیاری دارایی و مامەڵەکان</div>
+    <form id="predictForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="input-card dark-glass">
+            <h2 class="sec-title"><i class="fa-solid fa-wallet"></i> زانیاری دارایی</h2>
 
             <div class="input-group">
                 <label>تێکڕای بەهای یەک وەسڵ ($)</label>
-                <div class="helper-text">زۆربەی وەسڵەکانی ئەم دوکانە چەند دۆلارە؟ (ئاسایی 50 بۆ 500)</div>
+                <div class="helper-text">مامەڵەکان بەگشتی چەند دۆلارن؟</div>
                 <input type="number" id="avg_invoice" class="custom-input" value="250" step="10" required>
             </div>
 
             <div class="input-group">
-                <label>تێکڕای وەسڵەکان لە مانگێکدا (دانە)</label>
-                <div class="helper-text">لە مانگێکدا نزیکەی چەند جار کاڵا دەبات؟ (ئاسایی 2 بۆ 15)</div>
+                <label>تێکڕای وەسڵەکان لە مانگێکدا</label>
+                <div class="helper-text">چەند جار لە مانگێکدا کڕین دەکات؟</div>
                 <input type="number" id="freq_per_month" class="custom-input" value="5" step="1" required>
             </div>
 
             <div class="input-group">
                 <label>کۆی قەبارەی بازرگانی ($)</label>
-                <div class="helper-text">کۆی ئەو پارەیەی تا ئێستا کڕینی پێ کردووە چەندە؟</div>
+                <div class="helper-text">کۆی پارەی کڕینەکانی تا ئێستا چەندە؟</div>
                 <input type="number" id="total_volume" class="custom-input" value="5000" step="100" required>
             </div>
 
             <div class="input-group">
-                <label>ڕێژەی وەسڵە نەدراوەکان لەسەدا (%)</label>
-                <div class="helper-text">چەند لەسەدای وەسڵەکانی هێشتا پارەیان نەدراوە؟ (0 باشترینە)</div>
+                <label>ڕێژەی وەسڵە نەدراوەکان (%)</label>
+                <div class="helper-text">چەند لەسەدای هێشتا قەرزە؟</div>
                 <div class="slider-container">
                     <input type="range" id="unpaid_ratio_slider" min="0" max="100" value="5" class="custom-slider"
                         oninput="document.getElementById('unpaid_val').innerText=this.value+'%'">
@@ -250,12 +277,12 @@
             </div>
         </div>
 
-        <div class="input-card liquid-glass">
-            <div class="card-title">🏢 زانیاری دوکان و پێشینە</div>
+        <div class="input-card dark-glass">
+            <h2 class="sec-title"><i class="fa-solid fa-building"></i> زانیاری و پێشینە</h2>
 
             <div class="input-group">
-                <label>تەمەنی دوکان (ساڵانی کارکردن)</label>
-                <div class="helper-text">چەند ساڵە ئەم دوکانە لە بازاڕدا کار دەکات؟</div>
+                <label>تەمەنی دوکان (ساڵ)</label>
+                <div class="helper-text">چەند ساڵە کار دەکات؟</div>
                 <div class="slider-container">
                     <input type="range" id="shop_age" min="0" max="50" value="5" class="custom-slider"
                         oninput="document.getElementById('age_val').innerText=this.value">
@@ -264,14 +291,14 @@
             </div>
 
             <div class="input-group">
-                <label>چەند ڕۆژ بەسەر کۆتا مامەڵە تێپەڕیوە</label>
-                <div class="helper-text">دوایین جار کەی شتی لە کۆگاکەت کڕیوە؟ (ژمارەی ڕۆژەکان)</div>
+                <label>ڕۆژانی تێپەڕیو بەسەر کۆتا مامەڵە</label>
+                <div class="helper-text">دوایین کڕین چەند ڕۆژ پێش ئێستا بوو؟</div>
                 <input type="number" id="days_since_last" class="custom-input" value="15" step="1" required>
             </div>
 
             <div class="input-group">
-                <label>ڕێژەی قەرز بۆ قەبارەی مامەڵە (%)</label>
-                <div class="helper-text">ڕێژەی قەرزەکانی چەندە بەراورد بە کۆی مامەڵەکانی؟ (ئاسایی ژێر 30%)</div>
+                <label>ڕێژەی قەرز بۆ مامەڵە (%)</label>
+                <div class="helper-text">قەرزەکانی بەراورد بە مامەڵەکانی.</div>
                 <div class="slider-container">
                     <input type="range" id="debt_ratio_slider" min="0" max="100" value="15" class="custom-slider"
                         oninput="document.getElementById('debt_val').innerText=this.value+'%'">
@@ -280,8 +307,8 @@
             </div>
 
             <div class="input-group">
-                <label>پێشینەی دواکەوتنی پارەدان (جار)</label>
-                <div class="helper-text">تا ئێستا چەند جار لە کاتی دیاریکراو پارەی نەداوە؟</div>
+                <label>مێژووی دواکەوتنی پارە</label>
+                <div class="helper-text">چەند جار لە کاتی خۆی پارەی نەداوە؟</div>
                 <select id="late_history" class="custom-input">
                     <option value="0">هیچ کات</option>
                     <option value="1" selected>1 جار دواکەوتووە</option>
@@ -293,85 +320,72 @@
             </div>
         </div>
 
-        <div class="col-span-1 md:col-span-2 flex justify-center mt-6">
-            <button type="submit" class="btn-primary md:w-1/2">🔮 شیکردنەوە و بڕیاردان</button>
+        <div class="col-span-1 md:col-span-2 mt-6">
+            <button type="submit" id="submitBtn" class="btn-glow">
+                <i class="fa-solid fa-wand-magic-sparkles ml-2"></i> دەستپێکردنی شیکاری AI
+            </button>
         </div>
     </form>
 
     <!-- Results Section -->
-    <div id="resultsContainer" class="hidden mt-12">
-        <div class="sec-head">
-            <span class="sec-head-text">📊 ئەنجامی شیکاری کۆگا</span>
-            <span class="sec-head-line"></span>
-        </div>
+    <div id="resultsContainer" class="hidden mt-16 pt-8 border-t border-gray-800">
+        <h2 class="text-center text-2xl font-bold text-white mb-10">ئەنجامی شیکاری سێرڤەر</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-            <div id="riskCardBox"></div>
-            <div class="result-wrap" style="animation-delay:0.15s;">
-                <div class="result-card liquid-glass rc-limit">
-                    <div class="rc-eyebrow">💳 سنووری قەرزی گونجاو (پەسەندکراو)</div>
+            <div id="riskCardBox" class="result-wrap"></div>
+            
+            <div class="result-wrap" style="transition-delay: 0.1s;">
+                <div class="result-card dark-glass limit-card">
+                    <div class="status-circle"><i class="fa-solid fa-credit-card"></i></div>
+                    <div class="rc-eyebrow">سنووری قەرزی پەسەندکراو</div>
                     <div id="limitValue" class="rc-value">$0</div>
-                    <div class="rc-en">Approved Credit Limit</div>
-                    <span class="rc-badge badge-limit">✅ &nbsp;پەسەندکراو</span>
+                    <div class="rc-en">Approved Limit</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="footer-section">
-        &copy; 2026 Erbil Warehouse B2B Credit Limit System.<br>
-        Developed by <strong>Umed Jamal Nouri</strong> | Advanced RFM Edition
+    <div class="footer">
+        Designed & Developed by <strong class="text-white">Umed Jamal Nouri</strong><br>
+        2026 Erbil B2B Risk System
     </div>
 
 </div> 
 
 
 <!-- Modals -->
-
 <!-- 1. About Modal -->
 <div id="aboutModal" class="modal-overlay">
     <div class="modal-content">
-        <button class="close-btn" onclick="closeModal('aboutModal')">×</button>
-        <div class="about-center">
-            <div class="about-center-icon">📦</div>
-            <div class="about-center-name">ERBIL WAREHOUSE RISK SYSTEM</div>
-            <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 0.3rem;">v 3.0 · Advanced RFM XGBoost · 2025–2026</div>
-        </div>
+        <button class="close-btn" onclick="closeModal('aboutModal')"><i class="fa-solid fa-xmark"></i></button>
         
-        <div class="info-box">
-            <div class="info-title">🤔 کێشەکە چییە؟ (The Problem)</div>
-            <div class="info-text">
-                لە کاتی ئێستادا، زۆربەی کۆگاکانی فرۆشتنی کۆ (B2B) لە هەولێر و کوردستان بە گشتی، بڕیاردان لەسەر پێدانی قەرز بە دوکانەکان بە شێوەیەکی <b>هەڕەمەکی و کەسی</b> دەدەن. هیچ پێوەرێکی زانستی نییە بۆ ئەوەی بزانرێت ئایا ئەم دوکانە شایەنی چەند قەرزە، یان ئایا ئەگەری هەیە پارەکە نەگەڕێنێتەوە. ئەمەش دەبێتە هۆی <b>کەڵەکەبوونی قەرز، درەنگ کەوتنی پارەدان، و لەدەستدانی سەرمایەی کۆگاکان</b>.
-            </div>
-        </div>
-        
-        <div class="info-box" style="border-right-color: #00f2fe; background: rgba(0, 242, 254, 0.1);">
-            <div class="info-title" style="color: #00f2fe;">💡 چارەسەرەکە (The Solution)</div>
-            <div class="info-text">
-                ئەم پڕۆژەیە سیستەمێکی ژیری دەستکردی پێشکەوتووە بە بەکارهێنانی ئەلگۆریتمی <b>XGBoost</b> کە پشتبەست بە پێوەرەکانی <b>RFM (Recency, Frequency, Monetary)</b> کاردەکات. سیستەمەکە لە جێگەی مرۆڤ شیکارییەکی خێرا و ورد بۆ مێژووی دوکاندارەکەکە دەکات، و بە شێوەیەکی ئۆتۆماتیکی پێتدەڵێت کە ئایا ئەم دوکانە جێی متمانەیە یان مەترسیدارە، وە بە تەواوی <b>دەستنیشانی دەکات کە تا چەند دۆلار سەلامەتە قەرزی پێ بدرێت</b>.
-            </div>
+        <div class="text-center mb-8">
+            <div class="w-16 h-16 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 border border-blue-500/20"><i class="fa-solid fa-rocket"></i></div>
+            <h2 class="text-2xl font-bold text-white">دەربارەی پڕۆژە</h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-            <div class="about-card">
-                <div class="about-card-title">👨‍💻 زانیاری گەشەپێدەر</div>
-                <div class="about-card-body">
+        <div class="info-card">
+            <div class="info-card-title"><i class="fa-solid fa-circle-question"></i> کێشەکە چییە؟</div>
+            <div class="info-text">لابردنی بڕیاردانی هەڕەمەکی بۆ پێدانی قەرز بە دوکانەکان لە بازاڕی B2B، و جێگرتنەوەی بە سیستەمێکی <b>مەشین لێرنینگ</b> کە مەترسییەکان کەم دەکاتەوە و بڕی قەرز بە دروستی دیاری دەکات.</div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="info-card !mb-0">
+                <div class="info-card-title"><i class="fa-solid fa-user-astronaut"></i> گەشەپێدەر</div>
+                <div class="info-text mb-4">
                     <b>ئومێد جەمال نوری</b><br>
-                    ئەندازیاری کارەبا - قۆناغی سێیەم<br>
-                    ساڵی خوێندن: ٢٠٢٥ - ٢٠٢٦<br><br>
-                    🔗 <a href="https://github.com/UMEDJAMALA" target="_blank" style="color: #00f2fe; text-decoration: none;"><b>GitHub Profile (@UMEDJAMALA)</b></a><br>
-                    🔗 <a href="https://facebook.com/umedjamala" target="_blank" style="color: #00f2fe; text-decoration: none;"><b>Facebook Profile</b></a><br>
-                    📧 <a href="mailto:umedjamal2005@gmail.com" style="color: #00f2fe; text-decoration: none;"><b>Contact Email</b></a>
+                    ئەندازیاری کارەبا - قۆناغی سێیەم
                 </div>
+                <a href="https://github.com/UMEDJAMALA" target="_blank" class="text-blue-400 text-sm hover:underline"><i class="fa-brands fa-github ml-1"></i> GitHub Profile</a>
             </div>
-            <div class="about-card">
-                <div class="about-card-title">⚙️ تەکنەلۆژیاکانی بەکارهاتوو</div>
-                <div class="about-card-body" style="margin-bottom:0.7rem;">ئەم پڕۆژەیە بەم تەکنەلۆژیایانە دروستکراوە:</div>
-                <span class="tech-tag">Python 3</span>
-                <span class="tech-tag">XGBoost</span>
-                <span class="tech-tag">Scikit-learn</span>
-                <span class="tech-tag">FastAPI</span>
-                <span class="tech-tag">HTML/JS</span>
+            <div class="info-card !mb-0">
+                <div class="info-card-title"><i class="fa-solid fa-microchip"></i> تەکنەلۆژیاکان</div>
+                <div class="mt-3">
+                    <span class="tech-pill"><i class="fa-brands fa-python text-yellow-400"></i> Python</span>
+                    <span class="tech-pill"><i class="fa-solid fa-server text-green-400"></i> FastAPI</span>
+                    <span class="tech-pill"><i class="fa-solid fa-brain text-purple-400"></i> XGBoost</span>
+                    <span class="tech-pill"><i class="fa-brands fa-css3-alt text-blue-400"></i> Tailwind</span>
+                </div>
             </div>
         </div>
     </div>
@@ -380,160 +394,113 @@
 <!-- 2. Dataset Modal -->
 <div id="datasetModal" class="modal-overlay">
     <div class="modal-content">
-        <button class="close-btn" onclick="closeModal('datasetModal')">×</button>
+        <button class="close-btn" onclick="closeModal('datasetModal')"><i class="fa-solid fa-xmark"></i></button>
         
-        <div class="info-box">
-            <div class="info-title">📁 داتاسێت (Dataset)</div>
+        <div class="text-center mb-8">
+            <div class="w-16 h-16 bg-purple-500/10 text-purple-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 border border-purple-500/20"><i class="fa-solid fa-database"></i></div>
+            <h2 class="text-2xl font-bold text-white">داتاسێت و مۆدێل</h2>
+        </div>
+
+        <div class="info-card">
+            <div class="info-card-title"><i class="fa-solid fa-table-list"></i> پێکهاتەی داتا</div>
             <div class="info-text">
-                ئەم داتاسێتە سەرەتا لە <b>1200 کۆرپوس (ڕیز)</b> پێکدێت کە تایبەتە بە بازرگانی (B2B) کۆگاکانی هەولێر. لەبەر ئەوەی زۆربەی کڕیارەکان لە یەک جۆر بوون، بۆ دروستکردنی مۆدێلێکی بێلایەن، تەکنیکی <b>SMOTE</b> بەکارهێنراوە بۆ هاوسەنگکردنەوەی داتاکان، کە بەهۆیەوە قەبارەی داتاسێتەکە بەرزبووەتەوە بۆ <b>زیاتر لە 1500 کۆرپوس</b> بە یەکسانی تەواو لە نێوان هەردوو جۆری مەترسیدار و باوەڕپێکراودا.<br>
-                داتاسێتەکە پێکهاتووە لە <b>8 فیچەر (تایبەتمەندی)</b>:
+                داتاسێتەکە پێکهاتووە لە <b>1500+ کۆرپوس</b> لە بازاڕی هەولێر دوای بەکارهێنانی تەکنیکی <b>SMOTE</b> بۆ هاوسەنگکردن.<br>
+                لە ٨ فیچەری سەرەکی پێکدێت کە پشت بە زانستی (RFM) دەبەستن بۆ شیکاری ڕەفتاری کڕیار.
+            </div>
+        </div>
+
+        <div class="info-card !mb-0">
+            <div class="info-card-title"><i class="fa-solid fa-gears"></i> مۆدێلی XGBoost</div>
+            <div class="info-text">
+                ئەلگۆریتمەکە بەکارهاتووە بۆ دوو کاری جیاواز لە یەک کاتدا:<br>
                 <ul>
-                    <li><b>Shop_Age_Years:</b> تەمەنی دوکانەکە بە ساڵ (متمانەی کڕیار).</li>
-                    <li><b>Days_Since_Last_Order:</b> پێوەری (Recency) - چەند ڕۆژە کاڵای نەبردووە.</li>
-                    <li><b>Order_Freq_Per_Month:</b> پێوەری (Frequency) - چەند جار لە مانگێکدا وەسڵی هەیە.</li>
-                    <li><b>Average_Invoice_Value:</b> تێکڕای بەهای مامەڵەکانی.</li>
-                    <li><b>Total_Trade_Volume:</b> پێوەری (Monetary) - کۆی قەبارەی بازرگانی.</li>
-                    <li><b>Unpaid_Invoice_Ratio:</b> ڕێژەی وەسڵە نەدراوەکان.</li>
-                    <li><b>Debt_To_Volume_Ratio:</b> ڕێژەی قەرز بەراورد بە قەبارەی مامەڵە.</li>
-                    <li><b>Late_Payment_History:</b> ژمارەی جارەکانی دواکەوتنی قەرز.</li>
+                    <li><b>Classification:</b> دیاریکردنی جۆری مەترسی (بەرز یان نزم).</li>
+                    <li><b>Regression:</b> پێشبینیکردنی بڕی قەرز بە دۆلار.</li>
                 </ul>
             </div>
         </div>
-        
-        <div class="info-box" style="border-right-color: var(--green); background: rgba(0, 230, 118, 0.1);">
-            <div class="info-title" style="color: var(--green);">⚙️ مۆدێلەکانی ڕاهێنان (XGBoost)</div>
-            <div class="info-text">
-                لەم پڕۆژەیەدا سوود لە ئەلگۆریتمی پێشکەوتووی <b>XGBoost</b> وەرگیراوە بۆ دروستکردنی دوو مۆدێلی جیاواز کە بە تەکنیکی <b>RandomizedSearchCV</b> باشترین پارامێتەرەکانیان بۆ دۆزراوەتەوە:<br><br>
-                <b>1. مۆدێلی پۆلێنکردن (Classification):</b> بۆ جیاکردنەوەی کڕیارەکان بۆ دوو جۆر (High Risk و Low Risk).<br>
-                <b>2. مۆدێلی پێشبینیکردن (Regression):</b> بۆ پێشبینیکردنی بڕی قەرزی گونجاو (Credit Limit) بە دۆلار بۆ هەر کڕیارێک بە پشتبەستن بە مەترسییەکەی.
-            </div>
-        </div>
     </div>
 </div>
 
-<!-- 3. Evaluation Modal with Tabs -->
+<!-- 3. Evaluation Modal -->
 <div id="evalModal" class="modal-overlay">
     <div class="modal-content">
-        <button class="close-btn" onclick="closeModal('evalModal')">×</button>
+        <button class="close-btn" onclick="closeModal('evalModal')"><i class="fa-solid fa-xmark"></i></button>
         
-        <div class="info-box">
-            <div class="info-title">📊 تێگەیشتن لە پێوەرەکانی هەڵسەنگاندن</div>
-            <div class="info-text">
-                <b>Accuracy:</b> ڕێژەی سەرکەوتنی مۆدێلەکە لە دیاریکردنی مەترسی (بەرز یان نزم).<br>
-                <b>ROC-AUC:</b> توانای مۆدێلەکە بۆ جیاکردنەوەی دوو جۆرە کڕیارەکە بە دروستی.<br>
-                <b>F1-Score:</b> هاوسەنگی نێوان وردبینی و دۆزینەوەی دروست.<br>
-                <b>R² Score:</b> ڕێژەی دروستی پێشبینیکردنی بڕی قەرزەکە (چەند نزیکە لە ڕاستی).<br>
-                <b>RMSE & MAE:</b> تێکڕای هەڵەی پێشبینی قەرز بە دۆلار (هەرچەند کەمتر بێت باشترە).
-            </div>
+        <div class="text-center mb-6">
+            <h2 class="text-2xl font-bold text-white">ئەنجامی هەڵسەنگاندن</h2>
         </div>
-
+        
         <div class="tab-list">
-            <button class="tab-btn active" onclick="switchTab('testTab', this)">🧪 ئەنجامی تاقیکردنەوە (Test Data)</button>
-            <button class="tab-btn" onclick="switchTab('trainTab', this)">📚 ئەنجامی ڕاهێنان (Train Data)</button>
+            <button class="tab-btn active" onclick="switchTab('testTab', this)">ئەنجامی Test</button>
+            <button class="tab-btn" onclick="switchTab('trainTab', this)">ئەنجامی Train</button>
         </div>
 
-        <!-- Test Tab Content -->
         <div id="testTab" class="tab-content active">
-            <div class="sec-head mt-4">
-                <span class="sec-head-text">🎯 مۆدێلی پۆلێنکردنی مەترسی (XGBoost Classifier)</span>
-                <span class="sec-head-line"></span>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div class="metric-card"><div class="metric-label">Accuracy (ڕێژەی ڕاستی)</div><div class="metric-value">90.84%</div></div>
-                <div class="metric-card"><div class="metric-label">ROC-AUC Score</div><div class="metric-value">95.92%</div></div>
-                <div class="metric-card"><div class="metric-label">F1-Score</div><div class="metric-value">90.84%</div></div>
+            <div class="metric-grid">
+                <div class="metric-box"><div class="metric-label">Accuracy</div><div class="metric-value cyan">90.8%</div></div>
+                <div class="metric-card"><div class="metric-label">ROC-AUC</div><div class="metric-value cyan">95.9%</div></div>
+                <div class="metric-card"><div class="metric-label">R² Score</div><div class="metric-value cyan">94.5%</div></div>
             </div>
 
-            <div class="sec-head mt-8">
-                <span class="sec-head-text">💰 مۆدێلی پێشبینیکردنی قەرز (XGBoost Regressor)</span>
-                <span class="sec-head-line"></span>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div class="metric-card"><div class="metric-label">R² Score (ڕێژەی سەرکەوتن)</div><div class="metric-value">94.52%</div></div>
-                <div class="metric-card"><div class="metric-label">RMSE (تێکڕای هەڵە)</div><div class="metric-value">$85.40</div></div>
-                <div class="metric-card"><div class="metric-label">MAE (هەڵەی ڕەها)</div><div class="metric-value">$32.10</div></div>
-            </div>
-
-            <div class="mt-8 mb-6">
-                <img src="./outputs/credit_risk_scoring_results.png" alt="شیکاری ئەنجامەکان" class="chart-img">
-                <img src="./outputs/feature_importance.png" alt="گرنگی فیچەرەکان" class="chart-img mt-4">
-            </div>
-
-            <div style="background: rgba(0, 242, 254, 0.1); border-right: 4px solid var(--cyan); padding: 1rem; border-radius: 8px 0 0 8px; margin-top: 1.5rem; text-align: right;">
-                <b class="text-white">💡 ئەنجامی کۆتایی:</b> مۆدێلەکەمان بە سەرکەوتوویی توانای پێشبینیکردنی هەیە بە ڕێژەی زیاتر لە %90 بۆ مەترسی و %94 بۆ بڕی قەرز لەسەر داتای نەبینراو (Test). ئەنجامەکانی Test و Train زۆر نزیکن لە یەکەوە، ئەمەش دەریدەخات کە مۆدێلەکە زۆر جێگیرە و کێشەی (Overfitting)ی نییە.
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+                <img src="./outputs/credit_risk_scoring_results.png" class="chart-img">
+                <img src="./outputs/feature_importance.png" class="chart-img">
             </div>
         </div>
 
-        <!-- Train Tab Content -->
         <div id="trainTab" class="tab-content">
-            <div class="sec-head mt-4">
-                <span class="sec-head-text">🎯 مۆدێلی پۆلێنکردنی مەترسی (Train Data)</span>
-                <span class="sec-head-line"></span>
+            <div class="metric-grid">
+                <div class="metric-box"><div class="metric-label">Accuracy</div><div class="metric-value cyan">95.1%</div></div>
+                <div class="metric-card"><div class="metric-label">ROC-AUC</div><div class="metric-value cyan">99.1%</div></div>
+                <div class="metric-card"><div class="metric-label">R² Score</div><div class="metric-value cyan">98.6%</div></div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div class="metric-card"><div class="metric-label">Accuracy (ڕێژەی ڕاستی)</div><div class="metric-value">95.16%</div></div>
-                <div class="metric-card"><div class="metric-label">ROC-AUC Score</div><div class="metric-value">99.10%</div></div>
-                <div class="metric-card"><div class="metric-label">F1-Score</div><div class="metric-value">95.23%</div></div>
-            </div>
-
-            <div class="sec-head mt-8">
-                <span class="sec-head-text">💰 مۆدێلی پێشبینیکردنی قەرز (Train Data)</span>
-                <span class="sec-head-line"></span>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="metric-card"><div class="metric-label">R² Score (ڕێژەی سەرکەوتن)</div><div class="metric-value">98.66%</div></div>
-                <div class="metric-card"><div class="metric-label">RMSE (تێکڕای هەڵە)</div><div class="metric-value">$46.32</div></div>
-                <div class="metric-card"><div class="metric-label">MAE (هەڵەی ڕەها)</div><div class="metric-value">$15.29</div></div>
+            <div class="info-card text-center mt-8">
+                <div class="info-text">ئەنجامەکان زۆر لەیەکەوە نزیکن، ئەمەش بەڵگەیە لەسەر ئەوەی مۆدێلەکەمان تووشی <b>Overfitting</b> نەبووە و زۆر جێگیرە.</div>
             </div>
         </div>
     </div>
 </div>
 
-
 <script>
-    // Modal Functions
+    // کردنەوە و داخستنی پەنجەرەکان (مۆداڵ) زۆر بە نەرمی
     function openModal(id) {
         const modal = document.getElementById(id);
-        modal.classList.add('show');
+        modal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
 
     function closeModal(id) {
         const modal = document.getElementById(id);
-        modal.classList.remove('show');
+        modal.classList.remove('active');
         document.body.style.overflow = 'auto';
     }
 
     window.onclick = function(event) {
         if (event.target.classList.contains('modal-overlay')) {
-            event.target.classList.remove('show');
+            event.target.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
     }
 
-    // Tab Function
     function switchTab(tabId, btn) {
         document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-        
         document.getElementById(tabId).classList.add('active');
         btn.classList.add('active');
     }
 
-    // Slider Background Update
+    // ڕەنگی سلایدەرەکان
     document.querySelectorAll('.custom-slider').forEach(slider => {
         const updateBackground = () => {
-            const min = parseFloat(slider.min) || 0;
-            const max = parseFloat(slider.max) || 100;
-            const val = parseFloat(slider.value);
-            const percentage = ((val - min) / (max - min)) * 100;
-            slider.style.setProperty('--val', percentage + '%');
+            const val = ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
+            slider.style.setProperty('--val', val + '%');
         };
         slider.addEventListener('input', updateBackground);
         updateBackground();
     });
 
-    // Form Submission
+    // ناردنی فۆڕمەکە
     document.getElementById('predictForm').addEventListener('submit', async function (e) {
         e.preventDefault();
 
@@ -548,9 +515,9 @@
             late_history: parseInt(document.getElementById('late_history').value)
         };
 
-        const btn = document.querySelector('.btn-primary');
+        const btn = document.getElementById('submitBtn');
         const originalText = btn.innerHTML;
-        btn.innerHTML = '⏳ تکایە چاوەڕێبە...';
+        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin ml-2"></i> شیکردنەوە دەکرێت...';
         btn.disabled = true;
 
         try {
@@ -560,38 +527,46 @@
                 body: JSON.stringify(payload)
             });
 
-            if (!response.ok) throw new Error("کێشەیەک هەیە لە پەیوەندی کردن بە سێرڤەرەکە.");
+            if (!response.ok) throw new Error("سێرڤەر وەڵام ناداتەوە");
             const data = await response.json();
 
-            document.getElementById('resultsContainer').classList.remove('hidden');
+            const container = document.getElementById('resultsContainer');
+            container.classList.remove('hidden');
+            
+            // سکڕۆڵکردنێکی زۆر نەرم بۆ ئەنجامەکان
             setTimeout(() => {
-                document.getElementById('resultsContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                container.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 100);
 
             const riskCardBox = document.getElementById('riskCardBox');
             if (data.is_high_risk) {
                 riskCardBox.innerHTML = `
-                <div class="result-wrap"><div class="result-card liquid-glass rc-high">
-                    <div class="rc-eyebrow">⚠️ ئاستی مەترسی دوکان</div>
-                    <div class="rc-value">بەرز</div>
-                    <div class="rc-en">HIGH RISK</div>
-                    <span class="rc-badge badge-high">🔴 &nbsp;مەترسیدار</span>
-                </div></div>`;
+                <div class="result-card dark-glass high-risk">
+                    <div class="status-circle"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <div class="rc-eyebrow">ئاستی مەترسی</div>
+                    <div class="rc-value">مەترسیدار</div>
+                    <div class="rc-en">High Risk Profile</div>
+                </div>`;
             } else {
                 riskCardBox.innerHTML = `
-                <div class="result-wrap"><div class="result-card liquid-glass rc-low">
-                    <div class="rc-eyebrow">✅ ئاستی مەترسی دوکان</div>
-                    <div class="rc-value">نزم</div>
-                    <div class="rc-en">LOW RISK</div>
-                    <span class="rc-badge badge-low">🟢 &nbsp;باوەڕپێکراو</span>
-                </div></div>`;
+                <div class="result-card dark-glass low-risk">
+                    <div class="status-circle"><i class="fa-solid fa-shield-check"></i></div>
+                    <div class="rc-eyebrow">ئاستی مەترسی</div>
+                    <div class="rc-value">باوەڕپێکراو</div>
+                    <div class="rc-en">Low Risk Profile</div>
+                </div>`;
             }
 
             const formattedLimit = "$" + Math.max(0, data.credit_limit).toLocaleString('en-US', { maximumFractionDigits: 0 });
             document.getElementById('limitValue').innerText = formattedLimit;
 
+            // نیشاندانی ئەنجامەکان بە ئەنیمەیشن
+            setTimeout(() => {
+                document.querySelectorAll('.result-wrap').forEach(el => el.classList.add('show'));
+            }, 50);
+
         } catch (error) {
-            alert("پەیوەندی بە سێرڤەرەوە پچڕاوە. دڵنیابە کە سێرڤەرەکە لە ئینتەرنێت ئیش دەکات.");
+            alert("پەیوەندی بە سێرڤەرەوە پچڕاوە.");
         } finally {
             btn.innerHTML = originalText;
             btn.disabled = false;
