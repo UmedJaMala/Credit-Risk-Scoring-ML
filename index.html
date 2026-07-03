@@ -293,7 +293,15 @@
         .info-card:hover { transform: translateY(-2px); border-color: rgba(167, 203, 142, 0.2); }
         .info-card-title { color: var(--text-main); font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
         .info-card-title i { color: var(--accent); }
-        .info-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; }
+        
+        .info-text { 
+            font-size: 0.95rem; 
+            color: var(--text-muted); 
+            line-height: 1.8;
+            word-break: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
         .info-text b { color: var(--text-main); font-weight: 700; }
         
         .tech-pill { display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.05); color: var(--text-main); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50px; padding: 0.4rem 1rem; font-size: 0.8rem; font-weight: 600; margin: 0.25rem; font-family: 'Inter', sans-serif;}
@@ -313,7 +321,15 @@
         .metric-value { color: var(--text-main); font-size: 1.6rem; font-weight: 900; font-family: 'Inter', sans-serif; direction: ltr; }
         .metric-value.coral { color: var(--accent); text-shadow: 0 0 15px rgba(243, 163, 50, 0.2); }
 
-        .chart-container { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; }
+        .chart-container { 
+            background: rgba(255, 255, 255, 0.02); 
+            border: 1px solid rgba(255, 255, 255, 0.06); 
+            border-radius: 16px; 
+            padding: 1.5rem; 
+            margin-bottom: 1.5rem; 
+            width: 100% !important;
+            min-height: 280px;
+        }
 
         .footer { text-align: center; padding-top: 3rem; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 4rem; font-family: 'Inter', sans-serif; direction: ltr; }
 
@@ -328,60 +344,74 @@
         /* ═══════════ MOBILE & TABLET RESPONSIVENESS SCALING ═══════════ */
         @media (max-width: 768px) {
             .container-box {
-                padding: 1rem 0.75rem 3rem !important;
+                padding: 0.8rem 0.5rem 2.5rem !important;
+                width: 100% !important;
+                max-width: 100% !important;
             }
             .hero {
-                padding: 2.2rem 1rem !important;
-                margin-bottom: 1.5rem !important;
+                padding: 1.8rem 0.8rem !important;
+                margin-bottom: 1.2rem !important;
             }
             .hero-title {
-                font-size: 1.6rem !important;
+                font-size: 1.45rem !important;
+                line-height: 1.35 !important;
             }
             .hero-sub {
-                font-size: 0.9rem !important;
+                font-size: 0.85rem !important;
             }
             .btn-ghost {
-                padding: 0.8rem 1rem !important;
-                font-size: 0.9rem !important;
+                padding: 0.75rem 0.8rem !important;
+                font-size: 0.85rem !important;
+                width: 100% !important;
             }
             .input-card {
-                padding: 1.25rem !important;
-                gap: 1.25rem !important;
+                padding: 1rem 0.75rem !important;
+                gap: 1rem !important;
+                width: 100% !important;
             }
             .sec-title {
-                font-size: 1rem !important;
-                margin-bottom: 1.2rem !important;
-                padding-bottom: 0.6rem !important;
+                font-size: 0.95rem !important;
+                margin-bottom: 1rem !important;
+                padding-bottom: 0.5rem !important;
             }
             .glass-panel {
-                --r: 14px !important; /* Slightly smaller borders for small viewports */
+                --r: 12px !important; /* Slightly smaller borders for small viewports */
             }
             .custom-input {
-                padding: 0.7rem 1rem !important;
-                font-size: 0.95rem !important;
+                padding: 0.65rem 0.8rem !important;
+                font-size: 0.9rem !important;
             }
             .result-card {
-                padding: 1.5rem 1rem !important;
+                padding: 1.25rem 0.75rem !important;
             }
             .rc-value {
-                font-size: 2.2rem !important;
+                font-size: 2rem !important;
             }
             .metric-grid {
-                gap: 0.5rem !important;
+                gap: 0.4rem !important;
             }
             .metric-box {
-                padding: 1rem 0.5rem !important;
+                padding: 0.75rem 0.35rem !important;
             }
             .metric-value {
-                font-size: 1.25rem !important;
+                font-size: 1.1rem !important;
             }
             .modal-content {
-                padding: 1.5rem !important;
+                padding: 1.25rem 0.75rem !important;
                 width: 95% !important;
+                max-width: 95% !important;
             }
             .tech-pill {
-                padding: 0.35rem 0.8rem !important;
-                font-size: 0.75rem !important;
+                padding: 0.3rem 0.7rem !important;
+                font-size: 0.7rem !important;
+            }
+            .chart-container {
+                padding: 0.75rem 0.5rem !important;
+                min-height: 250px;
+            }
+            .info-card {
+                padding: 1rem 0.75rem !important;
+                margin-bottom: 1rem !important;
             }
         }
     </style>
@@ -605,12 +635,20 @@
 
         <div class="info-card">
             <div class="info-card-title"><i class="fa-solid fa-circle-question"></i> کێشەکە چییە؟ (The Problem)</div>
-            <div class="info-text">لە کاتی ئێستادا، زۆربەی کۆگاکانی فرۆشتنی کۆ (B2B) لە هەولێر و کوردستان بە گشتی، بڕیاردان لەسەر پێدانی قەرز بە دوکانەکان بە شێوەیەکی <b>هەڕەمەکی و کەسی</b> دەدەن. هیچ پێوەرێکی زانستی نییە بۆ ئەوەی بزانرێت ئایا ئەم دوکانە شایەنی چەند قەرزە، یان ئایا ئەگەری هەیە پارەکە نەگەڕێنێتەوە. ئەمەش دەبێتە هۆی <b>کەڵەکەبوونی قەرز، درەنگ کەوتنی پارەدان, و لەدەستدانی سەرمایەی کۆگاکان</b>.</div>
+            <div class="info-text">
+                <bdi>
+                    لە کاتی ئێستادا، زۆربەی کۆگاکانی فرۆشتنی کۆ (B2B) لە هەولێر و کوردستان بە گشتی، بڕیاردان لەسەر پێدانی قەرز بە دوکانەکان بە شێوەیەکی <b>هەڕەمەکی و کەسی</b> دەدەن. هیچ پێوەرێکی زانستی نییە بۆ ئەوەی بزانرێت ئایا ئەم دوکانە شایەنی چەند قەرزە، یان ئایا ئەگەری هەیە پارەکە نەگەڕێنێتەوە. ئەمەش دەبێتە هۆی <b>کەڵەکەبوونی قەرز، درەنگ کەوتنی پارەدان، و لەدەستدانی سەرمایەی کۆگاکان</b>.
+                </bdi>
+            </div>
         </div>
         
         <div class="info-card" style="border-right: 4px solid var(--accent); background: rgba(243, 163, 50, 0.05);">
             <div class="info-card-title" style="color: var(--accent);"><i class="fa-solid fa-lightbulb"></i> چارەسەرەکە (The Solution)</div>
-            <div class="info-text">ئەم پڕۆژەیە سیستەمێکی ژیری دەستکردی پێشکەوتووە بە بەکارهێنانی ئەلگۆریتمی <b>XGBoost</b> کە پشتبەست بە پێوەرەکانی <b>RFM (Recency, Frequency, Monetary)</b> کاردەکات. سیستەمەکە لە جێگەی مرۆڤ شیکارییەکی خێرا و ورد بۆ مێژووی دوکاندارەکەکە دەکات، و بە شێوەیەکی ئۆتۆماتیکی پێتدەڵێت کە ئایا ئەم دوکانە جێی متمانەیە یان مەترسیدارە، وە بە تەواوی <b>دەستنیشانی دەکات کە تا چەند دۆلار سەلامەتە قەرزی پێ بدرێت</b>.</div>
+            <div class="info-text">
+                <bdi>
+                    ئەم پڕۆژەیە سیستەمێکی ژیری دەستکردی پێشکەوتووە بە بەکارهێنانی ئەلگۆریتمی <b>XGBoost</b> کە پشتبەست بە پێوەرەکانی <b>RFM (Recency, Frequency, Monetary)</b> کاردەکات. سیستەمەکە لە جێگەی مرۆڤ شیکارییەکی خێرا و ورد بۆ مێژووی دوکاندارەکەکە دەکات، و بە شێوەیەکی ئۆتۆماتیکی پێتدەڵێت کە ئایا ئەم دوکانە جێی متمانەیە یان مەترسیدارە، وە بە تەواوی <b>دەستنیشانی دەکات کە تا چەند دۆلار سەلامەتە قەرزی پێ بدرێت</b>.
+                </bdi>
+            </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
@@ -656,17 +694,20 @@
         <div class="info-card">
             <div class="info-card-title"><i class="fa-solid fa-table-list"></i> داتاسێت (Dataset)</div>
             <div class="info-text">
-                ئەم داتاسێتە سەرەتا لە <b>1200 کۆرپوس (ڕیز)</b> پێکدێت کە تایبەتە بە بازرگانی (B2B) کۆگاکانی هەولێر. لەبەر ئەوەی زۆربەی کڕیارەکان لە یەک جۆر بوون، بۆ دروستکردنی مۆدێلێکی بێلایەن، تەکنیکی <b>SMOTE</b> بەکارهێنراوە بۆ هاوسەنگکردنەوەی داتاکان، کە بەهۆیەوە قەبارەی داتاسێتەکە بەرزبووەتەوە بۆ <b>زیاتر لە 1500 کۆرپوس</b> بە یەکسانی تەواو لە نێوان هەردوو جۆری مەترسیدار و باوەڕپێکراودا.<br><br>
+                <bdi>
+                    ئەم داتاسێتە سەرەتا لە <b>1200 کۆرپوس (ڕیز)</b> پێکدێت کە تایبەتە بە بازرگانی (B2B) کۆگاکانی هەولێر. لەبەر ئەوەی زۆربەی کڕیارەکان لە یەک جۆر بوون، بۆ دروستکردنی مۆدێلێکی بێلایەن، تەکنیکی <b>SMOTE</b> بەکارهێنراوە بۆ هاوسەنگکردنەوەی داتاکان، کە بەهۆیەوە قەبارەی داتاسێتەکە بەرزبووەتەوە بۆ <b>زیاتر لە 1500 کۆرپوس</b> بە یەکسانی تەواو لە نێوان هەردوو جۆری مەترسیدار و باوەڕپێکراودا.
+                </bdi>
+                <br><br>
                 داتاسێتەکە پێکهاتووە لە <b>8 فیچەر (تایبەتمەندی)</b>:
-                <ul class="mr-4 mt-2 list-disc">
-                    <li><b>Shop_Age_Years:</b> تەمەنی دوکانەکە بە ساڵ (متمانەی کڕیار).</li>
-                    <li><b>Days_Since_Last_Order:</b> پێوەری (Recency) - چەند ڕۆژە کاڵای نەبردووە.</li>
-                    <li><b>Order_Freq_Per_Month:</b> پێوەری (Frequency) - چەند جار لە مانگێکدا وەسڵی هەیە.</li>
-                    <li><b>Average_Invoice_Value:</b> تێکڕای بەهای مامەڵەکانی.</li>
-                    <li><b>Total_Trade_Volume:</b> پێوەری (Monetary) - کۆی قەبارەی بازرگانی.</li>
-                    <li><b>Unpaid_Invoice_Ratio:</b> ڕێژەی وەسڵە نەدراوەکان.</li>
-                    <li><b>Debt_To_Volume_Ratio:</b> ڕێژەی قەرز بەراورد بە قەبارەی مامەڵە.</li>
-                    <li><b>Late_Payment_History:</b> ژمارەی جارەکانی دواکەوتنی قەرز.</li>
+                <ul class="mr-4 mt-2 list-disc space-y-1">
+                    <li><bdi class="font-bold">Shop_Age_Years:</bdi> تەمەنی دوکانەکە بە ساڵ (متمانەی کڕیار).</li>
+                    <li><bdi class="font-bold">Days_Since_Last_Order:</bdi> پێوەری (Recency) - چەند ڕۆژە کاڵای نەبردووە.</li>
+                    <li><bdi class="font-bold">Order_Freq_Per_Month:</bdi> پێوەری (Frequency) - چەند جار لە مانگێکدا وەسڵی هەیە.</li>
+                    <li><bdi class="font-bold">Average_Invoice_Value:</bdi> تێکڕای بەهای مامەڵەکانی.</li>
+                    <li><bdi class="font-bold">Total_Trade_Volume:</bdi> پێوەری (Monetary) - کۆی قەبارەی بازرگانی.</li>
+                    <li><bdi class="font-bold">Unpaid_Invoice_Ratio:</bdi> ڕێژەی وەسڵە نەدراوەکان.</li>
+                    <li><bdi class="font-bold">Debt_To_Volume_Ratio:</bdi> ڕێژەی قەرز بەراورد بە قەبارەی مامەڵە.</li>
+                    <li><bdi class="font-bold">Late_Payment_History:</bdi> ژمارەی جارەکانی دواکەوتنی قەرز.</li>
                 </ul>
             </div>
         </div>
@@ -674,8 +715,11 @@
         <div class="info-card !mb-0" style="border-right: 4px solid var(--green); background: rgba(16, 185, 129, 0.05);">
             <div class="info-card-title" style="color: var(--green);"><i class="fa-solid fa-gears"></i> مۆدێلەکانی ڕاهێنان (XGBoost)</div>
             <div class="info-text">
-                لەم پڕۆژەیەدا سوود لە ئەلگۆریتمی پێشکەوتووی <b>XGBoost</b> وەرگیراوە بۆ دروستکردنی دوو مۆدێلی جیاواز کە بە تەکنیکی <b>RandomizedSearchCV</b> باشترین پارامێتەرەکانیان بۆ دۆزراوەتەوە:<br><br>
-                <ul class="mr-4 list-disc">
+                <bdi>
+                    لەم پڕۆژەیەدا سوود لە ئەلگۆریتمی پێشکەوتووی <b>XGBoost</b> وەرگیراوە بۆ دروستکردنی دوو مۆدێلی جیاواز کە بە تەکنیکی <b>RandomizedSearchCV</b> باشترین پارامێتەرەکانیان بۆ دۆزراوەتەوە:
+                </bdi>
+                <br><br>
+                <ul class="mr-4 list-disc space-y-1">
                     <li><b>مۆدێلی پۆلێنکردن (Classification):</b> بۆ جیاکردنەوەی کڕیارەکان بۆ دوو جۆر (High Risk و Low Risk).</li>
                     <li><b>مۆدێلی پێشبینیکردن (Regression):</b> بۆ پێشبینیکردنی بڕی قەرزی گونجاو (Credit Limit) بە دۆلار بۆ هەر کڕیارێک بە پشتبەستن بە مەترسییەکەی.</li>
                 </ul>
@@ -725,16 +769,16 @@
             
             <h3 class="text-[var(--text-main)] font-bold mb-4 mt-4 text-sm">🎯 مۆدێلی پۆلێنکردنی مەترسی (XGBoost Classifier)</h3>
             <div class="metric-grid">
-                <div class="metric-box"><div class="metric-label">Accuracy (ڕێژەی ڕاستی)</div><div class="metric-value">90.84%</div></div>
-                <div class="metric-box"><div class="metric-label">ROC-AUC Score</div><div class="metric-value">95.92%</div></div>
-                <div class="metric-box"><div class="metric-label">F1-Score</div><div class="metric-value">91.09%</div></div>
+                <div class="metric-box"><div class="metric-label"><bdi>Accuracy (ڕێژەی ڕاستی)</bdi></div><div class="metric-value">90.84%</div></div>
+                <div class="metric-box"><div class="metric-label"><bdi>ROC-AUC Score</bdi></div><div class="metric-value">95.92%</div></div>
+                <div class="metric-box"><div class="metric-label"><bdi>F1-Score</bdi></div><div class="metric-value">91.09%</div></div>
             </div>
 
             <h3 class="text-[var(--text-main)] font-bold mb-4 mt-8 text-sm">💰 مۆدێلی پێشبینیکردنی قەرز (XGBoost Regressor)</h3>
             <div class="metric-grid">
-                <div class="metric-box"><div class="metric-label">R² Score (ڕێژەی سەرکەوتن)</div><div class="metric-value coral">94.52%</div></div>
-                <div class="metric-box"><div class="metric-label">RMSE (تێکڕای هەڵە)</div><div class="metric-value coral">$96.21</div></div>
-                <div class="metric-box"><div class="metric-label">MAE (هەڵەی ڕەها)</div><div class="metric-value coral">$41.33</div></div>
+                <div class="metric-box"><div class="metric-label"><bdi>R² Score (ڕێژەی سەرکەوتن)</bdi></div><div class="metric-value coral">94.52%</div></div>
+                <div class="metric-box"><div class="metric-label"><bdi>RMSE (تێکڕای هەڵە)</bdi></div><div class="metric-value coral">$96.21</div></div>
+                <div class="metric-box"><div class="metric-label"><bdi>MAE (هەڵەی ڕەها)</bdi></div><div class="metric-value coral">$41.33</div></div>
             </div>
 
             <!-- ApexCharts Containers (4 Charts) -->
@@ -765,16 +809,16 @@
         <div id="trainTab" class="tab-content">
             <h3 class="text-[var(--text-main)] font-bold mb-4 mt-4 text-sm">🎯 مۆدێلی پۆلێنکردنی مەترسی (Train Data)</h3>
             <div class="metric-grid">
-                <div class="metric-box"><div class="metric-label">Accuracy (ڕێژەی ڕاستی)</div><div class="metric-value">95.16%</div></div>
-                <div class="metric-box"><div class="metric-label">ROC-AUC Score</div><div class="metric-value">99.10%</div></div>
-                <div class="metric-box"><div class="metric-label">F1-Score</div><div class="metric-value">95.23%</div></div>
+                <div class="metric-box"><div class="metric-label"><bdi>Accuracy (ڕێژەی ڕاستی)</bdi></div><div class="metric-value">95.16%</div></div>
+                <div class="metric-box"><div class="metric-label"><bdi>ROC-AUC Score</bdi></div><div class="metric-value">99.10%</div></div>
+                <div class="metric-box"><div class="metric-label"><bdi>F1-Score</bdi></div><div class="metric-value">95.23%</div></div>
             </div>
 
             <h3 class="text-[var(--text-main)] font-bold mb-4 mt-8 text-sm">💰 مۆدێلی پێشبینیکردنی قەرز (Train Data)</h3>
             <div class="metric-grid">
-                <div class="metric-box"><div class="metric-label">R² Score (ڕێژەی سەرکەوتن)</div><div class="metric-value coral">98.66%</div></div>
-                <div class="metric-box"><div class="metric-label">RMSE (تێکڕای هەڵە)</div><div class="metric-value coral">$46.32</div></div>
-                <div class="metric-box"><div class="metric-label">MAE (هەڵەی ڕەها)</div><div class="metric-value coral">$15.29</div></div>
+                <div class="metric-box"><div class="metric-label"><bdi>R² Score (ڕێژەی سەرکەوتن)</bdi></div><div class="metric-value coral">98.66%</div></div>
+                <div class="metric-box"><div class="metric-label"><bdi>RMSE (تێکڕای هەڵە)</bdi></div><div class="metric-value coral">$46.32</div></div>
+                <div class="metric-box"><div class="metric-label"><bdi>MAE (هەڵەی ڕەها)</bdi></div><div class="metric-value coral">$15.29</div></div>
             </div>
         </div>
     </div>
@@ -944,7 +988,14 @@
             grid: { borderColor: gridColorVal },
             colors: ['#a7cb8e', '#f3a332'], // Soft Sage Green & Warm Orange/Gold
             legend: { labels: { colors: textColorVal } },
-            tooltip: { theme: tooltipTheme }
+            tooltip: { theme: tooltipTheme },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    plotOptions: { bar: { columnWidth: '70%' } },
+                    xaxis: { labels: { style: { fontSize: '9px' } } }
+                }
+            }]
         });
         compChartObj.render();
 
@@ -958,10 +1009,17 @@
             plotOptions: { bar: { horizontal: true, barHeight: '60%', borderRadius: 4 } },
             dataLabels: { enabled: true, formatter: function (val) { return val.toFixed(2) + "%"; }, style: { colors: ['#fff'] } },
             xaxis: { categories: ['ڕێژەی وەسڵە نەدراوەکان', 'ڕێژەی قەرز بە مامەڵە', 'مەترسی پێشبینیکراو', 'کۆی قەبارەی بازرگانی', 'تێکڕای وەسڵ لە مانگێکدا', 'تێکڕای بەهای وەسڵ', 'تەمەنی دوکان', 'دواکەوتنی پێشینە', 'ڕۆژانی کۆتا وەسڵ'], labels: { style: { colors: textColorVal } } },
-            yaxis: { labels: { style: { colors: textColorVal } } },
+            yaxis: { labels: { style: { colors: textColorVal }, maxWidth: 150 } },
             grid: { borderColor: gridColorVal },
             colors: ['#a7cb8e'], // Soft Sage Green
-            tooltip: { theme: tooltipTheme }
+            tooltip: { theme: tooltipTheme },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    dataLabels: { enabled: false },
+                    yaxis: { labels: { style: { fontSize: '8px' }, maxWidth: 100 } }
+                }
+            }]
         });
         featChartObj.render();
 
@@ -997,7 +1055,15 @@
             },
             xaxis: { labels: { style: { colors: textColorVal } } },
             yaxis: { labels: { style: { colors: textColorVal } } },
-            tooltip: { theme: tooltipTheme }
+            tooltip: { theme: tooltipTheme },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    dataLabels: { style: { fontSize: '11px' } },
+                    xaxis: { labels: { style: { fontSize: '9px' } } },
+                    yaxis: { labels: { style: { fontSize: '9px' } } }
+                }
+            }]
         });
         confusionChartObj.render();
 
@@ -1042,7 +1108,14 @@
             },
             grid: { show: false },
             legend: { labels: { colors: textColorVal } },
-            tooltip: { theme: tooltipTheme }
+            tooltip: { theme: tooltipTheme },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: { height: 280 },
+                    xaxis: { labels: { style: { fontSize: '9px' } } }
+                }
+            }]
         });
         radarChartObj.render();
     }
@@ -1063,12 +1136,21 @@
             chart: { type: 'bar', height: 260, background: 'transparent', toolbar: { show: false } },
             plotOptions: { bar: { horizontal: false, columnWidth: '45%', borderRadius: 4 } },
             dataLabels: { enabled: true, style: { fontSize: '11px', fontFamily: 'Inter, sans-serif' } },
-            xaxis: { categories: ['باوەڕپێکراو (Low Risk)', 'مەترسیدار (High Risk)'], labels: { style: { colors: textColorVal } } },
+            xaxis: { categories: ['Low Risk', 'High Risk'], labels: { style: { colors: textColorVal } } },
             yaxis: { title: { text: 'ژمارەی نموونەکان (Samples)', style: { color: textColorVal } }, labels: { style: { colors: textColorVal } } },
             grid: { borderColor: gridColorVal },
             colors: ['#f3a332', '#a7cb8e'], // Warm Gold / Sage Green
             legend: { labels: { colors: textColorVal } },
-            tooltip: { theme: tooltipTheme }
+            tooltip: { theme: tooltipTheme },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    plotOptions: { bar: { horizontal: true, columnWidth: '55%' } },
+                    dataLabels: { enabled: false },
+                    yaxis: { labels: { style: { fontSize: '9px' } } },
+                    xaxis: { labels: { style: { fontSize: '9px' } }, title: { text: '' } }
+                }
+            }]
         });
         datasetChartObj.render();
     }
@@ -1083,18 +1165,25 @@
 
         datasetFeatureChartObj = new ApexCharts(document.querySelector("#datasetFeatureChart"), {
             series: [
-                { name: 'باوەڕپێکراو (Low Risk)', data: [12, 5, 8] },
-                { name: 'مەترسیدار (High Risk)', data: [48, 35, 42] }
+                { name: 'Low Risk', data: [12, 5, 8] },
+                { name: 'High Risk', data: [48, 35, 42] }
             ],
             chart: { type: 'bar', height: 260, background: 'transparent', toolbar: { show: false } },
             plotOptions: { bar: { horizontal: true, barHeight: '55%', borderRadius: 4 } },
             dataLabels: { enabled: true, formatter: function(val) { return val + "%"; }, style: { fontSize: '10px', fontFamily: 'Inter, sans-serif' } },
-            xaxis: { categories: ['قەرز بۆ مامەڵە (Debt-to-Volume)', 'وەسڵی نەدراو (Unpaid Invoice)', 'دواکەوتنی پارەدان (Late Payments x10)'], labels: { style: { colors: textColorVal } } },
+            xaxis: { categories: ['Debt-to-Volume', 'Unpaid Invoice', 'Late Payments x10'], labels: { style: { colors: textColorVal } } },
             yaxis: { labels: { style: { colors: textColorVal } } },
             grid: { borderColor: gridColorVal },
             colors: ['#a7cb8e', '#f3a332'], // Sage Green & Warm Gold
             legend: { labels: { colors: textColorVal } },
-            tooltip: { theme: tooltipTheme }
+            tooltip: { theme: tooltipTheme },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    dataLabels: { enabled: false },
+                    yaxis: { labels: { style: { fontSize: '8px' }, maxWidth: 110 } }
+                }
+            }]
         });
         datasetFeatureChartObj.render();
     }
@@ -1144,7 +1233,7 @@
             showToast("شیکاری سەرکەوتوو", "ئەنجامی پێشبینیکردنی مەترسی و سنووری قەرز بەردەستە.", "success");
         } catch (error) { 
             skeleton.classList.add('hidden');
-            showToast("شکستهێنان لە پەیوەندی", "پەیوەندی بە سێرڤەری مۆدێلی زیرەک پچڕاوە. تکایە دووبارە تاقیبکەرەوە.", "error"); 
+            showToast("شکستهێنان لە پەیوەندی", "پەیوەندی بە sێرڤەری مۆدێلی زیرەک پچڕاوە. تکایە دووبارە تاقیبکەرەوە.", "error"); 
         } finally { 
             btn.innerHTML = originalText; btn.disabled = false; 
         }
