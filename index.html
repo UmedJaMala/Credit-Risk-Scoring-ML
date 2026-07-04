@@ -7,7 +7,7 @@
     <title>سیستەمی زیرەکی نمرەدانی مەترسی</title>
     
     <!-- Favicon containing the URL-Encoded SVG Logo -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,%3Csvg width='64' height='64' viewBox='0 0 64 64' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='logoGrad' x1='0' y1='0' x2='64' y2='64'%3E%3Cstop offset='0%25' stop-color='%23113035'/%3E%3Cstop offset='50%25' stop-color='%23a7cb8e'/%3E%3Cstop offset='100%25' stop-color='%23f3a332'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M32 4C18 4 12 10 12 24C12 38 24 54 32 58C40 54 52 38 52 24C52 10 46 4 32 4Z' stroke='url(%23logoGrad)' stroke-width='2.5' fill='none'/%3E%3Cpath d='M32 16L44 22L32 28L20 22L32 16Z' fill='%23a7cb8e' opacity='0.3'/%3E%3Cpath d='M32 16L44 22L32 28L20 22L32 16Z' stroke='%23113035' stroke-width='1.5' fill='none'/%3E%3Cpath d='M20 22V36L32 42V28L20 22Z' fill='%23113035' opacity='0.4'/%3E%3Cpath d='M20 22V36L32 42V28L20 22Z' stroke='%23113035' stroke-width='1.5' fill='none'/%3E%3Cpath d='M32 28V42L44 36V22L32 28Z' fill='%23f3a332' opacity='0.2'/%3E%3Cpath d='M32 28V42L44 36V22L32 28Z' stroke='%23113035' stroke-width='1.5' fill='none'/%3E%3Cpath d='M16 38L26 30L34 35L48 20' stroke='%23f3a332' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='48' cy='20' r='3.5' fill='%23f3a332' stroke='%23fff' stroke-width='1'/%3E%3Ccircle cx='26' cy='30' r='2' fill='%23a7cb8e'/%3E%3Ccircle cx='34' cy='35' r='2' fill='%23a7cb8e'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,%3Csvg width='64' height='64' viewBox='0 0 64 64' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='logoGrad' x1='0' y1='0' x2='64' y2='64'%3E%3Cstop offset='0%25' stop-color='%233b5664'/%3E%3Cstop offset='50%25' stop-color='%23cbe3b5'/%3E%3Cstop offset='100%25' stop-color='%23ffd280'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M32 4C18 4 12 10 12 24C12 38 24 54 32 58C40 54 52 38 52 24C52 10 46 4 32 4Z' stroke='url(%23logoGrad)' stroke-width='2.5' fill='none'/%3E%3Cpath d='M32 16L44 22L32 28L20 22L32 16Z' fill='%23cbe3b5' opacity='0.3'/%3E%3Cpath d='M32 16L44 22L32 28L20 22L32 16Z' stroke='%23113035' stroke-width='1.5' fill='none'/%3E%3Cpath d='M20 22V36L32 42V28L20 22Z' fill='%233b5664' opacity='0.4'/%3E%3Cpath d='M20 22V36L32 42V28L20 22Z' stroke='%23113035' stroke-width='1.5' fill='none'/%3E%3Cpath d='M32 28V42L44 36V22L32 28Z' fill='%23ffd280' opacity='0.2'/%3E%3Cpath d='M32 28V42L44 36V22L32 28Z' stroke='%23113035' stroke-width='1.5' fill='none'/%3E%3Cpath d='M16 38L26 30L34 35L48 20' stroke='%23ffd280' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='48' cy='20' r='3.5' fill='%23ffd280' stroke='%23fff' stroke-width='1'/%3E%3Ccircle cx='26' cy='30' r='2' fill='%23cbe3b5'/%3E%3Ccircle cx='34' cy='35' r='2' fill='%23cbe3b5'/%3E%3C/svg%3E">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -19,7 +19,7 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        ku: ["'Yuni Qaidar _ News Headline 058'", "local('YuniQaidar')", "'Noto Sans Arabic'", "'Rabar_013'", "'Inter'", "sans-serif"]
+                        ku: ["'UniQAIDAR_NewsHeadLine'", "'Noto Sans Arabic'", "'Rabar_013'", "'Inter'", "sans-serif"]
                     },
                     colors: {
                         brand: {
@@ -38,16 +38,23 @@
         
         /* ═══════════ TYPOGRAPHY (LOCAL FONT) ═══════════ */
         @font-face {
-            font-family: 'Yuni Qaidar _ News Headline 058';
-            src: local('Yuni Qaidar _ News Headline 058'), local('YuniQaidar'), local('Arial');
-            font-weight: normal;
+            font-family: 'UniQAIDAR_NewsHeadLine';
+            src: url('./UniQAIDAR_NewsHeadLine 059.ttf') format('truetype');
+            font-weight: 400;
             font-style: normal;
             font-display: swap;
         }
         @font-face {
-            font-family: 'Yuni Qaidar _ News Headline 058';
-            src: local('Yuni Qaidar _ News Headline 058'), local('YuniQaidar'), local('Arial');
-            font-weight: bold;
+            font-family: 'UniQAIDAR_NewsHeadLine';
+            src: url('./UniQAIDAR_NewsHeadLine 058.ttf') format('truetype');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'UniQAIDAR_NewsHeadLine';
+            src: url('./UniQAIDAR_NewsHeadLine 057.ttf') format('truetype');
+            font-weight: 800;
             font-style: normal;
             font-display: swap;
         }
@@ -106,7 +113,7 @@
         }
 
         body {
-            font-family: 'Yuni Qaidar _ News Headline 058', 'YuniQaidar', 'Noto Sans Arabic', 'Rabar_013', 'Inter', sans-serif !important;
+            font-family: 'UniQAIDAR_NewsHeadLine', 'Noto Sans Arabic', 'Rabar_013', 'Inter', sans-serif !important;
             background-color: var(--bg-base);
             color: var(--text-main);
             transition: background-color 0.5s ease, color 0.5s ease;
@@ -243,6 +250,59 @@
             backface-visibility: hidden;
         }
         .btn-primary:hover { transform: translate3d(0, -3px, 0); box-shadow: 0 12px 30px var(--primary-glow); filter: brightness(1.1); }
+
+        .btn-clear {
+            width: 100%;
+            background: rgba(17, 48, 53, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 14px;
+            padding: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            
+            /* Animation properties - Hidden state by default */
+            opacity: 0;
+            transform: translate3d(0, 15px, 0) scale(0.95);
+            pointer-events: none;
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                        background-color 0.4s ease,
+                        border-color 0.4s ease,
+                        color 0.4s ease,
+                        box-shadow 0.4s ease;
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+        }
+        .btn-clear.show-btn {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) scale(1);
+            pointer-events: auto;
+        }
+        .btn-clear:hover {
+            border-color: #a7cb8e;
+            color: #a7cb8e;
+            background: rgba(167, 203, 142, 0.1);
+            box-shadow: 0 8px 25px rgba(167, 203, 142, 0.15);
+            transform: translate3d(0, -3px, 0);
+        }
+        .dark .btn-clear {
+            background: rgba(167, 203, 142, 0.03);
+            border: 1px solid rgba(167, 203, 142, 0.15);
+        }
+        .dark .btn-clear:hover {
+            border-color: #f3a332;
+            color: #f3a332;
+            background: rgba(243, 163, 50, 0.1);
+            box-shadow: 0 8px 25px rgba(243, 163, 50, 0.15);
+        }
 
         /* ═══════════ FORM & INPUTS ═══════════ */
         .sec-title { font-size: 1.1rem; font-weight: 800; color: var(--text-main); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.8rem; }
@@ -457,28 +517,28 @@
             <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <linearGradient id="logoGrad" x1="0" y1="0" x2="64" y2="64">
-                        <stop offset="0%" stop-color="#113035"/>
-                        <stop offset="50%" stop-color="#a7cb8e"/>
-                        <stop offset="100%" stop-color="#f3a332"/>
+                        <stop offset='0%' stop-color='#3b5664'/>
+                        <stop offset='50%' stop-color='#cbe3b5'/>
+                        <stop offset='100%' stop-color='#ffd280'/>
                     </linearGradient>
                 </defs>
                 <!-- Shield shape backdrop -->
                 <path d="M32 4C18 4 12 10 12 24C12 38 24 54 32 58C40 54 52 38 52 24C52 10 46 4 32 4Z" stroke="url(#logoGrad)" stroke-width="2.5" fill="none"/>
                 <!-- 3D Box isometric -->
                 <!-- Top Face -->
-                <path d="M32 16L44 22L32 28L20 22L32 16Z" fill="#a7cb8e" opacity="0.3"/>
+                <path d='M32 16L44 22L32 28L20 22L32 16Z' fill='#cbe3b5' opacity='0.3'/>
                 <path d="M32 16L44 22L32 28L20 22L32 16Z" stroke="#113035" stroke-width="1.5" fill="none"/>
                 <!-- Left Face -->
-                <path d="M20 22V36L32 42V28L20 22Z" fill="#113035" opacity="0.4"/>
+                <path d='M20 22V36L32 42V28L20 22Z' fill='#3b5664' opacity='0.4'/>
                 <path d="M20 22V36L32 42V28L20 22Z" stroke="#113035" stroke-width="1.5" fill="none"/>
                 <!-- Right Face -->
-                <path d="M32 28V42L44 36V22L32 28Z" fill="#f3a332" opacity="0.2"/>
+                <path d='M32 28V42L44 36V22L32 28Z' fill='#ffd280' opacity='0.2'/>
                 <path d="M32 28V42L44 36V22L32 28Z" stroke="#113035" stroke-width="1.5" fill="none"/>
                 <!-- Analytics Line Chart -->
-                <path d="M16 38L26 30L34 35L48 20" stroke="#f3a332" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="48" cy="20" r="3.5" fill="#f3a332" stroke="#fff" stroke-width="1"/>
-                <circle cx="26" cy="30" r="2" fill="#a7cb8e"/>
-                <circle cx="34" cy="35" r="2" fill="#a7cb8e"/>
+                <path d='M16 38L26 30L34 35L48 20' stroke='#ffd280' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/>
+                <circle cx='48' cy='20' r='3.5' fill='%23ffd280' stroke='#fff' stroke-width='1'/>
+                <circle cx='26' cy='30' r='2' fill='%23cbe3b5'/>
+                <circle cx='34' cy='35' r='2' fill='%23cbe3b5'/>
             </svg>
         </div>
         <h1 class="hero-title">سیستەمی زیرەکی <span>نمرەدانی مەترسی</span> و سنووری قەرز</h1>
@@ -567,9 +627,12 @@
             </div>
         </div>
 
-        <div class="col-span-1 md:col-span-2 mt-6">
-            <button type="submit" id="submitBtn" class="btn-primary">
+        <div class="col-span-1 md:col-span-2 mt-6 flex flex-col md:flex-row gap-4">
+            <button type="submit" id="submitBtn" class="btn-primary w-full transition-all duration-500 ease-out">
                 <i class="fa-solid fa-wand-magic-sparkles ml-2"></i> شیکردنەوە و بڕیاردان
+            </button>
+            <button type="button" id="clearBtn" onclick="clearForm()" class="btn-clear w-full md:w-1/4 hidden">
+                <i class="fa-solid fa-trash-can"></i> پاککردنەوەی فۆڕم
             </button>
         </div>
     </form>
@@ -589,17 +652,20 @@
     <!-- Results -->
     <div id="resultsContainer" class="hidden mt-16 pt-8 border-t border-gray-500/20">
         
-        <h2 class="text-center text-2xl font-bold mb-10 text-[var(--text-main)]"><i class="fa-solid fa-server text-[var(--primary)]"></i> ئەنجامی شیکاری کۆگا</h2>
+        <h2 class="text-center text-2xl font-bold mb-6 text-[var(--text-main)]"><i class="fa-solid fa-server text-[var(--primary)]"></i> ئەنجامی شیکاری کۆگا</h2>
+        
+        <!-- Engine Decision Badge and message -->
+        <div id="engineDecisionContainer" class="flex flex-col items-center justify-center mb-8 gap-2"></div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
             <div id="riskCardBox" class="result-wrap"></div>
             
             <div class="result-wrap" style="transition-delay: 0.1s;">
                 <div class="result-card glass-panel limit-card">
-                    <div class="status-icon text-[var(--primary)]"><i class="fa-solid fa-credit-card"></i></div>
-                    <div class="rc-eyebrow">سنووری قەرزی گونجاو (پەسەندکراو)</div>
-                    <div id="limitValue" class="rc-value">$0</div>
-                    <div class="rc-en">Approved Credit Limit</div>
+                     <div class="status-icon text-[var(--primary)]"><i class="fa-solid fa-credit-card"></i></div>
+                     <div class="rc-eyebrow">سنووری قەرزی گونجاو (پەسەندکراو)</div>
+                     <div id="limitValue" class="rc-value">$0</div>
+                     <div class="rc-en">Approved Credit Limit</div>
                 </div>
             </div>
         </div>
@@ -614,9 +680,18 @@
     </div>
 
     <!-- Footer -->
-    <div class="footer">
-        &copy; 2026 Erbil Warehouse B2B Credit Limit System.<br>
-        Developed by <strong class="bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] bg-clip-text text-transparent font-extrabold">Umed Jamal Nouri</strong> | Advanced RFM Edition
+    <div class="footer flex flex-col items-center justify-center gap-4 mt-16 pt-8 border-t border-gray-500/20">
+        <div class="flex items-center justify-center gap-6 text-xl">
+            <a href="https://linkedin.com/in/UmedJaMala" target="_blank" class="text-slate-400 hover:text-[#0077b5] hover:drop-shadow-[0_0_8px_rgba(0,119,181,0.5)] transition-all duration-300 transform hover:scale-125" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://github.com/UmedJaMala" target="_blank" class="text-slate-400 hover:text-[#24292e] dark:hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.4)] transition-all duration-300 transform hover:scale-125" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://facebook.com/UmedJaMala" target="_blank" class="text-slate-400 hover:text-[#1877f2] hover:drop-shadow-[0_0_8px_rgba(24,119,242,0.5)] transition-all duration-300 transform hover:scale-125" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://instagram.com/UmedJaMala" target="_blank" class="text-slate-400 hover:text-[#e1306c] hover:drop-shadow-[0_0_8px_rgba(225,48,108,0.5)] transition-all duration-300 transform hover:scale-125" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="mailto:umedjamal2005@gmail.com" class="text-slate-400 hover:text-[#db4437] hover:drop-shadow-[0_0_8px_rgba(219,68,55,0.5)] transition-all duration-300 transform hover:scale-125" title="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+        <div class="text-xs text-center text-slate-500 dark:text-slate-400 font-ku">
+            &copy; 2026 Erbil Warehouse B2B Credit Limit System.<br>
+            Developed by <strong class="bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] bg-clip-text text-transparent font-extrabold text-sm">Umed Jamal Nouri</strong> | Advanced RFM Edition
+        </div>
     </div>
 
 </div> 
@@ -650,8 +725,19 @@
             <div class="info-card-title" style="color: var(--accent);"><i class="fa-solid fa-lightbulb"></i> چارەسەرەکە (The Solution)</div>
             <div class="info-text">
                 <bdi>
-                    ئەم پڕۆژەیە سیستەمێکی ژیری دەستکردی پێشکەوتووە بە بەکارهێنانی ئەلگۆریتمی <b>XGBoost</b> کە پشتبەست بە پێوەرەکانی <b>RFM (Recency, Frequency, Monetary)</b> کاردەکات. سیستەمەکە لە جێگەی مرۆڤ شیکارییەکی خێرا و ورد بۆ مێژووی دوکاندارەکەکە دەکات، و بە شێوەیەکی ئۆتۆماتیکی پێتدەڵێت کە ئایا ئەم دوکانە جێی متمانەیە یان مەترسیدارە، وە بە تەواوی <b>دەستنیشانی دەکات کە تا چەند دۆلار سەلامەتە قەرزی پێ بدرێت</b>.
+                    ئەم پڕۆژەیە سیستەمێکی پێشکەوتووی مۆدێلی فێربوونی ئامێرە (Machine Learning) بە بەکارهێنانی ئەلگۆریتمی <b>XGBoost</b> کە پشتبەست بە پێوەرەکانی <b>RFM (Recency, Frequency, Monetary)</b> کاردەکات. سیستەمەکە لە جێگەی مرۆڤ شیکارییەکی خێرا و ورد بۆ مێژووی دوکاندارەکەکە دەکات، و بە شێوەیەکی ئۆتۆماتیکی پێتدەڵێت کە ئایا ئەم دوکانە جێی متمانەیە یان مەترسیدارە، وە بە تەواوی <b>دەستنیشانی دەکات کە تا چەند دۆلار سەلامەتە قەرزی پێ بدرێت</b>.
                 </bdi>
+            </div>
+        </div>
+
+        <div class="info-card" style="border-right: 4px solid var(--primary); background: rgba(17, 48, 53, 0.05);">
+            <div class="info-card-title" style="color: var(--primary);"><i class="fa-solid fa-gears"></i> چۆن کار دەکات؟ (How it works)</div>
+            <div class="info-text">
+                <ul class="mr-4 list-decimal space-y-2">
+                    <li><b>١. پشکنینی یاساکانی پاراستنی کۆگا (Rule Engine Check):</b> سیستەمەکە سەرەتا کڕیارە زۆر مەترسیدارەکان (Outliers) یان کڕیارە زۆر تازەکان (Cold Start) فلتەر دەکات بۆ پاراستنی خێرا و پێشوەختەی سەرمایەی کۆگاکە.</li>
+                    <li><b>٢. شیکاری مۆدێلی فێربوونی ئامێر (XGBoost Analysis):</b> ئەگەر کڕیارەکە هیچ سەرپێچی یان بارودۆخێکی تایبەتی نەبوو، مۆدێلی فێربوونی ئامێر (XGBoost) شیکارییەکی ئێجگار ورد بۆ مێژوو و شێوازی مامەڵەکانی دەکات.</li>
+                    <li><b>٣. بڕیاردانی ژیرانە (Smart Decision):</b> بە یەکگرتنی یاساکان و مۆدێلی فێربوونی ئامێر (Machine Learning)، نمرەی مەترسیی کڕیارەکە و سنووری قەرزی پێشکەشکراو بە دۆلار دیاری دەکرێت.</li>
+                </ul>
             </div>
         </div>
 
@@ -664,10 +750,11 @@
                     ساڵی خوێندن: ٢٠٢٥ - ٢٠٢٦
                 </div>
                 <div class="flex flex-col gap-2">
-                    <a href="https://github.com/UMEDJAMALA" target="_blank" class="text-[var(--accent)] text-sm hover:underline"><i class="fa-brands fa-github ml-1"></i> GitHub Profile</a>
-                    <a href="https://linkedin.com/in/umedjamala" target="_blank" class="text-[var(--accent)] text-sm hover:underline"><i class="fa-brands fa-linkedin ml-1"></i> LinkedIn Profile</a>
-                    <a href="https://facebook.com/umedjamala" target="_blank" class="text-[var(--accent)] text-sm hover:underline"><i class="fa-brands fa-facebook ml-1"></i> Facebook Profile</a>
-                    <a href="mailto:umedjamal2005@gmail.com" class="text-[var(--accent)] text-sm hover:underline"><i class="fa-solid fa-envelope ml-1"></i> Contact Email</a>
+                    <a href="https://linkedin.com/in/UmedJaMala" target="_blank" class="text-[var(--accent)] text-sm hover:underline flex items-center gap-1.5"><i class="fa-brands fa-linkedin text-base"></i> LinkedIn Profile</a>
+                    <a href="https://github.com/UmedJaMala" target="_blank" class="text-[var(--accent)] text-sm hover:underline flex items-center gap-1.5"><i class="fa-brands fa-github text-base"></i> GitHub Profile</a>
+                    <a href="https://facebook.com/UmedJaMala" target="_blank" class="text-[var(--accent)] text-sm hover:underline flex items-center gap-1.5"><i class="fa-brands fa-facebook text-base"></i> Facebook Profile</a>
+                    <a href="https://instagram.com/UmedJaMala" target="_blank" class="text-[var(--accent)] text-sm hover:underline flex items-center gap-1.5"><i class="fa-brands fa-instagram text-base"></i> Instagram Profile</a>
+                    <a href="mailto:umedjamal2005@gmail.com" class="text-[var(--accent)] text-sm hover:underline flex items-center gap-1.5"><i class="fa-solid fa-envelope text-base"></i> Contact Email</a>
                 </div>
             </div>
             <div class="info-card !mb-0">
@@ -699,28 +786,48 @@
             <div class="info-card-title"><i class="fa-solid fa-table-list"></i> داتاسێت (Dataset)</div>
             <div class="info-text">
                 <bdi>
-                    ئەم داتاسێتە سەرەتا لە <b>1200 کۆرپوس (ڕیز)</b> پێکدێت کە تایبەتە بە بازرگانی (B2B) کۆگاکانی هەولێر. لەبەر ئەوەی زۆربەی کڕیارەکان لە یەک جۆر بوون، بۆ دروستکردنی مۆدێلێکی بێلایەن، تەکنیکی <b>SMOTE</b> بەکارهێنراوە بۆ هاوسەنگکردنەوەی داتاکان، کە بەهۆیەوە قەبارەی داتاسێتەکە بەرزبووەتەوە بۆ <b>زیاتر لە 1500 کۆرپوس</b> بە یەکسانی تەواو لە نێوان هەردوو جۆری مەترسیدار و باوەڕپێکراودا.
+                    ئەم داتاسێتە سەرەتا لە <b>1200 تۆماری داتا (تۆمار/ڕیز)</b> پێکدێت کە تایبەتە بە بازرگانی (B2B) کۆگاکانی هەولێر. لەبەر ئەوەی زۆربەی کڕیارەکان لە یەک جۆر بوون، بۆ دروستکردنی مۆدێلێکی بێلایەن، تەکنیکی <b>SMOTE</b> بەکارهێنراوە بۆ هاوسەنگکردنەوەی داتاکان، کە بەهۆیەوە قەبارەی داتاسێتەکە بەرزبووەتەوە بۆ <b>زیاتر لە 1500 تۆماری داتا (تۆمار/ڕیز)</b> بە یەکسانی تەواو لە نێوان هەردوو جۆری مەترسیدار و باوەڕپێکراودا.
                 </bdi>
                 <br><br>
-                داتاسێتەکە پێکهاتووە لە <b>8 فیچەر (تایبەتمەندی)</b>:
-                <ul class="mr-4 mt-2 list-disc space-y-1">
-                    <li><bdi class="font-bold">Shop_Age_Years:</bdi> تەمەنی دوکانەکە بە ساڵ (متمانەی کڕیار).</li>
-                    <li><bdi class="font-bold">Days_Since_Last_Order:</bdi> پێوەری (Recency) - چەند ڕۆژە کاڵای نەبردووە.</li>
-                    <li><bdi class="font-bold">Order_Freq_Per_Month:</bdi> پێوەری (Frequency) - چەند جار لە مانگێکدا وەسڵی هەیە.</li>
-                    <li><bdi class="font-bold">Average_Invoice_Value:</bdi> تێکڕای بەهای مامەڵەکانی.</li>
-                    <li><bdi class="font-bold">Total_Trade_Volume:</bdi> پێوەری (Monetary) - کۆی قەبارەی بازرگانی.</li>
-                    <li><bdi class="font-bold">Unpaid_Invoice_Ratio:</bdi> ڕێژەی وەسڵە نەدراوەکان.</li>
-                    <li><bdi class="font-bold">Debt_To_Volume_Ratio:</bdi> ڕێژەی قەرز بەراورد بە قەبارەی مامەڵە.</li>
-                    <li><bdi class="font-bold">Late_Payment_History:</bdi> ژمارەی جارەکانی دواکەوتنی قەرز.</li>
+                داتاسێتەکە پێکهاتووە لە <b>8 فیچەر (تایبەتمەندی)</b> کە بەپێی پێوەرەکانی <b>Advanced RFM</b> بەم شێوەیە پۆلێن کراون:
+                <ul class="mr-4 mt-3 space-y-3">
+                    <li>
+                        <span class="font-bold text-[var(--primary)]">1. نوێکاری مامەڵە (Recency - R):</span>
+                        <ul class="mr-6 mt-1 list-disc space-y-1 text-xs">
+                            <li><bdi class="font-bold">Days_Since_Last_Order:</bdi> ماوەی کۆتا کڕین بە ڕۆژ.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="font-bold text-[var(--primary)]">2. بەردەوامی کڕین (Frequency - F):</span>
+                        <ul class="mr-6 mt-1 list-disc space-y-1 text-xs">
+                            <li><bdi class="font-bold">Order_Freq_Per_Month:</bdi> تێکڕای ژمارەی وەسڵەکان لە مانگێکدا.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="font-bold text-[var(--primary)]">3. قەبارەی دارایی (Monetary - M):</span>
+                        <ul class="mr-6 mt-1 list-disc space-y-1 text-xs">
+                            <li><bdi class="font-bold">Average_Invoice_Value:</bdi> تێکڕای بەهای وەسڵ.</li>
+                            <li><bdi class="font-bold">Total_Trade_Volume:</bdi> کۆی قەبارەی بازرگانی.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="font-bold text-[var(--primary)]">4. پێوەرەکانی مەترسی و متمانە (Risk & Profile):</span>
+                        <ul class="mr-6 mt-1 list-disc space-y-1 text-xs">
+                            <li><bdi class="font-bold">Unpaid_Invoice_Ratio:</bdi> ڕێژەی وەسڵە نەدراوەکان.</li>
+                            <li><bdi class="font-bold">Debt_To_Volume_Ratio:</bdi> ڕێژەی قەرز بۆ بازرگانی.</li>
+                            <li><bdi class="font-bold">Late_Payment_History:</bdi> دواکەوتنی پێشینە.</li>
+                            <li><bdi class="font-bold">Shop_Age_Years:</bdi> تەمەنی دوکان.</li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
 
-        <div class="info-card !mb-0" style="border-right: 4px solid var(--green); background: rgba(16, 185, 129, 0.05);">
+        <div class="info-card" style="border-right: 4px solid var(--green); background: rgba(16, 185, 129, 0.05);">
             <div class="info-card-title" style="color: var(--green);"><i class="fa-solid fa-gears"></i> مۆدێلەکانی ڕاهێنان (XGBoost)</div>
             <div class="info-text">
                 <bdi>
-                    لەم پڕۆژەیەدا سوود لە ئەلگۆریتمی پێشکەوتووی <b>XGBoost</b> وەرگیراوە بۆ دروستکردنی دوو مۆدێلی جیاواز کە بە تەکنیکی <b>RandomizedSearchCV</b> باشترین پارامێتەرەکانیان بۆ دۆزراوەتەوە:
+                    لەم پڕۆژەیەدا سوود لە مۆدێلی فێربوونی ئامێری پێشکەوتوو (Machine Learning) بە ئەلگۆریتمی <b>(XGBoost)</b> وەرگیراوە بۆ دروستکردنی دوو مۆدێلی جیاواز کە بە تەکنیکی <b>RandomizedSearchCV</b> باشترین پارامێتەرەکانیان بۆ دۆزراوەتەوە:
                 </bdi>
                 <br><br>
                 <ul class="mr-4 list-disc space-y-1">
@@ -741,6 +848,7 @@
             <h4 class="text-center font-bold text-slate-700 dark:text-slate-300 mb-3 text-sm font-ku">تێکڕای پێوەرە گرنگەکانی ڕێژەی مەترسی (Key Predictors Averages)</h4>
             <div id="datasetFeatureChart"></div>
         </div>
+
     </div>
 </div>
 
@@ -829,6 +937,55 @@
 </div>
 
 <script>
+    // Global variables for ApexCharts
+    let compChartObj = null;
+    let featChartObj = null;
+    let datasetChartObj = null;
+    let datasetFeatureChartObj = null;
+    let confusionChartObj = null;
+    let radarChartObj = null;
+
+    // Clear Form function
+    function clearForm() {
+        document.getElementById('predictForm').reset();
+        
+        // Reset slider displays manually since form.reset() doesn't trigger 'input' events automatically
+        document.querySelectorAll('.custom-slider').forEach(slider => {
+            slider.style.setProperty('--val', ((slider.value - slider.min) / (slider.max - slider.min)) * 100 + '%');
+        });
+        document.getElementById('unpaid_val').innerText = document.getElementById('unpaid_ratio_slider').value + '%';
+        document.getElementById('age_val').innerText = document.getElementById('shop_age').value;
+        document.getElementById('debt_val').innerText = document.getElementById('debt_ratio_slider').value + '%';
+        
+        // Hide results container
+        const results = document.getElementById('resultsContainer');
+        results.classList.add('hidden');
+        
+        // Hide skeleton
+        document.getElementById('loadingSkeleton').classList.add('hidden');
+        
+        // Clear engine badge container
+        const badgeContainer = document.getElementById('engineDecisionContainer');
+        if (badgeContainer) badgeContainer.innerHTML = '';
+        
+        // Remove animation class from result cards
+        document.querySelectorAll('.result-wrap').forEach(el => el.classList.remove('show'));
+        
+        // Hide the clear button smoothly
+        const clearBtn = document.getElementById('clearBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        if (clearBtn && submitBtn) {
+            clearBtn.classList.remove('show-btn');
+            setTimeout(() => {
+                clearBtn.classList.add('hidden');
+                submitBtn.classList.remove('md:w-3/4');
+                submitBtn.classList.add('w-full');
+            }, 500); // Wait for transition out (500ms) before hiding from layout
+        }
+        
+        showToast("پاککردنەوەی فۆڕم", "فۆڕمەکە پاککرایەوە بۆ باری سەرەتایی.", "success");
+    }
+
     // شەو و ڕۆژ (Dark / Light Mode)
     function toggleTheme() {
         document.documentElement.classList.toggle('dark');
@@ -959,26 +1116,30 @@
         `;
     }
 
-    // ApexCharts Rendering Logic with 4 Interactive Charts
-    let compChartObj = null;
-    let featChartObj = null;
-    let datasetChartObj = null;
-    let datasetFeatureChartObj = null;
-    let confusionChartObj = null;
-    let radarChartObj = null;
-
     function renderCharts() {
         const isDarkObj = document.documentElement.classList.contains('dark');
         const textColorVal = isDarkObj ? '#8ca2a4' : '#4e5e60';
         const gridColorVal = isDarkObj ? 'rgba(167, 203, 142, 0.1)' : 'rgba(17, 48, 53, 0.1)';
         const tooltipTheme = isDarkObj ? 'dark' : 'light';
 
-        if (compChartObj) compChartObj.destroy();
-        if (featChartObj) featChartObj.destroy();
-        if (confusionChartObj) confusionChartObj.destroy();
-        if (radarChartObj) radarChartObj.destroy();
+        if (compChartObj) {
+            compChartObj.destroy();
+            compChartObj = null;
+        }
+        if (featChartObj) {
+            featChartObj.destroy();
+            featChartObj = null;
+        }
+        if (confusionChartObj) {
+            confusionChartObj.destroy();
+            confusionChartObj = null;
+        }
+        if (radarChartObj) {
+            radarChartObj.destroy();
+            radarChartObj = null;
+        }
 
-        // 1. Grouped Bar Chart (Test vs Train Metrics)
+        // 3. Grouped Bar Chart (Test vs Train Metrics)
         compChartObj = new ApexCharts(document.querySelector("#chartCompare"), {
             series: [
                 { name: 'Test Data', data: [90.84, 95.92, 91.09, 94.52] },
@@ -990,7 +1151,7 @@
             xaxis: { categories: ['Accuracy', 'ROC-AUC', 'F1-Score', 'R² Score'], labels: { style: { colors: textColorVal } } },
             yaxis: { max: 100, labels: { style: { colors: textColorVal } } },
             grid: { borderColor: gridColorVal },
-            colors: ['#a7cb8e', '#f3a332'], // Soft Sage Green & Warm Orange/Gold
+            colors: ['#a7cb8e', '#f3a332'],
             legend: { labels: { colors: textColorVal } },
             tooltip: { theme: tooltipTheme },
             responsive: [{
@@ -1003,9 +1164,9 @@
                 }
             }]
         });
-        compChartObj.render();
+        setTimeout(() => { if(compChartObj) compChartObj.render(); }, 50);
 
-        // 2. Feature Importance Horizontal Bar Chart
+        // 4. Feature Importance Horizontal Bar Chart
         featChartObj = new ApexCharts(document.querySelector("#chartFeatures"), {
             series: [{
                 name: 'گرنگی فیچەر (%)',
@@ -1017,7 +1178,7 @@
             xaxis: { categories: ['ڕێژەی وەسڵە نەدراوەکان', 'ڕێژەی قەرز بە مامەڵە', 'مەترسی پێشبینیکراو', 'کۆی قەبارەی بازرگانی', 'تێکڕای وەسڵ لە مانگێکدا', 'تێکڕای بەهای وەسڵ', 'تەمەنی دوکان', 'دواکەوتنی پێشینە', 'ڕۆژانی کۆتا وەسڵ'], labels: { style: { colors: textColorVal } } },
             yaxis: { labels: { style: { colors: textColorVal }, maxWidth: 220 } },
             grid: { borderColor: gridColorVal },
-            colors: ['#a7cb8e'], // Soft Sage Green
+            colors: ['#a7cb8e'],
             tooltip: { theme: tooltipTheme },
             responsive: [{
                 breakpoint: 480,
@@ -1029,23 +1190,23 @@
                 }
             }]
         });
-        featChartObj.render();
+        setTimeout(() => { if(featChartObj) featChartObj.render(); }, 50);
 
-        // 3. Confusion Matrix Heatmap Chart (Exact extraction: 168, 23, 12, 179)
+        // 5. Confusion Matrix Heatmap Chart
         confusionChartObj = new ApexCharts(document.querySelector("#chartConfusion"), {
             series: [
                 {
-                    name: 'مەترسیدار (High Risk) - Actual',
+                    name: 'Actual High Risk',
                     data: [
-                        { x: 'Low - Pred', y: 12 },
-                        { x: 'High - Pred', y: 179 }
+                        { x: 'Predicted Low Risk', y: 12 },
+                        { x: 'Predicted High Risk', y: 179 }
                     ]
                 },
                 {
-                    name: 'باوەڕپێکراو (Low Risk) - Actual',
+                    name: 'Actual Low Risk',
                     data: [
-                        { x: 'Low - Pred', y: 168 },
-                        { x: 'High - Pred', y: 23 }
+                        { x: 'Predicted Low Risk', y: 168 },
+                        { x: 'Predicted High Risk', y: 23 }
                     ]
                 }
             ],
@@ -1055,8 +1216,8 @@
                 heatmap: {
                     colorScale: {
                         ranges: [
-                            { from: 0, to: 30, color: '#f3a332', name: 'هەڵەکان (Errors)' }, // Gold/Orange for errors
-                            { from: 31, to: 200, color: '#113035', name: 'ڕاستەکان (Correct)' } // Dark Forest/Teal for correct
+                            { from: 0, to: 30, color: '#f3a332', name: 'هەڵەکان (Errors)' },
+                            { from: 31, to: 200, color: '#113035', name: 'ڕاستەکان (Correct)' }
                         ]
                     }
                 }
@@ -1074,16 +1235,16 @@
                 }
             }]
         });
-        confusionChartObj.render();
+        setTimeout(() => { if(confusionChartObj) confusionChartObj.render(); }, 50);
 
-        // 4. General Evaluation Radar Chart (Accuracy, ROC-AUC, F1-Score, R² Score)
+        // 6. General Evaluation Radar Chart
         radarChartObj = new ApexCharts(document.querySelector("#chartRadar"), {
             series: [
                 { name: 'Test Data', data: [90.84, 95.92, 91.09, 94.52] },
                 { name: 'Train Data', data: [95.16, 99.10, 95.23, 98.66] }
             ],
             chart: { height: 320, type: 'radar', background: 'transparent', toolbar: { show: false } },
-            colors: ['#a7cb8e', '#f3a332'], // Soft Sage Green and Warm Orange/Gold
+            colors: ['#a7cb8e', '#f3a332'],
             xaxis: {
                 categories: ['Accuracy', 'ROC-AUC', 'F1-Score', 'R² Score'],
                 labels: {
@@ -1127,7 +1288,7 @@
                 }
             }]
         });
-        radarChartObj.render();
+        setTimeout(() => { if(radarChartObj) radarChartObj.render(); }, 50);
     }
 
     function renderDatasetChart() {
@@ -1136,7 +1297,10 @@
         const gridColorVal = isDarkObj ? 'rgba(167, 203, 142, 0.1)' : 'rgba(17, 48, 53, 0.1)';
         const tooltipTheme = isDarkObj ? 'dark' : 'light';
 
-        if (datasetChartObj) datasetChartObj.destroy();
+        if (datasetChartObj) {
+            datasetChartObj.destroy();
+            datasetChartObj = null;
+        }
 
         datasetChartObj = new ApexCharts(document.querySelector("#datasetChart"), {
             series: [
@@ -1149,7 +1313,7 @@
             xaxis: { categories: ['Low Risk', 'High Risk'], labels: { style: { colors: textColorVal } } },
             yaxis: { title: { text: 'Samples', style: { color: textColorVal } }, labels: { style: { colors: textColorVal } } },
             grid: { borderColor: gridColorVal },
-            colors: ['#f3a332', '#a7cb8e'], // Warm Gold / Sage Green
+            colors: ['#f3a332', '#a7cb8e'],
             legend: { labels: { colors: textColorVal } },
             tooltip: { theme: tooltipTheme },
             responsive: [{
@@ -1158,21 +1322,25 @@
                     chart: { height: 260 },
                     plotOptions: { bar: { horizontal: true, columnWidth: '55%' } },
                     dataLabels: { enabled: true, style: { fontSize: '9px' } },
-                    yaxis: { labels: { style: { fontSize: '9px' } } },
+                    yaxis: { labels: { style: { fontSize: '9px' } }, title: { text: '' } },
                     xaxis: { labels: { style: { fontSize: '9px' } }, title: { text: '' } }
                 }
             }]
         });
-        datasetChartObj.render();
+        setTimeout(() => { if(datasetChartObj) datasetChartObj.render(); }, 50);
     }
 
+    // Interactive horizontal features chart
     function renderDatasetFeatureChart() {
         const isDarkObj = document.documentElement.classList.contains('dark');
         const textColorVal = isDarkObj ? '#8ca2a4' : '#4e5e60';
         const gridColorVal = isDarkObj ? 'rgba(167, 203, 142, 0.1)' : 'rgba(17, 48, 53, 0.1)';
         const tooltipTheme = isDarkObj ? 'dark' : 'light';
 
-        if (datasetFeatureChartObj) datasetFeatureChartObj.destroy();
+        if (datasetFeatureChartObj) {
+            datasetFeatureChartObj.destroy();
+            datasetFeatureChartObj = null;
+        }
 
         datasetFeatureChartObj = new ApexCharts(document.querySelector("#datasetFeatureChart"), {
             series: [
@@ -1185,7 +1353,7 @@
             xaxis: { categories: ['Debt-to-Volume', 'Unpaid Invoice', 'Late Payments x10'], labels: { style: { colors: textColorVal } } },
             yaxis: { labels: { style: { colors: textColorVal } } },
             grid: { borderColor: gridColorVal },
-            colors: ['#a7cb8e', '#f3a332'], // Sage Green & Warm Gold
+            colors: ['#a7cb8e', '#f3a332'],
             legend: { labels: { colors: textColorVal } },
             tooltip: { theme: tooltipTheme },
             responsive: [{
@@ -1202,10 +1370,10 @@
                 }
             }]
         });
-        datasetFeatureChartObj.render();
+        setTimeout(() => { if(datasetFeatureChartObj) datasetFeatureChartObj.render(); }, 50);
     }
 
-    // ناردنی فۆڕم
+    // Submit handler logic
     document.getElementById('predictForm').addEventListener('submit', async function (e) {
         e.preventDefault();
         const payload = {
@@ -1237,6 +1405,53 @@
 
             setTimeout(() => { results.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
 
+            // Rule Engine Badge logic
+            const badgeContainer = document.getElementById('engineDecisionContainer');
+            if (badgeContainer) {
+                badgeContainer.innerHTML = ''; // Completely clear out before rendering
+                
+                const ruleTriggered = data.rule_triggered === true;
+                const creditLimit = Number(data.credit_limit) || 0;
+
+                if (!ruleTriggered) {
+                    badgeContainer.innerHTML = `
+                        <div class="flex flex-col items-center justify-center p-4 bg-slate-900/40 dark:bg-slate-950/60 border border-emerald-500/30 rounded-2xl max-w-md mx-auto shadow-lg backdrop-blur-md">
+                            <div class="flex items-center justify-center gap-3 text-sm font-bold text-emerald-400 font-ku text-center w-full">
+                                <i class="fa-solid fa-brain text-lg"></i>
+                                <span>مۆدێلی فێربوونی ئامێر (Machine Learning) - ئەلگۆریتمی XGBoost</span>
+                            </div>
+                            <div class="text-[0.75rem] text-slate-400 mt-2 font-ku font-semibold text-center w-full">
+                                بڕیاری کۆتایی لە ڕێگەی ئەلگۆریتمی XGBoost دەرکراوە
+                            </div>
+                        </div>
+                    `;
+                } else if (ruleTriggered && creditLimit > 0) {
+                    badgeContainer.innerHTML = `
+                        <div class="flex flex-col items-center justify-center p-4 bg-slate-900/40 dark:bg-slate-950/60 border border-amber-500/30 rounded-2xl max-w-md mx-auto shadow-lg backdrop-blur-md">
+                            <div class="flex items-center justify-center gap-3 text-sm font-bold text-amber-400 font-ku text-center w-full">
+                                <i class="fa-solid fa-shield-halved text-lg animate-pulse"></i>
+                                <span>سیستەمی پاراستنی خێرا (Rule Engine)</span>
+                            </div>
+                            <div class="text-[0.75rem] text-slate-400 mt-2 font-ku font-semibold text-center w-full">
+                                ${data.rule_message}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    badgeContainer.innerHTML = `
+                        <div class="flex flex-col items-center justify-center p-4 bg-slate-900/40 dark:bg-slate-950/60 border border-red-500/30 rounded-2xl max-w-md mx-auto shadow-lg backdrop-blur-md">
+                            <div class="flex items-center justify-center gap-3 text-sm font-bold text-red-400 font-ku text-center w-full">
+                                <i class="fa-solid fa-shield-virus text-lg animate-pulse"></i>
+                                <span>سیستەمی پاراستنی توند (Security Engine)</span>
+                            </div>
+                            <div class="text-[0.75rem] text-slate-400 mt-2 font-ku font-semibold text-center w-full">
+                                ${data.rule_message}
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
             const riskCardBox = document.getElementById('riskCardBox');
             if (data.is_high_risk) {
                 riskCardBox.innerHTML = `<div class="result-card glass-panel high-risk"><div class="status-icon text-red-500"><i class="fa-solid fa-triangle-exclamation"></i></div><div class="rc-eyebrow">ئاستی مەترسی دوکان</div><div class="rc-value">مەترسیدار</div><div class="rc-en">HIGH RISK</div></div>`;
@@ -1246,6 +1461,21 @@
 
             document.getElementById('limitValue').innerText = "$" + Math.max(0, data.credit_limit).toLocaleString('en-US', { maximumFractionDigits: 0 });
             setTimeout(() => { document.querySelectorAll('.result-wrap').forEach(el => el.classList.add('show')); }, 50);
+
+            // Show the Clear Form button smoothly
+            const clearBtn = document.getElementById('clearBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            if (clearBtn && submitBtn) {
+                // Change submitBtn width to 75% on desktop
+                submitBtn.classList.remove('w-full');
+                submitBtn.classList.add('md:w-3/4');
+                
+                // Show clearBtn
+                clearBtn.classList.remove('hidden');
+                // Trigger reflow
+                void clearBtn.offsetWidth;
+                clearBtn.classList.add('show-btn');
+            }
 
             showToast("شیکاری سەرکەوتوو", "ئەنجامی پێشبینیکردنی مەترسی و سنووری قەرز بەردەستە.", "success");
         } catch (error) { 
