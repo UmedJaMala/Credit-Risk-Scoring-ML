@@ -1,10 +1,12 @@
 # 📦 Intelligent Credit Risk & Limit Scoring System (B2B)
 > An end-to-end Machine Learning solution designed to automate and optimize credit limit approvals for B2B warehouses.
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python)
-![XGBoost](https://img.shields.io/badge/XGBoost-Optimized-green?style=for-the-badge&logo=scikit-learn)
-![FastAPI](https://img.shields.io/badge/FastAPI-Production_Ready-009688?style=for-the-badge&logo=fastapi)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-Styled-38bdf8?style=for-the-badge&logo=tailwindcss)
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat&logo=python&logoColor=white)
+![XGBoost](https://img.shields.io/badge/XGBoost-Optimized-F37626?style=flat&logo=scikit-learn&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-Production%20Ready-009688?style=flat&logo=fastapi&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-Styled-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
+
+
 
 ## 🌐 Live Demo
 - **Frontend Web App:** [Live Dashboard](https://umedjamala.github.io/Credit-Risk-Scoring-ML/)
