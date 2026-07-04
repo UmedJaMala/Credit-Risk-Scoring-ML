@@ -38,7 +38,7 @@ The model evaluates the following 8 core features to determine creditworthiness:
 8. `Late_Payment_History`: Count of historical late payments.
 
 ## 📂 Project Structure
-```text
+```text 
 ├── Credit_Limit_Risk_Scoring.ipynb  # Data generation, SMOTE, and XGBoost training pipeline
 ├── Dockerfile                       # Docker configuration for Hugging Face deployment
 ├── main.py                          # FastAPI Backend Server (Production API)
