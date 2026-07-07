@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سیستەمی زیرەکی نمرەدانی مەترسی و پێدانی قەرز | Erbil Warehouse</title>
+    <title>سیستەمی زیرەکی نمرەدانی مەترسی</title>
     <meta name="description" content="سیستەمێکی پێشکەوتووی فێربوونی ئامێر (Machine Learning) بۆ هەڵسەنگاندنی ئاستی مەترسی کڕیاران و پێشبینیکردنی سنووری قەرزی پەسەندکراو بۆ کۆگاکانی B2B بە بەکارهێنانی ئەلگۆریتمی XGBoost.">
 
     <!-- Open Graph / Facebook / Telegram -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://umedjamala.github.io/Credit-Risk-Scoring-ML/">
-    <meta property="og:title" content="سیستەمی زیرەکی نمرەدانی مەترسی و پێدانی قەرز | Erbil Warehouse">
+    <meta property="og:title" content="سیستەمی ژیری نمرەدانی مەترسی و پێدانی قەرز | Erbil Warehouse">
     <meta property="og:description" content="سیستەمێکی پێشکەوتووی فێربوونی ئامێر (Machine Learning) بۆ هەڵسەنگاندنی ئاستی مەترسی کڕیاران و پێشبینیکردنی سنووری قەرزی پەسەندکراو بۆ کۆگاکانی B2B بە بەکارهێنانی ئەلگۆریتمی XGBoost.">
     <!-- Generative SVG Preview Image -->
     <meta property="og:image" content="https://placehold.co/1200x630/0a0f12/ffffff.png?text=Erbil+Warehouse%5CnAI+Credit+Scoring&font=Montserrat">
@@ -18,7 +18,7 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://umedjamala.github.io/Credit-Risk-Scoring-ML/">
-    <meta property="twitter:title" content="سیستەمی زیرەکی نمرەدانی مەترسی و پێدانی قەرز | Erbil Warehouse">
+    <meta property="twitter:title" content="سیستەمی ژیری نمرەدانی مەترسی و پێدانی قەرز | Erbil Warehouse">
     <meta property="twitter:description" content="سیستەمێکی پێشکەوتووی فێربوونی ئامێر (Machine Learning) بۆ هەڵسەنگاندنی ئاستی مەترسی کڕیاران و پێشبینیکردنی سنووری قەرزی پەسەندکراو بۆ کۆگاکانی B2B بە بەکارهێنانی ئەلگۆریتمی XGBoost.">
     <meta property="twitter:image" content="https://placehold.co/1200x630/0a0f12/ffffff.png?text=Erbil+Warehouse%5CnAI+Credit+Scoring&font=Montserrat">
     
@@ -216,7 +216,7 @@
             box-shadow: 0 20px 50px rgba(167, 203, 142, 0.15);
         }
 
-        /* ═══════════ THEME TOGGLE ═══════════ */
+        /* ═══════════ TOGGLE BUTTONS (Theme & Language) ═══════════ */
         .theme-toggle {
             position: fixed; top: 1.5rem; left: 1.5rem; width: 45px; height: 45px; border-radius: 50%;
             background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(10px);
@@ -224,6 +224,15 @@
             color: var(--text-main); font-size: 1.2rem; z-index: 50; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         .theme-toggle:hover { transform: scale(1.1) rotate(15deg); color: var(--accent); border-color: var(--accent); }
+
+        .lang-toggle {
+            position: fixed; top: 1.5rem; left: 5rem; width: 45px; height: 45px; border-radius: 50%;
+            background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(10px);
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            color: var(--text-main); font-size: 0.95rem; z-index: 50; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-weight: 800;
+        }
+        .lang-toggle:hover { transform: scale(1.1); color: var(--accent); border-color: var(--accent); }
 
         /* ═══════════ HERO & BUTTONS ═══════════ */
         .hero { padding: 3.5rem 2rem; margin-bottom: 2.5rem; text-align: center; }
@@ -328,10 +337,12 @@
         label { font-weight: 600; font-size: 0.95rem; color: var(--text-main); }
         .helper-text { font-size: 0.8rem; color: var(--text-muted); }
         
-        .custom-input { width: 100%; background-color: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 12px; color: var(--text-main); font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600; padding: 0.8rem 1.2rem; transition: all 0.3s ease; direction: ltr; }
+        .custom-input { width: 100%; background-color: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 12px; color: var(--text-main); font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600; padding: 0.8rem 1.2rem; transition: all 0.3s ease; }
+        html[dir="rtl"] .custom-input { direction: ltr; } /* Form inputs themselves always layout text left-to-right */
+        html[dir="rtl"] select.custom-input { direction: rtl; text-align: right; font-family: inherit; }
+        html[dir="ltr"] select.custom-input { direction: ltr; text-align: left; font-family: inherit; }
         .custom-input:focus { border-color: var(--primary); outline: none; background-color: rgba(0, 0, 0, 0.4); box-shadow: 0 0 0 3px rgba(167, 203, 142, 0.15); }
         .dark .custom-input:focus { background-color: rgba(0, 0, 0, 0.6); }
-        select.custom-input { direction: rtl; text-align: right; font-family: inherit; }
         .dark select.custom-input option { background-color: #0b1c1f; color: #fff; }
         select.custom-input option { background-color: #fff; color: #000; }
 
@@ -432,10 +443,13 @@
         .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
         
         .close-btn { position: absolute; top: 1.5rem; left: 1.5rem; background: rgba(128,128,128,0.1); border: none; color: var(--text-muted); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease; }
+        html[dir="ltr"] .close-btn { left: auto; right: 1.5rem; } /* Shift close button to top-right in LTR */
         .close-btn:hover { background: rgba(239, 68, 68, 0.15); color: var(--red); transform: rotate(90deg); }
 
         /* ═══════════ INFO CARDS (INSIDE MODALS) ═══════════ */
-        .info-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 16px; margin-bottom: 1.5rem; transition: transform 0.3s ease; text-align: right; }
+        .info-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 16px; margin-bottom: 1.5rem; transition: transform 0.3s ease; }
+        html[dir="rtl"] .info-card { text-align: right; }
+        html[dir="ltr"] .info-card { text-align: left; }
         .info-card:hover { transform: translateY(-2px); border-color: rgba(167, 203, 142, 0.2); }
         .info-card-title { color: var(--text-main); font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
         .info-card-title i { color: var(--accent); }
@@ -589,6 +603,10 @@
                 height: 32px !important;
                 font-size: 1rem !important;
             }
+            html[dir="ltr"] .close-btn {
+                left: auto !important;
+                right: 1rem !important;
+            }
             .tech-pill {
                 padding: 0.3rem 0.7rem !important;
                 font-size: 0.7rem !important;
@@ -611,6 +629,9 @@
                 margin-top: 2rem !important;
                 padding-top: 1.5rem !important;
             }
+            .lang-toggle {
+                left: 4.5rem !important; /* Slightly nudge lang button in mobile to prevent overflow issues */
+            }
         }
     </style>
 </head>
@@ -622,10 +643,15 @@
     <i class="fa-solid fa-moon" id="themeIcon"></i>
 </button>
 
+<!-- Language Toggle -->
+<button class="lang-toggle" onclick="toggleLanguage()" title="Language / زمان">
+    <span id="langText" class="text-xs font-bold font-ku">EN</span>
+</button>
+
 <!-- Toast Container -->
 <div id="toastContainer" class="fixed top-5 right-5 z-[9999] flex flex-col gap-3"></div>
 
-<!-- Background Elements Wrapper (Prevents horizontal scrollbars while allowing natural viewport zooming) -->
+<!-- Background Elements Wrapper -->
 <div style="position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none;">
     <div class="bg-orb-1"></div>
     <div class="bg-orb-2"></div>
@@ -656,51 +682,45 @@
                         <stop offset='100%' stop-color='#ffd280'/>
                     </linearGradient>
                 </defs>
-                <!-- Shield shape backdrop -->
                 <path d="M32 4C18 4 12 10 12 24C12 38 24 54 32 58C40 54 52 38 52 24C52 10 46 4 32 4Z" stroke="url(#logoGrad)" stroke-width="2.5" fill="none"/>
-                <!-- 3D Box isometric -->
-                <!-- Top Face -->
                 <path d='M32 16L44 22L32 28L20 22L32 16Z' fill='#cbe3b5' opacity='0.3'/>
                 <path d="M32 16L44 22L32 28L20 22L32 16Z" stroke="#113035" stroke-width="1.5" fill="none"/>
-                <!-- Left Face -->
                 <path d='M20 22V36L32 42V28L20 22Z' fill='#3b5664' opacity='0.4'/>
                 <path d="M20 22V36L32 42V28L20 22Z" stroke="#113035" stroke-width="1.5" fill="none"/>
-                <!-- Right Face -->
                 <path d='M32 28V42L44 36V22L32 28Z' fill='#ffd280' opacity='0.2'/>
                 <path d="M32 28V42L44 36V22L32 28Z" stroke="#113035" stroke-width="1.5" fill="none"/>
-                <!-- Analytics Line Chart -->
                 <path d='M16 38L26 30L34 35L48 20' stroke='#ffd280' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/>
                 <circle cx='48' cy='20' r='3.5' fill='#ffd280' stroke='#fff' stroke-width='1'/>
                 <circle cx='26' cy='30' r='2' fill='#cbe3b5'/>
                 <circle cx='34' cy='35' r='2' fill='#cbe3b5'/>
             </svg>
         </div>
-        <h1 class="hero-title">سیستەمی زیرەکی <span>نمرەدانی مەترسی</span> و سنووری قەرز</h1>
-        <p class="hero-sub">Erbil Warehouse B2B Credit Limit & Advanced RFM Scoring</p>
-        <div class="hero-pill"><span class="dynamic-bolt">⚡</span> XGBoost ENGINE · REAL-TIME ANALYSIS</div>
+        <h1 class="hero-title" data-i18n="hero_title">سیستەمی ژیری <span>نمرەدانی مەترسی</span> و سنووری قەرز</h1>
+        <p class="hero-sub" data-i18n="hero_sub">Erbil Warehouse B2B Credit Limit & Advanced RFM Scoring</p>
+        <div class="hero-pill"><span class="dynamic-bolt">⚡</span> <span data-i18n="hero_pill">XGBoost ENGINE · REAL-TIME ANALYSIS</span></div>
     </div>
 
     <!-- Action Buttons -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12 md:px-8">
         <button class="btn-ghost" onclick="openModal('aboutModal')">
-            <i class="fa-solid fa-circle-info"></i> دەربارەی پڕۆژە
+            <i class="fa-solid fa-circle-info mr-2 ml-2"></i> <span data-i18n="btn_about">دەربارەی پڕۆژە</span>
         </button>
         <button class="btn-ghost" onclick="openModal('datasetModal')">
-            <i class="fa-solid fa-database"></i> داتاسێت و مۆدێل
+            <i class="fa-solid fa-database mr-2 ml-2"></i> <span data-i18n="btn_dataset">داتاسێت و مۆدێل</span>
         </button>
         <button class="btn-ghost" onclick="openModal('evalModal')">
-            <i class="fa-solid fa-chart-line"></i> هەڵسەنگاندن
+            <i class="fa-solid fa-chart-line mr-2 ml-2"></i> <span data-i18n="btn_eval">هەڵسەنگاندن</span>
         </button>
     </div>
 
     <!-- Form -->
     <form id="predictForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="input-card glass-panel">
-            <h2 class="sec-title"><i class="fa-solid fa-wallet"></i> زانیاری دارایی و مامەڵەکان</h2>
+            <h2 class="sec-title"><i class="fa-solid fa-wallet"></i> <span data-i18n="sec_financial">زانیاری دارایی و مامەڵەکان</span></h2>
             
             <div class="input-group">
-                <label>تێکڕای بەهای یەک وەسڵ ($)</label>
-                <div class="helper-text">زۆربەی وەسڵەکانی ئەم دوکانە چەند دۆلارە? (ئاسایی 50 بۆ 500)</div>
+                <label data-i18n="label_avg_invoice">تێکڕای بەهای یەک وەسڵ ($)</label>
+                <div class="helper-text" data-i18n="helper_avg_invoice">زۆربەی وەسڵەکانی ئەم دوکانە چەند دۆلارە? (ئاسایی 50 بۆ 500)</div>
                 <div class="stepper-container" dir="ltr">
                     <button type="button" class="stepper-btn" onclick="stepVal('avg_invoice', -1)"><i class="fa-solid fa-minus"></i></button>
                     <input type="number" id="avg_invoice" class="stepper-input" value="250" step="10" required>
@@ -708,8 +728,8 @@
                 </div>
             </div>
             <div class="input-group">
-                <label>تێکڕای وەسڵەکان لە مانگێکدا (دانە)</label>
-                <div class="helper-text">لە مانگێکدا نزیکەی چەند جار کاڵا دەبات? (ئاسایی 2 بۆ 15)</div>
+                <label data-i18n="label_freq_per_month">تێکڕای وەسڵەکان لە مانگێکدا (دانە)</label>
+                <div class="helper-text" data-i18n="helper_freq_per_month">لە مانگێکدا نزیکەی چەند جار کاڵا دەبات? (ئاسایی 2 بۆ 15)</div>
                 <div class="stepper-container" dir="ltr">
                     <button type="button" class="stepper-btn" onclick="stepVal('freq_per_month', -1)"><i class="fa-solid fa-minus"></i></button>
                     <input type="number" id="freq_per_month" class="stepper-input" value="5" step="1" required>
@@ -717,8 +737,8 @@
                 </div>
             </div>
             <div class="input-group">
-                <label>کۆی قەبارەی بازرگانی ($)</label>
-                <div class="helper-text">کۆی ئەو پارەیەی تا ئێستا کڕینی پێ کردووە چەندە?</div>
+                <label data-i18n="label_total_volume">کۆی قەبارەی بازرگانی ($)</label>
+                <div class="helper-text" data-i18n="helper_total_volume">کۆی ئەو پارەیەی تا ئێستا کڕینی پێ کردووە چەندە?</div>
                 <div class="stepper-container" dir="ltr">
                     <button type="button" class="stepper-btn" onclick="stepVal('total_volume', -1)"><i class="fa-solid fa-minus"></i></button>
                     <input type="number" id="total_volume" class="stepper-input" value="5000" step="100" required>
@@ -726,8 +746,8 @@
                 </div>
             </div>
             <div class="input-group">
-                <label>ڕێژەی وەسڵە نەدراوەکان لەسەدا (%)</label>
-                <div class="helper-text">چەند لەسەدای وەسڵەکانی هێشتا پارەیان نەدراوە? (0 باشترینە)</div>
+                <label data-i18n="label_unpaid_ratio">ڕێژەی وەسڵە نەدراوەکان لەسەدا (%)</label>
+                <div class="helper-text" data-i18n="helper_unpaid_ratio">چەند لەسەدای وەسڵەکانی هێشتا پارەیان نەدراوە? (0 باشترینە)</div>
                 <div class="slider-container">
                     <input type="range" id="unpaid_ratio_slider" min="0" max="100" value="5" class="custom-slider" oninput="document.getElementById('unpaid_val').innerText=this.value+'%'">
                     <span id="unpaid_val" class="slider-val">5%</span>
@@ -736,19 +756,19 @@
         </div>
 
         <div class="input-card glass-panel">
-            <h2 class="sec-title"><i class="fa-solid fa-store"></i> زانیاری دوکان و پێشینە</h2>
+            <h2 class="sec-title"><i class="fa-solid fa-store"></i> <span data-i18n="sec_shop">زانیاری دوکان و پێشینە</span></h2>
             
             <div class="input-group">
-                <label>تەمەنی دوکان (ساڵانی کارکردن)</label>
-                <div class="helper-text">چەند ساڵە ئەم دوکانە لە بازاڕدا کار دەکات?</div>
+                <label data-i18n="label_shop_age">تەمەنی دوکان (ساڵانی کارکردن)</label>
+                <div class="helper-text" data-i18n="helper_shop_age">چەند ساڵە ئەم دوکانە لە بازاڕدا کار دەکات?</div>
                 <div class="slider-container">
                     <input type="range" id="shop_age" min="0" max="50" value="5" class="custom-slider" oninput="document.getElementById('age_val').innerText=this.value">
                     <span id="age_val" class="slider-val">5</span>
                 </div>
             </div>
             <div class="input-group">
-                <label>چەند ڕۆژ بەسەر کۆتا مامەڵە تێپەڕیوە</label>
-                <div class="helper-text">دوایین جار کەی شتی لە کۆگاکەت کڕیوە? (ژمارەی ڕۆژەکان)</div>
+                <label data-i18n="label_days_since_last">چەند ڕۆژ بەسەر کۆتا مامەڵە تێپەڕیوە</label>
+                <div class="helper-text" data-i18n="helper_days_since_last">دوایین جار کەی شتی لە کۆگاکەت کڕیوە? (ژمارەی ڕۆژەکان)</div>
                 <div class="stepper-container" dir="ltr">
                     <button type="button" class="stepper-btn" onclick="stepVal('days_since_last', -1)"><i class="fa-solid fa-minus"></i></button>
                     <input type="number" id="days_since_last" class="stepper-input" value="15" step="1" required>
@@ -756,33 +776,33 @@
                 </div>
             </div>
             <div class="input-group">
-                <label>ڕێژەی قەرز بۆ قەبارەی مامەڵە (%)</label>
-                <div class="helper-text">ڕێژەی قەرزەکانی چەندە بەراورد بە کۆی مامەڵەکانی? (ئاسایی ژێر 30%)</div>
+                <label data-i18n="label_debt_ratio">ڕێژەی قەرز بۆ قەبارەی مامەڵە (%)</label>
+                <div class="helper-text" data-i18n="helper_debt_ratio">ڕێژەی قەرزەکانی چەندە بەراورد بە کۆی مامەڵەکانی? (ئاسایی ژێر 30%)</div>
                 <div class="slider-container">
                     <input type="range" id="debt_ratio_slider" min="0" max="100" value="15" class="custom-slider" oninput="document.getElementById('debt_val').innerText=this.value+'%'">
                     <span id="debt_val" class="slider-val">15%</span>
                 </div>
             </div>
             <div class="input-group">
-                <label>پێشینەی دواکەوتنی پارەدان (جار)</label>
-                <div class="helper-text">تا ئێستا چەند جار لە کاتی دیاریکراو پارەی نەداوە?</div>
+                <label data-i18n="label_late_history">پێشینەی دواکەوتنی پارەدان (جار)</label>
+                <div class="helper-text" data-i18n="helper_late_history">تا ئێستا چەند جار لە کاتی دیاریکراو پارەی نەداوە?</div>
                 <select id="late_history" class="custom-input">
-                    <option value="0">هیچ کات</option>
-                    <option value="1" selected>1 جار دواکەوتووە</option>
-                    <option value="2">2 جار دواکەوتووە</option>
-                    <option value="3">3 جار دواکەوتووە</option>
-                    <option value="4">4 جار دواکەوتووە</option>
-                    <option value="5">5+ جار دواکەوتووە</option>
+                    <option value="0" data-i18n="opt_late_0">هیچ کات</option>
+                    <option value="1" selected data-i18n="opt_late_1">1 جار دواکەوتووە</option>
+                    <option value="2" data-i18n="opt_late_2">2 جار دواکەوتووە</option>
+                    <option value="3" data-i18n="opt_late_3">3 جار دواکەوتووە</option>
+                    <option value="4" data-i18n="opt_late_4">4 جار دواکەوتووە</option>
+                    <option value="5" data-i18n="opt_late_5">5+ جار دواکەوتووە</option>
                 </select>
             </div>
         </div>
 
         <div class="col-span-1 md:col-span-2 mt-6 flex flex-col md:flex-row gap-4">
             <button type="submit" id="submitBtn" class="btn-primary w-full transition-all duration-500 ease-out">
-                <i class="fa-solid fa-wand-magic-sparkles ml-2"></i> شیکردنەوە و بڕیاردان
+                <i class="fa-solid fa-wand-magic-sparkles ml-2"></i> <span data-i18n="btn_submit">شیکردنەوە و بڕیاردان</span>
             </button>
             <button type="button" id="clearBtn" onclick="clearForm()" class="btn-clear w-full md:w-1/4 hidden">
-                <i class="fa-solid fa-trash-can"></i> پاککردنەوەی فۆڕم
+                <i class="fa-solid fa-trash-can"></i> <span data-i18n="btn_clear">پاککردنەوەی فۆڕم</span>
             </button>
         </div>
     </form>
@@ -794,15 +814,15 @@
                 <div class="absolute inset-0 rounded-full border-4 border-[#a7cb8e]/20"></div>
                 <div class="absolute inset-0 rounded-full border-4 border-t-[#a7cb8e] animate-spin"></div>
             </div>
-            <h3 class="text-lg font-bold font-ku text-slate-800 dark:text-slate-200 animate-pulse">شیکردنەوەی داتاکان... تکایە چاوەڕوانبە</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400">مۆدێلی XGBoost بەراوردکاری پارامێتەرەکانی ڕاهێنان دەکات</p>
+            <h3 class="text-lg font-bold font-ku text-slate-800 dark:text-slate-200 animate-pulse" data-i18n="skeleton_title">شیکردنەوەی داتاکان... تکایە چاوەڕوانبە</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="skeleton_sub">مۆدێلی XGBoost بەراوردکاری پارامێتەرەکانی ڕاهێنان دەکات</p>
         </div>
     </div>
 
     <!-- Results -->
     <div id="resultsContainer" class="hidden mt-16 pt-8 border-t border-gray-500/20">
         
-        <h2 class="text-center text-2xl font-bold mb-6 text-[var(--text-main)]"><i class="fa-solid fa-server text-[var(--primary)]"></i> ئەنجامی شیکاری کۆگا</h2>
+        <h2 class="text-center text-2xl font-bold mb-6 text-[var(--text-main)]"><i class="fa-solid fa-server text-[var(--primary)]"></i> <span data-i18n="results_title">ئەنجامی شیکاری کۆگا</span></h2>
         
         <!-- Engine Decision Badge and message -->
         <div id="engineDecisionContainer" class="flex flex-col items-center justify-center mb-8 gap-2"></div>
@@ -813,7 +833,7 @@
             <div class="result-wrap" style="transition-delay: 0.1s;">
                 <div class="result-card glass-panel limit-card">
                      <div class="status-icon text-[var(--primary)]"><i class="fa-solid fa-credit-card"></i></div>
-                     <div class="rc-eyebrow">سنووری قەرزی گونجاو (پەسەندکراو)</div>
+                     <div class="rc-eyebrow" data-i18n="res_limit_eyebrow">سنووری قەرزی گونجاو (پەسەندکراو)</div>
                      <div id="limitValue" class="rc-value">$0</div>
                      <div class="rc-en">Approved Credit Limit</div>
                 </div>
@@ -822,7 +842,7 @@
 
         <!-- Shop Input Parameters Summary for Screen -->
         <div id="inputSummary" class="glass-panel p-6 max-w-4xl mx-auto mb-8">
-            <h3 class="text-lg font-bold mb-4 font-ku text-slate-800 dark:text-slate-200">پوختەی زانیارییەکانی دوکان (Parameters Summary)</h3>
+            <h3 class="text-lg font-bold mb-4 font-ku text-slate-800 dark:text-slate-200" data-i18n="summary_title">پوختەی زانیارییەکانی دوکان (Parameters Summary)</h3>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm" id="summaryGrid">
                 <!-- populated dynamically on prediction -->
             </div>
@@ -858,22 +878,22 @@
         
         <div class="text-center mb-8">
             <div class="modal-icon-wrap modal-icon-ocean text-[var(--primary)] text-4xl mb-4"><i class="fa-solid fa-box"></i></div>
-            <h2 class="text-2xl font-bold text-[var(--text-main)]">دەربارەی پڕۆژە و گەشەپێدەر</h2>
+            <h2 class="text-2xl font-bold text-[var(--text-main)]" data-i18n="about_title">دەربارەی پڕۆژە و گەشەپێدەر</h2>
             <div class="text-[var(--text-muted)] text-sm mt-1">v 4.0 · FinTech Dashboard XGBoost · 2025–2026</div>
         </div>
 
         <div class="info-card">
-            <div class="info-card-title"><i class="fa-solid fa-circle-question"></i> کێشەکە چییە؟ (The Problem)</div>
-            <div class="info-text">
+            <div class="info-card-title"><i class="fa-solid fa-circle-question"></i> <span data-i18n="about_problem_title">کێشەکە چییە؟ (The Problem)</span></div>
+            <div class="info-text" data-i18n="about_problem_text">
                 <bdi>
-                    لە کاتی ئێستادا، زۆربەی کۆگاکانی فرۆشتنی کۆ (B2B) لە هەولێر و کوردستان بە گشتی، بڕیاردان لەسەر پێدانی قەرز بە دوکانەکان بە شێوەیەکی <b>هەڕەمەکی و کەسی</b> دەدەن. هیچ پێوەرێکی زانستی نییە بۆ ئەوەی بزانرێت ئایا ئەم دوکانە شایەنی چەند قەرزە، یان ئایا ئەگەری هەیە پارەکە نەگەڕێنێتەوە. ئەمەش دەبێتە هۆی <b>کەڵەکەبوونی قەرز، درەنگ کەوتنی پارەدان، و لەدەستدانی سەرمایەی کۆگاکان</b>.
+                    لە کاتی ئێستادا، زۆربەی کۆگاکانی فرۆشتنی کۆ (B2B) لە هەولێر و کوردستان بە گشتی، بڕیاردان لەسەر پێدانی قەرز بە دوکانەکان بە شێوەیەکی <b>هەڕەمەکی و کەسی</b> دەدەن. هیچ پێوەرێکی زانستی نییە بۆ ئەوەی بزانرێت ئایا ئەم دوکانە شایەنی چەند قەرزە، یان ئایا ئەگەری هەیە پارەکە نەگەڕێنێتەوە. ئەمەش دەبێتە هۆی <b>کەڵەکەبوونی قەرز، درەنگ کەوتنی پارەدان, و لەدەستدانی سەرمایەی کۆگاکان</b>.
                 </bdi>
             </div>
         </div>
         
         <div class="info-card" style="border-right: 4px solid var(--accent); background: rgba(243, 163, 50, 0.05);">
-            <div class="info-card-title" style="color: var(--accent);"><i class="fa-solid fa-lightbulb"></i> چارەسەرەکە (The Solution)</div>
-            <div class="info-text">
+            <div class="info-card-title" style="color: var(--accent);"><i class="fa-solid fa-lightbulb"></i> <span data-i18n="about_solution_title">چارەسەرەکە (The Solution)</span></div>
+            <div class="info-text" data-i18n="about_solution_text">
                 <bdi>
                     ئەم پڕۆژەیە سیستەمێکی پێشکەوتووی مۆدێلی فێربوونی ئامێرە (Machine Learning) بە بەکارهێنانی ئەلگۆریتمی <b>XGBoost</b> کە پشتبەست بە پێوەرەکانی <b>RFM (Recency, Frequency, Monetary)</b> کاردەکات. سیستەمەکە لە جێگەی مرۆڤ شیکارییەکی خێرا و ورد بۆ مێژووی دوکاندارەکەکە دەکات، و بە شێوەیەکی ئۆتۆماتیکی پێتدەڵێت کە ئایا ئەم دوکانە جێی متمانەیە یان مەترسیدارە، وە بە تەواوی <b>دەستنیشانی دەکات کە تا چەند دۆلار سەلامەتە قەرزی پێ بدرێت</b>.
                 </bdi>
@@ -881,23 +901,23 @@
         </div>
 
         <div class="info-card" style="border-right: 4px solid var(--primary); background: rgba(17, 48, 53, 0.05);">
-            <div class="info-card-title" style="color: var(--primary);"><i class="fa-solid fa-gears"></i> چۆن کار دەکات؟ (How it works)</div>
+            <div class="info-card-title" style="color: var(--primary);"><i class="fa-solid fa-gears"></i> <span data-i18n="about_how_title">چۆن کار دەکات؟ (How it works)</span></div>
             <div class="info-text">
-                <ul class="mr-4 list-decimal space-y-2">
-                    <li><b>١. پشکنینی یاساکانی پاراستنی کۆگا (Rule Engine Check):</b> سیستەمەکە سەرەتا کڕیارە زۆر مەترسیدارەکان (Outliers) یان کڕیارە زۆر تازەکان (Cold Start) فلتەر دەکات بۆ پاراستنی خێرا و پێشوەختەی سەرمایەی کۆگاکە.</li>
-                    <li><b>٢. شیکاری مۆدێلی فێربوونی ئامێر (XGBoost Analysis):</b> ئەگەر کڕیارەکە هیچ سەرپێچی یان بارودۆخێکی تایبەتی نەبوو، مۆدێلی فێربوونی ئامێر (XGBoost) شیکارییەکی ئێجگار ورد بۆ مێژوو و شێوازی مامەڵەکانی دەکات.</li>
-                    <li><b>٣. بڕیاردانی ژیرانە (Smart Decision):</b> بە یەکگرتنی یاساکان و مۆدێلی فێربوونی ئامێر (Machine Learning), نمرەی مەترسیی کڕیارەکە و سنووری قەرزی پێشکەشکراو بە دۆلار دیاری دەکرێت.</li>
+            <ul class="mr-4 space-y-3">
+                    <li data-i18n="about_how_step1"><b>١. پشکنینی یاساکانی پاراستنی کۆگا (Rule Engine Check):</b> سیستەمەکە سەرەتا کڕیارە زۆر مەترسیدارەکان (Outliers) یان کڕیارە زۆر تازەکان (Cold Start) فلتەر دەکات بۆ پاراستنی خێرا و پێشوەختەی سەرمایەی کۆگاکە.</li>
+                    <li data-i18n="about_how_step2"><b>٢. شیکاری مۆدێلی فێربوونی ئامێر (XGBoost Analysis):</b> ئەگەر کڕیارەکە هیچ سەرپێچی یان بارودۆخێکی تایبەتی نەبوو، مۆدێلی فێربوونی ئامێر (XGBoost) شیکارییەکی ئێجگار ورد بۆ مێژوو و شێوازی مامەڵەکانی دەکات.</li>
+                    <li data-i18n="about_how_step3"><b>٣. بڕیاردانی ژیرانە (Smart Decision):</b> بە یەکگرتنی یاساکان و مۆدێلی فێربوونی ئامێر (Machine Learning), نمرەی مەترسیی کڕیارەکە و سنووری قەرزی پێشکەشکراو بە دۆلار دیاری دەکرێت.</li>
                 </ul>
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
             <div class="info-card !mb-0">
-                <div class="info-card-title"><i class="fa-solid fa-user-astronaut"></i> زانیاری گەشەپێدەر</div>
+                <div class="info-card-title"><i class="fa-solid fa-user-astronaut"></i> <span data-i18n="about_dev_title">زانیاری گەشەپێدەر</span></div>
                 <div class="info-text mb-4">
-                    <b>ئومێد جەمال نوری</b><br>
-                    ئەندازیاری کارەبا - قۆناغی سێیەم<br>
-                    ساڵی خوێندن: ٢٠٢٥ - ٢٠٢٦
+                    <b data-i18n="about_dev_name">ئومێد جەمال نوری</b><br>
+                    <span data-i18n="about_dev_dept">ئەندازیاری کارەبا - قۆناغی سێیەم</span><br>
+                    <span data-i18n="about_dev_year">ساڵی خوێندن: ٢٠٢٥ - ٢٠٢٦</span>
                 </div>
                 <div class="flex flex-col gap-2">
                     <a href="https://linkedin.com/in/UmedJaMala" target="_blank" class="text-[var(--accent)] text-sm hover:underline flex items-center gap-1.5"><i class="fa-brands fa-linkedin text-base"></i> LinkedIn Profile</a>
@@ -908,8 +928,8 @@
                 </div>
             </div>
             <div class="info-card !mb-0">
-                <div class="info-card-title"><i class="fa-solid fa-microchip"></i> تەکنەلۆژیاکانی بەکارهاتوو</div>
-                <div class="info-text mb-3">ئەم پڕۆژەیە بەم تەکنەلۆژیایانە دروستکراوە:</div>
+                <div class="info-card-title"><i class="fa-solid fa-microchip"></i> <span data-i18n="about_tech_title">تەکنەلۆژیاکانی بەکارهاتوو</span></div>
+                <div class="info-text mb-3" data-i18n="about_tech_intro">ئەم پڕۆژەیە بەم تەکنەلۆژیایانە دروستکراوە:</div>
                 <div class="flex flex-wrap gap-2">
                     <span class="tech-pill"><i class="fa-brands fa-python text-yellow-400"></i> Python 3</span>
                     <span class="tech-pill"><i class="fa-solid fa-brain text-[var(--primary)]"></i> XGBoost</span>
@@ -929,44 +949,44 @@
         
         <div class="text-center mb-8">
             <div class="modal-icon-wrap modal-icon-teal text-[var(--primary)] text-4xl mb-4"><i class="fa-solid fa-database"></i></div>
-            <h2 class="text-2xl font-bold text-[var(--text-main)]">زانیاری داتاسێت و مۆدێلەکان</h2>
+            <h2 class="text-2xl font-bold text-[var(--text-main)]" data-i18n="dataset_title">زانیاری داتاسێت و مۆدێلەکان</h2>
         </div>
 
         <div class="info-card">
-            <div class="info-card-title"><i class="fa-solid fa-table-list"></i> داتاسێت (Dataset)</div>
+            <div class="info-card-title"><i class="fa-solid fa-table-list"></i> <span data-i18n="dataset_main_title">داتاسێت (Dataset)</span></div>
             <div class="info-text">
-                <bdi>
+                <bdi data-i18n="dataset_desc">
                     ئەم داتاسێتە سەرەتا لە <b>1200 تۆماری داتا (تۆمار/ڕیز)</b> پێکدێت کە تایبەتە بە بازرگانی (B2B) کۆگاکانی هەولێر. لەبەر ئەوەی زۆربەی کڕیارەکان لە یەک جۆر بوون، بۆ دروستکردنی مۆدێلێکی بێلایەن، تەکنیکی <b>SMOTE</b> بەکارهێنراوە بۆ هاوسەنگکردنەوەی داتاکان، کە بەهۆیەوە قەبارەی داتاسێتەکە بەرزبووەتەوە بۆ <b>زیاتر لە 1500 تۆماری داتا (تۆمار/ڕیز)</b> بە یەکسانی تەواو لە نێوان هەردوو جۆری مەترسیدار و باوەڕپێکراودا.
                 </bdi>
                 <br><br>
-                داتاسێتەکە پێکهاتووە لە <b>8 فیچەر (تایبەتمەندی)</b> کە بەپێی پێوەرەکانی <b>Advanced RFM</b> بەم شێوەیە پۆلێن کراون:
+                <span data-i18n="dataset_features_title">داتاسێتەکە پێکهاتووە لە <b>8 فیچەر (تایبەتمەندی)</b> کە بەپێی پێوەرەکانی <b>Advanced RFM</b> بەم شێوەیە پۆلێن کراون:</span>
                 <ul class="mr-4 mt-3 space-y-3">
                     <li>
-                        <span class="font-bold text-[var(--primary)]">1. نوێکاری مامەڵە (Recency - R):</span>
+                        <span class="font-bold text-[var(--primary)]" data-i18n="dataset_r_title">1. نوێکاری مامەڵە (Recency - R):</span>
                         <ul class="mr-6 mt-1 list-disc space-y-1 text-xs">
-                            <li><bdi class="font-bold">Days_Since_Last_Order:</bdi> ماوەی کۆتا کڕین بە ڕۆژ.</li>
+                            <li><bdi class="font-bold">Days_Since_Last_Order:</bdi> <span data-i18n="dataset_r_desc">ماوەی کۆتا کڕین بە ڕۆژ.</span></li>
                         </ul>
                     </li>
                     <li>
-                        <span class="font-bold text-[var(--primary)]">2. بەردەوامی کڕین (Frequency - F):</span>
+                        <span class="font-bold text-[var(--primary)]" data-i18n="dataset_f_title">2. بەردەوامی کڕین (Frequency - F):</span>
                         <ul class="mr-6 mt-1 list-disc space-y-1 text-xs">
-                            <li><bdi class="font-bold">Order_Freq_Per_Month:</bdi> تێکڕای ژمارەی وەسڵەکان لە مانگێکدا.</li>
+                            <li><bdi class="font-bold">Order_Freq_Per_Month:</bdi> <span data-i18n="dataset_f_desc">تێکڕای ژمارەی وەسڵەکان لە مانگێکدا.</span></li>
                         </ul>
                     </li>
                     <li>
-                        <span class="font-bold text-[var(--primary)]">3. قەبارەی دارایی (Monetary - M):</span>
+                        <span class="font-bold text-[var(--primary)]" data-i18n="dataset_m_title">3. قەبارەی دارایی (Monetary - M):</span>
                         <ul class="mr-6 mt-1 list-disc space-y-1 text-xs">
-                            <li><bdi class="font-bold">Average_Invoice_Value:</bdi> تێکڕای بەهای وەسڵ.</li>
-                            <li><bdi class="font-bold">Total_Trade_Volume:</bdi> کۆی قەبارەی بازرگانی.</li>
+                            <li><bdi class="font-bold">Average_Invoice_Value:</bdi> <span data-i18n="dataset_m_desc_1">تێکڕای بەهای وەسڵ.</span></li>
+                            <li><bdi class="font-bold">Total_Trade_Volume:</bdi> <span data-i18n="dataset_m_desc_2">کۆی قەبارەی بازرگانی.</span></li>
                         </ul>
                     </li>
                     <li>
-                        <span class="font-bold text-[var(--primary)]">4. پێوەرەکانی مەترسی و متمانە (Risk & Profile):</span>
+                        <span class="font-bold text-[var(--primary)]" data-i18n="dataset_profile_title">4. پێوەرەکانی مەترسی و متمانە (Risk & Profile):</span>
                         <ul class="mr-6 mt-1 list-disc space-y-1 text-xs">
-                            <li><bdi class="font-bold">Unpaid_Invoice_Ratio:</bdi> ڕێژەی وەسڵە نەدراوەکان.</li>
-                            <li><bdi class="font-bold">Debt_To_Volume_Ratio:</bdi> ڕێژەی قەرز بۆ بازرگانی.</li>
-                            <li><bdi class="font-bold">Late_Payment_History:</bdi> دواکەوتنی پێشینە.</li>
-                            <li><bdi class="font-bold">Shop_Age_Years:</bdi> تەمەنی دوکان.</li>
+                            <li><bdi class="font-bold">Unpaid_Invoice_Ratio:</bdi> <span data-i18n="dataset_profile_desc_1">ڕێژەی وەسڵە نەدراوەکان.</span></li>
+                            <li><bdi class="font-bold">Debt_To_Volume_Ratio:</bdi> <span data-i18n="dataset_profile_desc_2">ڕێژەی قەرز بۆ بازرگانی.</span></li>
+                            <li><bdi class="font-bold">Late_Payment_History:</bdi> <span data-i18n="dataset_profile_desc_3">دواکەوتنی پێشینە.</span></li>
+                            <li><bdi class="font-bold">Shop_Age_Years:</bdi> <span data-i18n="dataset_profile_desc_4">تەمەنی دوکان.</span></li>
                         </ul>
                     </li>
                 </ul>
@@ -974,28 +994,28 @@
         </div>
 
         <div class="info-card" style="border-right: 4px solid var(--green); background: rgba(16, 185, 129, 0.05);">
-            <div class="info-card-title" style="color: var(--green);"><i class="fa-solid fa-gears"></i> مۆدێلەکانی ڕاهێنان (XGBoost)</div>
+            <div class="info-card-title" style="color: var(--green);"><i class="fa-solid fa-gears"></i> <span data-i18n="dataset_models_title">مۆدێلەکانی ڕاهێنان (XGBoost)</span></div>
             <div class="info-text">
-                <bdi>
+                <bdi data-i18n="dataset_models_desc">
                     لەم پڕۆژەیەدا سوود لە مۆدێلی فێربوونی ئامێری پێشکەوتوو (Machine Learning) بە ئەلگۆریتمی <b>(XGBoost)</b> وەرگیراوە بۆ دروستکردنی دوو مۆدێلی جیاواز کە بە تەکنیکی <b>RandomizedSearchCV</b> باشترین پارامێتەرەکانیان بۆ دۆزراوەتەوە:
                 </bdi>
                 <br><br>
                 <ul class="mr-4 list-disc space-y-1">
-                    <li><b>مۆدێلی پۆلێنکردن (Classification):</b> بۆ جیاکردنەوەی کڕیارەکان بۆ دوک بارودۆخ (High Risk و Low Risk).</li>
-                    <li><b>مۆدێلی پێشبینیکردن (Regression):</b> بۆ پێشبینیکردنی بڕی قەرزی گونجاو (Credit Limit) بە دۆلار بۆ هەر کڕیارێک بە پشتبەستن بە مەترسییەکەی.</li>
+                    <li data-i18n="dataset_model_clf"><b>مۆدێلی پۆلێنکردن (Classification):</b> بۆ جیاکردنەوەی کڕیارەکان بۆ دوک بارودۆخ (High Risk و Low Risk).</li>
+                    <li data-i18n="dataset_model_reg"><b>مۆدێلی پێشبینیکردن (Regression):</b> بۆ پێشبینیکردنی بڕی قەرزی گونجاو (Credit Limit) بە دۆلار بۆ هەر کڕیارێک بە پشتبەستن بە مەترسییەکەی.</li>
                 </ul>
             </div>
         </div>
 
         <!-- Interactive Dataset Chart 1 -->
         <div class="chart-container mt-6">
-            <h4 class="text-center font-bold text-slate-700 dark:text-slate-300 mb-3 text-sm font-ku">شیکاری دابەشبوونی داتا بەهۆی هاوسەنگکردن (SMOTE Distribution Chart)</h4>
+            <h4 class="text-center font-bold text-slate-700 dark:text-slate-300 mb-3 text-sm font-ku" data-i18n="dataset_chart1_title">شیکاری دابەشبوونی داتا بەهۆی هاوسەنگکردن (SMOTE Distribution Chart)</h4>
             <div id="datasetChart"></div>
         </div>
 
         <!-- Interactive Dataset Chart 2 -->
         <div class="chart-container mt-6">
-            <h4 class="text-center font-bold text-slate-700 dark:text-slate-300 mb-3 text-sm font-ku">تێکڕای پێوەرە گرنگەکانی ڕێژەی مەترسی (Key Predictors Averages)</h4>
+            <h4 class="text-center font-bold text-slate-700 dark:text-slate-300 mb-3 text-sm font-ku" data-i18n="dataset_chart2_title">تێکڕای پێوەرە گرنگەکانی ڕێژەی مەترسی (Key Predictors Averages)</h4>
             <div id="datasetFeatureChart"></div>
         </div>
 
@@ -1008,12 +1028,12 @@
         <button class="close-btn" onclick="closeModal('evalModal')"><i class="fa-solid fa-xmark"></i></button>
         
         <div class="text-center mb-6">
-            <h2 class="text-2xl font-bold text-[var(--text-main)]"><i class="fa-solid fa-chart-line text-[var(--primary)] ml-2"></i> هەڵسەنگاندن و ئاستی مۆدێلەکان</h2>
+            <h2 class="text-2xl font-bold text-[var(--text-main)]"><i class="fa-solid fa-chart-line text-[var(--primary)] ml-2"></i> <span data-i18n="eval_main_title">هەڵسەنگاندن و ئاستی مۆدێلەکان</span></h2>
         </div>
         
         <div class="info-card mb-6" style="padding: 1rem 1.5rem;">
-            <div class="info-card-title text-sm"><i class="fa-solid fa-magnifying-glass-chart text-[var(--primary)]"></i> تێگەیشتن لە پێوەرەکانی هەڵسەنگاندن</div>
-            <div class="info-text text-sm">
+            <div class="info-card-title text-sm"><i class="fa-solid fa-magnifying-glass-chart text-[var(--primary)]"></i> <span data-i18n="eval_intro_title">تێگەیشتن لە پێوەرەکانی هەڵسەنگاندن</span></div>
+            <div class="info-text text-sm" data-i18n="eval_intro_desc">
                 <b>Accuracy:</b> ڕێژەی سەرکەوتنی مۆدێلەکە لە دیاریکردنی مەترسی (بەرز یان نزم).<br>
                 <b>ROC-AUC:</b> توانای مۆدێلەکە بۆ جیاکردنەوەی دوو جۆرە کڕیارەکە بە دروستی.<br>
                 <b>F1-Score:</b> هاوسەنگی نێوان وردبینی و دۆزینەوەی دروست.<br>
@@ -1023,64 +1043,64 @@
         </div>
 
         <div class="tab-list">
-            <button class="tab-btn active" onclick="switchTab('testTab', this)">🧪 ئەنجامی تاقیکردنەوە (Test Data)</button>
-            <button class="tab-btn" onclick="switchTab('trainTab', this)">📚 ئەنجامی ڕاهێنان (Train Data)</button>
+            <button class="tab-btn active" onclick="switchTab('testTab', this)" data-i18n="eval_tab_test">🧪 ئەنجامی تاقیکردنەوە (Test Data)</button>
+            <button class="tab-btn" onclick="switchTab('trainTab', this)" data-i18n="eval_tab_train">📚 ئەنجامی ڕاهێنان (Train Data)</button>
         </div>
 
         <div id="testTab" class="tab-content active">
             
-            <h3 class="text-[var(--text-main)] font-bold mb-4 mt-4 text-sm">🎯 مۆدێلی پۆلێنکردنی مەترسی (XGBoost Classifier)</h3>
+            <h3 class="text-[var(--text-main)] font-bold mb-4 mt-4 text-sm" data-i18n="eval_clf_title">🎯 مۆدێلی پۆلێنکردنی مەترسی (XGBoost Classifier)</h3>
             <div class="metric-grid">
-                <div class="metric-box"><div class="metric-label"><bdi>Accuracy (ڕێژەی ڕاستی)</bdi></div><div class="metric-value">90.84%</div></div>
-                <div class="metric-box"><div class="metric-label"><bdi>ROC-AUC Score</bdi></div><div class="metric-value">95.92%</div></div>
-                <div class="metric-box"><div class="metric-label"><bdi>F1-Score</bdi></div><div class="metric-value">91.09%</div></div>
+                <div class="metric-box"><div class="metric-label" data-i18n="eval_metric_accuracy">Accuracy (ڕێژەی ڕاستی)</div><div class="metric-value">90.84%</div></div>
+                <div class="metric-box"><div class="metric-label" data-i18n="eval_metric_roc_auc">ROC-AUC Score</div><div class="metric-value">95.92%</div></div>
+                <div class="metric-box"><div class="metric-label" data-i18n="eval_metric_f1">F1-Score</div><div class="metric-value">91.09%</div></div>
             </div>
 
-            <h3 class="text-[var(--text-main)] font-bold mb-4 mt-8 text-sm">💰 مۆدێلی پێشبینیکردنی قەرز (XGBoost Regressor)</h3>
+            <h3 class="text-[var(--text-main)] font-bold mb-4 mt-8 text-sm" data-i18n="eval_reg_title">💰 مۆدێلی پێشبینیکردنی قەرز (XGBoost Regressor)</h3>
             <div class="metric-grid">
-                <div class="metric-box"><div class="metric-label"><bdi>R² Score (ڕێژەی سەرکەوتن)</bdi></div><div class="metric-value coral">94.52%</div></div>
-                <div class="metric-box"><div class="metric-label"><bdi>RMSE (تێکڕای هەڵە)</bdi></div><div class="metric-value coral">$96.21</div></div>
-                <div class="metric-box"><div class="metric-label"><bdi>MAE (هەڵەی ڕەها)</bdi></div><div class="metric-value coral">$41.33</div></div>
+                <div class="metric-box"><div class="metric-label" data-i18n="eval_metric_r2">R² Score (ڕێژەی سەرکەوتن)</div><div class="metric-value coral">94.52%</div></div>
+                <div class="metric-box"><div class="metric-label" data-i18n="eval_metric_rmse">RMSE (تێکڕای هەڵە)</div><div class="metric-value coral">$96.21</div></div>
+                <div class="metric-box"><div class="metric-label" data-i18n="eval_metric_mae">MAE (هەڵەی ڕەها)</div><div class="metric-value coral">$41.33</div></div>
             </div>
 
             <!-- ApexCharts Containers (4 Charts) -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
                 <div class="chart-container">
-                    <h4 class="text-center font-bold text-slate-700 dark:text-slate-300 mb-3 text-sm font-ku">بەراوردکاری پێوەرەکان (Test vs Train)</h4>
+                    <h4 class="text-center font-bold text-slate-700 dark:text-slate-300 mb-3 text-sm font-ku" data-i18n="eval_chart_metrics">بەراوردکاری پێوەرەکان (Test vs Train)</h4>
                     <div id="chartCompare"></div>
                 </div>
                 <div class="chart-container">
-                    <h4 class="text-center font-bold text-slate-700 dark:text-slate-300 mb-3 text-sm font-ku">گرنگی فیچەرەکان (Feature Importance)</h4>
+                    <h4 class="text-center font-bold text-slate-700 dark:text-slate-300 mb-3 text-sm font-ku" data-i18n="eval_chart_importance">گرنگی فیچەرەکان (Feature Importance)</h4>
                     <div id="chartFeatures"></div>
                 </div>
                 <div class="chart-container">
-                    <h4 class="text-center font-bold text-slate-700 dark:text-slate-300 mb-3 text-sm font-ku">ماتریکسی سەرلێشێوان (Confusion Matrix)</h4>
+                    <h4 class="text-center font-bold text-slate-700 dark:text-slate-300 mb-3 text-sm font-ku" data-i18n="eval_chart_confusion">ماتریکسی سەرلێشێوان (Confusion Matrix)</h4>
                     <div id="chartConfusion"></div>
                 </div>
                 <div class="chart-container">
-                    <h4 class="text-center font-bold text-slate-700 dark:text-slate-300 mb-3 text-sm font-ku">هەڵسەنگاندنی گشتی (Radar Evaluation)</h4>
+                    <h4 class="text-center font-bold text-slate-700 dark:text-slate-300 mb-3 text-sm font-ku" data-i18n="eval_chart_radar">هەڵسەنگاندنی گشتی (Radar Evaluation)</h4>
                     <div id="chartRadar"></div>
                 </div>
             </div>
 
             <div class="info-card mt-6" style="border-right: 4px solid var(--primary); background: rgba(167, 203, 142, 0.05);">
-                <div class="info-text text-sm"><b>💡 ئەنجامی کۆتایی:</b> مۆدێلەکەمان بە سەرکەوتوویی توانای پێشبینیکردنی هەیە بە ڕێژەی زیاتر لە %90 بۆ مەترسی و %94 بۆ بڕی قەرز لەسەر داتای نەبینراو (Test). ئەنجامەکانی Test و Train زۆر نزیکن لە یەکەوە، ئەمەش دەریدەخات کە مۆدێلەکە زۆر جێگیرە و کێشەی (Overfitting)ی نییە.</div>
+                <div class="info-text text-sm" data-i18n="eval_conclusion"><b>💡 ئەنجامی کۆتایی:</b> مۆدێلەکەمان بە سەرکەوتوویی توانای پێشبینیکردنی هەیە بە ڕێژەی زیاتر لە %90 بۆ مەترسی و %94 بۆ بڕی قەرز لەسەر داتای نەبینراو (Test). ئەنجامەکانی Test و Train زۆر نزیکن لە یەکەوە، ئەمەش دەریدەخات کە مۆدێلەکە زۆر جێگیرە و کێشەی (Overfitting)ی نییە.</div>
             </div>
         </div>
 
         <div id="trainTab" class="tab-content">
-            <h3 class="text-[var(--text-main)] font-bold mb-4 mt-4 text-sm">🎯 مۆدێلی پۆلێنکردنی مەترسی (Train Data)</h3>
+            <h3 class="text-[var(--text-main)] font-bold mb-4 mt-4 text-sm" data-i18n="eval_clf_title_train">🎯 مۆدێلی پۆلێنکردنی مەترسی (Train Data)</h3>
             <div class="metric-grid">
-                <div class="metric-box"><div class="metric-label"><bdi>Accuracy (ڕێژەی ڕاستی)</bdi></div><div class="metric-value">95.16%</div></div>
-                <div class="metric-box"><div class="metric-label"><bdi>ROC-AUC Score</bdi></div><div class="metric-value">99.10%</div></div>
-                <div class="metric-box"><div class="metric-label"><bdi>F1-Score</bdi></div><div class="metric-value">95.23%</div></div>
+                <div class="metric-box"><div class="metric-label" data-i18n="eval_metric_accuracy">Accuracy (ڕێژەی ڕاستی)</div><div class="metric-value">95.16%</div></div>
+                <div class="metric-box"><div class="metric-label" data-i18n="eval_metric_roc_auc">ROC-AUC Score</div><div class="metric-value">99.10%</div></div>
+                <div class="metric-box"><div class="metric-label" data-i18n="eval_metric_f1">F1-Score</div><div class="metric-value">95.23%</div></div>
             </div>
 
-            <h3 class="text-[var(--text-main)] font-bold mb-4 mt-8 text-sm">💰 مۆدێلی پێشبینیکردنی قەرز (Train Data)</h3>
+            <h3 class="text-[var(--text-main)] font-bold mb-4 mt-8 text-sm" data-i18n="eval_reg_title_train">💰 مۆدێلی پێشبینیکردنی قەرز (Train Data)</h3>
             <div class="metric-grid">
-                <div class="metric-box"><div class="metric-label"><bdi>R² Score (ڕێژەی سەرکەوتن)</bdi></div><div class="metric-value coral">98.66%</div></div>
-                <div class="metric-box"><div class="metric-label"><bdi>RMSE (تێکڕای هەڵە)</bdi></div><div class="metric-value coral">$46.32</div></div>
-                <div class="metric-box"><div class="metric-label"><bdi>MAE (هەڵەی ڕەها)</bdi></div><div class="metric-value coral">$15.29</div></div>
+                <div class="metric-box"><div class="metric-label" data-i18n="eval_metric_r2">R² Score (ڕێژەی سەرکەوتن)</div><div class="metric-value coral">98.66%</div></div>
+                <div class="metric-box"><div class="metric-label" data-i18n="eval_metric_rmse">RMSE (تێکڕای هەڵە)</div><div class="metric-value coral">$46.32</div></div>
+                <div class="metric-box"><div class="metric-label" data-i18n="eval_metric_mae">MAE (هەڵەی ڕەها)</div><div class="metric-value coral">$15.29</div></div>
             </div>
         </div>
     </div>
@@ -1094,6 +1114,413 @@
     let datasetFeatureChartObj = null;
     let confusionChartObj = null;
     let radarChartObj = null;
+
+    // ═══════════════════════════════════
+    // TRANSLATIONS (i18n)
+    // ═══════════════════════════════════
+    const translations = {
+        ku: {
+            hero_title: "سیستەمی ژیری <span>نمرەدانی مەترسی</span> و سنووری قەرز",
+            hero_sub: "Erbil Warehouse B2B Credit Limit & Advanced RFM Scoring",
+            hero_pill: "XGBoost ENGINE · REAL-TIME ANALYSIS",
+            btn_about: "دەربارەی پڕۆژە",
+            btn_dataset: "داتاسێت و مۆدێل",
+            btn_eval: "هەڵسەنگاندن",
+            sec_financial: "زانیاری دارایی و مامەڵەکان",
+            label_avg_invoice: "تێکڕای بەهای یەک وەسڵ ($)",
+            helper_avg_invoice: "زۆربەی وەسڵەکانی ئەم دوکانە چەند دۆلارە? (ئاسایی 50 بۆ 500)",
+            label_freq_per_month: "تێکڕای وەسڵەکان لە مانگێکدا (دانە)",
+            helper_freq_per_month: "لە مانگێکدا نزیکەی چەند جار کاڵا دەبات? (ئاسایی 2 بۆ 15)",
+            label_total_volume: "کۆی قەبارەی بازرگانی ($)",
+            helper_total_volume: "کۆی ئەو پارەیەی تا ئێستا کڕینی پێ کردووە چەندە?",
+            label_unpaid_ratio: "ڕێژەی وەسڵە نەدراوەکان لەسەدا (%)",
+            helper_unpaid_ratio: "چەند لەسەدای وەسڵەکانی هێشتا پارەیان نەدراوە? (0 باشترینە)",
+            sec_shop: "زانیاری دوکان و پێشینە",
+            label_shop_age: "تەمەنی دوکان (ساڵانی کارکردن)",
+            helper_shop_age: "چەند ساڵە ئەم دوکانە لە بازاڕدا کار دەکات?",
+            label_days_since_last: "چەند ڕۆژ بەسەر کۆتا مامەڵە تێپەڕیوە",
+            helper_days_since_last: "دوایین جار کەی شتی لە کۆگاکەت کڕیوە? (ژمارەی ڕۆژەکان)",
+            label_debt_ratio: "ڕێژەی قەرز بۆ قەبارەی مامەڵە (%)",
+            helper_debt_ratio: "ڕێژەی قەرزەکانی چەندە بەراورد بە کۆی مامەڵەکانی? (ئاسایی ژێر 30%)",
+            label_late_history: "پێشینەی دواکەوتنی پارەدان (جار)",
+            helper_late_history: "تا ئێستا چەند جار لە کاتی دیاریکراو پارەی نەداوە?",
+            opt_late_0: "هیچ کات",
+            opt_late_1: "1 جار دواکەوتووە",
+            opt_late_2: "2 جار دواکەوتووە",
+            opt_late_3: "3 جار دواکەوتووە",
+            opt_late_4: "4 جار دواکەوتووە",
+            opt_late_5: "5+ جار دواکەوتووە",
+            btn_submit: "شیکردنەوە و بڕیاردان",
+            btn_clear: "پاککردنەوەی فۆڕم",
+            skeleton_title: "شیکردنەوەی داتاکان... تکایە چاوەڕوانبە",
+            skeleton_sub: "مۆدێلی XGBoost بەراوردکاری پارامێتەرەکانی ڕاهێنان دەکات",
+            results_title: "ئەنجامی شیکاری کۆگا",
+            res_risk_eyebrow: "ئاستی مەترسی دوکان",
+            res_risk_high: "مەترسیدار",
+            res_risk_low: "باوەڕپێکراو",
+            res_limit_eyebrow: "سنووری قەرزی گونجاو (پەسەندکراو)",
+            summary_title: "پوختەی زانیارییەکانی دوکان (Parameters Summary)",
+            sum_shop_age: "تەمەنی دوکان",
+            sum_last_order: "ڕۆژ لە کۆتا مامەڵە",
+            sum_monthly_freq: "تێکڕای وەسڵی مانگانە",
+            sum_avg_invoice: "تێکڕای بەهای وەسڵ",
+            sum_total_volume: "کۆی قەبارەی بازرگانی",
+            sum_unpaid_ratio: "ڕێژەی وەسڵە نەدراوەکان",
+            sum_debt_ratio: "ڕێژەی قەرز بۆ بازرگانی",
+            sum_late_history: "دواکەوتنی پێشینە",
+            unit_years: "ساڵ",
+            unit_days: "ڕۆژ",
+            unit_invoices: "دانە",
+            unit_times: "جار",
+            badge_ml_title: "مۆدێلی فێربوونی ئامێر (Machine Learning) - ئەلگۆریتمی XGBoost",
+            badge_ml_desc: "بڕیاری کۆتایی لە ڕێگەی ئەلگۆریتمی XGBoost دەرکراوە",
+            badge_rule_title: "سیستەمی پاراستنی خێرا (Rule Engine)",
+            badge_security_title: "سیستەمی پاراستنی توند (Security Engine)",
+            
+            // About Modal
+            about_title: "دەربارەی پڕۆژە و گەشەپێدەر",
+            about_problem_title: "کێشەکە چییە؟ (The Problem)",
+            about_problem_text: "لە کاتی ئێستادا، زۆربەی کۆگاکانی فرۆشتنی کۆ (B2B) لە هەولێر و کوردستان بە گشتی، بڕیاردان لەسەر پێدانی قەرز بە دوکانەکان بە شێوەیەکی <b>هەڕەمەکی و کەسی</b> دەدەن. هیچ پێوەرێکی زانستی نییە بۆ ئەوەی بزانرێت ئایا ئەم دوکانە شایەنی چەند قەرزە، یان ئایا ئەگەری هەیە پارەکە نەگەڕێنێتەوە. ئەمەش دەبێتە هۆی <b>کەڵەکەبوونی قەرز، درەنگ کەوتنی پارەدان، و لەدەستدانی سەرمایەی کۆگاکان</b>.",
+            about_solution_title: "چارەسەرەکە (The Solution)",
+            about_solution_text: "ئەم پڕۆژەیە سیستەمێکی پێشکەوتووی مۆدێلی فێربوونی ئامێرە (Machine Learning) بە بەکارهێنانی ئەلگۆریتمی <b>XGBoost</b> کە پشتبەست بە پێوەرەکانی <b>RFM (Recency, Frequency, Monetary)</b> کاردەکات. سیستەمەکە لە جێگەی مرۆڤ شیکارییەکی خێرا و ورد بۆ مێژووی دوکاندارەکەکە دەکات، و بە شێوەیەکی ئۆتۆماتیکی پێتدەڵێت کە ئایا ئەم دوکانە جێی متمانەیە یان مەترسیدارە، وە بە تەواوی <b>دەستنیشانی دەکات کە تا چەند دۆلار سەلامەتە قەرزی پێ بدرێت</b>.",
+            about_how_title: "چۆن کار دەکات؟ (How it works)",
+            about_how_step1: "<b>١. پشکنینی یاساکانی پاراستنی کۆگا (Rule Engine Check):</b> سیستەمەکە سەرەتا کڕیارە زۆر مەترسیدارەکان (Outliers) یان کڕیارە زۆر تازەکان (Cold Start) فلتەر دەکات بۆ پاراستنی خێرا و پێشوەختەی سەرمایەی کۆگاکە.",
+            about_how_step2: "<b>٢. شیکاری مۆدێلی فێربوونی ئامێر (XGBoost Analysis):</b> ئەگەر کڕیارەکە هیچ سەرپێچی یان بارودۆخێکی تایبەتی نەبوو، مۆدێلی فێربوونی ئامێر (XGBoost) شیکارییەکی ئێجگار ورد بۆ مێژوو و شێوازی مامەڵەکانی دەکات.",
+            about_how_step3: "<b>٣. بڕیاردانی ژیرانە (Smart Decision):</b> بە یەکگرتنی یاساکان و مۆدێلی فێربوونی ئامێر (Machine Learning), نمرەی مەترسیی کڕیارەکە و سنووری قەرزی پێشکەشکراو بە دۆلار دیاری دەکرێت.",
+            about_dev_title: "زانیاری گەشەپێدەر",
+            about_dev_name: "ئومێد جەمال نوری",
+            about_dev_dept: "ئەندازیاری کارەبا - قۆناغی سێیەم",
+            about_dev_year: "ساڵی خوێندن: ٢٠٢٥ - ٢٠٢٦",
+            about_tech_title: "تەکنەلۆژیاکانی بەکارهاتوو",
+            about_tech_intro: "ئەم پڕۆژەیە بەم تەکنەلۆژیایانە دروستکراوە:",
+
+            // Dataset Modal
+            dataset_title: "زانیاری داتاسێت و مۆدێلەکان",
+            dataset_main_title: "داتاسێت (Dataset)",
+            dataset_desc: "ئەم داتاسێتە سەرەتا لە <b>1200 تۆماری داتا (تۆمار/ڕیز)</b> پێکدێت کە تایبەتە بە بازرگانی (B2B) کۆگاکانی هەولێر. لەبەر ئەوەی زۆربەی کڕیارەکان لە یەک جۆر بوون، بۆ دروستکردنی مۆدێلێکی بێلایەن، تەکنیکی <b>SMOTE</b> بەکارهێنراوە بۆ هاوسەنگکردنەوەی داتاکان، کە بەهۆیەوە قەبارەی داتاسێتەکە بەرزبووەتەوە بۆ <b>زیاتر لە 1500 تۆماری داتا (تۆمار/ڕیز)</b> بە یەکسانی تەواو لە نێوان هەردوو جۆری مەترسیدار و باوەڕپێکراودا.",
+            dataset_features_title: "داتاسێتەکە پێکهاتووە لە <b>8 فیچەر (تایبەتمەندی)</b> کە بەپێی پێوەرەکانی <b>Advanced RFM</b> بەم شێوەیە پۆلێن کراون:",
+            dataset_r_title: "1. نوێکاری مامەڵە (Recency - R):",
+            dataset_r_desc: "Days_Since_Last_Order: ماوەی کۆتا کڕین بە ڕۆژ.",
+            dataset_f_title: "2. بەردەوامی کڕین (Frequency - F):",
+            dataset_f_desc: "Order_Freq_Per_Month: تێکڕای ژمارەی وەسڵەکان لە مانگێکدا.",
+            dataset_m_title: "3. قەبارەی دارایی (Monetary - M):",
+            dataset_m_desc_1: "Average_Invoice_Value: تێکڕای بەهای وەسڵ.",
+            dataset_m_desc_2: "Total_Trade_Volume: کۆی قەبارەی بازرگانی.",
+            dataset_profile_title: "4. پێوەرەکانی مەترسی و متمانە (Risk & Profile):",
+            dataset_profile_desc_1: "Unpaid_Invoice_Ratio: ڕێژەی وەسڵە نەدراوەکان.",
+            dataset_profile_desc_2: "Debt_To_Volume_Ratio: ڕێژەی قەرز بۆ بازرگانی.",
+            dataset_profile_desc_3: "Late_Payment_History: دواکەوتنی پێشینە.",
+            dataset_profile_desc_4: "Shop_Age_Years: تەمەنی دوکان.",
+            dataset_models_title: "مۆدێلەکانی ڕاهێنان (XGBoost)",
+            dataset_models_desc: "لەم پڕۆژەیەدا سوود لە مۆدێلی فێربوونی ئامێری پێشکەوتوو (Machine Learning) بە ئەلگۆریتمی <b>(XGBoost)</b> وەرگیراوە بۆ دروستکردنی دوو مۆدێلی جیاواز کە بە تەکنیکی <b>RandomizedSearchCV</b> باشترین پارامێتەرەکانیان بۆ دۆزراوەتەوە:",
+            dataset_model_clf: "<b>مۆدێلی پۆلێنکردن (Classification):</b> بۆ جیاکردنەوەی کڕیارەکان بۆ دوک بارودۆخ (High Risk و Low Risk).",
+            dataset_model_reg: "<b>مۆدێلی پێشبینیکردن (Regression):</b> بۆ پێشبینیکردنی بڕی قەرزی گونجاو (Credit Limit) بە دۆلار بۆ هەر کڕیارێک بە پشتبەستن بە مەترسییەکەی.",
+            dataset_chart1_title: "شیکاری دابەشبوونی داتا بەهۆی هاوسەنگکردن (SMOTE Distribution Chart)",
+            dataset_chart2_title: "تێکڕای پێوەرە گرنگەکانی ڕێژەی مەترسی (Key Predictors Averages)",
+
+            // Evaluation Modal
+            eval_main_title: "هەڵسەنگاندن و ئاستی مۆدێلەکان",
+            eval_intro_title: "تێگەیشتن لە پێوەرەکانی هەڵسەنگاندن",
+            eval_intro_desc: "<b>Accuracy:</b> ڕێژەی سەرکەوتنی مۆدێلەکە لە دیاریکردنی مەترسی (بەرز یان نزم).<br><b>ROC-AUC:</b> توانای مۆدێلەکە بۆ جیاکردنەوەی دوو جۆرە کڕیارەکە بە دروستی.<br><b>F1-Score:</b> هاوسەنگی نێوان وردبینی و دۆزینەوەی دروست.<br><b>R² Score:</b> ڕێژەی دروستی پێشبینیکردنی بڕی قەرزەکە (چەند نزیکە لە ڕاستی).<br><b>RMSE & MAE:</b> تێکڕای هەڵەی پێشبینی قەرز بە دۆلار (هەرچەند کەمتر بێت باشترە).",
+            eval_tab_test: "🧪 ئەنجامی تاقیکردنەوە (Test Data)",
+            eval_tab_train: "📚 ئەنجامی ڕاهێنان (Train Data)",
+            eval_clf_title: "🎯 مۆدێلی پۆلێنکردنی مەترسی (XGBoost Classifier)",
+            eval_clf_title_train: "🎯 مۆدێلی پۆلێنکردنی مەترسی (Train Data)",
+            eval_reg_title: "💰 مۆدێلی پێشبینیکردنی قەرز (XGBoost Regressor)",
+            eval_reg_title_train: "💰 مۆدێلی پێشبینیکردنی قەرز (Train Data)",
+            eval_metric_accuracy: "Accuracy (ڕێژەی ڕاستی)",
+            eval_metric_roc_auc: "ROC-AUC Score",
+            eval_metric_f1: "F1-Score",
+            eval_metric_r2: "R² Score (ڕێژەی سەرکەوتن)",
+            eval_metric_rmse: "RMSE (تێکڕای هەڵە)",
+            eval_metric_mae: "MAE (هەڵەی ڕەها)",
+            eval_chart_metrics: "بەراوردکاری پێوەرەکان (Test vs Train)",
+            eval_chart_importance: "گرنگی فیچەرەکان (Feature Importance)",
+            eval_chart_confusion: "ماتریکسی سەرلێشێوان (Confusion Matrix)",
+            eval_chart_radar: "هەڵسەنگاندنی گشتی (Radar Evaluation)",
+            eval_conclusion: "<b>💡 ئەنجامی کۆتایی:</b> مۆدێلەکەمان بە سەرکەوتوویی توانای پێشبینیکردنی هەیە بە ڕێژەی زیاتر لە %90 بۆ مەترسی و %94 بۆ بڕی قەرز لەسەر داتای نەبینراو (Test). ئەنجامەکانی Test و Train زۆر نزیکن لە یەکەوە، ئەمەش دەریدەخات کە مۆدێلەکە زۆر جێگیرە و کێشەی (Overfitting)ی نییە."
+        },
+        en: {
+            hero_title: "B2B Credit Risk <span>Scoring & Limit</span> System",
+            hero_sub: "Erbil Warehouse B2B Credit Limit & Advanced RFM Scoring",
+            hero_pill: "XGBoost ENGINE · REAL-TIME ANALYSIS",
+            btn_about: "About Project",
+            btn_dataset: "Dataset & Model",
+            btn_eval: "Evaluation",
+            sec_financial: "Financial & Transaction Profile",
+            label_avg_invoice: "Average Invoice Value ($)",
+            helper_avg_invoice: "What is the average value of each invoice? (Normally $50 to $500)",
+            label_freq_per_month: "Average Invoices Per Month (Units)",
+            helper_freq_per_month: "How many times does the store purchase goods monthly? (Normally 2 to 15)",
+            label_total_volume: "Total Trade Volume ($)",
+            helper_total_volume: "What is the cumulative purchase amount to date?",
+            label_unpaid_ratio: "Unpaid Invoice Ratio (%)",
+            helper_unpaid_ratio: "What percentage of invoices remain unpaid? (0% is optimal)",
+            sec_shop: "Store Profile & History",
+            label_shop_age: "Shop Age (Years of Operation)",
+            helper_shop_age: "How many years has this shop been operating in the market?",
+            label_days_since_last: "Days Since Last Transaction",
+            helper_days_since_last: "How many days have passed since their last warehouse order?",
+            label_debt_ratio: "Debt-to-Volume Ratio (%)",
+            helper_debt_ratio: "What is the ratio of unpaid debt to total trade volume? (Normally under 30%)",
+            label_late_history: "Late Payment History (Times)",
+            helper_late_history: "How many times has the merchant failed to pay on time?",
+            opt_late_0: "Never",
+            opt_late_1: "Delayed 1 time",
+            opt_late_2: "Delayed 2 times",
+            opt_late_3: "Delayed 3 times",
+            opt_late_4: "Delayed 4 times",
+            opt_late_5: "Delayed 5+ times",
+            btn_submit: "Analyze & Predict",
+            btn_clear: "Clear Form",
+            skeleton_title: "Analyzing Merchant Profile... Please Wait",
+            skeleton_sub: "XGBoost engine is running inference on parameters",
+            results_title: "Warehouse Analysis Results",
+            res_risk_eyebrow: "Merchant Risk Level",
+            res_risk_high: "High Risk",
+            res_risk_low: "Low Risk",
+            res_limit_eyebrow: "Approved Credit Limit",
+            summary_title: "Merchant Parameters Summary",
+            sum_shop_age: "Shop Age",
+            sum_last_order: "Days Since Last Order",
+            sum_monthly_freq: "Monthly Order Frequency",
+            sum_avg_invoice: "Avg Invoice Value",
+            sum_total_volume: "Total Trade Volume",
+            sum_unpaid_ratio: "Unpaid Invoice Ratio",
+            sum_debt_ratio: "Debt-to-Volume Ratio",
+            sum_late_history: "Late Payments",
+            unit_years: "Years",
+            unit_days: "Days",
+            unit_invoices: "Invoices",
+            unit_times: "Times",
+            badge_ml_title: "Machine Learning Model - XGBoost Algorithm",
+            badge_ml_desc: "Final decision rendered via XGBoost algorithm.",
+            badge_rule_title: "Fast Protection System (Rule Engine)",
+            badge_security_title: "Security Engine Protection",
+            
+            // About Modal
+            about_title: "About Project & Developer",
+            about_problem_title: "The Problem",
+            about_problem_text: "Currently, most wholesale warehouses (B2B) in Erbil and the Kurdistan region make credit decisions based on intuition or personal relationships. There is no mathematical or data-driven model to assess a merchant's creditworthiness or estimate their default probability, leading to bad debt, late payments, and cash flow constraints.",
+            about_solution_title: "The Solution",
+            about_solution_text: "This project introduces an advanced Machine Learning credit risk engine utilizing the XGBoost algorithm, powered by RFM (Recency, Frequency, Monetary) metrics. It automates the evaluation of merchant trade history to determine if they are high or low risk, and calculates the exact credit ceiling to allocate safely.",
+            about_how_title: "How It Works",
+            about_how_step1: "<b>1. Rule Engine Pre-Checks:</b> The system filters out extreme outliers and newly onboarded merchants (Cold Start) to enforce immediate capital protection rules.",
+            about_how_step2: "<b>2. Machine Learning (XGBoost):</b> If a customer passes the initial checks, the XGBoost engine runs deep inference on historical features to predict default probability.",
+            about_how_step3: "<b>3. Smart Decision:</b> The rule and ML engines combine to output a final risk rating and an approved credit limit in USD.",
+            about_dev_title: "Developer Profile",
+            about_dev_name: "Umed Jamal Nouri",
+            about_dev_dept: "Electrical Engineering - 3rd Year",
+            about_dev_year: "Academic Year: 2025 - 2026",
+            about_tech_title: "Technologies Used",
+            about_tech_intro: "This project is built using the following stack:",
+
+            // Dataset Modal
+            dataset_title: "Dataset & Model Specifications",
+            dataset_main_title: "Dataset Details",
+            dataset_desc: "The initial dataset contains 1,200 transaction records from B2B wholesale warehouses in Erbil. Since the dataset was highly imbalanced (fewer high-risk merchants), the SMOTE (Synthetic Minority Over-sampling Technique) was applied. This expanded the dataset to over 1,500 balanced records, ensuring the model generalizes well for both risk classes.",
+            dataset_features_title: "The dataset comprises 8 features, structured under Advanced RFM metrics:",
+            dataset_r_title: "1. Recency (R):",
+            dataset_r_desc: "Days_Since_Last_Order: Days elapsed since the merchant's last purchase.",
+            dataset_f_title: "2. Frequency (F):",
+            dataset_f_desc: "Order_Freq_Per_Month: Average number of transactions per month.",
+            dataset_m_title: "3. Monetary (M):",
+            dataset_m_desc_1: "Average_Invoice_Value: Average invoice value per purchase.",
+            dataset_m_desc_2: "Total_Trade_Volume: Cumulative trade volume between the merchant and the warehouse.",
+            dataset_profile_title: "4. Risk & Profile Metrics:",
+            dataset_profile_desc_1: "Unpaid_Invoice_Ratio: The ratio of invoices that remain unpaid.",
+            dataset_profile_desc_2: "Debt_To_Volume_Ratio: Total unpaid debt relative to cumulative trade volume.",
+            dataset_profile_desc_3: "Late_Payment_History: Count of historical payment delays.",
+            dataset_profile_desc_4: "Shop_Age_Years: Number of years the shop has been active.",
+            dataset_models_title: "Training Models (XGBoost)",
+            dataset_models_desc: "This project deploys two machine learning models optimized using RandomizedSearchCV: a Classifier to categorize merchants into Risk Levels (High vs Low), and a Regressor to predict the exact credit limit based on their trade and risk history.",
+            dataset_model_clf: "<b>Classification Model:</b> Categorizes merchants into two states (High Risk and Low Risk).",
+            dataset_model_reg: "<b>Regression Model:</b> Predicts the approved credit limit ($) based on the merchant's profiles and calculated risk.",
+            dataset_chart1_title: "Data Distribution Before & After SMOTE Balancing",
+            dataset_chart2_title: "Key Risk Indicators and Predictor Averages",
+
+            // Evaluation Modal
+            eval_main_title: "Model Evaluation & Metrics",
+            eval_intro_title: "Understanding Evaluation Metrics",
+            eval_intro_desc: "<b>Accuracy:</b> The percentage of correct classifications made by the model.<br><b>ROC-AUC:</b> The model's ability to distinguish between high-risk and low-risk merchants.<br><b>F1-Score:</b> Harmonic mean of precision and recall.<br><b>R² Score:</b> The accuracy of credit limit predictions compared to historical actual values.<br><b>RMSE & MAE:</b> The average and absolute prediction errors in USD (lower is better).",
+            eval_tab_test: "🧪 Test Data Results",
+            eval_tab_train: "📚 Train Data Results",
+            eval_clf_title: "🎯 Risk Classification Model (XGBoost Classifier)",
+            eval_clf_title_train: "🎯 Risk Classification Model (Train Data)",
+            eval_reg_title: "💰 Credit Prediction Model (XGBoost Regressor)",
+            eval_reg_title_train: "💰 Credit Prediction Model (Train Data)",
+            eval_metric_accuracy: "Accuracy",
+            eval_metric_roc_auc: "ROC-AUC Score",
+            eval_metric_f1: "F1-Score",
+            eval_metric_r2: "R² Score (Model Fit)",
+            eval_metric_rmse: "RMSE (Avg Error)",
+            eval_metric_mae: "MAE (Absolute Error)",
+            eval_chart_metrics: "Metrics Comparison (Test vs Train)",
+            eval_chart_importance: "Feature Importance",
+            eval_chart_confusion: "Confusion Matrix",
+            eval_chart_radar: "General Evaluation (Radar)",
+            eval_conclusion: "<b>💡 Conclusion:</b> The models achieve over 90% accuracy for risk classification and 94% R² score for credit limit prediction on unseen test data. The close proximity of training and testing metrics confirms model stability and negates overfitting."
+        }
+    };
+
+    const chartTranslations = {
+        ku: {
+            feature_importance_title: 'گرنگی فیچەر (%)',
+            feature_importance_categories: ['ڕێژەی وەسڵە نەدراوەکان', 'ڕێژەی قەرز بە مامەڵە', 'مەترسی پێشبینیکراو', 'کۆی قەبارەی بازرگانی', 'تێکڕای وەسڵ لە مانگێکدا', 'تێکڕای بەهای وەسڵ', 'تەمەنی دوکان', 'دواکەوتنی پێشینە', 'ڕۆژانی کۆتا وەسڵ'],
+            confusion_matrix_actual_high: 'کردەیی: مەترسی بەرز',
+            confusion_matrix_actual_low: 'کردەیی: مەترسی نزم',
+            confusion_matrix_pred_high: 'پێشبینیکراو: مەترسی بەرز',
+            confusion_matrix_pred_low: 'پێشبینیکراو: مەترسی نزم',
+            confusion_matrix_errors: 'هەڵەکان (Errors)',
+            confusion_matrix_correct: 'ڕاستەکان (Correct)',
+            dataset_before_smote: 'پێش SMOTE',
+            dataset_after_smote: 'دوای SMOTE',
+            dataset_low_risk: 'مەترسی نزم',
+            dataset_high_risk: 'مەترسی بەرز',
+            dataset_features_categories: ['قەرز بۆ مامەڵە', 'وەسڵە نەدراوەکان', 'دواکەوتن x10']
+        },
+        en: {
+            feature_importance_title: 'Feature Importance (%)',
+            feature_importance_categories: ['Unpaid Invoice Ratio', 'Debt-to-Volume Ratio', 'Predicted Risk Score', 'Total Trade Volume', 'Monthly Freq', 'Avg Invoice Value', 'Shop Age', 'Late Payment History', 'Days Since Last Order'],
+            confusion_matrix_actual_high: 'Actual High Risk',
+            confusion_matrix_actual_low: 'Actual Low Risk',
+            confusion_matrix_pred_high: 'Predicted High Risk',
+            confusion_matrix_pred_low: 'Predicted Low Risk',
+            confusion_matrix_errors: 'Errors',
+            confusion_matrix_correct: 'Correct',
+            dataset_before_smote: 'Before SMOTE',
+            dataset_after_smote: 'After SMOTE',
+            dataset_low_risk: 'Low Risk',
+            dataset_high_risk: 'High Risk',
+            dataset_features_categories: ['Debt-to-Volume', 'Unpaid Invoice', 'Late Payments x10']
+        }
+    };
+
+    const toastTranslations = {
+        ku: {
+            clear_title: "پاککردنەوەی فۆڕم",
+            clear_msg: "فۆڕمەکە پاککرایەوە بۆ باری سەرەتایی.",
+            success_title: "شیکاری سەرکەوتوو",
+            success_msg: "ئەنجامی پێشبینیکردنی مەترسی و سنووری قەرز بەردەستە.",
+            error_title: "شکستهێنان لە پەیوەندی",
+            error_msg: "پەیوەندی بە سێرڤەری مۆدێلی زیرەک پچڕاوە. تکایە دووبارە تاقیبکەرەوە."
+        },
+        en: {
+            clear_title: "Form Cleared",
+            clear_msg: "The input form has been reset to default values.",
+            success_title: "Analysis Successful",
+            success_msg: "Merchant risk levels and credit recommendations are ready.",
+            error_title: "Connection Failed",
+            error_msg: "Unable to reach the prediction server. Please try again later."
+        }
+    };
+
+    const messageTranslations = {
+        "بڕیاری کۆتایی لە ڕێگەی ئەلگۆریتمی XGBoost دەرکراوە": "Final decision rendered via XGBoost algorithm.",
+        "شیکراوەتەوە لەلایەن AI": "Analyzed and validated by Artificial Intelligence.",
+        "سیستەمی پاراستنی خێرا (Rule Engine) چالاک کراوە بەهۆی نەبوونی داتای مێژوویی پێویست": "Rule engine triggered due to lack of historical business transactions (Cold Start).",
+        "کڕیارەکە لە سنووری دەستپێکی خێرادایە (تەمەنی دوکان ژێر یەک ساڵە)": "Store is in the startup phase (shop age is less than 1 year).",
+        "کڕیارەکە خاوەن پێشینەیەکی زۆرە لە دواکەوتنی پارەدان": "Customer has a high frequency of late payment delays.",
+        "پێدانی قەرز ڕەتکراوەتەوە بەهۆی دواکەوتنی زۆر لە پێشینەدا": "Credit recommendation denied due to excessive payment delays.",
+        "ڕێژەی وەسڵە نەدراوەکانی کڕیارەکە گەیشتووەتە ئاستێکی مەترسیدار (سەروو 40%)": "Merchant's unpaid invoice ratio has reached a critical level (above 40%).",
+        "پێدانی قەرز بلۆک کراوە بۆ پاراستنی دارایی": "Credit suspended to safeguard warehouse accounts receivable."
+    };
+
+    // ═══════════════════════════════════
+    // i18n IMPLEMENTATION
+    // ═══════════════════════════════════
+    let currentLang = 'ku';
+
+    function toggleLanguage() {
+        const newLang = currentLang === 'ku' ? 'en' : 'ku';
+        translatePage(newLang);
+        showToast(
+            currentLang === 'ku' ? 'زمان گۆڕدرا' : 'Language Switched',
+            currentLang === 'ku' ? 'زمان گۆڕدرا بۆ کوردی سۆرانی.' : 'Language switched to English.',
+            'success'
+        );
+    }
+
+    function translatePage(lang = currentLang) {
+        currentLang = lang;
+        const htmlEl = document.documentElement;
+        const bodyEl = document.body;
+        const langBtnText = document.getElementById('langText');
+        
+        if (lang === 'en') {
+            htmlEl.setAttribute('dir', 'ltr');
+            htmlEl.setAttribute('lang', 'en');
+            bodyEl.style.fontFamily = "'Inter', sans-serif";
+            if (langBtnText) {
+                langBtnText.innerText = 'کوردی';
+                langBtnText.className = 'text-xs font-bold font-ku';
+            }
+        } else {
+            htmlEl.setAttribute('dir', 'rtl');
+            htmlEl.setAttribute('lang', 'ku');
+            bodyEl.style.fontFamily = "'UniQAIDAR_NewsHeadLine', 'Noto Sans Arabic', 'Rabar_013', 'Inter', sans-serif";
+            if (langBtnText) {
+                langBtnText.innerText = 'EN';
+                langBtnText.className = 'text-xs font-bold';
+            }
+        }
+        
+        // Update all elements with data-i18n attributes
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[lang] && translations[lang][key]) {
+                el.innerHTML = translations[lang][key];
+            }
+        });
+
+        // Translate specific text inputs or dynamic labels that might currently be visible
+        const ruleMsgText = document.getElementById('ruleMessageText');
+        if (ruleMsgText && window.lastRawRuleMessage) {
+            ruleMsgText.innerText = getLocalizedMessage(window.lastRawRuleMessage, lang);
+        }
+
+        if (window.lastIsHighRisk !== undefined) {
+            updateRiskCard(window.lastIsHighRisk, lang);
+        }
+
+        // Redraw ApexCharts to use localized text if they are initialized
+        if (document.getElementById('evalModal').classList.contains('active')) {
+            renderCharts();
+        }
+        if (document.getElementById('datasetModal').classList.contains('active')) {
+            renderDatasetChart();
+            renderDatasetFeatureChart();
+        }
+    }
+
+    function getLocalizedMessage(msg, lang) {
+        if (lang === 'ku') return msg;
+        return messageTranslations[msg] || msg;
+    }
+
+    function updateRiskCard(isHigh, lang) {
+        const riskCardBox = document.getElementById('riskCardBox');
+        if (!riskCardBox) return;
+        if (isHigh) {
+            riskCardBox.innerHTML = `
+                <div class="result-card glass high-risk">
+                    <div class="status-icon text-red-500"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <div class="rc-eyebrow" data-i18n="res_risk_eyebrow">${translations[lang]['res_risk_eyebrow']}</div>
+                    <div class="rc-value" data-i18n="res_risk_high">${translations[lang]['res_risk_high']}</div>
+                    <div class="rc-en">HIGH RISK</div>
+                </div>
+            `;
+        } else {
+            riskCardBox.innerHTML = `
+                <div class="result-card glass low-risk">
+                    <div class="status-icon text-green-500"><i class="fa-solid fa-check-circle"></i></div>
+                    <div class="rc-eyebrow" data-i18n="res_risk_eyebrow">${translations[lang]['res_risk_eyebrow']}</div>
+                    <div class="rc-value" data-i18n="res_risk_low">${translations[lang]['res_risk_low']}</div>
+                    <div class="rc-en">LOW RISK</div>
+                </div>
+            `;
+        }
+    }
 
     // JavaScript function to handle stepper button functionality (+ and -)
     function stepVal(inputId, direction) {
@@ -1144,6 +1571,10 @@
         // Remove animation class from result cards
         document.querySelectorAll('.result-wrap').forEach(el => el.classList.remove('show'));
         
+        // Reset window metrics trackers
+        window.lastRawRuleMessage = null;
+        window.lastIsHighRisk = undefined;
+
         // Hide the clear button smoothly
         const clearBtn = document.getElementById('clearBtn');
         const submitBtn = document.getElementById('submitBtn');
@@ -1156,7 +1587,11 @@
             }, 500); // Wait for transition out (500ms) before hiding from layout
         }
         
-        showToast("پاککردنەوەی فۆڕم", "فۆڕمەکە پاککرایەوە بۆ باری سەرەتایی.", "success");
+        showToast(
+            toastTranslations[currentLang].clear_title,
+            toastTranslations[currentLang].clear_msg,
+            "success"
+        );
     }
 
     // شەو و ڕۆژ (Dark / Light Mode)
@@ -1255,36 +1690,36 @@
         if (!summaryGrid) return;
         summaryGrid.innerHTML = `
             <div class="p-3 bg-slate-50 dark:bg-slate-900/40 rounded-lg border border-slate-200/50 dark:border-slate-800">
-                <span class="block text-xs text-slate-500 dark:text-slate-400 font-ku">تەمەنی دوکان</span>
-                <strong class="text-sm text-slate-800 dark:text-slate-200">${payload.shop_age} ساڵ</strong>
+                <span class="block text-xs text-slate-500 dark:text-slate-400 font-ku" data-i18n="sum_shop_age">${translations[currentLang]['sum_shop_age']}</span>
+                <strong class="text-sm text-slate-800 dark:text-slate-200">${payload.shop_age} <span data-i18n="unit_years">${translations[currentLang]['unit_years']}</span></strong>
             </div>
             <div class="p-3 bg-slate-50 dark:bg-slate-900/40 rounded-lg border border-slate-200/50 dark:border-slate-800">
-                <span class="block text-xs text-slate-500 dark:text-slate-400 font-ku">ڕۆژ لە کۆتا مامەڵە</span>
-                <strong class="text-sm text-slate-800 dark:text-slate-200">${payload.days_since_last} ڕۆژ</strong>
+                <span class="block text-xs text-slate-500 dark:text-slate-400 font-ku" data-i18n="sum_last_order">${translations[currentLang]['sum_last_order']}</span>
+                <strong class="text-sm text-slate-800 dark:text-slate-200">${payload.days_since_last} <span data-i18n="unit_days">${translations[currentLang]['unit_days']}</span></strong>
             </div>
             <div class="p-3 bg-slate-50 dark:bg-slate-900/40 rounded-lg border border-slate-200/50 dark:border-slate-800">
-                <span class="block text-xs text-slate-500 dark:text-slate-400 font-ku">تێکڕای وەسڵی مانگانە</span>
-                <strong class="text-sm text-slate-800 dark:text-slate-200">${payload.freq_per_month} دانە</strong>
+                <span class="block text-xs text-slate-500 dark:text-slate-400 font-ku" data-i18n="sum_monthly_freq">${translations[currentLang]['sum_monthly_freq']}</span>
+                <strong class="text-sm text-slate-800 dark:text-slate-200">${payload.freq_per_month} <span data-i18n="unit_invoices">${translations[currentLang]['unit_invoices']}</span></strong>
             </div>
             <div class="p-3 bg-slate-50 dark:bg-slate-900/40 rounded-lg border border-slate-200/50 dark:border-slate-800">
-                <span class="block text-xs text-slate-500 dark:text-slate-400 font-ku">تێکڕای بەهای وەسڵ</span>
+                <span class="block text-xs text-slate-500 dark:text-slate-400 font-ku" data-i18n="sum_avg_invoice">${translations[currentLang]['sum_avg_invoice']}</span>
                 <strong class="text-sm text-slate-800 dark:text-slate-200">$${payload.avg_invoice}</strong>
             </div>
             <div class="p-3 bg-slate-50 dark:bg-slate-900/40 rounded-lg border border-slate-200/50 dark:border-slate-800">
-                <span class="block text-xs text-slate-500 dark:text-slate-400 font-ku">کۆی قەبارەی بازرگانی</span>
+                <span class="block text-xs text-slate-500 dark:text-slate-400 font-ku" data-i18n="sum_total_volume">${translations[currentLang]['sum_total_volume']}</span>
                 <strong class="text-sm text-slate-800 dark:text-slate-200">$${payload.total_volume.toLocaleString()}</strong>
             </div>
             <div class="p-3 bg-slate-50 dark:bg-slate-900/40 rounded-lg border border-slate-200/50 dark:border-slate-800">
-                <span class="block text-xs text-slate-500 dark:text-slate-400 font-ku">ڕێژەی وەسڵە نەدراوەکان</span>
+                <span class="block text-xs text-slate-500 dark:text-slate-400 font-ku" data-i18n="sum_unpaid_ratio">${translations[currentLang]['sum_unpaid_ratio']}</span>
                 <strong class="text-sm text-slate-800 dark:text-slate-200">${(payload.unpaid_ratio * 100).toFixed(0)}%</strong>
             </div>
             <div class="p-3 bg-slate-50 dark:bg-slate-900/40 rounded-lg border border-slate-200/50 dark:border-slate-800">
-                <span class="block text-xs text-slate-500 dark:text-slate-400 font-ku">ڕێژەی قەرز بۆ بازرگانی</span>
+                <span class="block text-xs text-slate-500 dark:text-slate-400 font-ku" data-i18n="sum_debt_ratio">${translations[currentLang]['sum_debt_ratio']}</span>
                 <strong class="text-sm text-slate-800 dark:text-slate-200">${(payload.debt_ratio * 100).toFixed(0)}%</strong>
             </div>
             <div class="p-3 bg-slate-50 dark:bg-slate-900/40 rounded-lg border border-slate-200/50 dark:border-slate-800">
-                <span class="block text-xs text-slate-500 dark:text-slate-400 font-ku">دواکەوتنی پارەدان</span>
-                <strong class="text-sm text-slate-800 dark:text-slate-200">${payload.late_history} جار</strong>
+                <span class="block text-xs text-slate-500 dark:text-slate-400 font-ku" data-i18n="sum_late_history">${translations[currentLang]['sum_late_history']}</span>
+                <strong class="text-sm text-slate-800 dark:text-slate-200">${payload.late_history} <span data-i18n="unit_times">${translations[currentLang]['unit_times']}</span></strong>
             </div>
         `;
     }
@@ -1315,8 +1750,8 @@
         // 3. Grouped Bar Chart (Test vs Train Metrics)
         compChartObj = new ApexCharts(document.querySelector("#chartCompare"), {
             series: [
-                { name: 'Test Data', data: [90.84, 95.92, 91.09, 94.52] },
-                { name: 'Train Data', data: [95.16, 99.10, 95.23, 98.66] }
+                { name: currentLang === 'ku' ? 'داتای Test' : 'Test Data', data: [90.84, 95.92, 91.09, 94.52] },
+                { name: currentLang === 'ku' ? 'داتای Train' : 'Train Data', data: [95.16, 99.10, 95.23, 98.66] }
             ],
             chart: { type: 'bar', height: 320, background: 'transparent', toolbar: { show: false } },
             plotOptions: { bar: { horizontal: false, columnWidth: '55%', borderRadius: 4 } },
@@ -1342,13 +1777,13 @@
         // 4. Feature Importance Horizontal Bar Chart
         featChartObj = new ApexCharts(document.querySelector("#chartFeatures"), {
             series: [{
-                name: 'گرنگی فیچەر (%)',
+                name: chartTranslations[currentLang].feature_importance_title,
                 data: [39.69, 23.84, 8.12, 7.47, 6.75, 6.55, 5.32, 1.28, 0.98]
             }],
             chart: { type: 'bar', height: 320, background: 'transparent', toolbar: { show: false } },
             plotOptions: { bar: { horizontal: true, barHeight: '60%', borderRadius: 4 } },
             dataLabels: { enabled: true, formatter: function (val) { return val.toFixed(2) + "%"; }, style: { colors: ['#fff'] } },
-            xaxis: { categories: ['ڕێژەی وەسڵە نەدراوەکان', 'ڕێژەی قەرز بە مامەڵە', 'مەترسی پێشبینیکراو', 'کۆی قەبارەی بازرگانی', 'تێکڕای وەسڵ لە مانگێکدا', 'تێکڕای بەهای وەسڵ', 'تەمەنی دوکان', 'دواکەوتنی پێشینە', 'ڕۆژانی کۆتا وەسڵ'], labels: { style: { colors: textColorVal } } },
+            xaxis: { categories: chartTranslations[currentLang].feature_importance_categories, labels: { style: { colors: textColorVal } } },
             yaxis: { labels: { style: { colors: textColorVal }, maxWidth: 220 } },
             grid: { borderColor: gridColorVal },
             colors: ['#a7cb8e'],
@@ -1369,17 +1804,17 @@
         confusionChartObj = new ApexCharts(document.querySelector("#chartConfusion"), {
             series: [
                 {
-                    name: 'Actual High Risk',
+                    name: chartTranslations[currentLang].confusion_matrix_actual_high,
                     data: [
-                        { x: 'Predicted Low Risk', y: 12 },
-                        { x: 'Predicted High Risk', y: 179 }
+                        { x: chartTranslations[currentLang].confusion_matrix_pred_low, y: 12 },
+                        { x: chartTranslations[currentLang].confusion_matrix_pred_high, y: 179 }
                     ]
                 },
                 {
-                    name: 'Actual Low Risk',
+                    name: chartTranslations[currentLang].confusion_matrix_actual_low,
                     data: [
-                        { x: 'Predicted Low Risk', y: 168 },
-                        { x: 'Predicted High Risk', y: 23 }
+                        { x: chartTranslations[currentLang].confusion_matrix_pred_low, y: 168 },
+                        { x: chartTranslations[currentLang].confusion_matrix_pred_high, y: 23 }
                     ]
                 }
             ],
@@ -1389,8 +1824,8 @@
                 heatmap: {
                     colorScale: {
                         ranges: [
-                            { from: 0, to: 30, color: '#f3a332', name: 'هەڵەکان (Errors)' },
-                            { from: 31, to: 200, color: '#113035', name: 'ڕاستەکان (Correct)' }
+                            { from: 0, to: 30, color: '#f3a332', name: chartTranslations[currentLang].confusion_matrix_errors },
+                            { from: 31, to: 200, color: '#113035', name: chartTranslations[currentLang].confusion_matrix_correct }
                         ]
                     }
                 }
@@ -1413,8 +1848,8 @@
         // 6. General Evaluation Radar Chart
         radarChartObj = new ApexCharts(document.querySelector("#chartRadar"), {
             series: [
-                { name: 'Test Data', data: [90.84, 95.92, 91.09, 94.52] },
-                { name: 'Train Data', data: [95.16, 99.10, 95.23, 98.66] }
+                { name: currentLang === 'ku' ? 'داتای Test' : 'Test Data', data: [90.84, 95.92, 91.09, 94.52] },
+                { name: currentLang === 'ku' ? 'داتای Train' : 'Train Data', data: [95.16, 99.10, 95.23, 98.66] }
             ],
             chart: { height: 320, type: 'radar', background: 'transparent', toolbar: { show: false } },
             colors: ['#a7cb8e', '#f3a332'],
@@ -1477,14 +1912,14 @@
 
         datasetChartObj = new ApexCharts(document.querySelector("#datasetChart"), {
             series: [
-                { name: 'Before SMOTE', data: [840, 360] },
-                { name: 'After SMOTE', data: [840, 840] }
+                { name: chartTranslations[currentLang].dataset_before_smote, data: [840, 360] },
+                { name: chartTranslations[currentLang].dataset_after_smote, data: [840, 840] }
             ],
             chart: { type: 'bar', height: 260, background: 'transparent', toolbar: { show: false } },
             plotOptions: { bar: { horizontal: false, columnWidth: '45%', borderRadius: 4 } },
             dataLabels: { enabled: true, style: { fontSize: '11px', fontFamily: 'Inter, sans-serif' } },
-            xaxis: { categories: ['Low Risk', 'High Risk'], labels: { style: { colors: textColorVal } } },
-            yaxis: { title: { text: 'Samples', style: { color: textColorVal } }, labels: { style: { colors: textColorVal } } },
+            xaxis: { categories: [chartTranslations[currentLang].dataset_low_risk, chartTranslations[currentLang].dataset_high_risk], labels: { style: { colors: textColorVal } } },
+            yaxis: { title: { text: currentLang === 'ku' ? 'تۆمارەکان' : 'Samples', style: { color: textColorVal } }, labels: { style: { colors: textColorVal } } },
             grid: { borderColor: gridColorVal },
             colors: ['#f3a332', '#a7cb8e'],
             legend: { labels: { colors: textColorVal } },
@@ -1517,13 +1952,13 @@
 
         datasetFeatureChartObj = new ApexCharts(document.querySelector("#datasetFeatureChart"), {
             series: [
-                { name: 'Low Risk', data: [12, 5, 8] },
-                { name: 'High Risk', data: [48, 35, 42] }
+                { name: chartTranslations[currentLang].dataset_low_risk, data: [12, 5, 8] },
+                { name: chartTranslations[currentLang].dataset_high_risk, data: [48, 35, 42] }
             ],
             chart: { type: 'bar', height: 260, background: 'transparent', toolbar: { show: false } },
             plotOptions: { bar: { horizontal: true, barHeight: '55%', borderRadius: 4 } },
             dataLabels: { enabled: true, formatter: function(val) { return val + "%"; }, style: { fontSize: '10px', fontFamily: 'Inter, sans-serif' } },
-            xaxis: { categories: ['Debt-to-Volume', 'Unpaid Invoice', 'Late Payments x10'], labels: { style: { colors: textColorVal } } },
+            xaxis: { categories: chartTranslations[currentLang].dataset_features_categories, labels: { style: { colors: textColorVal } } },
             yaxis: { labels: { style: { colors: textColorVal } } },
             grid: { borderColor: gridColorVal },
             colors: ['#a7cb8e', '#f3a332'],
@@ -1558,7 +1993,7 @@
 
         const btn = document.getElementById('submitBtn');
         const originalText = btn.innerHTML;
-        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin ml-2"></i> شیکردنەوە...'; btn.disabled = true;
+        btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin ml-2"></i> <span data-i18n="btn_submit">${currentLang === 'ku' ? 'شیکردنەوە...' : 'Analyzing...'}</span>`; btn.disabled = true;
 
         const skeleton = document.getElementById('loadingSkeleton');
         const results = document.getElementById('resultsContainer');
@@ -1573,6 +2008,10 @@
             skeleton.classList.add('hidden');
             results.classList.remove('hidden');
             
+            // Save payload risk trackers globally to allow instant translation changes
+            window.lastRawRuleMessage = data.rule_message || "بڕیاری کۆتایی لە ڕێگەی ئەلگۆریتمی XGBoost دەرکراوە";
+            window.lastIsHighRisk = data.is_high_risk;
+
             // Update table summary
             updateSummaryGrid(payload);
 
@@ -1591,10 +2030,10 @@
                         <div class="flex flex-col items-center justify-center p-4 bg-slate-900/40 dark:bg-slate-950/60 border border-emerald-500/30 rounded-2xl max-w-md mx-auto shadow-lg backdrop-blur-md">
                             <div class="flex items-center justify-center gap-3 text-sm font-bold text-emerald-400 font-ku text-center w-full">
                                 <i class="fa-solid fa-brain text-lg"></i>
-                                <span>مۆدێلی فێربوونی ئامێر (Machine Learning) - ئەلگۆریتمی XGBoost</span>
+                                <span data-i18n="badge_ml_title">${translations[currentLang]['badge_ml_title']}</span>
                             </div>
-                            <div class="text-[0.75rem] text-slate-400 mt-2 font-ku font-semibold text-center w-full">
-                                بڕیاری کۆتایی لە ڕێگەی ئەلگۆریتمی XGBoost دەرکراوە
+                            <div class="text-[0.75rem] text-slate-400 mt-2 font-ku font-semibold text-center w-full" id="ruleMessageText">
+                                ${getLocalizedMessage(window.lastRawRuleMessage, currentLang)}
                             </div>
                         </div>
                     `;
@@ -1603,10 +2042,10 @@
                         <div class="flex flex-col items-center justify-center p-4 bg-slate-900/40 dark:bg-slate-950/60 border border-amber-500/30 rounded-2xl max-w-md mx-auto shadow-lg backdrop-blur-md">
                             <div class="flex items-center justify-center gap-3 text-sm font-bold text-amber-400 font-ku text-center w-full">
                                 <i class="fa-solid fa-shield-halved text-lg animate-pulse"></i>
-                                <span>سیستەمی پاراستنی خێرا (Rule Engine)</span>
+                                <span data-i18n="badge_rule_title">${translations[currentLang]['badge_rule_title']}</span>
                             </div>
-                            <div class="text-[0.75rem] text-slate-400 mt-2 font-ku font-semibold text-center w-full">
-                                ${data.rule_message}
+                            <div class="text-[0.75rem] text-slate-400 mt-2 font-ku font-semibold text-center w-full" id="ruleMessageText">
+                                ${getLocalizedMessage(window.lastRawRuleMessage, currentLang)}
                             </div>
                         </div>
                     `;
@@ -1615,22 +2054,17 @@
                         <div class="flex flex-col items-center justify-center p-4 bg-slate-900/40 dark:bg-slate-950/60 border border-red-500/30 rounded-2xl max-w-md mx-auto shadow-lg backdrop-blur-md">
                             <div class="flex items-center justify-center gap-3 text-sm font-bold text-red-400 font-ku text-center w-full">
                                 <i class="fa-solid fa-shield-virus text-lg animate-pulse"></i>
-                                <span>سیستەمی پاراستنی توند (Security Engine)</span>
+                                <span data-i18n="badge_security_title">${translations[currentLang]['badge_security_title']}</span>
                             </div>
-                            <div class="text-[0.75rem] text-slate-400 mt-2 font-ku font-semibold text-center w-full">
-                                ${data.rule_message}
+                            <div class="text-[0.75rem] text-slate-400 mt-2 font-ku font-semibold text-center w-full" id="ruleMessageText">
+                                ${getLocalizedMessage(window.lastRawRuleMessage, currentLang)}
                             </div>
                         </div>
                     `;
                 }
             }
 
-            const riskCardBox = document.getElementById('riskCardBox');
-            if (data.is_high_risk) {
-                riskCardBox.innerHTML = `<div class="result-card glass high-risk"><div class="status-icon text-red-500"><i class="fa-solid fa-triangle-exclamation"></i></div><div class="rc-eyebrow">ئاستی مەترسی دوکان</div><div class="rc-value">مەترسیدار</div><div class="rc-en">HIGH RISK</div></div>`;
-            } else {
-                riskCardBox.innerHTML = `<div class="result-card glass low-risk"><div class="status-icon text-green-500"><i class="fa-solid fa-check-circle"></i></div><div class="rc-eyebrow">ئاستی مەترسی دوکان</div><div class="rc-value">باوەڕپێکراو</div><div class="rc-en">LOW RISK</div></div>`;
-            }
+            updateRiskCard(data.is_high_risk, currentLang);
 
             document.getElementById('limitValue').innerText = "$" + Math.max(0, data.credit_limit).toLocaleString('en-US', { maximumFractionDigits: 0 });
             setTimeout(() => { document.querySelectorAll('.result-wrap').forEach(el => el.classList.add('show')); }, 50);
@@ -1650,14 +2084,25 @@
                 clearBtn.classList.add('show-btn');
             }
 
-            showToast("شیکاری سەرکەوتوو", "ئەنجامی پێشبینیکردنی مەترسی و سنووری قەرز بەردەستە.", "success");
+            showToast(
+                toastTranslations[currentLang].success_title,
+                toastTranslations[currentLang].success_msg,
+                "success"
+            );
         } catch (error) { 
             skeleton.classList.add('hidden');
-            showToast("شکستهێنان لە پەیوەندی", "پەیوەندی بە sێرڤەری مۆدێلی زیرەک پچڕاوە. تکایە دووبارە تاقیبکەرەوە.", "error"); 
+            showToast(
+                toastTranslations[currentLang].error_title,
+                toastTranslations[currentLang].error_msg,
+                "error"
+            ); 
         } finally { 
             btn.innerHTML = originalText; btn.disabled = false; 
         }
     });
+
+    // Run setup translation on load
+    translatePage('ku');
 </script>
 </body>
 </html>
